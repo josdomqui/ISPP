@@ -3,6 +3,7 @@ package org.springframework.samples.petclinic.restaurants;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.Query;
@@ -13,7 +14,7 @@ public interface RestaurantRepository extends Repository<Restaurant, Integer> {
 	void save(Restaurant restaurant) throws DataAccessException;
 
 	@Query("SELECT restaurant FROM Restaurant restaurant WHERE restaurant.id =:id")
-	public Restaurant findById(@Param("id") int id);
+	public Optional<Restaurant> findById(@Param("id") int id);
 
 	public List<Restaurant> findAll();
 
