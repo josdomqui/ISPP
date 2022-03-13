@@ -36,8 +36,6 @@ import org.springframework.web.bind.annotation.InitBinder;
 @Controller
 public class CommandController {
 
-	private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
-
 	private final CommandService commandService;
 
 	@Autowired
@@ -50,11 +48,11 @@ public class CommandController {
 		dataBinder.setDisallowedFields("id");
 	}
 
-	@GetMapping(value = "/owners/new")
+	@GetMapping(value = "/command/new")
 	public String initCreationForm(Map<String, Object> model) {
-		Owner owner = new Owner();
-		model.put("owner", owner);
-		return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
+		Command command = new Command();
+		model.put("command", command);
+		return "command/createOrUpdateCommandForm";
 	}
 
 
