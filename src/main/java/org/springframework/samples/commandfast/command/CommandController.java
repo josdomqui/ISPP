@@ -18,14 +18,18 @@ package org.springframework.samples.commandfast.command;
 
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.commandfast.owner.Owner;
 import org.springframework.samples.commandfast.user.AuthoritiesService;
 import org.springframework.samples.commandfast.user.UserService;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * @author Juergen Hoeller
@@ -55,5 +59,14 @@ public class CommandController {
 		return "command/createOrUpdateCommandForm";
 	}
 
+	@PostMapping(value = "/command/new")
+	public String processCreationForm(@Valid Command command, BindingResult result) {
+		if (result.hasErrors()) {
+			return "command/createOrUpdateCommandForm";
+		} else {
+			this.commandService.saveCommand(command);
 
+			return "redirect:/welcome/";
+		}
+	}
 }

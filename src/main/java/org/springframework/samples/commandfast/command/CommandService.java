@@ -19,6 +19,7 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.samples.commandfast.owner.Owner;
 import org.springframework.samples.commandfast.user.AuthoritiesService;
 import org.springframework.samples.commandfast.user.UserService;
 import org.springframework.stereotype.Service;
@@ -44,6 +45,13 @@ public class CommandService {
 	@Autowired
 	public CommandService(CommandRepository commandRepository) {
 		this.commandRepository = commandRepository;
+	}
+	
+	@Transactional
+	public void saveCommand(Command command) throws DataAccessException {
+		commandRepository.save(command);
+	
+	
 	}
 
 
