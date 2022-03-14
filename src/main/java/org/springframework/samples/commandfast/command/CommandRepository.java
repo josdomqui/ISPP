@@ -15,7 +15,11 @@
  */
 package org.springframework.samples.commandfast.command;
 
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 /**
  * Spring Data JPA OwnerRepository interface
@@ -25,6 +29,10 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface CommandRepository extends CrudRepository<Command, Integer> {
 
+	@Query("SELECT command FROM Command command WHERE command.id =:id")
+	public Command findById(@Param("id") int id);
 
+	@Query("SELECT command FROM Command command")
+	public List<Command> findCommands();
 
 }

@@ -16,7 +16,7 @@
 package org.springframework.samples.commandfast.plate;
 
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.samples.commandfast.plate.Plate;
+
 
 /**
  * Spring Data JPA OwnerRepository interface

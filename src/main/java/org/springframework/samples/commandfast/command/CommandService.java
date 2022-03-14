@@ -17,11 +17,10 @@ package org.springframework.samples.commandfast.command;
 
 import java.util.Collection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.samples.commandfast.owner.Owner;
-import org.springframework.samples.commandfast.user.AuthoritiesService;
-import org.springframework.samples.commandfast.user.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,24 +32,28 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class CommandService {
+	
+	//Necesario para el uso de logs.
+	private static final Logger log = LoggerFactory.getLogger(CommandService.class);
 
 	private CommandRepository commandRepository;
-
-	@Autowired
-	private UserService userService;
-
-	@Autowired
-	private AuthoritiesService authoritiesService;
 
 	@Autowired
 	public CommandService(CommandRepository commandRepository) {
 		this.commandRepository = commandRepository;
 	}
 	
+	@Transactional(readOnly = true)
+	public Collection<Command> findCommands() throws DataAccessException {
+		log.info("Buscando todas las comandas existentes");
+		return commandRepository.findCommands();
+	}
+	
 	@Transactional
 	public void saveCommand(Command command) throws DataAccessException {
+		log.info("Guardando la comanda en la BD");
 		commandRepository.save(command);
-	
+		log.info("Comanda guardada correctamente");
 	
 	}
 
