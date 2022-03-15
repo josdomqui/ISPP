@@ -4,10 +4,12 @@ package org.springframework.samples.commandfast.plate;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import javax.validation.constraints.NotEmpty;
@@ -33,7 +35,6 @@ public class Plate extends NamedEntity{
 	@NotEmpty
 	String category; 
 	
-	@ManyToOne
-	@JoinColumn(name = "line_id")
-	private Line lines;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "plate")
+	private Set<Line> lines;
 }

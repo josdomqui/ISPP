@@ -34,8 +34,9 @@ public class Line extends BaseEntity{
 	@JoinColumn(name = "command_id")
 	private Command command;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "lines")
-	private List<Plate> plates;
+	@ManyToOne
+	@JoinColumn(name = "plate_id")
+	private Plate plate;
 	
 	
 }

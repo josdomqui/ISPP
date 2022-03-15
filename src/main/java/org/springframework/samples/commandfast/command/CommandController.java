@@ -64,9 +64,10 @@ public class CommandController {
 			return "command/createCommand";
 		} else {
 			this.commandService.saveCommand(command);
-//			Integer id_command = command.getId();
-//			return "/carta/" + id_command;
-			return "/welcome";
+			Integer id_command = command.getId();
+			return "redirect:/carta/"+id_command;
 		}
 	}
+	
+	
 }

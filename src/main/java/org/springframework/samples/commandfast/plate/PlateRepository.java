@@ -30,8 +30,12 @@ import org.springframework.samples.commandfast.owner.Owner;
  * @author Michael Isvy
  * @since 15.1.2013
  */
-public interface PlateRepository extends Repository<Plate, Integer> {
+public interface PlateRepository extends CrudRepository<Plate, Integer> {
 	
 	@Query("SELECT plate FROM Plate plate")
 	public Collection<Plate> findAllPlates();
+	
+	@Query("SELECT plate FROM Plate plate WHERE plate.id =:id")
+    public Plate findById(@Param("id") int id);
+
 }

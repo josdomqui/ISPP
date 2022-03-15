@@ -21,18 +21,17 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.commandfast.owner.Owner;
+import org.springframework.samples.commandfast.command.Command;
+import org.springframework.samples.commandfast.line.Line;
+import org.springframework.samples.commandfast.line.LineService;
 import org.springframework.samples.commandfast.user.AuthoritiesService;
-import org.springframework.samples.commandfast.user.UserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author Juergen Hoeller
@@ -47,9 +46,12 @@ public class PlateController {
 
 	private final PlateService plateService;
 
+	private final LineService lineService;
+
 	@Autowired
-	public PlateController(PlateService plateService, AuthoritiesService authoritiesService) {
+	public PlateController(PlateService plateService, LineService lineService, AuthoritiesService authoritiesService) {
 		this.plateService = plateService;
+		this.lineService = lineService;
 	}
 
 	@InitBinder
@@ -57,11 +59,27 @@ public class PlateController {
 		dataBinder.setDisallowedFields("id");
 	}
 	
-	@GetMapping(value = "/carta")
-	public String showAllPlates(Map<String, Object> model) {
+//	@GetMapping(value = "/carta")
+//	public String showAllPlates(Map<String, Object> model) {
+//		Collection<Plate> plate = plateService.findAllPlates();
+//		model.put("platos", plate);
+//		return VIEWS_Plates;
+//	}
+	
+	@GetMapping(value = "/carta/{id_comanda}")
+	public String showAllPlates(@PathVariable("id_comanda") int id_commanda, Map<String, Object> model) {
 		Collection<Plate> plate = plateService.findAllPlates();
 		model.put("platos", plate);
+		Line line = new Line();
+		model.put("lines", line);
+		model.put("id_commanda", id_commanda);
 		return VIEWS_Plates;
 	}
-
+	
+	@PostMapping(value = "/carta/{id_comanda}")
+	public String processCreationForm(@PathVariable("id_comanda") int id_commanda, @Valid Line line, BindingResult result) {
+		this.lineService.saveline(line);
+		return "redirect:/carta/"+id_commanda;
+	}
+	
 }
