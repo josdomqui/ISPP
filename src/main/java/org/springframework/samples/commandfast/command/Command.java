@@ -32,7 +32,6 @@ public class Command extends BaseEntity{
 	private String name;
 	
 	@Column(name = "price")
-	@NotNull
 	Double price;
 	
 //	@Column(name = "date")

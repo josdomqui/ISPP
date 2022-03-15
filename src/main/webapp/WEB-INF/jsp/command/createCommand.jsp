@@ -8,16 +8,19 @@
 
 <petclinic:layout pageName="commands">
     <h2>
-        ¿Qué desea pedir?
+       	Nuevo Pedido
     </h2>
-   	<form:form modelAttribute="owner" class="form-horizontal" id="add-owner-form">
+    <form:form modelAttribute="command" class="form-horizontal" id="add-command-form">
         <div class="form-group has-feedback">
-            
+            <petclinic:inputField label="Nombre" name="name"/>
+            <petclinic:inputField label="Mesa" name="mesa"/>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-            	<button class="btn btn-default" type="submit">Realizar Pedido</button>
+                
+                  	<button class="btn btn-default" type="submit">Pedir</button>
+                
             </div>
         </div>
-   	 </form:form>
+    </form:form>
 </petclinic:layout>
