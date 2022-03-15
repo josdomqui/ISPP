@@ -1,6 +1,6 @@
-package org.springframework.samples.commandfast.mesa;
+package org.springframework.samples.commandfast.line;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,28 +9,33 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 
 import org.springframework.samples.commandfast.command.Command;
 import org.springframework.samples.commandfast.model.BaseEntity;
-import org.springframework.samples.commandfast.pet.Pet;
+import org.springframework.samples.commandfast.plate.Plate;
+
+import com.sun.istack.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "tables")
+@Table(name = "lines")
 @Getter
 @Setter
-public class Mesa extends BaseEntity{
-	@Column(name = "number")
-	@NotEmpty
-	Integer number;
+public class Line extends BaseEntity{
 	
-	@Column(name = "costumer")
-	@NotEmpty
-	Integer costumer;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "mesa")
-	private Set<Command> commands;
+	@Column(name = "quantity")
+	@NotNull
+	Integer quantity;
+	
+	@ManyToOne
+	@JoinColumn(name = "command_id")
+	private Command command;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "lines")
+	private List<Plate> plates;
+	
+	
 }

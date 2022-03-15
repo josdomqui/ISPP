@@ -1,16 +1,22 @@
 package org.springframework.samples.commandfast.command;
 
-
-
 import java.time.LocalDateTime;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
+import org.springframework.samples.commandfast.line.Line;
+import org.springframework.samples.commandfast.mesa.Mesa;
 import org.springframework.samples.commandfast.model.BaseEntity;
+
+import com.sun.istack.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -25,26 +31,20 @@ public class Command extends BaseEntity{
 	@NotEmpty
 	private String name;
 	
-	@Column(name = "quantity")
-	@NotNull
-	Integer quantity;
-	
 	@Column(name = "price")
 	@NotNull
 	Double price;
 	
-	@Column(name = "date")
-	//@NotEmpty
-	LocalDateTime date;
+//	@Column(name = "date")
+//	//@NotEmpty
+//	LocalDateTime date;
 	
-//	@ManyToMany(fetch = FetchType.EAGER)
-//	@JoinTable(name = "line_command", joinColumns = @JoinColumn(name = "command_id"), inverseJoinColumns = @JoinColumn(name = "plate_id"))
-//	private List<Plate> plates;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "command")
+	private Set<Line> lines;
 	
-//	@OneToMany(mappedBy="command")
-	@Column(name = "mesa")
-	@NotNull
-	private Integer mesa;
+	@ManyToOne
+	@JoinColumn(name="mesa_id")
+	private Mesa mesa;
 	
 	
 }

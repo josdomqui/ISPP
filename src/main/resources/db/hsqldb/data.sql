@@ -62,8 +62,16 @@ INSERT INTO visits(id,pet_id,visit_date,description) VALUES (2, 8, '2013-01-02',
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (3, 8, '2013-01-03', 'neutered');
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04', 'spayed');
 
-INSERT INTO plates(id, name, category, cost) values (1, 'Huevos Lartisan', 'Media-Racion', '11');
-INSERT INTO plates(id, name, category, cost) values (2, 'Solomillo de vaca', 'Racion', '18');
-INSERT INTO plates(id, name, category, cost) values (3, 'Chuleta de atun', 'Tapa', '55');
+INSERT INTO tables(id, number, costumer) values (1, 1, 3);
 
-INSERT INTO tables(id, number, costumer, command_id) values (1, 1, 3, null);
+INSERT INTO commands(id, name, price, mesa_id) values (1, 'usuario', 53.02, 1);
+
+INSERT INTO lines(id, quantity, command_id) values (1, 2, 1);
+
+INSERT INTO plates(id, name, category, cost, line_id) values (1, 'Huevos Lartisan', 'Media-Racion', '11', 1);
+INSERT INTO plates(id, name, category, cost, line_id) values (2, 'Solomillo de vaca', 'Racion', '18', 1);
+INSERT INTO plates(id, name, category, cost, line_id) values (3, 'Chuleta de atun', 'Tapa', '55', 1);
+
+
+
+
