@@ -15,11 +15,11 @@
 						<td><c:out value="${listaPlatos.name}"/></td>
 						<td><c:out value="${listaPlatos.cost} $"/></td>
 						<td>
-						<form:form modelAttribute="line" class="form-horizontal">
+						<form:form modelAttribute="line" class="form-horizontal" id="add-line-form">
 						<div class="form-group has-feedback">
-							<input label="Plate" name="plate_id" value="${listaPlatos.id}"/>
+							<input label="Plate" name="plate" value="${listaPlatos.id}" type="hidden"/>
 							<input label="Cantidad" name="quantity"/>
-							<input label="Comanda" name="command_id" value="${id_commanda}"/>
+							<input label="Comanda" name="command" value="${id_commanda}"/>
         				</div>
         				<div class="form-group">
             					<div class="col-sm-offset-2 col-sm-10">

@@ -17,8 +17,10 @@ package org.springframework.samples.commandfast.line;
 
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 
 /**
@@ -27,7 +29,9 @@ import org.springframework.data.repository.query.Param;
  * @author Michael Isvy
  * @since 15.1.2013
  */
-public interface LineRepository extends CrudRepository<Line, Integer> {
+public interface LineRepository extends Repository<Line, Integer> {
+	
+	void save(Line line) throws DataAccessException;
 
 	@Query("SELECT line FROM Line line WHERE line.id =:id")
 	public Line findById(@Param("id") int id);

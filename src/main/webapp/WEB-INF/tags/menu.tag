@@ -40,10 +40,10 @@
 					<span>Veterinarians</span>
 				</petclinic:menuItem>
 				
-				<petclinic:menuItem active="${name eq 'platos'}" url="/carta"
+				<petclinic:menuItem active="${name eq 'platos'}" url="/command/new"
 					title="carta">
 					<span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span>
-					<span>Carta</span>
+					<span>Pedir</span>
 				</petclinic:menuItem>
 
 				<petclinic:menuItem active="${name eq 'error'}" url="/oups"
