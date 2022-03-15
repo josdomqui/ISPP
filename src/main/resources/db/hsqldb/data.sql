@@ -72,6 +72,12 @@ INSERT INTO plates(id, name, category, cost, line_id) values (1, 'Huevos Lartisa
 INSERT INTO plates(id, name, category, cost, line_id) values (2, 'Solomillo de vaca', 'Racion', '18', 1);
 INSERT INTO plates(id, name, category, cost, line_id) values (3, 'Chuleta de atun', 'Tapa', '55', 1);
 
-
+INSERT INTO plates(id, name, category, cost, line_id) values (4, 'Souffle de verduras con atun', 'Entrante', '17', 1);
+INSERT INTO plates(id, name, category, cost, line_id) values (5, 'Cordero con yeso y tupinambo', 'Plato princiapl', '28', 1);
+INSERT INTO plates(id, name, category, cost, line_id) values (6, 'Cromlech de Madioca y Huitlacoche', 'Plato princiapl', '60', 1);
+INSERT INTO plates(id, name, category, cost, line_id) values (7, 'Trufón de chocolate', 'Postre', '13', 1);
+INSERT INTO plates(id, name, category, cost, line_id) values (8, 'Angulas a la vongole con navajas de playa', 'Entrante', '55', 1);
+INSERT INTO plates(id, name, category, cost, line_id) values (9, 'Ensalada líquida Andalusí', 'Entrante', '16', 1);
+INSERT INTO plates(id, name, category, cost, line_id) values (10,'Chuleta de raya Nikkei con pure de maiz', 'Plato principal', '42', 1);
 
 
