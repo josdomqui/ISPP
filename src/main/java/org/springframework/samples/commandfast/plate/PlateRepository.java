@@ -15,7 +15,13 @@
  */
 package org.springframework.samples.commandfast.plate;
 
+import java.util.Collection;
+
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.Repository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.samples.commandfast.owner.Owner;
 
 
 /**
@@ -24,8 +30,8 @@ import org.springframework.data.repository.CrudRepository;
  * @author Michael Isvy
  * @since 15.1.2013
  */
-public interface PlateRepository extends CrudRepository<Plate, Integer> {
-
-
-
+public interface PlateRepository extends Repository<Plate, Integer> {
+	
+	@Query("SELECT plate FROM Plate plate")
+	public Collection<Plate> findAllPlates();
 }
