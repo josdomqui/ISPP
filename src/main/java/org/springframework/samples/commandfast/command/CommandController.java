@@ -21,7 +21,6 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.commandfast.owner.Owner;
 import org.springframework.samples.commandfast.user.AuthoritiesService;
 import org.springframework.samples.commandfast.user.UserService;
 import org.springframework.stereotype.Controller;
@@ -56,17 +55,18 @@ public class CommandController {
 	public String initCreationForm(Map<String, Object> model) {
 		Command command = new Command();
 		model.put("command", command);
-		return "command/createOrUpdateCommandForm";
+		return "command/createCommand";
 	}
 
 	@PostMapping(value = "/command/new")
 	public String processCreationForm(@Valid Command command, BindingResult result) {
 		if (result.hasErrors()) {
-			return "command/createOrUpdateCommandForm";
+			return "command/createCommand";
 		} else {
 			this.commandService.saveCommand(command);
-
-			return "redirect:/welcome/";
+//			Integer id_command = command.getId();
+//			return "/carta/" + id_command;
+			return "/welcome";
 		}
 	}
 }

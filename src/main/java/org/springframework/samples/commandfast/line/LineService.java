@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.commandfast.plate;
+package org.springframework.samples.commandfast.line;
 
 import java.util.Collection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.samples.commandfast.user.AuthoritiesService;
-import org.springframework.samples.commandfast.user.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,20 +31,31 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Michael Isvy
  */
 @Service
-public class PlateService {
+public class LineService {
+	
+	//Necesario para el uso de logs.
+	private static final Logger log = LoggerFactory.getLogger(LineService.class);
 
-	private PlateRepository plateRepository;
-
-	@Autowired
-	private UserService userService;
-
-	@Autowired
-	private AuthoritiesService authoritiesService;
+	private LineRepository lineRepository;
 
 	@Autowired
-	public PlateService(PlateRepository plateRepository) {
-		this.plateRepository = plateRepository;
+	public LineService(LineRepository lineRepository) {
+		this.lineRepository = lineRepository;
 	}
 	
+	@Transactional(readOnly = true)
+	public Collection<Line> findlines() throws DataAccessException {
+		log.info("Buscando todas las comandas existentes");
+		return lineRepository.findLines();
+	}
+	
+	@Transactional
+	public void saveline(Line line) throws DataAccessException {
+		log.info("Guardando la comanda en la BD");
+		lineRepository.save(line);
+		log.info("Comanda guardada correctamente");
+	
+	}
+
 
 }

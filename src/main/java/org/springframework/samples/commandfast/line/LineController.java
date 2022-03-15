@@ -13,38 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.commandfast.plate;
+package org.springframework.samples.commandfast.line;
 
-import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.samples.commandfast.user.AuthoritiesService;
 import org.springframework.samples.commandfast.user.UserService;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 
 /**
- * Mostly used as a facade for all Petclinic controllers Also a placeholder
- * for @Transactional and @Cacheable annotations
- *
+ * @author Juergen Hoeller
+ * @author Ken Krebs
+ * @author Arjen Poutsma
  * @author Michael Isvy
  */
-@Service
-public class PlateService {
+@Controller
+public class LineController {
 
-	private PlateRepository plateRepository;
-
-	@Autowired
-	private UserService userService;
+	private final LineService lineService;
 
 	@Autowired
-	private AuthoritiesService authoritiesService;
-
-	@Autowired
-	public PlateService(PlateRepository plateRepository) {
-		this.plateRepository = plateRepository;
+	public LineController(LineService lineService, UserService userService, AuthoritiesService authoritiesService) {
+		this.lineService = lineService;
 	}
-	
 
+	@InitBinder
+	public void setAllowedFields(WebDataBinder dataBinder) {
+		dataBinder.setDisallowedFields("id");
+	}
+
+	
+	
 }
