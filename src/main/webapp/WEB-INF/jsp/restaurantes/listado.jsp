@@ -3,6 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@page contentType="text/html"%>
+<%@page pageEncoding="UTF-8"%>
 
 <petclinic:layout pageName="vets">
 
@@ -23,16 +25,17 @@
           <button type="submit" class="btn btn-primary">Buscar</button>
         </div>
       </form>
+      <c:forEach items="${listaRestaurante}" var="restaurante">
       <div class="container mt-5 mb-5">
       <div class="card mb-3">
         <div class="row g-0">
           <div class="col-md-3">
-            <img src="https://i.imgur.com/rvQ3LAt.jpg" class="img-fluid rounded-start" alt="...">
+            <img src="${restaurante.photo}" class="img-fluid rounded-start" alt="...">
           </div>
           <div class="col-md-8">
             <div class="card-body d-flex flex-column">
-              <h1 class="card-title mb-3">Nombre Restaurante</h1>
-              <p class="card-text">Descripción restaurante</p>
+              <h1 class="card-title mb-3"><c:out value = "${restaurante.name}"/></h1>
+              <p class="card-text"><c:out value = "${restaurante.description}"/></p>
               <div class="col-12 mb-3">
                   <!-- aquí va un foreach-->
                  <span class="badge bg-dark">Filtro</span>
@@ -48,6 +51,7 @@
         </div>
       </div>
       </div>
+      </c:forEach>
 
  <!--   <div class="container mt-5 mb-5">
         <div class="card">
