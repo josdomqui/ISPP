@@ -12,14 +12,12 @@
     </h2>
     <form:form modelAttribute="command" class="form-horizontal" id="add-command-form">
         <div class="form-group has-feedback">
-            <petclinic:inputField label="Nombre" name="name"/>
-            <petclinic:inputField label="Mesa" name="mesa"/>
+            <petclinic:inputField label="<span>Nombre: </span>" name="name"/>
+            <petclinic:inputField label ="<span>Numero de mesa:</span>" name="mesa"/>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                
-                  	<button class="btn btn-default" type="submit">Pedir</button>
-                
+            	<button class="btn btn-default" type="submit"><span>Pedir</span></button>
             </div>
         </div>
     </form:form>

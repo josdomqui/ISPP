@@ -49,12 +49,6 @@ public class LineService {
 		return lineRepository.findLines();
 	}
 	
-	@Transactional(readOnly = true)
-	public Collection<Line> findLineById(int id) throws DataAccessException {
-		log.info("Buscando todas las comandas existentes");
-		return lineRepository.findByCommandId(id);
-	}
-	
 	@Transactional
 	public void saveline(Line line) throws DataAccessException {
 		log.info("Guardando la comanda en la BD");

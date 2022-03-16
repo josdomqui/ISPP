@@ -10,30 +10,31 @@
 <petclinic:layout pageName="ticket">
     <h2>Finalizar pedido</h2>
     <table class="table table-striped table-bordered">
-    	<th>Plato</th>
-    	<th>Coste Individual</th>
-    	<th>Cantidad</th>
-    	<th>Coste total</th>
-    	
-    	
-    	<tbody>
+    <thead>
+    <tr>
+    	<th><span>Plato</span></th>
+    	<th><span>Coste Individual</span></th>
+    	<th><span>Cantidad</span></th>
+    	<th><span>Coste total</span></th>
+    </tr>
+    </thead>
+    <tbody>
     		<c:forEach items="${lista_res}" var="plato">
     			<tr>
     					<td>
-    						<c:out value="${plato.name}"/>
+    						<span><c:out value="${plato.name}"/></span>
     					</td>
     					<td>
-    						<c:out value="${plato.cost} $"/>
+    						<span><c:out value="${plato.cost} $"/></span>
     					</td>
     					<td>
     					<c:forEach items="${lista_linea}" var="linea">
     						<c:if test="${linea.plate.id == plato.id}">
-    							<c:out value="${linea.quantity}"/>
+    							<span><c:out value="${linea.quantity}"/></span>
     							<td>
-    							<c:out value=""/>
-    						</td>
+    								<c:out value=""/>
+    							</td>
     						</c:if>
-    						
     					</c:forEach>
     					</td>
     					
@@ -43,7 +44,7 @@
     			<td></td>
     			<td></td>
     			<td></td>
-    			<td><c:out value="${suma} $"/></td>
+    			<td><span><c:out value="${suma} $"/></span></td>
     		</tr>
     	</tbody>
     </table>
