@@ -26,7 +26,5 @@ INSERT INTO plates(id, name, category, cost) values (8, 'Angulas a la vongole co
 INSERT INTO plates(id, name, category, cost) values (9, 'Ensalada líquida Andalusí', 'Entrante', '16');
 INSERT INTO plates(id, name, category, cost) values (10,'Chuleta de raya Nikkei con pure de maiz', 'Plato principal', '42');
 
-INSERT INTO lines(id, quantity, command_id, plate_id) values (1, 2, 1, 1);
-
 
 

@@ -15,13 +15,15 @@
  */
 package org.springframework.samples.commandfast.plate;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.commandfast.command.Command;
 import org.springframework.samples.commandfast.line.Line;
 import org.springframework.samples.commandfast.line.LineService;
 import org.springframework.samples.commandfast.user.AuthoritiesService;
@@ -59,18 +61,12 @@ public class PlateController {
 		dataBinder.setDisallowedFields("id");
 	}
 	
-//	@GetMapping(value = "/carta")
-//	public String showAllPlates(Map<String, Object> model) {
-//		Collection<Plate> plate = plateService.findAllPlates();
-//		model.put("platos", plate);
-//		return VIEWS_Plates;
-//	}
 	
 	@GetMapping(value = "/carta/{id_comanda}")
 	public String showAllPlates(@PathVariable("id_comanda") int id_commanda, Map<String, Object> model) {
 		Collection<Plate> plate = plateService.findAllPlates();
 		model.put("platos", plate);
-		Line line = new Line();
+		List<Line> line = new ArrayList<>();
 		model.put("lines", line);
 		model.put("id_commanda", id_commanda);
 		return VIEWS_Plates;
@@ -79,7 +75,24 @@ public class PlateController {
 	@PostMapping(value = "/carta/{id_comanda}")
 	public String processCreationForm(@PathVariable("id_comanda") int id_commanda, @Valid Line line, BindingResult result) {
 		this.lineService.saveline(line);
-		return "redirect:/carta/"+id_commanda;
+		return "redirect:/carta/"+id_commanda+"/edit";
+	}
+	
+	@GetMapping(value = "/carta/{id_comanda}/edit")
+    public String initUpdateLineForm(@PathVariable("id_comanda") int id_comanda, Map<String, Object> model) {
+        Collection<Line> line = this.lineService.findLineByCommandId(id_comanda);
+        model.put("lines", line);
+		Collection<Plate> plate = plateService.findAllPlates();
+		model.put("platos", plate);        
+		model.put("id_commanda", id_comanda);
+		return VIEWS_Plates;
+    }
+
+	
+	@PostMapping(value = "/carta/{id_comanda}/edit")
+	public String processUForm(@PathVariable("id_comanda") int id_commanda, @Valid Line line, BindingResult result) {
+		this.lineService.saveline(line);
+		return "redirect:/carta/"+id_commanda+"/edit";
 	}
 	
 }

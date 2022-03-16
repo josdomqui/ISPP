@@ -16,6 +16,7 @@
 package org.springframework.samples.commandfast.line;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,10 +50,35 @@ public class LineService {
 		return lineRepository.findLines();
 	}
 	
+	@Transactional(readOnly = true)
+	public Collection<Line> findLineByCommandId(int id) throws DataAccessException {
+		log.info("Buscando todas las comandas existentes");
+		return lineRepository.findByCommandId(id);
+	}
+	
+	@Transactional(readOnly = true)
+	public Optional<Line> findLineById(int id) throws DataAccessException {
+		log.info("Buscando todas las lineas para el plato");
+		return lineRepository.findByLineId(id);
+	}
+	
+	@Transactional(readOnly = true)
+	public Optional<Line> findLineCoById(int id, int id1) throws DataAccessException {
+		log.info("Buscando todas las lineas para el plato");
+		return lineRepository.findByLineCoId(id, id1);
+	}
+	
 	@Transactional
 	public void saveline(Line line) throws DataAccessException {
 		log.info("Guardando la comanda en la BD");
-		lineRepository.save(line);
+		Optional<Line> line2 = findLineCoById(line.getPlate().getId(), line.getCommand().getId());
+		if(line2.isPresent()){
+			line2.get().setQuantity(line.getQuantity());
+			lineRepository.save(line2.get());
+		}else{
+			lineRepository.save(line);
+		}
+		
 		log.info("Comanda guardada correctamente");
 	
 	}

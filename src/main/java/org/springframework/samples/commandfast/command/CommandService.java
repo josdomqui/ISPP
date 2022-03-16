@@ -16,6 +16,7 @@
 package org.springframework.samples.commandfast.command;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,6 +48,12 @@ public class CommandService {
 	public Collection<Command> findCommands() throws DataAccessException {
 		log.info("Buscando todas las comandas existentes");
 		return commandRepository.findCommands();
+	}
+	
+	@Transactional(readOnly = true)
+	public Optional<Command> findIdCommands(Integer id) throws DataAccessException {
+		log.info("Buscando todas las comandas existentes");
+		return commandRepository.findById(id);
 	}
 	
 	@Transactional
