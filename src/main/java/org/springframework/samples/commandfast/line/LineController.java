@@ -16,12 +16,26 @@
 package org.springframework.samples.commandfast.line;
 
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.commandfast.plate.Plate;
+import org.springframework.samples.commandfast.plate.PlateService;
 import org.springframework.samples.commandfast.user.AuthoritiesService;
 import org.springframework.samples.commandfast.user.UserService;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * @author Juergen Hoeller
@@ -33,15 +47,40 @@ import org.springframework.web.bind.annotation.InitBinder;
 public class LineController {
 
 	private final LineService lineService;
-
+	private final PlateService plateService;
+	
 	@Autowired
-	public LineController(LineService lineService, UserService userService, AuthoritiesService authoritiesService) {
+	public LineController(LineService lineService, PlateService plateService, UserService userService, AuthoritiesService authoritiesService) {
 		this.lineService = lineService;
+		this.plateService = plateService;
 	}
 
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
+	}
+	
+	@GetMapping(value = "/carta/{id_comanda}/ticket")
+	public String processCreationForm(@PathVariable("id_comanda") int id_commanda,  Map<String, Object> model) {
+		Collection<Line> lineas = this.lineService.findLineById(id_commanda);
+		Collection<Plate> platos = this.plateService.findAllPlates();
+		List<Plate> res = new ArrayList<Plate>();
+		Double suma = 0.;
+		for (Line linea: lineas) {
+			for (Plate plato: platos) {
+				if(linea.getPlate().getId() == plato.getId() && linea.getQuantity() != 0) {
+					res.add(plato);
+					for (int i = 0; i < linea.getQuantity(); i++) {
+						suma += plato.getCost();
+					}
+				}
+			}
+		}
+		model.put("lista_res", res);
+		model.put("id_commanda", id_commanda);
+		model.put("lista_linea", lineas);
+		model.put("suma", suma);
+		return "carta/ticket";
 	}
 
 	

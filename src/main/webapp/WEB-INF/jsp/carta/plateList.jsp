@@ -16,22 +16,20 @@
 						<td><c:out value="${listaPlatos.cost} $"/></td>
 						<td>
 						<form:form modelAttribute="line" class="form-horizontal" id="add-line-form">
-						<div class="form-group has-feedback">
+						<div style="position: relative; left: 25%;" class="form-group has-feedback">
 							<input label="Plate" name="plate" value="${listaPlatos.id}" type="hidden"/>
-							<input label="Cantidad" name="quantity"/>
-							<input label="Comanda" name="command" value="${id_commanda}"/>
-        				</div>
-        				<div class="form-group">
-            					<div class="col-sm-offset-2 col-sm-10">
-                
-                  				<button class="btn btn-default" type="submit">Pedir</button>
-                
-            			</div>
+							<input label="Cantidad" style="width: 100px" name="quantity" type="number" max="50" min="0"/>
+							<input label="Comanda" name="command" value="${id_commanda}" type="hidden"/>
+							<button style="margin-left: 10px" class="btn btn-default" type="submit">Pedir</button>
         				</div>
     					</form:form>
     					</td>
 				</tr>
     			</c:forEach>
            </tbody>
+           <spring:url value="/carta/{id_comanda}/ticket" var="url">
+           		<spring:param name="id_comanda" value="${id_commanda}"/>
+           </spring:url>
     </table>
+    <a class="btn btn-default" href="${fn:escapeXml(url)}">Finalizar pedido</a>
 </petclinic:layout>
