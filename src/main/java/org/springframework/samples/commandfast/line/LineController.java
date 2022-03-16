@@ -62,7 +62,7 @@ public class LineController {
 	
 	@GetMapping(value = "/carta/{id_comanda}/ticket")
 	public String processCreationForm(@PathVariable("id_comanda") int id_commanda,  Map<String, Object> model) {
-		Collection<Line> lineas = this.lineService.findLineById(id_commanda);
+		Collection<Line> lineas = this.lineService.findLineByCommandId(id_commanda);
 		Collection<Plate> platos = this.plateService.findAllPlates();
 		List<Plate> res = new ArrayList<Plate>();
 		Double suma = 0.;
