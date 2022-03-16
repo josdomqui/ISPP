@@ -8,9 +8,9 @@ INSERT INTO authorities(id,username,authority) VALUES (2,'owner1','owner');
 INSERT INTO users(username,password,enabled) VALUES ('vet1','v3t',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (3,'vet1','veterinarian');
 
-INSERT INTO restaurants(id, name, address, city, description, telephone, photo) VALUES (1, 'Gomez Martin SC', 'C/San juan del puerto a caceres, Nº 12', 'Huelva', 'Establecimiento de bebidas y cafetería', 959121521,'..\images\Imagen1.png');
-INSERT INTO restaurants(id, name, address, city, description, telephone, photo) VALUES (2, 'Tabernas Sevilla', 'C/Gamazo 6', 'Sevilla', 'Restaurante de cocina mediterránea con opciones vegetarianas', 954221128,'URL2');
-INSERT INTO restaurants(id, name, address, city, description, telephone, photo) VALUES (3, 'La mitad del cuarto', 'C/AV José Laguillo', 'Sevilla', 'Lugar idóneo para tapear', 954533124,'URL3');
+INSERT INTO restaurants(id, name, address, city, description, telephone, photo) VALUES (1, 'Gomez Martin SC', 'C/San juan del puerto a caceres, Nº 12', 'Huelva', 'Establecimiento de bebidas y cafetería', 959121521,'/resources/images/bar1.jpg');
+INSERT INTO restaurants(id, name, address, city, description, telephone, photo) VALUES (2, 'Tabernas Sevilla', 'C/Gamazo 6', 'Sevilla', 'Restaurante de cocina mediterránea con opciones vegetarianas', 954221128,'/resources/images/bar2.jpg');
+INSERT INTO restaurants(id, name, address, city, description, telephone, photo) VALUES (3, 'La mitad del cuarto', 'C/AV José Laguillo', 'Sevilla', 'Lugar idóneo para tapear', 954533124,'/resources/images/bar3.jpg');
 
 INSERT INTO vets(id, first_name,last_name) VALUES (1, 'James', 'Carter');
 INSERT INTO vets(id, first_name,last_name) VALUES (2, 'Helen', 'Leary');
