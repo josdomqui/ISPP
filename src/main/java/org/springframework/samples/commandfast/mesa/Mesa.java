@@ -13,7 +13,6 @@ import javax.validation.constraints.NotEmpty;
 
 import org.springframework.samples.commandfast.command.Command;
 import org.springframework.samples.commandfast.model.BaseEntity;
-import org.springframework.samples.commandfast.pet.Pet;
 
 import lombok.Getter;
 import lombok.Setter;
