@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.commandfast.line;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
@@ -33,8 +34,8 @@ public interface LineRepository extends Repository<Line, Integer> {
 	
 	void save(Line line) throws DataAccessException;
 
-	@Query("SELECT line FROM Line line WHERE line.id =:id")
-	public Line findById(@Param("id") int id);
+	@Query("SELECT line FROM Line line WHERE line.command.id =:id")
+	public Collection<Line> findByCommandId(@Param("id") int id);
 
 	@Query("SELECT line FROM Line line")
 	public List<Line> findLines();
