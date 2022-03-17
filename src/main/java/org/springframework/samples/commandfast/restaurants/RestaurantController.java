@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class RestaurantController {
 
-	//TODO
 	private static final String RESTAURANTE_FORM = "URL_FORM";
 
 	private final RestaurantService restaurantService;

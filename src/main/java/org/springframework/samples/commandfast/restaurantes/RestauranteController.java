@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/restaurante")
 public class RestauranteController {
 	
 	private final RestauranteService restauranteService;
@@ -18,7 +17,7 @@ public class RestauranteController {
 		this.restauranteService = restauranteService;
 	}
 
-    @GetMapping(value = { "/list" })
+    @GetMapping(value = { "/restaurante/list" })
 	public String showRestautanteList(Map<String, Object> model) {
 		model.put("listaRestaurante", restauranteService.findAllRestaurants());
 		return "restaurantes/listado";

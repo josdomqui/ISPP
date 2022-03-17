@@ -33,12 +33,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/resources/**", "/webjars/**", "/h2-console/**").permitAll()
-				.antMatchers(HttpMethod.GET, "/", "/oups").permitAll().antMatchers("/users/new").permitAll()
+				.antMatchers(HttpMethod.GET, "/", "/oups").permitAll()
+				.antMatchers("/users/new").permitAll()
+				.antMatchers("/restaurante/list/**").permitAll()
+				.antMatchers("/restaurante/**").permitAll()
+				.antMatchers(HttpMethod.GET, "/restaurante/list/**").permitAll()
+				.antMatchers(HttpMethod.GET, "/restaurante/**").permitAll()
 				.antMatchers("/command/new").permitAll()
 				.antMatchers("/carta/**").permitAll()
-				.antMatchers("/resturante/list/**").permitAll()
 				.antMatchers("/admin/**").hasAnyAuthority("admin").antMatchers("/owners/**")
-				.hasAnyAuthority("owner", "admin").antMatchers("/vets/**", "/command/**", "/restaurante/list/**").authenticated().anyRequest().denyAll().and()
+				.hasAnyAuthority("owner", "admin").antMatchers("/vets/**", "/command/**", "/restaurantes/**").authenticated().anyRequest().denyAll().and()
 				.formLogin()
 				/* .loginPage("/login") */
 				.failureUrl("/login-error").and().logout().logoutSuccessUrl("/");
