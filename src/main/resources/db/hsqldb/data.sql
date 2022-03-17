@@ -26,5 +26,7 @@ INSERT INTO plates(id, name, category, cost) values (8, 'Angulas a la vongole co
 INSERT INTO plates(id, name, category, cost) values (9, 'Ensalada líquida Andalusí', 'Entrante', '16');
 INSERT INTO plates(id, name, category, cost) values (10,'Chuleta de raya Nikkei con pure de maiz', 'Plato principal', '42');
 
-
+INSERT INTO restaurants(id, name, address, city, description, telephone, photo) VALUES (1, 'Gomez Martin SC', 'C/San juan del puerto a caceres, Nº 12', 'Huelva', 'Establecimiento de bebidas y cafetería', 959121521,'/resources/images/bar1.jpg');
+INSERT INTO restaurants(id, name, address, city, description, telephone, photo) VALUES (2, 'Tabernas Sevilla', 'C/Gamazo 6', 'Sevilla', 'Restaurante de cocina mediterránea con opciones vegetarianas', 954221128,'/resources/images/bar2.jpg');
+INSERT INTO restaurants(id, name, address, city, description, telephone, photo) VALUES (3, 'La mitad del cuarto', 'C/AV José Laguillo', 'Sevilla', 'Lugar idóneo para tapear', 954533124,'/resources/images/bar3.jpg');
 
