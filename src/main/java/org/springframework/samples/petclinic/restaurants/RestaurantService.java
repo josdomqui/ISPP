@@ -43,7 +43,6 @@ public class RestaurantService {
 		return restaurantRepository.findAll();
 	}
 
-	
 
 
 

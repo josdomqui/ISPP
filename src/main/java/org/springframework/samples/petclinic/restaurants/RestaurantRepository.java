@@ -19,6 +19,7 @@ public interface RestaurantRepository extends Repository<Restaurant, Integer> {
 
 	@Query("SELECT restaurant FROM Restaurant restaurant WHERE restaurant.id =:id")
 	public Optional<Restaurant> findById(@Param("id") int id);
+	
 
 	//public List<Restaurant> findAll();
 

@@ -54,5 +54,16 @@ public class Restaurant extends NamedEntity {
 	@Column(name = "photo")
 	private String photo;
 	
+	@Column(name = "capacity")
+	@NotEmpty
+	@Positive
+	private Integer capacity;
+	
+	@Column(name = "schedule")
+	@NotEmpty
+	private String schedule;
+	
+	
+	
 
 }
