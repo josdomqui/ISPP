@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.restaurants;
 
 
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,12 +14,19 @@ public interface RestaurantRepository extends Repository<Restaurant, Integer> {
 	
 	void save(Restaurant restaurant) throws DataAccessException;
 
+	@Query("SELECT restaurant FROM Restaurant restaurant")
+	public Collection<Restaurant> findAll();
+
 	@Query("SELECT restaurant FROM Restaurant restaurant WHERE restaurant.id =:id")
 	public Optional<Restaurant> findById(@Param("id") int id);
 
-	public List<Restaurant> findAll();
+	//public List<Restaurant> findAll();
 
 	void deleteById(int id) throws DataAccessException;
+
+	
+	
+	
 
 }
 

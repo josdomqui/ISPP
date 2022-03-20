@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.restaurants;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,8 +39,14 @@ public class RestaurantService {
 	}
 	
 	@Transactional
-	public List<Restaurant> findAllRestaurants() throws DataAccessException{
+	public Collection<Restaurant> findAllRestaurants() throws DataAccessException{
 		return restaurantRepository.findAll();
 	}
+
+	
+
+
+
+
 
 }

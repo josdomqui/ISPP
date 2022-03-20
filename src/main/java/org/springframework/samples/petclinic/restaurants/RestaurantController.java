@@ -15,10 +15,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 
 
 @Controller
+@RequestMapping("/restaurante")
 public class RestaurantController {
 
 	//TODO
@@ -30,6 +32,13 @@ public class RestaurantController {
 	public RestaurantController(RestaurantService restaurantService) {
 		this.restaurantService = restaurantService;
 	}
+
+	@GetMapping(value = { "/list" })
+	public String showRestautanteList(Map<String, Object> model) {
+		model.put("listaRestaurante", restaurantService.findAllRestaurants());
+		return "restaurantes/listado";
+	}
+
 
 	@GetMapping("/restaurantes/{id}/edit")
 	public String editRestaurante(@PathVariable("id") Integer id, ModelMap model) {
@@ -55,6 +64,11 @@ public class RestaurantController {
 			model.addAttribute("message", "Restaurant updated succesfully!");
 			return "redirect:/";
 		}
+
+
+
+
+
 	}
 
 
