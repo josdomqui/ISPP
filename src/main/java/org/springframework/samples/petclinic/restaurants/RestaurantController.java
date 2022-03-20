@@ -39,6 +39,15 @@ public class RestaurantController {
 		return "restaurantes/listado";
 	}
 
+	
+	@GetMapping(value = { "/{id}/detalles" })
+	public String showRestautanteDetails(Map<String, Object> model) {
+		model.put("listaRestaurante", restaurantService.findAllRestaurants());
+		return "restaurantes/detalles";
+	}
+	
+
+
 
 	@GetMapping("/restaurantes/{id}/edit")
 	public String editRestaurante(@PathVariable("id") Integer id, ModelMap model) {
