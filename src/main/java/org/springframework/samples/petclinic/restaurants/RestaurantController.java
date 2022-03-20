@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 
 
@@ -39,14 +40,21 @@ public class RestaurantController {
 		return "restaurantes/listado";
 	}
 
-	
+	/*
 	@GetMapping(value = { "/{id}/detalles" })
-	public String showRestautanteDetails(Map<String, Object> model) {
-		model.put("listaRestaurante", restaurantService.findAllRestaurants());
+	public ModelAndView showRestautanteDetails(@PathVariable("id") Integer id) {
+		model.put("detallesRestaurante", restaurantService.findRestaurantById(id));
 		return "restaurantes/detalles";
 	}
-	
+	*/
 
+	@GetMapping(value = { "/{id}/detalles" })
+	public ModelAndView showRestautanteDetails(@PathVariable("id") Integer id) {
+		ModelAndView mav = new ModelAndView("restaurantes/detalles");
+		mav.addObject(this.restaurantService.findRestaurantById(id));
+		return mav;
+	}
+	
 
 
 	@GetMapping("/restaurantes/{id}/edit")
