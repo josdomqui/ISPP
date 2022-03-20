@@ -44,10 +44,17 @@
     			<td></td>
     			<td></td>
     			<td></td>
-    			<td><span><c:out value="${suma} $"/></span></td>
     		</tr>
     	</tbody>
     </table>
+    			<td><span><c:out value="${suma} $"/></span></td>
+    			
+    			 <spring:url value="/charge" var="url">
+           		<!--
+           		<spring:param name="id_comanda" value="${id_commanda}"/>
+           		-->
+           </spring:url>
+     <a class="btn btn-default" href="${fn:escapeXml(url)}"><span>Pagar</span></a>
 </petclinic:layout>
 
 

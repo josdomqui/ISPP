@@ -21,10 +21,15 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.commandfast.command.Command;
+import org.springframework.samples.commandfast.command.CommandService;
+import org.springframework.samples.commandfast.mesa.MesaService;
 import org.springframework.samples.commandfast.plate.Plate;
 import org.springframework.samples.commandfast.plate.PlateService;
 import org.springframework.samples.commandfast.user.AuthoritiesService;
@@ -48,11 +53,12 @@ public class LineController {
 
 	private final LineService lineService;
 	private final PlateService plateService;
-	
+	private final CommandService commandService;
 	@Autowired
-	public LineController(LineService lineService, PlateService plateService, UserService userService, AuthoritiesService authoritiesService) {
+	public LineController(LineService lineService, PlateService plateService, UserService userService, AuthoritiesService authoritiesService, MesaService mesaService, CommandService commandService) {
 		this.lineService = lineService;
 		this.plateService = plateService;
+		this.commandService = commandService;
 	}
 
 	@InitBinder
@@ -64,6 +70,7 @@ public class LineController {
 	public String processCreationForm(@PathVariable("id_comanda") int id_commanda,  Map<String, Object> model) {
 		Collection<Line> lineas = this.lineService.findLineByCommandId(id_commanda);
 		Collection<Plate> platos = this.plateService.findAllPlates();
+		Optional<Command> command = this.commandService.findIdCommands(id_commanda);
 		List<Plate> res = new ArrayList<Plate>();
 		Double suma = 0.;
 		for (Line linea: lineas) {
@@ -76,6 +83,8 @@ public class LineController {
 				}
 			}
 		}
+		command.get().setPrice(suma);
+		commandService.saveCommand(command.get());
 		model.put("lista_res", res);
 		model.put("id_commanda", id_commanda);
 		model.put("lista_linea", lineas);

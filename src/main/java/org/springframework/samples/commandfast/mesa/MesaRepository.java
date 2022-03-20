@@ -13,14 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.commandfast.plate;
+package org.springframework.samples.commandfast.mesa;
 
-import java.util.Collection;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-
 
 /**
  * Spring Data JPA OwnerRepository interface
@@ -28,12 +26,10 @@ import org.springframework.data.repository.query.Param;
  * @author Michael Isvy
  * @since 15.1.2013
  */
-public interface PlateRepository extends CrudRepository<Plate, Integer> {
+public interface MesaRepository extends CrudRepository<Mesa, Integer> {
 	
-	@Query("SELECT plate FROM Plate plate")
-	public Collection<Plate> findAllPlates();
-	
-	@Query("SELECT plate FROM Plate plate WHERE plate.id =:id")
-    public Plate findById(@Param("id") int id);
+
+	@Query("SELECT mesa FROM Mesa mesa WHERE mesa.number =:number")
+	public Mesa findMesaByNumber(@Param("number") Integer number);
 
 }
