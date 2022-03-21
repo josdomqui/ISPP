@@ -16,7 +16,7 @@
 				<div editable="rich">
 					<h2 class="display-3 fw-bolder"><c:out value = "${detallesRestaurante.name}"/></h2>
 					<p><c:out value = "${detallesRestaurante.description}"/></p>
-
+					<button type="button" class="btn-default">Ver carta</button>
 				</div>
 			</div><!-- /lc-block -->
 			<div class="lc-block border-top col-md-6 offset-md-3">
