@@ -12,6 +12,14 @@ INSERT INTO restaurants(id, name, address, city, description, telephone, photo) 
 INSERT INTO restaurants(id, name, address, city, description, telephone, photo) VALUES (2, 'Tabernas Sevilla', 'C/Gamazo 6', 'Sevilla', 'Restaurante de cocina mediterránea con opciones vegetarianas', 954221128,'URL2');
 INSERT INTO restaurants(id, name, address, city, description, telephone, photo) VALUES (3, 'La mitad del cuarto', 'C/AV José Laguillo', 'Sevilla', 'Lugar idóneo para tapear', 954533124,'URL3');
 
+
+INSERT INTO restaurant_type(restaurant_id, type) VALUES (1,'DOS_TENEDORES');
+INSERT INTO restaurant_type(restaurant_id, type) VALUES (1,'CERVECERIA');
+INSERT INTO restaurant_type(restaurant_id, type) VALUES (2,'COMEDORES');
+INSERT INTO restaurant_type(restaurant_id, type) VALUES (2,'EUROPA_DEL_ESTE');
+INSERT INTO restaurant_type(restaurant_id, type) VALUES (3,'GOURMET');
+INSERT INTO restaurant_type(restaurant_id, type) VALUES (3,'AUTOR');
+
 INSERT INTO vets(id, first_name,last_name) VALUES (1, 'James', 'Carter');
 INSERT INTO vets(id, first_name,last_name) VALUES (2, 'Helen', 'Leary');
 INSERT INTO vets(id, first_name,last_name) VALUES (3, 'Linda', 'Douglas');
