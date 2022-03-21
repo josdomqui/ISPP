@@ -18,6 +18,12 @@ public interface RestaurantRepository extends Repository<Restaurant, Integer> {
 
 	public List<Restaurant> findAll();
 
+	@Query("SELECT restaurant FROM Restaurant restaurant WHERE restaurant.type =:type")
+	public List<Restaurant> findByType(@Param("type") RestaurantType type);
+
+	@Query("SELECT restaurant FROM Restaurant restaurant WHERE restaurant.city =:city")
+	public List<Restaurant> findByCity(@Param("city") String city);
+
 	void deleteById(int id) throws DataAccessException;
 
 }
