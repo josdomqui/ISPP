@@ -5,6 +5,7 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <petclinic:layout pageName="vets">
 
@@ -44,7 +45,10 @@
               </div>
 
               <div class="col-6">
-                <a type="button" class="btn btn-dark mt-3" href="/">Ver detalles</a>
+                <spring:url value="/carta/{id_restaurante}" var="cartaURL">
+        			<spring:param name="id_restaurante" value="${restaurante.id}"/>
+        		</spring:url>
+                <a type="button" class="btn btn-dark mt-3" href="${fn:escapeXml(cartaURL)}">Ver detalles</a>
               </div>
             </div>
           </div>

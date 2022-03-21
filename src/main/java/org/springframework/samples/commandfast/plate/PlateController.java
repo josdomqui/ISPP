@@ -62,29 +62,32 @@ public class PlateController {
 	}
 	
 	
-	@GetMapping(value = "/carta/{id_comanda}")
-	public String showAllPlates(@PathVariable("id_comanda") int id_commanda, Map<String, Object> model) {
+	@GetMapping(value = "/carta/{id_restaurante}")
+	public String showAllPlates(@PathVariable("id_restaurante") int id_restaurante, Map<String, Object> model) {
 		Collection<Plate> plate = plateService.findAllPlates();
 		model.put("platos", plate);
 		List<Line> line = new ArrayList<>();
 		model.put("lines", line);
-		model.put("id_commanda", id_commanda);
+		model.put("id_commanda", 1); //Tiene lagunas
+		model.put("id_restaurante", id_restaurante);
 		return VIEWS_Plates;
 	}
 	
 	@PostMapping(value = "/carta/{id_comanda}")
-	public String processCreationForm(@PathVariable("id_comanda") int id_commanda, @Valid Line line, BindingResult result) {
+	public String processCreationForm(@PathVariable("id_comanda") int id_commanda, @Valid Line line, BindingResult result, HttpServletRequest request) {
 		this.lineService.saveline(line);
-		return "redirect:/carta/"+id_commanda+"/edit";
+		Integer id_restaurante = Integer.parseInt(request.getParameter("restaurant"));
+		return "redirect:/carta/"+id_restaurante+"/"+id_commanda+"/edit";
 	}
 	
-	@GetMapping(value = "/carta/{id_comanda}/edit")
-    public String initUpdateLineForm(@PathVariable("id_comanda") int id_comanda, Map<String, Object> model) {
+	@GetMapping(value = "/carta/{id_restaurante}/{id_comanda}/edit")
+    public String initUpdateLineForm(@PathVariable("id_restaurante") int id_restaurante, @PathVariable("id_comanda") int id_comanda, Map<String, Object> model) {
         Collection<Line> line = this.lineService.findLineByCommandId(id_comanda);
         model.put("lines", line);
 		Collection<Plate> plate = plateService.findAllPlates();
 		model.put("platos", plate);        
 		model.put("id_commanda", id_comanda);
+		model.put("id_restaurante", id_restaurante);
 		return VIEWS_Plates;
     }
 

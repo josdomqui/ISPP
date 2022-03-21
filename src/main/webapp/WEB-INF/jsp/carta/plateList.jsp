@@ -11,6 +11,7 @@
     <table class="table table-striped table-bordered">
             <tbody>
                 <c:forEach items="${platos}" var="listaPlatos">
+                	<c:if test="${listaPlatos.restaurante.id == id_restaurante}">
                 	<tr>
 						<td><p><c:out value="${listaPlatos.name}"/></p></td>
 						<td><p><c:out value="${listaPlatos.cost} $"/></p></td>
@@ -28,11 +29,13 @@
 							</c:if>
 							<input label="Cantidad" style="width: 100px" name="quantity" type="number" max="50" min="0"/>
 							<input label="Comanda" name="command" value="${id_commanda}" type="hidden"/>
+							<input label="Restaurante" name="restaurant" value="${id_restaurante}" type="hidden"/>
 							<button style="margin-left: 10px" class="btn btn-default" type="submit"><span>Pedir</span></button>
         				</div>
     					</form:form>
     					</td>
 				</tr>
+				</c:if>
     			</c:forEach>
            </tbody>
            <spring:url value="/carta/{id_comanda}/ticket" var="url">

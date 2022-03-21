@@ -1,7 +1,5 @@
 package org.springframework.samples.commandfast.plate;
 
-
-
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -16,6 +14,7 @@ import javax.validation.constraints.NotEmpty;
 
 import org.springframework.samples.commandfast.line.Line;
 import org.springframework.samples.commandfast.model.NamedEntity;
+import org.springframework.samples.commandfast.restaurants.Restaurant;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -37,4 +36,8 @@ public class Plate extends NamedEntity{
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "plate")
 	private Set<Line> lines;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_restaurante")
+	private Restaurant restaurante;
 }
