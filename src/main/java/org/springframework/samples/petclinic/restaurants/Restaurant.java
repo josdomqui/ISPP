@@ -15,8 +15,13 @@
  */
 package org.springframework.samples.petclinic.restaurants;
 
+import java.util.List;
+
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
@@ -53,6 +58,11 @@ public class Restaurant extends NamedEntity {
 
 	@Column(name = "photo")
 	private String photo;
-	
+
+	@ElementCollection(targetClass =  RestaurantType.class)
+	//@JoinTable(name = "RestaurantType", joinColumns = @JoinColumn(name = "id"))
+	@Column(name = "type", nullable = false)
+	@Enumerated(EnumType.STRING)
+	private List<RestaurantType> type;
 
 }
