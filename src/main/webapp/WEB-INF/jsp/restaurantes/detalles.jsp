@@ -18,6 +18,14 @@
 					<p><c:out value = "${detallesRestaurante.description}"/></p>
 					<h2><button type="button" class="btn-default">Ver carta</button></h2>
 				</div>
+
+				<div class="col-6">
+					<spring:url value="/restaurante/{id}/detalles/carta" var="menUrl">
+							<spring:param name="id" value="${detallesRestaurante.id}"/>
+					</spring:url>
+					<a class="btn-default" href="${fn:escapeXml(menUrl)}">Ver carta</a>
+				</div>
+
 			</div><!-- /lc-block -->
 			<div class="lc-block border-top col-md-6 offset-md-3" style="border-top: 2px solid #b98057 !important;">
 				<div editable="rich">
