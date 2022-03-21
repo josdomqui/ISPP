@@ -16,14 +16,13 @@
 				<div editable="rich">
 					<h2 class="display-3 fw-bolder" style="color: #bd8859;"><c:out value = "${detallesRestaurante.name}"/></h2>
 					<p><c:out value = "${detallesRestaurante.description}"/></p>
-					<h2><button type="button" class="btn-default">Ver carta</button></h2>
 				</div>
 
-				<div class="col-6">
+				<div>
 					<spring:url value="/restaurante/{id}/detalles/carta" var="menUrl">
 							<spring:param name="id" value="${detallesRestaurante.id}"/>
 					</spring:url>
-					<a class="btn-default" href="${fn:escapeXml(menUrl)}">Ver carta</a>
+					<h2><a type="button" class="btn-default" href="${fn:escapeXml(menUrl)}" style="padding: 5px;border: 3px solid #9f6f44;text-decoration: none;/* align-self: center; *//* display: flex; */">Ver carta</a></h2>
 				</div>
 
 			</div><!-- /lc-block -->
@@ -40,7 +39,7 @@
                 : center;
                     width: 100%;
 					color: #8d6542;
-                ">Working Hours</h2>
+                ">Horario</h2>
 				</div>
 			</div>
 			<div class="lc-block">
@@ -64,7 +63,7 @@
 		<div class="col-md-6 px-5">
 			<div class="lc-block mb-4">
 				<div editable="rich">
-					<h2 class="display-6 fw-bolder" style="color: #8d6542;">Find us!<p></p>
+					<h2 class="display-6 fw-bolder" style="color: #8d6542;">¡Encuentranos!<p></p>
 						<p></p>
 					</h2>
 				</div>

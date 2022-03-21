@@ -10,13 +10,13 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <h2 class="display-2 text-center mt-3 mb-0" editable="inline"> Menu</h2>
-          <h2 class="text-muted h1 mb-5" editable="inline">Starters</h2>
+          <h2 class="display-2 text-center mt-3 mb-5" editable="inline" style="color: #bd8859;"> Menu</h2>
         </div>
       </div>
-      <c:forEach items="${products}" var="product">
       <div class="row">
+        <c:forEach items="${products}" var="product">
         <div class="col-md-6">
+          
           <div class="lc-block">
             <div class="item-menu">
               <div class="item-menu-content">
@@ -24,8 +24,10 @@
                 <p class="item-menu-desc" editable="inline"><c:out value = "${product.description}"/><br></p>
               </div>
             </div>
+            </div>
+            </div>
+          </c:forEach>
           </div>
         </div>
-      </c:forEach>
 
 </petclinic:layout>
