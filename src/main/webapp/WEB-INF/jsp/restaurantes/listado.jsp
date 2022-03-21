@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 
@@ -40,9 +41,8 @@
               <p class="card-text"><c:out value = "${restaurante.description}"/></p>
               <div class="col-12 mb-3">
                   <!-- aquí va un foreach-->
-                 <span class="badge bg-dark">Filtro</span>
-                 <span class="badge bg-dark">Filtro</span>
-                <span class="badge bg-dark">Filtro</span>
+                  
+                <span class="badge bg-dark"><c:out value = "${restaurante.type}"/></span>
               </div>
 
               <div class="col-6">
