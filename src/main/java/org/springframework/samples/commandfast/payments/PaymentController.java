@@ -31,9 +31,29 @@ public class PaymentController {
 	
 	@GetMapping(value = "/payment/{id_comanda}")
 	public String payOrder(@PathVariable("id_comanda") int id_commanda,  Map<String, Object> model) {
-		System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 		Optional<Command> command = commandService.findIdCommands(id_commanda);
 		this.paymentService.makePayment(command.get().getPrice(), command.get().getMesa());
+		
+		return "welcome";
+		
+	}
+	
+	@GetMapping(value = "/payment/cash/{id_comanda}")
+	public String payHereCash(@PathVariable("id_comanda") int id_commanda,  Map<String, Object> model){
+		Optional<Command> command = commandService.findIdCommands(id_commanda);	
+		this.paymentService.makePayment(command.get().getPrice(), command.get().getMesa());
+		
+		return "welcome";
+		
+	}
+	
+	@GetMapping(value = "/payment/creditCard/{id_comanda}")
+	public String payHerecCard(@PathVariable("id_comanda") int id_commanda,  Map<String, Object> model){
+		Optional<Command> command = commandService.findIdCommands(id_commanda);
+		
+		Payment payment =this.paymentService.makePayment(command.get().getPrice(), command.get().getMesa());
+		payment.setCreditCard(true);
+		this.paymentService.savePayment(payment);
 		
 		return "welcome";
 		

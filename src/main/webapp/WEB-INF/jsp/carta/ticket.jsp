@@ -32,7 +32,7 @@
     						<c:if test="${linea.plate.id == plato.id}">
     							<span><c:out value="${linea.quantity}"/></span>
     							<td>
-    								<c:out value=""/>
+    								<c:out value="${plato.cost*linea.quantity}"/>
     							</td>
     						</c:if>
     					</c:forEach>
@@ -40,21 +40,25 @@
     					
 				</tr>
     		</c:forEach>
-    		<tr>
-    			<td></td>
-    			<td></td>
-    			<td></td>
-    		</tr>
     	</tbody>
     </table>
     			<td><span><c:out value="${suma} $"/></span></td>
     			
-    			 <spring:url value="/charge" var="url">
-           		<!--
-           		<spring:param name="id_comanda" value="${id_commanda}"/>
-           		-->
-           </spring:url>
-     <a class="btn btn-default" href="${fn:escapeXml(url)}"><span>Pagar</span></a>
+   	<spring:url value="/payment/{id_comanda}" var="url">
+    <spring:param name="id_comanda" value="${id_commanda}"/>
+    </spring:url>
+    <a class="btn btn-default" href="${fn:escapeXml(url)}"><span>Pagar online</span></a>
+     
+    <spring:url value="/payment/cash/{id_comanda}" var="url2">
+    <spring:param name="id_comanda" value="${id_commanda}"/>
+    </spring:url>
+    <a class="btn btn-default" href="${fn:escapeXml(url2)}"><span>Pagar en efectivo</span></a>
+     
+     <spring:url value="/payment/creditCard/{id_comanda}" var="url2">
+     <spring:param name="id_comanda" value="${id_commanda}"/>
+     </spring:url>
+     <a class="btn btn-default" href="${fn:escapeXml(url2)}"><span>Pagar con tarjeta</span></a>
+     
 </petclinic:layout>
 
 

@@ -19,12 +19,15 @@ public class Payment extends BaseEntity{
 	
 	@NotNull
 	@Min(0)
-	Double amount;
+	private Double amount;
 	
 	@NotNull
-	LocalDate date;
+	private LocalDate date;
 	
 	@ManyToOne
 	private Mesa table;
+	
+	@NotNull
+	private Boolean creditCard=false;
 	
 }

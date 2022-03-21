@@ -1,6 +1,8 @@
 package org.springframework.samples.commandfast.payments;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -21,7 +23,7 @@ public class PaymentService {
 	}
 	
 	@Transactional
-	public void makePayment(Double amount,Mesa table) {
+	public Payment makePayment(Double amount,Mesa table) {
 		Payment payment = new Payment();
 		
 		payment.setAmount(amount);
@@ -32,7 +34,16 @@ public class PaymentService {
 		
 		savePayment(payment);
 		
+		return payment;
 		
 	}
+	
+	public Optional<Payment> getPaymentById(Integer id) {
+		
+		return paymentRepository.findById(id);
+	}
 
+	public List<Payment> getAllPayments(){
+		return (List<Payment>) paymentRepository.findAll();
+	}
 }
