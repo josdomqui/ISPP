@@ -40,22 +40,14 @@ public class RestaurantController {
 		return "restaurantes/listado";
 	}
 
-	/*
+	
 	@GetMapping(value = { "/{id}/detalles" })
-	public ModelAndView showRestautanteDetails(@PathVariable("id") Integer id) {
-		model.put("detallesRestaurante", restaurantService.findRestaurantById(id));
+	public String showRestautanteDetails(@PathVariable("id") Integer id, Map<String, Object> model) {
+		Optional<Restaurant> restaurante = restaurantService.findRestaurantById(id);
+		model.put("detallesRestaurante", restaurante.get());
 		return "restaurantes/detalles";
 	}
-	*/
-
-	@GetMapping(value = { "/{id}/detalles" })
-	public ModelAndView showRestautanteDetails(@PathVariable("id") Integer id) {
-		ModelAndView mav = new ModelAndView("restaurantes/detalles");
-		mav.addObject(this.restaurantService.findRestaurantById(id));
-		return mav;
-	}
 	
-
 
 	@GetMapping("/restaurantes/{id}/edit")
 	public String editRestaurante(@PathVariable("id") Integer id, ModelMap model) {

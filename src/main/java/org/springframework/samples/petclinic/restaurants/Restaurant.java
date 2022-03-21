@@ -62,6 +62,12 @@ public class Restaurant extends NamedEntity {
 	@Column(name = "schedule")
 	@NotEmpty
 	private String schedule;
+
+	@Column(name = "email")
+	@NotEmpty
+	private String email;
+
+	
 	
 	
 	
