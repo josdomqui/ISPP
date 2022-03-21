@@ -10,12 +10,17 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.samples.petclinic.product.Product;
 public interface RestaurantRepository extends Repository<Restaurant, Integer> {
 	
 	void save(Restaurant restaurant) throws DataAccessException;
 
 	@Query("SELECT restaurant FROM Restaurant restaurant")
 	public Collection<Restaurant> findAll();
+
+	
+	@Query("SELECT product FROM Product product")
+	public Collection<Product> findAllProduct();
 
 	@Query("SELECT restaurant FROM Restaurant restaurant WHERE restaurant.id =:id")
 	public Optional<Restaurant> findById(@Param("id") int id);

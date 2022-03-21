@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.samples.petclinic.product.Product;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +33,7 @@ public class RestaurantService {
 	public Optional<Restaurant> findRestaurantById(int id) throws DataAccessException {
 		return restaurantRepository.findById(id);
 	}
+	
 	@Transactional
 	public void saveRestaurant(Restaurant restaurant) throws DataAccessException {
 		//creating owner
@@ -43,7 +45,12 @@ public class RestaurantService {
 		return restaurantRepository.findAll();
 	}
 
-
+	
+	@Transactional
+	public Collection<Product> findAllMenu() throws DataAccessException{
+		return restaurantRepository.findAllProduct();
+	}
+	
 
 
 
