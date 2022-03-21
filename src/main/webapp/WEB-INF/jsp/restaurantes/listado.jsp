@@ -9,16 +9,18 @@
 <petclinic:layout pageName="vets">
 
 
-    <form class="row g-3">
+    <form class="row g-3" method="post" action="/restaurante/list">
         <div class="col-md-6">
           <label for="inputEmail4" class="form-label">Lugar</label>
-          <input type="email" class="form-control" id="inputEmail4">
+          <input type="text" class="form-control" id="inputPlace">
         </div>
         <div class="col-md-6">
             <label for="inputState" class="form-label">Filtros</label>
             <select id="inputState" class="form-control form-select">
-              <option selected>Choose...</option>
-              <option>...</option>
+
+              <c:forEach items="${listaTipos}" var="tipo">
+                <option>${tipo}</option>
+              </c:forEach>
             </select>
           </div>
         <div class="col-12">
