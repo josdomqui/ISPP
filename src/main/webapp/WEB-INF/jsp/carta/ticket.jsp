@@ -54,10 +54,10 @@
     </spring:url>
     <a class="btn btn-default" href="${fn:escapeXml(url2)}"><span>Pagar en efectivo</span></a>
      
-     <spring:url value="/payment/creditCard/{id_comanda}" var="url2">
+     <spring:url value="/payment/creditCard/{id_comanda}" var="url3">
      <spring:param name="id_comanda" value="${id_commanda}"/>
      </spring:url>
-     <a class="btn btn-default" href="${fn:escapeXml(url2)}"><span>Pagar con tarjeta</span></a>
+     <a class="btn btn-default" href="${fn:escapeXml(url3)}"><span>Pagar con tarjeta</span></a>
      
 </petclinic:layout>
 

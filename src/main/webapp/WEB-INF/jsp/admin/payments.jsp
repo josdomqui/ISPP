@@ -19,6 +19,7 @@
     </thead>
     <tbody>
     		<c:forEach items="${payments}" var="payment">
+    		<c:if test="${payment.payHere==true}">
     			<tr>
     					<td>
     						<span><c:out value="${payment.table.number}"/></span>
@@ -38,6 +39,7 @@
     						</td>
     					</c:if>   					
 				</tr>
+				</c:if>
     		</c:forEach>
     	</tbody>
     </table>   			

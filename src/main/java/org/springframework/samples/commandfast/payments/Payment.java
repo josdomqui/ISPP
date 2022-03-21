@@ -28,6 +28,9 @@ public class Payment extends BaseEntity{
 	private Mesa table;
 	
 	@NotNull
+	private Boolean payHere=false;
+	
+	@NotNull
 	private Boolean creditCard=false;
 	
 }

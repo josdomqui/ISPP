@@ -41,7 +41,9 @@ public class PaymentController {
 	@GetMapping(value = "/payment/cash/{id_comanda}")
 	public String payHereCash(@PathVariable("id_comanda") int id_commanda,  Map<String, Object> model){
 		Optional<Command> command = commandService.findIdCommands(id_commanda);	
-		this.paymentService.makePayment(command.get().getPrice(), command.get().getMesa());
+		Payment payment = this.paymentService.makePayment(command.get().getPrice(), command.get().getMesa());
+		payment.setPayHere(true);
+		this.paymentService.savePayment(payment);
 		
 		return "welcome";
 		
@@ -53,6 +55,7 @@ public class PaymentController {
 		
 		Payment payment =this.paymentService.makePayment(command.get().getPrice(), command.get().getMesa());
 		payment.setCreditCard(true);
+		payment.setPayHere(true);
 		this.paymentService.savePayment(payment);
 		
 		return "welcome";
