@@ -14,23 +14,24 @@
 		<div class="col-md-12 text-center">
 			<div class="lc-block mb-4">
 				<div editable="rich">
-					<h2 class="display-3 fw-bolder"><c:out value = "${detallesRestaurante.name}"/></h2>
+					<h2 class="display-3 fw-bolder" style="color: #bd8859;"><c:out value = "${detallesRestaurante.name}"/></h2>
 					<p><c:out value = "${detallesRestaurante.description}"/></p>
-					<button type="button" class="btn-default">Ver carta</button>
+					<h2><button type="button" class="btn-default">Ver carta</button></h2>
 				</div>
 			</div><!-- /lc-block -->
-			<div class="lc-block border-top col-md-6 offset-md-3">
+			<div class="lc-block border-top col-md-6 offset-md-3" style="border-top: 2px solid #b98057 !important;">
 				<div editable="rich">
 					<h2 class="fw-bolder"><br></h2>
 				</div>
 			</div>
-			<div class="lc-block mb-4">
+			<div class="lc-block mb-4" >
 				<div editable="rich">
 					<h2 class="fw-bolder" style="
                     display: flex;
                     justify-content
                 : center;
                     width: 100%;
+					color: #8d6542;
                 ">Working Hours</h2>
 				</div>
 			</div>
@@ -55,7 +56,7 @@
 		<div class="col-md-6 px-5">
 			<div class="lc-block mb-4">
 				<div editable="rich">
-					<h2 class="display-6 fw-bolder">Find us!<p></p>
+					<h2 class="display-6 fw-bolder" style="color: #8d6542;">Find us!<p></p>
 						<p></p>
 					</h2>
 				</div>
