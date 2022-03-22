@@ -42,4 +42,9 @@ public class RestaurantService {
 		return restaurantRepository.findAll();
 	}
 
+
+    public List<Restaurant> findByType(RestaurantType restaurantType) {
+        return restaurantRepository.findByType(restaurantType);
+    }
+
 }
