@@ -1,7 +1,9 @@
 package org.springframework.samples.petclinic.restaurants;
 
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.EnumSet;
 import java.util.Map;
 import java.util.Optional;
 
@@ -15,10 +17,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 
 
 @Controller
+@RequestMapping("/restaurante")
 public class RestaurantController {
 
 	//TODO
@@ -29,6 +33,14 @@ public class RestaurantController {
 	@Autowired
 	public RestaurantController(RestaurantService restaurantService) {
 		this.restaurantService = restaurantService;
+	}
+
+	@GetMapping(value = { "/list" })
+	public String showRestautanteList(Map<String, Object> model) {
+		ArrayList<RestaurantType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestaurantType.class));
+		model.put("listaRestaurante", restaurantService.findAllRestaurants());
+		model.put("listaTipos", listaTipoRestaurantes);
+		return "restaurantes/listado";
 	}
 
 	@GetMapping("/restaurantes/{id}/edit")
