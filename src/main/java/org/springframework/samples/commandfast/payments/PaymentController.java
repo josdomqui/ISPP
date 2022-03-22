@@ -50,7 +50,7 @@ public class PaymentController {
 		payment.setPayHere(true);
 		this.paymentService.savePayment(payment);
 		
-		return "welcome";
+		return "redirect:/welcome";
 		
 	}
 	
@@ -63,7 +63,7 @@ public class PaymentController {
 		payment.setPayHere(true);
 		this.paymentService.savePayment(payment);
 		
-		return "welcome";
+		return "redirect:/welcome";
 		
 	}
 
