@@ -14,17 +14,16 @@ INSERT INTO tables(id, number, costumer) values (1, 1, 3);
 
 INSERT INTO commands(id, name, price, mesa_id) values (1, 'usuario', 53.02, 1);
 
-INSERT INTO plates(id, name, category, cost) values (1, 'Huevos Lartisan', 'Media-Racion', '11');
-INSERT INTO plates(id, name, category, cost) values (2, 'Solomillo de vaca', 'Racion', '18');
-INSERT INTO plates(id, name, category, cost) values (3, 'Chuleta de atun', 'Tapa', '55');
-
-INSERT INTO plates(id, name, category, cost) values (4, 'Souffle de verduras con atun', 'Entrante', '17');
-INSERT INTO plates(id, name, category, cost) values (5, 'Cordero con yeso y tupinambo', 'Plato princiapl', '28');
-INSERT INTO plates(id, name, category, cost) values (6, 'Cromlech de Madioca y Huitlacoche', 'Plato princiapl', '60');
-INSERT INTO plates(id, name, category, cost) values (7, 'Trufón de chocolate', 'Postre', '13');
-INSERT INTO plates(id, name, category, cost) values (8, 'Angulas a la vongole con navajas de playa', 'Entrante', '55');
-INSERT INTO plates(id, name, category, cost) values (9, 'Ensalada líquida Andalusí', 'Entrante', '16');
-INSERT INTO plates(id, name, category, cost) values (10,'Chuleta de raya Nikkei con pure de maiz', 'Plato principal', '42');
+INSERT INTO plates(id, name, category, cost, image) values (1, 'Huevos Lartisan', 'Media-Racion', '11', '/resources/images/Huevos Lartisan.jpg');
+INSERT INTO plates(id, name, category, cost, image) values (2, 'Solomillo de vaca', 'Racion', '18', '/resources/images/Solomillo de vaca.jpg');
+INSERT INTO plates(id, name, category, cost, image) values (3, 'Chuleta de atun', 'Tapa', '55', '/resources/images/Chuleta de atun.jpg');
+INSERT INTO plates(id, name, category, cost, image) values (4, 'Souffle de verduras con atun', 'Entrante', '17', '/resources/images/Souffle de verduras con atun.png');
+INSERT INTO plates(id, name, category, cost, image) values (5, 'Cordero con yeso y tupinambo', 'Plato princiapl', '28', '/resources/images/Cordero con yeso y tupinambo.JPEG');
+INSERT INTO plates(id, name, category, cost, image) values (6, 'Cromlech de Madioca y Huitlacoche', 'Plato princiapl', '60', '/resources/images/Cromlech de Madioca y Huitlacoche.jpg');
+INSERT INTO plates(id, name, category, cost, image) values (7, 'Trufón de chocolate', 'Postre', '13', '/resources/images/Trufón de chocolate.jpg');
+INSERT INTO plates(id, name, category, cost, image) values (8, 'Angulas a la vongole con navajas de playa', 'Entrante', '55', '/resources/images/Angulas a la vongole con navajas de playa.jpg');
+INSERT INTO plates(id, name, category, cost, image) values (9, 'Ensalada líquida Andalusí', 'Entrante', '16', '/resources/images/Ensalada líquida Andalusí.jpg');
+INSERT INTO plates(id, name, category, cost, image) values (10,'Chuleta de raya Nikkei con pure de maiz', 'Plato principal', '42', '/resources/images/Chuleta de raya Nikkei con pure de maiz.jpg');
 
 
 

@@ -33,8 +33,12 @@ public class Plate extends NamedEntity{
 	
 	@Column(name = "category")
 	@NotEmpty
-	String category; 
+	String category;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "plate")
 	private Set<Line> lines;
+	
+	@Column(name = "image")
+	@NotEmpty
+	String image;
 }
