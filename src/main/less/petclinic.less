@@ -18,6 +18,9 @@
 @spring-brown:      #34302D;
 @spring-grey:       #838789;
 @spring-light-grey: #f1f1f1;
+@primary-brown: #bd8859;
+@primary-border-brown: #d19056;
+@secondary-brown: #9f6f44;
 @spring-blue: rgb(0, 128, 255);
 
 @body-bg:                           @spring-light-grey;
@@ -71,14 +74,17 @@
   -moz-transition: border 0.15s;
   -o-transition: border 0.15s;
   -ms-transition: border 0.15s;
+  background-color: @primary-brown;
+  border-color: @primary-border-brown;
 
   &:hover,
   &:focus,
   &:active,
   &.active,
   .open .dropdown-toggle& {
-    background-color: @spring-blue;
-    border-color: @spring-brown;
+    background-color: @secondary-brown;
+    border-color: @secondary-brown;
+
   }
 }
 

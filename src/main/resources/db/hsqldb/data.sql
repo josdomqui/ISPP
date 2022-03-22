@@ -8,6 +8,17 @@ INSERT INTO authorities(id,username,authority) VALUES (2,'owner1','owner');
 INSERT INTO users(username,password,enabled) VALUES ('vet1','v3t',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (3,'vet1','veterinarian');
 
+INSERT INTO restaurants(id, name, address, city, description, telephone, photo) VALUES (1, 'Gomez Martin SC', 'C/San juan del puerto a caceres, Nº 12', 'HUELVA', 'Establecimiento de bebidas y cafetería', 959121521,'/resources/images/bar1.jpg');
+INSERT INTO restaurants(id, name, address, city, description, telephone, photo) VALUES (2, 'Tabernas Sevilla', 'C/Gamazo 6', 'SEVILLA', 'Restaurante de cocina mediterránea con opciones vegetarianas', 954221128,'/resources/images/bar2.jpg');
+INSERT INTO restaurants(id, name, address, city, description, telephone, photo) VALUES (3, 'La mitad del cuarto', 'C/AV José Laguillo', 'SEVILLA', 'Lugar idóneo para tapear', 954533124,'/resources/images/bar3.jpg');
+
+INSERT INTO restaurante_type(restaurante_id, type) VALUES (1,'DOS_TENEDORES');
+INSERT INTO restaurante_type(restaurante_id, type) VALUES (1,'CERVECERIA');
+INSERT INTO restaurante_type(restaurante_id, type) VALUES (2,'COMEDORES');
+INSERT INTO restaurante_type(restaurante_id, type) VALUES (2,'EUROPA_DEL_ESTE');
+INSERT INTO restaurante_type(restaurante_id, type) VALUES (3,'GOURMET');
+INSERT INTO restaurante_type(restaurante_id, type) VALUES (3,'AUTOR');
+
 INSERT INTO owners VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', 'Madison', '6085551023', 'owner1');
 
 INSERT INTO tables(id, number, costumer) values (1, 1, 3);
@@ -25,8 +36,4 @@ INSERT INTO plates(id, name, category, cost) values (7, 'Trufón de chocolate', 
 INSERT INTO plates(id, name, category, cost) values (8, 'Angulas a la vongole con navajas de playa', 'Entrante', '55');
 INSERT INTO plates(id, name, category, cost) values (9, 'Ensalada líquida Andalusí', 'Entrante', '16');
 INSERT INTO plates(id, name, category, cost) values (10,'Chuleta de raya Nikkei con pure de maiz', 'Plato principal', '42');
-
-INSERT INTO restaurants(id, name, address, city, description, telephone, photo) VALUES (1, 'Gomez Martin SC', 'C/San juan del puerto a caceres, Nº 12', 'Huelva', 'Establecimiento de bebidas y cafetería', 959121521,'/resources/images/bar1.jpg');
-INSERT INTO restaurants(id, name, address, city, description, telephone, photo) VALUES (2, 'Tabernas Sevilla', 'C/Gamazo 6', 'Sevilla', 'Restaurante de cocina mediterránea con opciones vegetarianas', 954221128,'/resources/images/bar2.jpg');
-INSERT INTO restaurants(id, name, address, city, description, telephone, photo) VALUES (3, 'La mitad del cuarto', 'C/AV José Laguillo', 'Sevilla', 'Lugar idóneo para tapear', 954533124,'/resources/images/bar3.jpg');
 
