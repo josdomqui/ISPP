@@ -48,29 +48,27 @@ public class RestaurantController {
 	}
 
 	@GetMapping(value = { "/list/search" })
-	public String showRestautanteToSearch(@RequestParam("inputPlace") String place, Map<String, Object> model) {
-		//, @RequestParam("inputState") String type
-		System.out.println("************************************".concat(place));
+	public String showRestautanteToSearch(@RequestParam("inputPlace") String place, Map<String, Object> model, @RequestParam("inputState") String type) {
 		//System.out.println("************************************".concat(type));
+		ArrayList<RestaurantType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestaurantType.class));
+		model.put("listaTipos", listaTipoRestaurantes);
 		List<Restaurant> lrestaurantes= new ArrayList<>();
-		List<RestaurantType> ltipos= new ArrayList<>();
-		
-		for(Restaurant r: restaurantService.findAllRestaurants()){
-			for(int i = 0; i<r.getType().size()-1;i++)
-				if(r.getType().get(i).toString().toLowerCase().equals(type)){
-					List<Restaurant>  lr = restaurantService.findByType(RestaurantType.DOS_TENEDORES);
-					lrestaurantes.addAll(lr);
-					ltipos.add(r.getType().get(i));
-            }
-		}
-		
+		List<Restaurant> lres= new ArrayList<>();
+
 		if(place.isEmpty()){
 			lrestaurantes = restaurantService.findAllRestaurants();
 		}else{
 			lrestaurantes = restaurantService.findByCity(place.toUpperCase());
 		}
-
-
+		System.out.println("*****************************"+type);
+		if (!(type.equals("Selecciona una opción"))) {
+			for(Restaurant r: restaurantService.findAllRestaurants()){
+				if(r.getType().contains(RestaurantType.valueOf(type))){
+					lres.add(r);
+				}
+			}
+			lrestaurantes.retainAll(lres);
+		}
 		model.put("listaRestaurante", lrestaurantes);
 		//model.put("listaTipos", ltipos);
 		return "restaurantes/listado";

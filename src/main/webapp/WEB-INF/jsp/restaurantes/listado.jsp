@@ -1,3 +1,4 @@
+
 <%@ page session="false" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -5,7 +6,7 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page contentType="text/html"%>
-<%@page pageEncoding="UTF-8"%>
+<%@page pageEncoding="UTF-8"%> 
 
 <petclinic:layout pageName="vets">
 
@@ -15,17 +16,17 @@
           <label for="inputEmail4" class="form-label">Lugar</label>
           <input type="text" class="form-control" name= "inputPlace" id="inputPlace">
         </div>
-        <!--
+        
         <div class="col-md-6">
             <label for="inputState" class="form-label">Filtros</label>
             <select id="inputState" name= "inputState" class="form-control form-select">
-
+              <option selected>Selecciona una opción</option>
               <c:forEach items="${listaTipos}" var="tipo">
                 <option>${tipo}</option>
               </c:forEach>
             </select>
           </div>
-          -->
+          
         <div class="col-12">
          <h3><button type="submit" class="btn-default">Buscar</button></h3> 
         </div>
