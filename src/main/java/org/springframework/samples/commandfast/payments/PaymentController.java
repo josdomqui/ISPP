@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.samples.commandfast.command.Command;
 import org.springframework.samples.commandfast.command.CommandService;
 import org.springframework.samples.commandfast.mesa.MesaService;
@@ -21,20 +22,24 @@ public class PaymentController {
 
 	private final CommandService commandService;
 	private final PaymentService paymentService;
+	@Value("${STRIPE_PUBLIC_KEY}")
+    private String API_PUBLIC_KEY;
 	
 	@Autowired
 	public PaymentController(UserService userService, AuthoritiesService authoritiesService, MesaService mesaService, CommandService commandService, PaymentService paymentService) {
 
 		this.commandService = commandService;
 		this.paymentService = paymentService;
+		
 	}
 	
 	@GetMapping(value = "/payment/{id_comanda}")
 	public String payOrder(@PathVariable("id_comanda") int id_commanda,  Map<String, Object> model) {
 		Optional<Command> command = commandService.findIdCommands(id_commanda);
 		this.paymentService.makePayment(command.get().getPrice(), command.get().getMesa());
-		
-		return "welcome";
+		model.put("stripePublicKey", API_PUBLIC_KEY);
+		model.put("price", command.get().getPrice());
+		return "payment/charge";
 		
 	}
 	

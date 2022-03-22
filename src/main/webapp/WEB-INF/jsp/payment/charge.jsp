@@ -32,8 +32,8 @@
                 </p>
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h5>Leather Bag</h5>
-                        <p class="lead">USD 9.99</p>
+                        <h5>Pedido CommandFast</h5>
+                        <c:out value="${price} $"/>
                     </div>
                 </div>
                 <form action="#" id="payment-form" method="post">
@@ -54,9 +54,9 @@
                     <!-- Used to display Element errors. -->
                     <div class="text-danger w-100" id="card-errors" role="alert"></div>
                     <div class="form-group pt-2">
-                        <button class="btn btn-primary btn-block" id="submitButton" type="submit">
+                        <a class="btn btn-primary btn-block" id="submitButton" href="${fn:escapeXml('/welcome')}">
                             Pay With Your Card
-                        </button>
+                        </a>
                         <div class="small text-muted mt-2">
                             Pay securely with Stripe. By clicking the button above, you agree
                             to our <a target="_blank" href="#">Terms of Service</a>,
@@ -118,8 +118,8 @@
                     // Send the token to your server.
                     var token = result.token.id;
                     var email = $('#email').val();
-                    $.post(
-                        "/charge",
+                    $.get(
+                        "/welcome",
                         {email: email, token: token},
                         function (data) {
                             alert(data.details);

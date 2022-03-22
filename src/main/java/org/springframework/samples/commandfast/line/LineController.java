@@ -35,12 +35,15 @@ import org.springframework.samples.commandfast.plate.PlateService;
 import org.springframework.samples.commandfast.user.AuthoritiesService;
 import org.springframework.samples.commandfast.user.UserService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * @author Juergen Hoeller
@@ -67,7 +70,7 @@ public class LineController {
 	}
 	
 	@GetMapping(value = "/carta/{id_comanda}/ticket")
-	public String processCreationForm(@PathVariable("id_comanda") int id_commanda,  Map<String, Object> model) {
+	public String processCreationForm(@PathVariable("id_comanda") int id_commanda,  Map<String, Object> model, RedirectAttributes redirectAttrs) {
 		Collection<Line> lineas = this.lineService.findLineByCommandId(id_commanda);
 		Collection<Plate> platos = this.plateService.findAllPlates();
 		Optional<Command> command = this.commandService.findIdCommands(id_commanda);
@@ -83,6 +86,13 @@ public class LineController {
 				}
 			}
 		}
+		if(suma == 0.) { //validación para que no se pueda hacer un pedido sin platos
+			ModelMap map = new ModelMap();
+			//map.addAttribute("message", true);
+			redirectAttrs.addFlashAttribute("message", "Por favor, añada platos a su pedido antes de finalizarlo");
+			return("redirect:/carta/" + id_commanda);
+			//return new ModelAndView("redirect:/carta/" + id_commanda, map);
+		}
 		command.get().setPrice(suma);
 		commandService.saveCommand(command.get());
 		model.put("lista_res", res);
@@ -90,6 +100,7 @@ public class LineController {
 		model.put("lista_linea", lineas);
 		model.put("suma", suma);
 		return "carta/ticket";
+		//return new ModelAndView("carta/ticket", model);
 	}
 
 	
