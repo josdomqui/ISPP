@@ -13,18 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.commandfast.product;
+package org.springframework.samples.commandfast.restaurantes;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import org.springframework.samples.commandfast.model.NamedEntity;
-import org.springframework.samples.commandfast.restaurantes.Restaurante;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -32,22 +31,47 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "Products")
-public class Product extends NamedEntity {
+@Table(name = "restaurants")
+public class Restaurante extends NamedEntity {
 
-	@Column(name = "name")
-	@Size(min=2)
-	private String name;
+	@Column(name = "city")
+	@NotEmpty
+	private String city;
+
+	@Column(name = "telephone")
+	@NotEmpty
+	@Positive
+	@Digits(fraction = 0, integer = 9)
+	private String telephone;
+
+	@Column(name= "address")
+	@NotEmpty
+	private String address;
 
 	@Column(name = "description")
+	@Size(min = 25, max = 250)
+	@NotEmpty
 	private String description;
 
-	@Column(name = "price")
+	@Column(name = "photo")
+	private String photo;
+	
+	@Column(name = "capacity")
+	@NotEmpty
 	@Positive
-	private Double price;
+	private Integer capacity;
+	
+	@Column(name = "schedule")
+	@NotEmpty
+	private String schedule;
 
-	@ManyToOne
-	@JoinColumn(name = "restaurant_id")
-	private Restaurante restaurant;
+	@Column(name = "email")
+	@NotEmpty
+	private String email;
+
+	
+	
+	
+	
 
 }

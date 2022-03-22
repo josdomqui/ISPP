@@ -13,15 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.commandfast.user;
+package org.springframework.samples.commandfast.command;
+
 
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.commandfast.owner.Owner;
-import org.springframework.samples.commandfast.owner.OwnerService;
+import org.springframework.samples.commandfast.user.AuthoritiesService;
+import org.springframework.samples.commandfast.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -36,15 +37,13 @@ import org.springframework.web.bind.annotation.PostMapping;
  * @author Michael Isvy
  */
 @Controller
-public class UserController {
+public class CommandController {
 
-	private static final String VIEWS_OWNER_CREATE_FORM = "users/createOwnerForm";
-
-	private final OwnerService ownerService;
+	private final CommandService commandService;
 
 	@Autowired
-	public UserController(OwnerService clinicService) {
-		this.ownerService = clinicService;
+	public CommandController(CommandService commandService, UserService userService, AuthoritiesService authoritiesService) {
+		this.commandService = commandService;
 	}
 
 	@InitBinder
@@ -52,22 +51,23 @@ public class UserController {
 		dataBinder.setDisallowedFields("id");
 	}
 
-	@GetMapping(value = "/users/new")
+	@GetMapping(value = "/command/new")
 	public String initCreationForm(Map<String, Object> model) {
-		Owner owner = new Owner();
-		model.put("owner", owner);
-		return VIEWS_OWNER_CREATE_FORM;
+		Command command = new Command();
+		model.put("command", command);
+		return "command/createCommand";
 	}
 
-	@PostMapping(value = "/users/new")
-	public String processCreationForm(@Valid Owner owner, BindingResult result) {
+	@PostMapping(value = "/command/new")
+	public String processCreationForm(@Valid Command command, BindingResult result) {
 		if (result.hasErrors()) {
-			return VIEWS_OWNER_CREATE_FORM;
+			return "command/createCommand";
 		} else {
-			// creating owner, user, and authority
-			this.ownerService.saveOwner(owner);
-			return "redirect:/";
+			this.commandService.saveCommand(command);
+			Integer id_command = command.getId();
+			return "redirect:/carta/"+id_command;
 		}
 	}
-
+	
+	
 }

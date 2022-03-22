@@ -13,26 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.commandfast.web;
+package org.springframework.samples.commandfast.command;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 /**
- * Controller used to showcase what happens when an exception is thrown
+ * Spring Data JPA OwnerRepository interface
  *
  * @author Michael Isvy
- *         <p/>
- *         Also see how the bean of type 'SimpleMappingExceptionResolver' has
- *         been declared inside /WEB-INF/mvc-core-config.xml
+ * @since 15.1.2013
  */
-@Controller
-public class CrashController {
+public interface CommandRepository extends CrudRepository<Command, Integer> {
 
-	@GetMapping(value = "/oups")
-	public String triggerException() {
-		throw new RuntimeException(
-				"Expected: controller used to showcase what " + "happens when an exception is thrown");
-	}
+	@Query("SELECT command FROM Command command WHERE command.id =:id")
+	public Command findById(@Param("id") int id);
+
+	@Query("SELECT command FROM Command command")
+	public List<Command> findCommands();
 
 }

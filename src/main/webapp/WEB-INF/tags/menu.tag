@@ -16,10 +16,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="navbar-text active" aria-current="page" href="/">Home</a>
+          <a style="text-decoration: none; color: white;" class="navbar-text active" aria-current="page" href="/"><span style="color: rgb(255,255,255);" class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a>
         </li>
-		     <li class="nav-item">
-          <a class="navbar-text active" aria-current="page" href="/restaurante/list">Restaurantes</a>
+		<li class="nav-item">
+          <a style="text-decoration: none; color: white;" class="navbar-text active" aria-current="page" href="/restaurante/list"><span style="color: rgb(255,255,255);" class="glyphicon glyphicon-search" aria-hidden="true"></span> Restaurantes</a>
+        </li>
+        <li class="nav-item">
+          <a style="text-decoration: none; color: white;" class="navbar-text active" aria-current="page" href="/command/new"><span style="color: rgb(255,255,255);" class="glyphicon glyphicon-cutlery" aria-hidden="true"></span> Pedir</a>
         </li>
       </ul>
     </div>

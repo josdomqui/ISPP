@@ -9,6 +9,6 @@ package org.springframework.samples.commandfast.pet.exceptions;
  *
  * @author japarejo
  */
-public class DuplicatedPetNameException extends Exception{
-    
+public class DuplicatedPetNameException extends Exception {
+
 }

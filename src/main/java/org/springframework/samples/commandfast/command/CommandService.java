@@ -13,10 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.commandfast.user;
+package org.springframework.samples.commandfast.command;
 
+import java.util.Collection;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -29,34 +32,37 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Michael Isvy
  */
 @Service
-public class AuthoritiesService {
+public class CommandService {
+	
+	//Necesario para el uso de logs.
+	private static final Logger log = LoggerFactory.getLogger(CommandService.class);
 
-	private AuthoritiesRepository authoritiesRepository;
-	private UserService userService;
+	private CommandRepository commandRepository;
 
 	@Autowired
-	public AuthoritiesService(AuthoritiesRepository authoritiesRepository, UserService userService) {
-		this.authoritiesRepository = authoritiesRepository;
-		this.userService = userService;
+	public CommandService(CommandRepository commandRepository) {
+		this.commandRepository = commandRepository;
+	}
+	
+	@Transactional(readOnly = true)
+	public Collection<Command> findCommands() throws DataAccessException {
+		log.info("Buscando todas las comandas existentes");
+		return commandRepository.findCommands();
+	}
+	
+	@Transactional(readOnly = true)
+	public Optional<Command> findIdCommands(Integer id) throws DataAccessException {
+		log.info("Buscando todas las comandas existentes");
+		return commandRepository.findById(id);
+	}
+	
+	@Transactional
+	public void saveCommand(Command command) throws DataAccessException {
+		log.info("Guardando la comanda en la BD");
+		commandRepository.save(command);
+		log.info("Comanda guardada correctamente");
+	
 	}
 
-	@Transactional
-	public void saveAuthorities(Authorities authorities) throws DataAccessException {
-		authoritiesRepository.save(authorities);
-	}
-
-	@Transactional
-	public void saveAuthorities(String username, String role) throws DataAccessException {
-		Authorities authority = new Authorities();
-		Optional<User> user = userService.findUser(username);
-		if (user.isPresent()) {
-			authority.setUser(user.get());
-			authority.setAuthority(role);
-			// user.get().getAuthorities().add(authority);
-			authoritiesRepository.save(authority);
-		} else
-			throw new DataAccessException("User '" + username + "' not found!") {
-			};
-	}
 
 }

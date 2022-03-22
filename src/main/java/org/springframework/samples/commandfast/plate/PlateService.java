@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.commandfast.owner;
+package org.springframework.samples.commandfast.plate;
 
 import java.util.Collection;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.samples.commandfast.user.AuthoritiesService;
-import org.springframework.samples.commandfast.user.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 /**
  * Mostly used as a facade for all Petclinic controllers Also a placeholder
@@ -31,39 +31,34 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Michael Isvy
  */
 @Service
-public class OwnerService {
+public class PlateService {
 
-	private OwnerRepository ownerRepository;
+	private PlateRepository plateRepository;
 
-	@Autowired
-	private UserService userService;
+//	private static final Logger log = LoggerFactory.getLogger(PlateService.class);
 
-	@Autowired
-	private AuthoritiesService authoritiesService;
 
-	@Autowired
-	public OwnerService(OwnerRepository ownerRepository) {
-		this.ownerRepository = ownerRepository;
-	}
-
+    @Autowired
+    public PlateService(PlateRepository plateRepository) {
+        this.plateRepository = plateRepository;
+    }
+	
 	@Transactional(readOnly = true)
-	public Owner findOwnerById(int id) throws DataAccessException {
-		return ownerRepository.findById(id);
+	public Collection<Plate> findAllPlates() throws DataAccessException {
+		return plateRepository.findAllPlates();
 	}
-
+	
 	@Transactional(readOnly = true)
-	public Collection<Owner> findOwnerByLastName(String lastName) throws DataAccessException {
-		return ownerRepository.findByLastName(lastName);
-	}
-
+    public Plate findPlateById(int id) throws DataAccessException {
+//        log.info("Buscando el plato con id "+ id);
+        return plateRepository.findById(id);
+    }
+	
 	@Transactional
-	public void saveOwner(Owner owner) throws DataAccessException {
-		// creating owner
-		ownerRepository.save(owner);
-		// creating user
-		userService.saveUser(owner.getUser());
-		// creating authorities
-		authoritiesService.saveAuthorities(owner.getUser().getUsername(), "owner");
-	}
+    public void savePlate(Plate plate) throws DataAccessException {
+//        log.info("Guardando plato en la BD");
+        plateRepository.save(plate);
+//        log.info("Plato guardado correctamente");
 
+    }
 }
