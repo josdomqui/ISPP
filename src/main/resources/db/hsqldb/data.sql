@@ -12,24 +12,13 @@ INSERT INTO restaurants(id, name, address, city, description, telephone, photo) 
 INSERT INTO restaurants(id, name, address, city, description, telephone, photo) VALUES (2, 'Tabernas Sevilla', 'C/Gamazo 6', 'SEVILLA', 'Restaurante de cocina mediterránea con opciones vegetarianas', 954221128,'/resources/images/bar2.jpg');
 INSERT INTO restaurants(id, name, address, city, description, telephone, photo) VALUES (3, 'La mitad del cuarto', 'C/AV José Laguillo', 'SEVILLA', 'Lugar idóneo para tapear', 954533124,'/resources/images/bar3.jpg');
 
+INSERT INTO restaurante_type(restaurante_id, type) VALUES (1,'DOS_TENEDORES');
+INSERT INTO restaurante_type(restaurante_id, type) VALUES (1,'CERVECERIA');
+INSERT INTO restaurante_type(restaurante_id, type) VALUES (2,'COMEDORES');
+INSERT INTO restaurante_type(restaurante_id, type) VALUES (2,'EUROPA_DEL_ESTE');
+INSERT INTO restaurante_type(restaurante_id, type) VALUES (3,'GOURMET');
+INSERT INTO restaurante_type(restaurante_id, type) VALUES (3,'AUTOR');
 
-INSERT INTO restaurant_type(restaurant_id, type) VALUES (1,'DOS_TENEDORES');
-INSERT INTO restaurant_type(restaurant_id, type) VALUES (1,'CERVECERIA');
-INSERT INTO restaurant_type(restaurant_id, type) VALUES (2,'COMEDORES');
-INSERT INTO restaurant_type(restaurant_id, type) VALUES (2,'EUROPA_DEL_ESTE');
-INSERT INTO restaurant_type(restaurant_id, type) VALUES (3,'GOURMET');
-INSERT INTO restaurant_type(restaurant_id, type) VALUES (3,'AUTOR');
-
-INSERT INTO vets(id, first_name,last_name) VALUES (1, 'James', 'Carter');
-INSERT INTO vets(id, first_name,last_name) VALUES (2, 'Helen', 'Leary');
-INSERT INTO vets(id, first_name,last_name) VALUES (3, 'Linda', 'Douglas');
-INSERT INTO vets(id, first_name,last_name) VALUES (4, 'Rafael', 'Ortega');
-INSERT INTO vets(id, first_name,last_name) VALUES (5, 'Henry', 'Stevens');
-INSERT INTO vets(id, first_name,last_name) VALUES (6, 'Sharon', 'Jenkins');
-
-INSERT INTO specialties VALUES (1, 'radiology');
-INSERT INTO specialties VALUES (2, 'surgery');
-INSERT INTO specialties VALUES (3, 'dentistry');
 INSERT INTO owners VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', 'Madison', '6085551023', 'owner1');
 
 INSERT INTO tables(id, number, costumer) values (1, 1, 3);
@@ -47,3 +36,4 @@ INSERT INTO plates(id, name, category, cost) values (7, 'Trufón de chocolate', 
 INSERT INTO plates(id, name, category, cost) values (8, 'Angulas a la vongole con navajas de playa', 'Entrante', '55');
 INSERT INTO plates(id, name, category, cost) values (9, 'Ensalada líquida Andalusí', 'Entrante', '16');
 INSERT INTO plates(id, name, category, cost) values (10,'Chuleta de raya Nikkei con pure de maiz', 'Plato principal', '42');
+
