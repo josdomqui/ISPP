@@ -8,7 +8,7 @@
     <div class="row">
         <div align="center">
             <spring:url value="/resources/images/Imagen1.png" htmlEscape="true" var="petsImage"/>
-            <img class="img-responsive" src="${petsImage}"/>
+            <img style="width: 30%; height: 90%" class="img-responsive" src="${petsImage}"/>
             <h2>Bienvenidos</h2>
         </div>
     </div>
