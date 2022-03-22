@@ -47,4 +47,8 @@ public class RestaurantService {
         return restaurantRepository.findByType(restaurantType);
     }
 
+	public List<Restaurant> findByCity(String city) {
+        return restaurantRepository.findByCity(city);
+    }
+
 }

@@ -10,20 +10,22 @@
 <petclinic:layout pageName="vets">
 
 
-    <form class="row g-3" method="post" action="/restaurante/list">
+    <form class="row g-3" method="get" action="/restaurante/list/search">
         <div class="col-md-6">
           <label for="inputEmail4" class="form-label">Lugar</label>
-          <input type="text" class="form-control" id="inputPlace">
+          <input type="text" class="form-control" name= "inputPlace" id="inputPlace">
         </div>
+        <!--
         <div class="col-md-6">
             <label for="inputState" class="form-label">Filtros</label>
-            <select id="inputState" class="form-control form-select">
+            <select id="inputState" name= "inputState" class="form-control form-select">
 
               <c:forEach items="${listaTipos}" var="tipo">
                 <option>${tipo}</option>
               </c:forEach>
             </select>
           </div>
+          -->
         <div class="col-12">
          <h3><button type="submit" class="btn-default">Buscar</button></h3> 
         </div>
@@ -41,6 +43,7 @@
             <div class="card-body d-flex flex-column">
               <h1 class="card-title mb-3" style="color: #bd8859;"><c:out value = "${restaurante.name}"/></h1>
               <p class="card-text"><c:out value = "${restaurante.description}"/></p>
+              <p class="card-text"><c:out value = "${restaurante.city}"/></p>
               <div class="col-12 mb-3">
                 <c:forEach items="${restaurante.type}" var="tipos">
                <span class="badge" style="padding: 5px; font-size: 10px; background-color: #d17024;"><c:out value = "${tipos}"/></span> 

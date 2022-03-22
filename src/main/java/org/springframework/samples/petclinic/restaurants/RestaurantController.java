@@ -3,6 +3,7 @@ package org.springframework.samples.petclinic.restaurants;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -38,26 +40,39 @@ public class RestaurantController {
 
 	@GetMapping(value = { "/list" })
 	public String showRestautanteList(Map<String, Object> model) {
+		
 		ArrayList<RestaurantType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestaurantType.class));
 		model.put("listaRestaurante", restaurantService.findAllRestaurants());
 		model.put("listaTipos", listaTipoRestaurantes);
 		return "restaurantes/listado";
 	}
 
-	@GetMapping(value = { "/list/{restaurantType}" })
-	public String showRestautanteToSearch(@PathVariable("restaurantType") String type,Map<String, Object> model) {
+	@GetMapping(value = { "/list/search" })
+	public String showRestautanteToSearch(@RequestParam("inputPlace") String place, Map<String, Object> model) {
+		//, @RequestParam("inputState") String type
+		System.out.println("************************************".concat(place));
+		//System.out.println("************************************".concat(type));
 		List<Restaurant> lrestaurantes= new ArrayList<>();
 		List<RestaurantType> ltipos= new ArrayList<>();
+		
 		for(Restaurant r: restaurantService.findAllRestaurants()){
 			for(int i = 0; i<r.getType().size()-1;i++)
 				if(r.getType().get(i).toString().toLowerCase().equals(type)){
-					List<Restaurant>  lr = restaurantService.findByType(r.getType().get(i));
+					List<Restaurant>  lr = restaurantService.findByType(RestaurantType.DOS_TENEDORES);
 					lrestaurantes.addAll(lr);
 					ltipos.add(r.getType().get(i));
             }
 		}
+		
+		if(place.isEmpty()){
+			lrestaurantes = restaurantService.findAllRestaurants();
+		}else{
+			lrestaurantes = restaurantService.findByCity(place.toUpperCase());
+		}
+
+
 		model.put("listaRestaurante", lrestaurantes);
-		model.put("listaTipos", ltipos);
+		//model.put("listaTipos", ltipos);
 		return "restaurantes/listado";
 	}
 
