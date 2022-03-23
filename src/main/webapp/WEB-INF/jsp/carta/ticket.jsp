@@ -12,7 +12,7 @@
     
   <div id="register">
   <div id="ticket">
-    <h1>¡Muchas gracias!</h1>
+    <h1>Muchas gracias!</h1>
     <table>
       
       <tbody id="entries">
@@ -39,47 +39,22 @@
     </table>
   </div>
 </div>
-<!--
 
-    <table class="table table-striped table-bordered">
-    <thead>
-    <tr>
-    	<th><span>Plato</span></th>
-    	<th><span>Coste Individual</span></th>
-    	<th><span>Cantidad</span></th>
-    	<th><span>Coste total</span></th>
-    </tr>
-    </thead>
-    <tbody>
-    		<c:forEach items="${lista_res}" var="plato">
-    			<tr>
-    					<td>
-    						<span><c:out value="${plato.name}"/></span>
-    					</td>
-    					<td>
-    						<span><c:out value="${plato.cost} $"/></span>
-    					</td>
-    					<td>
-    					<c:forEach items="${lista_linea}" var="linea">
-    						<c:if test="${linea.plate.id == plato.id}">
-    							<span><c:out value="${linea.quantity}"/></span>
-    							<td>
-    								<c:out value=""/>
-    							</td>
-    						</c:if>
-    					</c:forEach>
-    					</td>
-    					
-				</tr>
-    		</c:forEach>
-    		<tr>
-    			<td></td>
-    			<td></td>
-    			<td></td>
-    			<td><span><c:out value="${suma} $"/></span></td>
-    		</tr>
-    	</tbody>
-    </table>
- -->
+    			
+   	<spring:url value="/payment/{id_comanda}" var="url">
+    <spring:param name="id_comanda" value="${id_commanda}"/>
+    </spring:url>
+    <a class="btn btn-default" href="${fn:escapeXml(url)}"><span>Pagar online</span></a>
+     
+    <spring:url value="/payment/cash/{id_comanda}" var="url2">
+    <spring:param name="id_comanda" value="${id_commanda}"/>
+    </spring:url>
+    <a class="btn btn-default" href="${fn:escapeXml(url2)}"><span>Pagar en efectivo</span></a>
+     
+     <spring:url value="/payment/creditCard/{id_comanda}" var="url3">
+     <spring:param name="id_comanda" value="${id_commanda}"/>
+     </spring:url>
+     <a class="btn btn-default" href="${fn:escapeXml(url3)}"><span>Pagar con tarjeta</span></a>
+     
 </petclinic:layout>
 
