@@ -28,7 +28,7 @@ import org.springframework.samples.commandfast.model.BaseEntity;
  *
  * @author Juergen Hoeller
  * @author Sam Brannen
- * @see org.springframework.samples.petclinic.model.BaseEntity
+ * @see org.springframework.samples.commandfast.model.BaseEntity
  * @since 29.10.2003
  */
 public abstract class EntityUtils {
