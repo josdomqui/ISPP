@@ -28,6 +28,15 @@ INSERT INTO products(id, name, description, price, restaurant_id) VALUES (11, 'V
 INSERT INTO products(id, name, price, restaurant_id) VALUES (12, 'Montadito Pollo', 2.60, 3);
 INSERT INTO products(id, name, price, restaurant_id) VALUES (13, 'Solomillo al roque', 2.30, 3);
 
+INSERT INTO restaurante_type(restaurante_id, type) VALUES (1,'DOS_TENEDORES');
+INSERT INTO restaurante_type(restaurante_id, type) VALUES (1,'CERVECERIA');
+INSERT INTO restaurante_type(restaurante_id, type) VALUES (2,'COMEDORES');
+INSERT INTO restaurante_type(restaurante_id, type) VALUES (2,'EUROPA_DEL_ESTE');
+INSERT INTO restaurante_type(restaurante_id, type) VALUES (3,'GOURMET');
+INSERT INTO restaurante_type(restaurante_id, type) VALUES (3,'AUTOR');
+
+INSERT INTO owners VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', 'Madison', '6085551023', 'owner1');
+
 INSERT INTO tables(id, number, costumer) values (1, 1, 3);
 
 INSERT INTO commands(id, name, price, mesa_id) values (1, 'usuario', 53.02, 1);

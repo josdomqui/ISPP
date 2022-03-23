@@ -15,8 +15,13 @@
  */
 package org.springframework.samples.commandfast.restaurantes;
 
+import java.util.List;
+
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
@@ -69,9 +74,9 @@ public class Restaurante extends NamedEntity {
 	@NotEmpty
 	private String email;
 
-	
-	
-	
-	
+	@ElementCollection(targetClass =  RestauranteType.class)
+	@Column(name = "type", nullable = false)
+	@Enumerated(EnumType.STRING)
+	private List<RestauranteType> type;
 
 }
