@@ -38,6 +38,10 @@ INSERT INTO restaurante_type(restaurante_id, type) VALUES (3,'AUTOR');
 INSERT INTO owners VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', 'Madison', '6085551023', 'owner1');
 
 INSERT INTO tables(id, number, costumer) values (1, 1, 3);
+INSERT INTO tables(id, number, costumer) values (2, 2, 4);
+INSERT INTO tables(id, number, costumer) values (3, 3, 5);
+INSERT INTO tables(id, number, costumer) values (4, 4, 6);
+INSERT INTO tables(id, number, costumer) values (5, 5, 7);
 
 INSERT INTO commands(id, name, price, mesa_id) values (1, 'usuario', 53.02, 1);
 

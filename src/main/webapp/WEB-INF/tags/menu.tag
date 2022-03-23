@@ -24,6 +24,22 @@
         <li class="nav-item">
           <a style="text-decoration: none; color: white;" class="navbar-text active" aria-current="page" href="/command/new"><span style="color: rgb(255,255,255);" class="glyphicon glyphicon-cutlery" aria-hidden="true"></span> Pedir</a>
         </li>
+        <sec:authorize access="hasAuthority('admin')">
+           <li class="nav-item">
+          <a style="text-decoration: none; color: white;" class="navbar-text active" aria-current="page" href="/admin/paymentPanel"><span style="color: rgb(255,255,255);"  aria-hidden="true"></span>Adminstrador</a>
+        </li>
+        </sec:authorize>
+        <sec:authorize access="!isAuthenticated()">
+          <li class="nav-item">
+          <a style="text-decoration: none; color: white;" class="navbar-text active" aria-current="page" href="/login"><span style="color: rgb(255,255,255);"  aria-hidden="true"></span>Iniciar sesión</a>
+        </li>
+        </sec:authorize>
+        
+          <sec:authorize access="isAuthenticated()">
+          <li class="nav-item">
+          <a style="text-decoration: none; color: white;" class="navbar-text active" aria-current="page" href="/logout"><span style="color: rgb(255,255,255);"  aria-hidden="true"></span>Cerrar sesión</a>
+        </li>
+        </sec:authorize>
       </ul>
     </div>
   </div>

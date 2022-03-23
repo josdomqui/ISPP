@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.samples.commandfast.command;
-
-import java.util.Collection;
-import java.util.Optional;
+package org.springframework.samples.commandfast.mesa;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,37 +29,31 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Michael Isvy
  */
 @Service
-public class CommandService {
+public class MesaService {
 	
 	//Necesario para el uso de logs.
-	private static final Logger log = LoggerFactory.getLogger(CommandService.class);
-
-	private CommandRepository commandRepository;
-
+	private static final Logger log = LoggerFactory.getLogger(MesaService.class);
 	@Autowired
-	public CommandService(CommandRepository commandRepository) {
-		this.commandRepository = commandRepository;
-	}
+	private MesaRepository mesaRepository;
+
+
+	
+
 	
 	@Transactional(readOnly = true)
-	public Collection<Command> findCommands() throws DataAccessException {
-		log.info("Buscando todas las comandas existentes");
-		return commandRepository.findCommands();
+	public Mesa findMesaByNumber(Integer number) throws DataAccessException {
+		log.info("Buscando mesa por número");
+		return mesaRepository.findMesaByNumber(number);
 	}
 	
-	@Transactional(readOnly = true)
-	public Optional<Command> findIdCommands(Integer id) throws DataAccessException {
-		log.info("Buscando todas las comandas existentes");
-		return commandRepository.findById(id);
-	}
+
 	
 	@Transactional
-	public void saveCommand(Command command) throws DataAccessException {
-		log.info("Guardando la comanda en la BD");
-		commandRepository.save(command);
-		log.info("Comanda guardada correctamente");
-	
-	}
+	public void saveline(Mesa mesa) throws DataAccessException {
+
+			mesaRepository.save(mesa);
+		}
+
 
 
 }
