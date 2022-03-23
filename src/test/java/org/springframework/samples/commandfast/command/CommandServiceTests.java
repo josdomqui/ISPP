@@ -82,5 +82,17 @@ class CommandServiceTests {
 		assertThat(result).isTrue();
 	}
 	
+	@Test
+	void shouldSaveCommands() {
+		Command comanda = new Command();
+		comanda.setLines(null);
+		comanda.setMesa(null);
+		comanda.setName("Comanda Test");
+		comanda.setPrice(0.);
+		assertThat(this.commandService.findCommands()).hasSize(1);
+		this.commandService.saveCommand(comanda);
+		assertThat(this.commandService.findCommands()).hasSize(2);
+		assertThat(this.commandService.findIdCommands(2).get().getName()).isEqualTo("Comanda Test");
+	}
 
 }
