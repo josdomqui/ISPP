@@ -9,40 +9,37 @@
 
 <petclinic:layout pageName="ticket">
     <h2>Finalizar pedido</h2>
-    <table class="table table-striped table-bordered">
-    <thead>
-    <tr>
-    	<th><span>Plato</span></th>
-    	<th><span>Coste Individual</span></th>
-    	<th><span>Cantidad</span></th>
-    	<th><span>Coste total</span></th>
-    </tr>
-    </thead>
-    <tbody>
-    		<c:forEach items="${lista_res}" var="plato">
-    			<tr>
-    					<td>
-    						<span><c:out value="${plato.name}"/></span>
-    					</td>
-    					<td>
-    						<span><c:out value="${plato.cost} $"/></span>
-    					</td>
-    					<td>
-    					<c:forEach items="${lista_linea}" var="linea">
-    						<c:if test="${linea.plate.id == plato.id}">
-    							<span><c:out value="${linea.quantity}"/></span>
-    							<td>
-    								<c:out value="${plato.cost*linea.quantity}"/>
-    							</td>
-    						</c:if>
+    
+  <div id="register">
+  <div id="ticket">
+    <h1>Muchas gracias!</h1>
+    <table>
+      
+      <tbody id="entries">
+        
+      </tbody>
+      <tfoot style="font-size: 15px;">
+      	<c:forEach items="${lista_res}" var="plato">
+        <tr>
+          <th><c:out value="${plato.name} "/>x
+          <c:forEach items="${lista_linea}" var="linea">
+    		<c:if test="${linea.plate.id == plato.id}">
+    			<c:out value="${linea.quantity}"/>
+    		</c:if>
     					</c:forEach>
-    					</td>
-    					
-				</tr>
-    		</c:forEach>
-    	</tbody>
+          </th>
+          <th id="total">$<c:out value="${plato.cost}"/></th>
+        </tr>
+        </c:forEach>
+        <tr>
+          <th>Total</th>
+          <th id="total"><span><c:out value="$ ${suma}"/></span></th>
+        </tr>
+      </tfoot>
     </table>
-    			<td><span><c:out value="${suma} $"/></span></td>
+  </div>
+</div>
+
     			
    	<spring:url value="/payment/{id_comanda}" var="url">
     <spring:param name="id_comanda" value="${id_commanda}"/>
@@ -61,27 +58,3 @@
      
 </petclinic:layout>
 
-
-
-
-
-
-<!--
-<c:out value="${listaPlatos.name}"/></td>
-						<td><c:out value="${listaPlatos.cost} $"/></td>
-						<td>
-						<form:form modelAttribute="line" class="form-horizontal" id="add-line-form">
-						<div class="form-group has-feedback">
-							<input label="Plate" name="plate" value="${listaPlatos.id}" type="hidden"/>
-							<input label="Cantidad" name="quantity"/>
-							<input label="Comanda" name="command" value="${id_commanda}"/>
-        				</div>
-        				<div class="form-group">
-            					<div class="col-sm-offset-2 col-sm-10">
-                
-                  				<button class="btn btn-default" type="submit">Pedir</button>
-                
-            			</div>
-        				</div>
-    					</form:form>
--->
