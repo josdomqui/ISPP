@@ -23,8 +23,11 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
@@ -44,8 +47,7 @@ public class Restaurante extends NamedEntity {
 	private String city;
 
 	@Column(name = "telephone")
-	@NotEmpty
-	@Positive
+	@Min(1)
 	@Digits(fraction = 0, integer = 9)
 	private String telephone;
 
@@ -62,7 +64,7 @@ public class Restaurante extends NamedEntity {
 	private String photo;
 	
 	@Column(name = "capacity")
-	@NotEmpty
+	@NotNull
 	@Positive
 	private Integer capacity;
 	
