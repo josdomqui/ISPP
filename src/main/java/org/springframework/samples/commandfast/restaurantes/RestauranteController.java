@@ -81,7 +81,7 @@ public class RestauranteController {
 	public String showMenuRestaurant(@PathVariable("id") Integer id, Map<String, Object> model) {
 		Optional<Restaurante> restauranteMenu = restauranteService.findRestaurantById(id);
 		model.put("menu", restauranteMenu.get());
-		model.put("products", restauranteService.findAllMenu());
+		model.put("products", restauranteService.findMenuByRestaurant(id));
 		return "restaurantes/carta";
 	}
 

@@ -46,7 +46,11 @@ public class RestauranteService {
 	public Collection<Product> findAllMenu() throws DataAccessException{
 		return restauranteRepository.findAllProduct();
 	}
-
+	
+	@Transactional
+	public Collection<Product> findMenuByRestaurant(Integer restaurant_id) throws DataAccessException{
+		return restauranteRepository.findProductsByRestaurant(restaurant_id);
+	}
 
     public List<Restaurante> findByType(RestauranteType restauranteType) {
         return restauranteRepository.findByType(restauranteType);
