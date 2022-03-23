@@ -39,7 +39,21 @@ public class PaymentController {
 		this.paymentService.makePayment(command.get().getPrice(), command.get().getMesa());
 		model.put("stripePublicKey", API_PUBLIC_KEY);
 		model.put("price", command.get().getPrice());
+		
 		return "payment/charge";
+	}
+	
+	@GetMapping(value = "/payment/successPage")
+	public String paymentSuccessPage(Map<String, Object> model){		
+		
+		return "payment/success";
+		
+	}
+	
+	@GetMapping(value = "/payment/waitPage")
+	public String paymentWaitPage(Map<String, Object> model){		
+		
+		return "payment/wait";
 		
 	}
 	
@@ -50,7 +64,7 @@ public class PaymentController {
 		payment.setPayHere(true);
 		this.paymentService.savePayment(payment);
 		
-		return "redirect:/welcome";
+		return "redirect:/payment/waitPage";
 		
 	}
 	
@@ -63,7 +77,7 @@ public class PaymentController {
 		payment.setPayHere(true);
 		this.paymentService.savePayment(payment);
 		
-		return "redirect:/welcome";
+		return "redirect:/payment/waitPage";
 		
 	}
 

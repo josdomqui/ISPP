@@ -54,7 +54,7 @@
                     <!-- Used to display Element errors. -->
                     <div class="text-danger w-100" id="card-errors" role="alert"></div>
                     <div class="form-group pt-2">
-                        <a class="btn btn-primary btn-block" id="submitButton" href="${fn:escapeXml('/welcome')}">
+                        <a class="btn btn-primary btn-block" id="submitButton" href="${fn:escapeXml('/payment/successPage')}">
                             Finalizar pago
                         </a>
                         <div class="small text-muted mt-2">
