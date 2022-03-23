@@ -60,4 +60,8 @@ public class RestauranteService {
         return restauranteRepository.findByCity(city);
     }
 
+	public void save(Restaurante restaurante) {
+        restauranteRepository.save(restaurante);;
+    }
+
 }
