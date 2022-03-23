@@ -8,57 +8,50 @@ INSERT INTO authorities(id,username,authority) VALUES (2,'owner1','owner');
 INSERT INTO users(username,password,enabled) VALUES ('vet1','v3t',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (3,'vet1','veterinarian');
 
-INSERT INTO vets(id, first_name,last_name) VALUES (1, 'James', 'Carter');
-INSERT INTO vets(id, first_name,last_name) VALUES (2, 'Helen', 'Leary');
-INSERT INTO vets(id, first_name,last_name) VALUES (3, 'Linda', 'Douglas');
-INSERT INTO vets(id, first_name,last_name) VALUES (4, 'Rafael', 'Ortega');
-INSERT INTO vets(id, first_name,last_name) VALUES (5, 'Henry', 'Stevens');
-INSERT INTO vets(id, first_name,last_name) VALUES (6, 'Sharon', 'Jenkins');
+INSERT INTO restaurants(id, name, address, city, description, telephone, photo, capacity, schedule, email) VALUES (1, 'Gomez Martin SC', 'Avenida la borbolla 3', 'Sevilla', 'Establecimiento de bebidas y cafetería', 959121521,'/resources/images/bar1.jpg', 12, 'Lunes/Viernes 10:00 - 20:00', 'gomezmartin@gmail.com');
+INSERT INTO restaurants(id, name, address, city, description, telephone, photo, capacity, schedule, email) VALUES (2, 'Tabernas Sevilla', 'C/Gamazo 6', 'Sevilla', 'Restaurante de cocina mediterránea con opciones vegetarianas', 954221128,'/resources/images/bar2.jpg', 20, 'Lunes/Viernes 10:00 - 22:00', 'tabernasevilla@gmail.com');
+INSERT INTO restaurants(id, name, address, city, description, telephone, photo, capacity, schedule, email) VALUES (3, 'La mitad del cuarto', 'C/AV José Laguillo', 'Sevilla', 'Lugar idóneo para tapear', 954533124,'/resources/images/bar3.jpg', 20, 'Lunes/Viernes 11:00 - 20:00', 'mitadcuarto@gmail.com');
 
-INSERT INTO specialties VALUES (1, 'radiology');
-INSERT INTO specialties VALUES (2, 'surgery');
-INSERT INTO specialties VALUES (3, 'dentistry');
+INSERT INTO products(id, name, description, price, restaurant_id) VALUES (1, 'Ensalada gourmet', 'Lechuga Gourmet, Queso De Cabra, Cebolla Caramelizada, Nueces y Pasas',6.30, 1);
+INSERT INTO products(id, name, price, restaurant_id) VALUES (2, 'Patatas bravas', 2.90, 1);
+INSERT INTO products(id, name, price, restaurant_id) VALUES (3, 'Montadito Pollo', 2.60, 1);
+INSERT INTO products(id, name, description, price, restaurant_id) VALUES (4, 'Tosta de la casa', 'Solomillo, Queso de Cabra, Cebolla Caramelizada y Salsa Pedro Ximénez', 3.60, 1);
+INSERT INTO products(id, name, price, restaurant_id) VALUES (5, 'Solomillo al roque', 2.30, 1);
 
-INSERT INTO vet_specialties VALUES (2, 1);
-INSERT INTO vet_specialties VALUES (3, 2);
-INSERT INTO vet_specialties VALUES (3, 3);
-INSERT INTO vet_specialties VALUES (4, 2);
-INSERT INTO vet_specialties VALUES (5, 1);
+INSERT INTO products(id, name, description, price, restaurant_id) VALUES (6, 'Mini Hamburguesa de Buey', 'Hamburguesa con verdadera carne vacuno',4.50, 2);
+INSERT INTO products(id, name, price, restaurant_id) VALUES (7, 'Patatas bravas', 2.90, 2);
+INSERT INTO products(id, name, price, restaurant_id) VALUES (8, 'Semifrío Gourmet De Tarta De Queso', 3.60, 2);
+INSERT INTO products(id, name, price, restaurant_id) VALUES (9, 'Solomillo al roque', 2.30, 2);
 
-INSERT INTO types VALUES (1, 'cat');
-INSERT INTO types VALUES (2, 'dog');
-INSERT INTO types VALUES (3, 'lizard');
-INSERT INTO types VALUES (4, 'snake');
-INSERT INTO types VALUES (5, 'bird');
-INSERT INTO types VALUES (6, 'hamster');
+INSERT INTO products(id, name, description, price, restaurant_id) VALUES (10, 'Condado de Oriza', 'Verdadero vino de la Rioja',12.30, 3);
+INSERT INTO products(id, name, description, price, restaurant_id) VALUES (11, 'Verdejo rueda','Verdejo rueda', 2.90, 3);
+INSERT INTO products(id, name, price, restaurant_id) VALUES (12, 'Montadito Pollo', 2.60, 3);
+INSERT INTO products(id, name, price, restaurant_id) VALUES (13, 'Solomillo al roque', 2.30, 3);
+
+INSERT INTO restaurante_type(restaurante_id, type) VALUES (1,'DOS_TENEDORES');
+INSERT INTO restaurante_type(restaurante_id, type) VALUES (1,'CERVECERIA');
+INSERT INTO restaurante_type(restaurante_id, type) VALUES (2,'COMEDORES');
+INSERT INTO restaurante_type(restaurante_id, type) VALUES (2,'EUROPA_DEL_ESTE');
+INSERT INTO restaurante_type(restaurante_id, type) VALUES (3,'GOURMET');
+INSERT INTO restaurante_type(restaurante_id, type) VALUES (3,'AUTOR');
 
 INSERT INTO owners VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', 'Madison', '6085551023', 'owner1');
-INSERT INTO owners VALUES (2, 'Betty', 'Davis', '638 Cardinal Ave.', 'Sun Prairie', '6085551749', 'owner1');
-INSERT INTO owners VALUES (3, 'Eduardo', 'Rodriquez', '2693 Commerce St.', 'McFarland', '6085558763', 'owner1');
-INSERT INTO owners VALUES (4, 'Harold', 'Davis', '563 Friendly St.', 'Windsor', '6085553198', 'owner1');
-INSERT INTO owners VALUES (5, 'Peter', 'McTavish', '2387 S. Fair Way', 'Madison', '6085552765', 'owner1');
-INSERT INTO owners VALUES (6, 'Jean', 'Coleman', '105 N. Lake St.', 'Monona', '6085552654', 'owner1');
-INSERT INTO owners VALUES (7, 'Jeff', 'Black', '1450 Oak Blvd.', 'Monona', '6085555387', 'owner1');
-INSERT INTO owners VALUES (8, 'Maria', 'Escobito', '345 Maple St.', 'Madison', '6085557683', 'owner1');
-INSERT INTO owners VALUES (9, 'David', 'Schroeder', '2749 Blackhawk Trail', 'Madison', '6085559435', 'owner1');
-INSERT INTO owners VALUES (10, 'Carlos', 'Estaban', '2335 Independence La.', 'Waunakee', '6085555487', 'owner1');
 
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (1, 'Leo', '2010-09-07', 1, 1);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (2, 'Basil', '2012-08-06', 6, 2);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (3, 'Rosy', '2011-04-17', 2, 3);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (4, 'Jewel', '2010-03-07', 2, 3);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (5, 'Iggy', '2010-11-30', 3, 4);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (6, 'George', '2010-01-20', 4, 5);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (7, 'Samantha', '2012-09-04', 1, 6);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (8, 'Max', '2012-09-04', 1, 6);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (9, 'Lucky', '2011-08-06', 5, 7);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (10, 'Mulligan', '2007-02-24', 2, 8);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (11, 'Freddy', '2010-03-09', 5, 9);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (12, 'Lucky', '2010-06-24', 2, 10);
-INSERT INTO pets(id,name,birth_date,type_id,owner_id) VALUES (13, 'Sly', '2012-06-08', 1, 10);
+INSERT INTO tables(id, number, costumer) values (1, 1, 3);
+INSERT INTO tables(id, number, costumer) values (2, 2, 4);
+INSERT INTO tables(id, number, costumer) values (3, 3, 5);
+INSERT INTO tables(id, number, costumer) values (4, 4, 6);
+INSERT INTO tables(id, number, costumer) values (5, 5, 7);
 
-INSERT INTO visits(id,pet_id,visit_date,description) VALUES (1, 7, '2013-01-01', 'rabies shot');
-INSERT INTO visits(id,pet_id,visit_date,description) VALUES (2, 8, '2013-01-02', 'rabies shot');
-INSERT INTO visits(id,pet_id,visit_date,description) VALUES (3, 8, '2013-01-03', 'neutered');
-INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04', 'spayed');
+INSERT INTO commands(id, name, price, mesa_id) values (1, 'usuario', 53.02, 1);
 
+INSERT INTO plates(id, name, category, cost, image) values (1, 'Huevos Lartisan', 'Media-Racion', '11', '/resources/images/Huevos Lartisan.jpg');
+INSERT INTO plates(id, name, category, cost, image) values (2, 'Solomillo de vaca', 'Racion', '18', '/resources/images/Solomillo de vaca.jpg');
+INSERT INTO plates(id, name, category, cost, image) values (3, 'Chuleta de atun', 'Tapa', '55', '/resources/images/Chuleta de atun.jpg');
+INSERT INTO plates(id, name, category, cost, image) values (4, 'Souffle de verduras con atun', 'Entrante', '17', '/resources/images/Souffle de verduras con atun.png');
+INSERT INTO plates(id, name, category, cost, image) values (5, 'Cordero con yeso y tupinambo', 'Plato princiapl', '28', '/resources/images/Cordero con yeso y tupinambo.JPEG');
+INSERT INTO plates(id, name, category, cost, image) values (6, 'Cromlech de Madioca y Huitlacoche', 'Plato princiapl', '60', '/resources/images/Cromlech de Madioca y Huitlacoche.jpg');
+INSERT INTO plates(id, name, category, cost, image) values (7, 'Trufón de chocolate', 'Postre', '13', '/resources/images/Trufón de chocolate.jpg');
+INSERT INTO plates(id, name, category, cost, image) values (8, 'Angulas a la vongole con navajas de playa', 'Entrante', '55', '/resources/images/Angulas a la vongole con navajas de playa.jpg');
+INSERT INTO plates(id, name, category, cost, image) values (9, 'Ensalada líquida Andalusí', 'Entrante', '16', '/resources/images/Ensalada líquida Andalusí.jpg');
+INSERT INTO plates(id, name, category, cost, image) values (10,'Chuleta de raya Nikkei con pure de maiz', 'Plato principal', '42', '/resources/images/Chuleta de raya Nikkei con pure de maiz.jpg');
