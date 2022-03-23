@@ -60,6 +60,19 @@ public class Restaurante extends NamedEntity {
 
 	@Column(name = "photo")
 	private String photo;
+	
+	@Column(name = "capacity")
+	@NotEmpty
+	@Positive
+	private Integer capacity;
+	
+	@Column(name = "schedule")
+	@NotEmpty
+	private String schedule;
+
+	@Column(name = "email")
+	@NotEmpty
+	private String email;
 
 	@ElementCollection(targetClass =  RestauranteType.class)
 	@Column(name = "type", nullable = false)

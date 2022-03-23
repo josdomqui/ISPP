@@ -1,4 +1,3 @@
-
 <%@ page session="false" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -50,9 +49,13 @@
                <span class="badge" style="padding: 5px; font-size: 10px; background-color: #d17024;"><c:out value = "${tipos}"/></span> 
                 </c:forEach>
               </div>
+
               <div class="col-6 mb-3 mt-3">
-              	<h3><a type="button" class="btn-default" href="/" style="padding: 4px;border: 3px solid #9f6f44; text-decoration: none;">Ver carta</a></h3>
-              </div>
+                <spring:url value="/restaurante/{id}/detalles" var="url">
+                        <spring:param name="id" value="${restaurante.id}"/>
+                </spring:url>
+                <a type="button" class="btn-default" href="${fn:escapeXml(url)}" style="padding: 4px;border: 3px solid #9f6f44; text-decoration: none;">Ver detalles</a>
+
             </div>
           </div>
         </div>

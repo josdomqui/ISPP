@@ -1,12 +1,12 @@
 package org.springframework.samples.commandfast.restaurantes;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.samples.commandfast.restaurantes.RestauranteType;
-import org.springframework.samples.commandfast.restaurantes.Restaurante;
+import org.springframework.samples.commandfast.product.Product;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,8 +20,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class RestauranteService {
 
 	private RestauranteRepository restauranteRepository;	
-	
 
+	@Transactional
+	public List<Restaurante> findAllRestaurants() throws DataAccessException{
+		return restauranteRepository.findAll();
+	}
 
 	@Autowired
 	public RestauranteService(RestauranteRepository restaurantsRepository) {
@@ -33,17 +36,21 @@ public class RestauranteService {
 	public Optional<Restaurante> findRestaurantById(int id) throws DataAccessException {
 		return restauranteRepository.findById(id);
 	}
+	
 	@Transactional
 	public void saveRestaurant(Restaurante restaurant) throws DataAccessException {
-		//creating owner
 		restauranteRepository.save(restaurant);		
 	}
 	
 	@Transactional
-	public List<Restaurante> findAllRestaurants() throws DataAccessException{
-		return restauranteRepository.findAll();
+	public Collection<Product> findAllMenu() throws DataAccessException{
+		return restauranteRepository.findAllProduct();
 	}
-
+	
+	@Transactional
+	public Collection<Product> findMenuByRestaurant(Integer restaurant_id) throws DataAccessException{
+		return restauranteRepository.findProductsByRestaurant(restaurant_id);
+	}
 
     public List<Restaurante> findByType(RestauranteType restauranteType) {
         return restauranteRepository.findByType(restauranteType);

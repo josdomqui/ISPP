@@ -1,9 +1,6 @@
 package org.springframework.samples.commandfast.restaurantes;
 
-
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
@@ -22,8 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
-
 @Controller
 @RequestMapping("/restaurante")
 public class RestauranteController {
@@ -38,7 +33,7 @@ public class RestauranteController {
 		this.restauranteService = restauranteService;
 	}
 
-	@GetMapping(value = { "/list" })
+    @GetMapping(value = { "/list" })
 	public String showRestautanteList(Map<String, Object> model) {
 		
 		ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
@@ -58,8 +53,8 @@ public class RestauranteController {
 			lrestaurantes = restauranteService.findAllRestaurants();
 		}else{
 			lrestaurantes = restauranteService.findByCity(place.toUpperCase());
+			System.out.println(lrestaurantes);
 		}
-		System.out.println("*****************************"+type);
 		if (!(type.equals("Selecciona una opción"))) {
 			for(Restaurante r: restauranteService.findAllRestaurants()){
 				if(r.getType().contains(RestauranteType.valueOf(type))){
@@ -72,6 +67,24 @@ public class RestauranteController {
 		//model.put("listaTipos", ltipos);
 		return "restaurantes/listado";
 	}
+
+	
+	@GetMapping(value = { "/{id}/detalles" })
+	public String showRestautanteDetails(@PathVariable("id") Integer id, Map<String, Object> model) {
+		Optional<Restaurante> restaurante = restauranteService.findRestaurantById(id);
+		model.put("detallesRestaurante", restaurante.get());
+		return "restaurantes/detalles";
+	}
+	
+	
+	@GetMapping(value = { "/{id}/detalles/carta" })
+	public String showMenuRestaurant(@PathVariable("id") Integer id, Map<String, Object> model) {
+		Optional<Restaurante> restauranteMenu = restauranteService.findRestaurantById(id);
+		model.put("menu", restauranteMenu.get());
+		model.put("products", restauranteService.findMenuByRestaurant(id));
+		return "restaurantes/carta";
+	}
+
 
 	@GetMapping("/restaurantes/{id}/edit")
 	public String editRestaurante(@PathVariable("id") Integer id, ModelMap model) {
