@@ -14,16 +14,20 @@
 // * limitations under the License.
 // */
 //
-//package org.springframework.samples.commandfast.command;
+package org.springframework.samples.commandfast.command;
 //
-//import static org.assertj.core.api.Assertions.assertThat;
-//
-//import org.junit.jupiter.api.Test;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-//import org.springframework.context.annotation.ComponentScan;
-//import org.springframework.stereotype.Service;
-//import org.springframework.transaction.annotation.Transactional;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.Collection;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.samples.commandfast.mesa.Mesa;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 //
 ///**
 // * Integration test of the Service and the Repository layer.
@@ -56,73 +60,27 @@
 // * @author Dave Syer
 // */
 //
-//@DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
-//class CommandServiceTests {
-//	@Autowired
-//	protected CommandService commandService;
-//
-////	@Test
-////    void shouldFindGamesById() {
-////        Command command = this.commandService.findGameById(1);
-////        assertThat(game.getName()).isEqualTo("No Usar");
-////        assertThat(game.getNumerojugadores()).isEqualTo(2);
-////        assertThat(game.getRondas()).isEqualTo(3);
-////
-////    }
-////
-////	@Test
-////	void shouldFindGames() {
-////		Collection<Game> games = this.gameService.findGames();
-////		games = this.gameService.findGames();
-////		assertThat(games.isEmpty()).isFalse();
-////		assertTrue(games.contains(gameService.findGameById(1)));
-////	}
-//
-//	@Test
-//	@Transactional
-//	public void shouldInsertCommand() {
-//		//Collection<Command> commands= this.commandService.findCommands();
-//		Mesa mesa = sacar mesas, implica metodo en servicio
-//		Command command = new Command();
-//		command.setName("Comanda de prueba");
-//		command.setPrice(2.3);
-//		command.setQuantity(3);
-//		command.setMesa(Mesa);
-//		command.getPlates() //sacar platos y de cada plato su propiedad cantidad
-//
-//		assertThat(commandService.findCommands().size()).isEqualTo(0); // Antes de introducirlo
-//		this.commandService.saveCommand(command);
-//		assertThat(commandService.findCommands().size()).isEqualTo(1); // Después de introducirlo
-//	}
-//
-////	@Test
-////	@Transactional
-////	void shouldUpdateGame() {
-////		Game game = this.gameService.findGameById(1);
-////		String oldName = game.getName();
-////		String newName = oldName + "X";
-////
-////		game.setName(newName);
-////		this.gameService.saveGame(game);
-////
-////		// retrieving new name from database
-////		game = this.gameService.findGameById(1);
-////		assertThat(game.getName()).isEqualTo(newName);
-////	}
-////
-////	@Test
-////	@Transactional
-////	void shouldTotalGame() {
-////		Integer numPartidas = this.gameService.totalPartidas();
-////		Game game = new Game();
-////		game.setName("Partida3");
-////		// game.setTime(2);
-////		// game.setGamemode("Torre Infernal");
-////		game.setNumerojugadores(2);
-////		game.setRondas(3);
-////		// game.setPlayer(new HashSet<Player>());
-////		this.gameService.saveGame(game);
-////		assertThat(this.gameService.totalPartidas()).isEqualTo(numPartidas + 1);
-////
-////	}
-//}
+@DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
+class CommandServiceTests {
+	@Autowired
+	protected CommandService commandService;
+
+	@Test
+    void shouldFindCommandById() {
+        Command command = this.commandService.findIdCommands(1).get();
+        assertThat(command.getName()).isEqualTo("usuario");
+        assertThat(command.getMesa().getId()).isEqualTo(1);
+        assertThat(command.getPrice()).isEqualTo(53.02);
+
+    }
+
+	@Test
+	void shouldFindCommands() {
+		List<Command> commands = (List<Command>) this.commandService.findCommands();
+		Boolean result = commands.contains(commandService.findIdCommands(1).get());
+		assertThat(commands.isEmpty()).isFalse();
+		assertThat(result).isTrue();
+	}
+	
+
+}
