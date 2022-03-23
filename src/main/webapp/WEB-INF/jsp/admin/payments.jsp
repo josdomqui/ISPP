@@ -8,42 +8,48 @@
 <%@ page import="org.springframework.samples.commandfast.plate.Plate" %>
 
 <petclinic:layout pageName="ticket">
-    <h2>Mesas que quieren pagar aquí</h2>
-    <table class="table table-striped table-bordered">
-    <thead>
-    <tr>
-    	<th><span>Mesa</span></th>
-    	<th><span>Importe</span></th>
-    	<th><span>Datáfono</span></th>
-    </tr>
-    </thead>
-    <tbody>
-    		<c:forEach items="${payments}" var="payment">
-    		<c:if test="${payment.payHere==true}">
-    			<tr>
-    					<td>
-    						<span><c:out value="${payment.table.number}"/></span>
-    					</td>
-    					<td>
-    						<span><c:out value="${payment.amount} $"/></span>
-    					</td>
-    					<c:if test="${payment.creditCard==true}">
-    						<td>
-    						<c:out value="Sí"/>
-    						</td>
-    					</c:if>
-    					
-     					<c:if test="${payment.creditCard==false}">
-    						<td>
-    						<c:out value="No"/>
-    						</td>
-    					</c:if>   					
-				</tr>
-				</c:if>
-    		</c:forEach>
-    	</tbody>
-    </table>   			
-     
+
+	<div class="container">
+	
+		<h1 class="col-md-12">Mesas con pago en efectivo</h1>
+		   
+	   	<div class="card-deck">
+	  		<c:forEach items="${payments}" var="payment">
+		   		<c:if test="${payment.payHere==true}">
+		   			<c:if test="${payment.creditCard==false}">
+		   				<div class="col-12 col-md-3">
+		    				<div class="card-body bg-light mb-3 card border-dark">
+		    					<h2 class="card-title"><c:out value = "Mesa"/></h2>
+								<p class="card-text"><c:out value="${payment.table.number}"/></p>
+								<h2 class="card-title"><c:out value = "Importe"/></h2>
+								<p class="card-text"><c:out value="${payment.amount} $"/></p>
+							</div>		    				
+		   				</div>
+		   			</c:if>
+		   		</c:if>   					
+	  		</c:forEach>
+	   	</div>
+		   
+		<h1 class="col-md-12">Mesas con pago con tarjeta</h1>
+		
+		<div class="card-deck">
+	  		<c:forEach items="${payments}" var="payment">
+		   		<c:if test="${payment.payHere==true}">
+		   			<c:if test="${payment.creditCard==true}">
+		   				<div class="col-sm-3">
+		    				<div class="card-body bg-light mb-3 card border-dark">
+		    					<h2 class="card-title"><c:out value = "Mesa"/></h2>
+								<p class="card-text"><c:out value="${payment.table.number}"/></p>
+								<h2 class="card-title"><c:out value = "Importe"/></h2>
+								<p class="card-text"><c:out value="${payment.amount} $"/></p>
+							</div>		    				
+		   				</div>
+		   			</c:if>
+		   		</c:if>   					
+	  		</c:forEach>
+ 		</div>
+	</div>
+ 			
 </petclinic:layout>
 
     					

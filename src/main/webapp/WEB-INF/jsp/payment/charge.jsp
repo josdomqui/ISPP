@@ -18,17 +18,17 @@
     <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body class="bg-light pt-5">
-<h2>Charge</h2>
+<!-- <h2>Charge</h2> -->
 <!--hero section-->
 <section class="py-5">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-8 col-12 my-auto mx-auto">
                 <h1>
-                    Stripe One-Time Charge
+                    Gestión de pagos Stripe
                 </h1>
                 <p class="lead mb-4">
-                    Please fill the form below to complete the order payment
+                    Por favor, complete el siguiente formulario para realizar el pago.
                 </p>
                 <div class="card mb-4">
                     <div class="card-body">
@@ -41,7 +41,7 @@
                     <input id="api-key" type="hidden" value="${stripePublicKey}"/>
                     <div class="form-group">
                         <label class="font-weight-medium" for="card-element">
-                            Enter credit or debit card below
+                            Introduce su tarjeta de crédito/débito
                         </label>
                         <div class="w-100" id="card-element">
                             <!-- A Stripe Element will be inserted here. -->
@@ -49,13 +49,13 @@
                     </div>
                     <div class="form-group">
                         <input class="form-control" id="email" name="email"
-                               placeholder="Email Address" type="email" required>
+                               placeholder="Email" type="email" required>
                     </div>
                     <!-- Used to display Element errors. -->
                     <div class="text-danger w-100" id="card-errors" role="alert"></div>
                     <div class="form-group pt-2">
                         <a class="btn btn-primary btn-block" id="submitButton" href="${fn:escapeXml('/welcome')}">
-                            Pay With Your Card
+                            Finalizar pago
                         </a>
                         <div class="small text-muted mt-2">
                             Pay securely with Stripe. By clicking the button above, you agree
