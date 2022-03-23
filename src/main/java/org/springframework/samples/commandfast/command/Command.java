@@ -27,7 +27,7 @@ import lombok.Setter;
 @Setter
 public class Command extends BaseEntity{
 	
-	@Column(name = "name",unique = true)
+	@Column(name = "name")
 	@NotEmpty
 	private String name;
 	

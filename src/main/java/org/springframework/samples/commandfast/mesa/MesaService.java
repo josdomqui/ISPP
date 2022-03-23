@@ -15,6 +15,9 @@
  */
 package org.springframework.samples.commandfast.mesa;
 
+import java.util.Collection;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +49,12 @@ public class MesaService {
 		return mesaRepository.findMesaByNumber(number);
 	}
 	
+	@Transactional(readOnly = true)
+	public List<Mesa> findAllMesa() throws DataAccessException {
+		log.info("Buscando todas las mesas");
+		return (List<Mesa>) mesaRepository.findAll();
+	}
 
-	
 	@Transactional
 	public void saveline(Mesa mesa) throws DataAccessException {
 

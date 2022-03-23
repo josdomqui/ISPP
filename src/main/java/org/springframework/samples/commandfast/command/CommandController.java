@@ -21,6 +21,7 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.commandfast.mesa.MesaService;
 import org.springframework.samples.commandfast.user.AuthoritiesService;
 import org.springframework.samples.commandfast.user.UserService;
 import org.springframework.stereotype.Controller;
@@ -40,10 +41,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class CommandController {
 
 	private final CommandService commandService;
+	private final MesaService mesaService;
 
 	@Autowired
-	public CommandController(CommandService commandService, UserService userService, AuthoritiesService authoritiesService) {
+	public CommandController(CommandService commandService,MesaService mesaService, UserService userService, AuthoritiesService authoritiesService) {
 		this.commandService = commandService;
+		this.mesaService = mesaService;
 	}
 
 	@InitBinder
@@ -54,6 +57,7 @@ public class CommandController {
 	@GetMapping(value = "/command/new")
 	public String initCreationForm(Map<String, Object> model) {
 		Command command = new Command();
+		model.put("mesas", this.mesaService.findAllMesa());
 		model.put("command", command);
 		return "command/createCommand";
 	}
