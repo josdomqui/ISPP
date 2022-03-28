@@ -14,7 +14,7 @@
 		<div class="col-md-12 text-center">
 			<div class="lc-block mb-4">
 				<div editable="rich">
-					<h2 class="display-3 fw-bolder" style="color: #bd8859;"><c:out value = "${detallesRestaurante.name}"/></h2>
+					<h2 class="display-3 fw-bolder" style="color: #ffff;"><c:out value = "${detallesRestaurante.name}"/></h2>
 					<p><c:out value = "${detallesRestaurante.description}"/></p>
 				</div>
 
@@ -22,11 +22,11 @@
 					<spring:url value="/restaurante/{id}/detalles/carta" var="menUrl">
 							<spring:param name="id" value="${detallesRestaurante.id}"/>
 					</spring:url>
-					<h2><a type="button" class="btn-default" href="${fn:escapeXml(menUrl)}" style="padding: 5px;border: 3px solid #9f6f44;text-decoration: none;/* align-self: center; *//* display: flex; */">Ver carta</a></h2>
+					<h2><a type="button" class="btn-default" href="${fn:escapeXml(menUrl)}" style="padding: 5px;border: 3px solid #6B9D8E;text-decoration: none;/* align-self: center; *//* display: flex; */">Ver carta</a></h2>
 				</div>
 
 			</div><!-- /lc-block -->
-			<div class="lc-block border-top col-md-6 offset-md-3" style="border-top: 2px solid #b98057 !important;">
+			<div class="lc-block border-top col-md-6 offset-md-3" style="border-top: 2px solid #ffff !important;">
 				<div editable="rich">
 					<h2 class="fw-bolder"><br></h2>
 				</div>
@@ -38,7 +38,7 @@
                     justify-content
                 : center;
                     width: 100%;
-					color: #8d6542;
+					color: #ffff;
                 ">Horario</h2>
 				</div>
 			</div>
@@ -63,7 +63,7 @@
 		<div class="col-md-6 px-5">
 			<div class="lc-block mb-4">
 				<div editable="rich">
-					<h2 class="display-6 fw-bolder" style="color: #8d6542;">¡Encuentranos!<p></p>
+					<h2 class="display-6 fw-bolder" style="color: #ffff;">¡Encuentranos!<p></p>
 						<p></p>
 					</h2>
 				</div>
