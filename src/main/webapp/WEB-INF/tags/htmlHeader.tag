@@ -23,6 +23,9 @@ PetClinic :: a Spring Framework demonstration
     <spring:url value="/resources/css/bootstrap.min.css" var="bootCss"/>
     <link href="${bootCss}" rel="stylesheet"/>
 
+    <spring:url value="/resources/css/bootstrap-icons.css" var="bootIconsCss"/>
+    <link href="${bootIconsCss}" rel="stylesheet"/>
+
 
     <%-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries --%>
     <!--[if lt IE 9]>

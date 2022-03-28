@@ -9,8 +9,8 @@
 
 <nav class="navbar navbar-expand-lg navbar">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <h1><a style="text-decoration: none; color: white;" href="/"><strong>Command Fast</strong></a></h1>
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -31,13 +31,13 @@
         </sec:authorize>
         <sec:authorize access="!isAuthenticated()">
           <li class="nav-item">
-          <a style="text-decoration: none; color: white;" class="navbar-text active" aria-current="page" href="/login"><span style="color: rgb(255,255,255);"  aria-hidden="true"></span>Iniciar sesión</a>
+          <a style="text-decoration: none; color: white;" class="navbar-text active" aria-current="page" href="/login"><span style="color: rgb(255,255,255);"  aria-hidden="true"></span>Iniciar sesiï¿½n</a>
         </li>
         </sec:authorize>
         
           <sec:authorize access="isAuthenticated()">
           <li class="nav-item">
-          <a style="text-decoration: none; color: white;" class="navbar-text active" aria-current="page" href="/logout"><span style="color: rgb(255,255,255);"  aria-hidden="true"></span>Cerrar sesión</a>
+          <a style="text-decoration: none; color: white;" class="navbar-text active" aria-current="page" href="/logout"><span style="color: rgb(255,255,255);"  aria-hidden="true"></span>Cerrar sesiï¿½n</a>
         </li>
         </sec:authorize>
       </ul>
