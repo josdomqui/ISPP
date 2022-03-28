@@ -6,10 +6,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.commandfast.product.Product;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.samples.commandfast.product.ProductService;
 
 @Controller
 @RequestMapping("/restaurante")
@@ -27,10 +30,12 @@ public class RestauranteController {
 	private static final String RESTAURANTE_FORM = "URL_FORM";
 
 	private final RestauranteService restauranteService;
+	private final ProductService productService;
 
 	@Autowired
-	public RestauranteController(RestauranteService restauranteService) {
+	public RestauranteController(RestauranteService restauranteService, ProductService productService) {
 		this.restauranteService = restauranteService;
+		this.productService = productService;
 	}
 
     @GetMapping(value = { "/list" })
@@ -110,6 +115,32 @@ public class RestauranteController {
 			model.addAttribute("message", "Restaurant updated succesfully!");
 			return "redirect:/";
 		}
+	}
+
+	@GetMapping(value = "/{id}/product/new")
+	public String initCreationForm(@PathVariable("id") Integer id, Map<String, Object> model) {
+		Product product = new Product();
+		model.put("product", product);
+		model.put("restaurante_id", id);
+		return "carta/addProduct";
+	}
+
+	@PostMapping(value = "/{id}/product/new")
+	public String processCreationForm(@PathVariable("id") Integer id, @Valid Product product, BindingResult result,HttpServletRequest request) {
+		List<String> list= new ArrayList<>();
+		for(Product producto :restauranteService.findAllMenu()){
+			String name= producto.getName();
+			list.add(name);
+		}
+		if (result.hasErrors()) {
+			return "carta/addProduct";
+		}
+		else{
+			Integer id_restaurante = Integer.parseInt(request.getParameter("restaurante_id"));
+			product.setRestaurant(restauranteService.findRestaurantById(id_restaurante).get());
+			this.productService.save(product);
+			return "redirect:/restaurante/{id}/detalles/carta";
+			}
 	}
 
 
