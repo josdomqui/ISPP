@@ -33,10 +33,9 @@
         <div class="card base-card-listado mb-5 mt-5">
           <div class="row">
             <div class="col-3">
-              <img src="${restaurante.photo}" class="img-fluid" alt="..." style="
-            height: 200px; width: auto; margin: 10px;">
+              <img src="${restaurante.photo}" class="rounded" alt="..." style="height: 200px; width: 300px; margin: 10px;">
             </div>
-            <div class="col-8">
+            <div class="col-9">
             <div class="card-body d-flex flex-column" style="padding-bottom: 0px;">
               <h1 class="card-title mb-3" style="color: #ffff;"><strong><c:out value = "${restaurante.name}"/></strong></h1>
               <p class="card-text" style="color: #ffff; font-size: 16px;"><c:out value = "${restaurante.city}"/></p>
