@@ -112,5 +112,13 @@ public class RestauranteController {
 		}
 	}
 
+	// REGISTRO RESTAURANTES
+	@GetMapping("/restaurantes/signup")
+	public String signupRestaurante(ModelMap model) {
+		ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
+		model.put("listaTipos", listaTipoRestaurantes);
+		return "restaurantes/signup";
+	}
+
 
 }

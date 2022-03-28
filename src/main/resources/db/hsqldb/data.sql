@@ -8,9 +8,9 @@ INSERT INTO authorities(id,username,authority) VALUES (2,'owner1','owner');
 INSERT INTO users(username,password,enabled) VALUES ('vet1','v3t',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (3,'vet1','veterinarian');
 
-INSERT INTO restaurants(id, name, address, city, description, telephone, photo, capacity, schedule, email) VALUES (1, 'Gomez Martin SC', 'Avenida la borbolla 3', 'Sevilla', 'Establecimiento de bebidas y cafetería', 959121521,'/resources/images/bar1.jpg', 12, 'Lunes/Viernes 10:00 - 20:00', 'gomezmartin@gmail.com');
-INSERT INTO restaurants(id, name, address, city, description, telephone, photo, capacity, schedule, email) VALUES (2, 'Tabernas Sevilla', 'C/Gamazo 6', 'Sevilla', 'Restaurante de cocina mediterránea con opciones vegetarianas', 954221128,'/resources/images/bar2.jpg', 20, 'Lunes/Viernes 10:00 - 22:00', 'tabernasevilla@gmail.com');
-INSERT INTO restaurants(id, name, address, city, description, telephone, photo, capacity, schedule, email) VALUES (3, 'La mitad del cuarto', 'C/AV José Laguillo', 'Sevilla', 'Lugar idóneo para tapear', 954533124,'/resources/images/bar3.jpg', 20, 'Lunes/Viernes 11:00 - 20:00', 'mitadcuarto@gmail.com');
+INSERT INTO restaurants(id, name, address, city, description, telephone, photo, capacity, schedule, email, password) VALUES (1, 'Gomez Martin SC', 'Avenida la borbolla 3', 'Sevilla', 'Establecimiento de bebidas y cafetería', 959121521,'/resources/images/bar1.jpg', 12, 'Lunes/Viernes 10:00 - 20:00', 'gomezmartin@gmail.com', 'Jnais872NS;');
+INSERT INTO restaurants(id, name, address, city, description, telephone, photo, capacity, schedule, email, password) VALUES (2, 'Tabernas Sevilla', 'C/Gamazo 6', 'Sevilla', 'Restaurante de cocina mediterránea con opciones vegetarianas', 954221128,'/resources/images/bar2.jpg', 20, 'Lunes/Viernes 10:00 - 22:00', 'tabernasevilla@gmail.com', 'Jnais872N2sv231S;;');
+INSERT INTO restaurants(id, name, address, city, description, telephone, photo, capacity, schedule, email, password) VALUES (3, 'La mitad del cuarto', 'C/AV José Laguillo', 'Sevilla', 'Lugar idóneo para tapear', 954533124,'/resources/images/bar3.jpg', 20, 'Lunes/Viernes 11:00 - 20:00', 'mitadcuarto@gmail.com', 's872N2sv2Ssdik928231S#');
 
 INSERT INTO products(id, name, description, price, restaurant_id) VALUES (1, 'Ensalada gourmet', 'Lechuga Gourmet, Queso De Cabra, Cebolla Caramelizada, Nueces y Pasas',6.30, 1);
 INSERT INTO products(id, name, price, restaurant_id) VALUES (2, 'Patatas bravas', 2.90, 1);

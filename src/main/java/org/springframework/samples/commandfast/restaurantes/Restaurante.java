@@ -28,6 +28,7 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
@@ -75,6 +76,11 @@ public class Restaurante extends NamedEntity {
 	@Column(name = "email")
 	@NotEmpty
 	private String email;
+
+	@Column(name = "password")
+	@Size(min = 8, max = 30)
+	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=/S+$).{8,}$")
+	private String password;
 
 	@ElementCollection(targetClass =  RestauranteType.class)
 	@Column(name = "type", nullable = false)
