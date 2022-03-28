@@ -25,6 +25,7 @@
 
 @dark: #192026;
 @green: #6B9D8E;
+@green-hover: #4b6e64;
 @gray: #9EACA8;
 @white: #ffff;
 
@@ -454,6 +455,39 @@ body {
 
 }
 
+@dark: #192026;
+@green: #6B9D8E;
+@gray: #9EACA8;
+@white: #ffff;
+
+/* CSS LISTADO RESTAURANTES */
+
+.label-input-listado{
+  color: @white;
+  font-weight: 600px;
+  font-size: 14px;
+  line-height: 150%;
+}
+.input-filtros {
+  background-color: @white;
+  border-radius: 10px !important;
+  height: 43px;
+  width: 290px;
+}
+.buton-base-listado {
+  background-color: @green; 
+  padding: 5px 8px;
+  border-radius: 6px;
+  border: none !important;
+  &:hover,
+  &:focus,
+  &:active,
+  &.active,
+  .open .dropdown-toggle& {
+    background-color: @green-hover !important;
+    border: none !important;
+  }
+}
 @import "typography.less";
 @import "header.less";
 @import "responsive.less";

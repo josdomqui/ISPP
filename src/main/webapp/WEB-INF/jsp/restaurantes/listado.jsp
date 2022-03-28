@@ -9,16 +9,15 @@
 
 <petclinic:layout pageName="vets">
 
-
     <form class="row g-3" method="get" action="/restaurante/list/search">
         <div class="col-md-6">
-          <label for="inputEmail4" class="form-label">Lugar</label>
-          <input type="text" class="form-control" name= "inputPlace" id="inputPlace">
+          <label for="inputEmail4" class="form-label label-input-listado">Lugar</label>
+          <input type="text" class="form-control input-filtros" name= "inputPlace" id="inputPlace">
         </div>
         
         <div class="col-md-6">
-            <label for="inputState" class="form-label">Filtros</label>
-            <select id="inputState" name= "inputState" class="form-control form-select">
+            <label for="inputState" class="form-label label-input-listado">Filtros</label>
+            <select id="inputState" name= "inputState" class="form-control form-select input-filtros">
               <option selected>Selecciona una opción</option>
               <c:forEach items="${listaTipos}" var="tipo">
                 <option>${tipo}</option>
@@ -26,8 +25,8 @@
             </select>
           </div>
           
-        <div class="col-12">
-         <h3><button type="submit" class="btn-default">Buscar</button></h3> 
+        <div class="col-md-6">
+         <h3><button type="submit" class="btn-default buton-base-listado"><i class="bi bi-search"></i></button></h3> 
         </div>
       </form>
       <c:forEach items="${listaRestaurante}" var="restaurante">
