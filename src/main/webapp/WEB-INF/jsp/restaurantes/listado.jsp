@@ -64,7 +64,7 @@
                                 <div class="col-12 mb-3">
                                   <c:forEach items="${restaurante.type}" var="tipos">
                                     <span class="badge"
-                                      style="padding: 6px; font-size: 10px; background-color: #6B9D8E; margin-right: 6px;">
+                                      style="padding: 6px; font-size: 10px; background-color: #bb924b; margin-right: 6px;">
                                       <c:out value="${tipos}" />
                                     </span>
                                   </c:forEach>

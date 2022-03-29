@@ -11,10 +11,10 @@
     <div class="container mt-5 mb-5" style="position: absolute; width: 30%; left: 50%; top: 30%; transform: translate(-50%, -50%);">
     <h5 class="card-header fs-1" style="padding: 10px;">Nuevo pedido</h5>
     
-    <div class="card mb-3" style="border: 2px solid #9f6f44; height: 150px;">
+    <div class="card mb-3" style="height: 150px;">
     
         <div class="form-group has-feedback">
-        	<div class="row g-0" style="padding: 25px">
+        	<div class="row g-0" style="padding: 25px; background-color: black;">
         		<br/>
         		<br/>
         		<div style="display: flex; margin-left: 50px;">
