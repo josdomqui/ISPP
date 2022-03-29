@@ -95,6 +95,8 @@ public class LineController {
 		}
 		command.get().setPrice(suma);
 		commandService.saveCommand(command.get());
+		
+		model.put("comensales", command.get().getCostumers());
 		model.put("lista_res", res);
 		model.put("id_commanda", id_commanda);
 		model.put("lista_linea", lineas);
