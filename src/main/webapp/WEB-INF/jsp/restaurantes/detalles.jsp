@@ -11,73 +11,43 @@
 	
 <div class="container py-5">
 	<div class="row min-vh-50 align-items-center">
-		<div class="col-md-12 text-center">
+		<div class="row min-vh-50 align-items-center" style="margin-left: 110px;">
+            <div class="col-md-3">
+              <img src="${detallesRestaurante.photo}" class="rounded" alt="..." style="height: 250px; width: 350px; margin: 10px;">
+            </div>
+		<div class="col-md-7 " style="margin-left: 75px;">
 			<div class="lc-block mb-4">
 				<div editable="rich">
-					<h2 class="display-3 fw-bolder" style="color: #ffff;"><c:out value = "${detallesRestaurante.name}"/></h2>
-					<p><c:out value = "${detallesRestaurante.description}"/></p>
+					<h2 class="display-3 fw-bolder" style="color: #ffff; font-size: 30px;"><c:out value = "${detallesRestaurante.name}"/></h2>
+					<h1 class="display-3 fw-bolder" style="color: #ffff; font-size: 20px;"><c:out value = "${detallesRestaurante.schedule}"/></h2><br>
+					<p><c:out value = "${detallesRestaurante.description}"/></p><br>
 				</div>
-
+		
 				<div>
 					<spring:url value="/restaurante/{id}/detalles/carta" var="menUrl">
 							<spring:param name="id" value="${detallesRestaurante.id}"/>
 					</spring:url>
-					<h2><a type="button" class="btn-default" href="${fn:escapeXml(menUrl)}" style="padding: 5px;border: 3px solid #6B9D8E;text-decoration: none;/* align-self: center; *//* display: flex; */">Ver carta</a></h2>
-				</div>
+					<p><a type="button" class="buton-detalles-listado" href="${fn:escapeXml(url)}" style="text-decoration: none; color: #ffff; font-size: 14px;">Ver carta</a></p>
+				</div>																								
 
 			</div><!-- /lc-block -->
-			<div class="lc-block border-top col-md-6 offset-md-3" style="border-top: 2px solid #ffff !important;">
-				<div editable="rich">
-					<h2 class="fw-bolder"><br></h2>
-				</div>
-			</div>
-			<div class="lc-block mb-4" >
-				<div editable="rich">
-					<h2 class="fw-bolder" style="
-                    display: flex;
-                    justify-content
-                : center;
-                    width: 100%;
-					color: #ffff;
-                ">Horario</h2>
-				</div>
-			</div>
-			<div class="lc-block">
-				<div editable="rich">
-					<p><c:out value = "${detallesRestaurante.schedule}"/></p>
-				</div>
-			</div><!-- /lc-block -->
 		</div><!-- /col -->
+	</div>
 	</div>
 </div>
 
 <div class="container">
-	<div class="row align-items-center">
-		<div class="col-md-6">
+	<div class="row align-items-center  style="margin-left: 126px;">
+		<div class="col-md-7" style="margin-left: 126px;">
 			<div class="lc-block mb-4">
 				<div class="ratio ratio-4x3 min-vh-50" lc-helper="gmap-embed">
 					<iframe src="https://maps.google.com/maps?q=<c:out value = "${detallesRestaurante.address}"/>&amp;t=m&amp;z=8&amp;output=embed&amp;iwloc=near"></iframe>
 				</div>
+				<div class="ratio-4x3 min-vh-50" style="background: #6B9D8E;">
+					<h1 ALIGN = center ><c:out value = "${detallesRestaurante.address}"/> &nbsp;&nbsp;&nbsp;<c:out value = "${detallesRestaurante.telephone}"/></h1>
+				</div>
 			</div><!-- /lc-block -->
-		</div><!-- /col -->
-		<div class="col-md-6 px-5">
-			<div class="lc-block mb-4">
-				<div editable="rich">
-					<h2 class="display-6 fw-bolder" style="color: #ffff;">¡Encuentranos!<p></p>
-						<p></p>
-					</h2>
-				</div>
-			</div>
-			<div class="lc-block mb-4">
-				<div editable="rich">
-					<p class="lead"><c:out value = "${detallesRestaurante.address}"/></p>
-					<p class="lead"><c:out value = "${detallesRestaurante.telephone}"/></p>
-					<p class="lead"><c:out value = "${detallesRestaurante.email}"/></p>
-
-				</div>
-			</div>
-			
-		</div><!-- /col -->
+		
 	</div>
 </div>
 </petclinic:layout>
