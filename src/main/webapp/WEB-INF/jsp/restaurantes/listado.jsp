@@ -33,7 +33,12 @@
         <div class="card base-card-listado mb-5 mt-5">
           <div class="row">
             <div class="col-3">
-              <img src="${restaurante.photo}" class="rounded" alt="..." style="height: 200px; width: 300px; margin: 10px;">
+              <img src="${restaurante.photo}" class="rounded" alt="..." style="object-fit: cover;
+              margin: 10px;
+              height: 100%;
+              width: 100%;
+              max-width: 200px;
+              max-height: 200px;">
             </div>
             <div class="col-9">
             <div class="card-body d-flex flex-column" style="padding-bottom: 0px;">
