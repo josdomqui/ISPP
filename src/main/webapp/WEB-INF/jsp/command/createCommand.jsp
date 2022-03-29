@@ -18,9 +18,9 @@
         		<br/>
         		<br/>
         		<div style="display: flex; margin-left: 50px;">
-        			<span>Nombre: </span>
+        			<span>Personas: </span>
         				<div style="width: 50%;">
-            				<petclinic:inputField label="" name="name"/>
+            				<petclinic:inputField label="" name="costumers"/>
             			</div>
             	</div>
             	<div style="display: flex; margin-left: 50px;">

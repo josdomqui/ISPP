@@ -21,7 +21,7 @@ class CommandServiceTests {
 	@Test
     void shouldFindCommandById() {
         Command command = this.commandService.findIdCommands(1).get();
-        assertThat(command.getName()).isEqualTo("usuario");
+        assertThat(command.getCostumers()).isEqualTo(4);
         assertThat(command.getMesa().getId()).isEqualTo(1);
         assertThat(command.getPrice()).isEqualTo(53.02);
 
@@ -40,12 +40,12 @@ class CommandServiceTests {
 		Command comanda = new Command();
 		comanda.setLines(null);
 		comanda.setMesa(null);
-		comanda.setName("Comanda Test");
+		comanda.setCostumers(3);
 		comanda.setPrice(0.);
 		assertThat(this.commandService.findCommands()).hasSize(1);
 		this.commandService.saveCommand(comanda);
 		assertThat(this.commandService.findCommands()).hasSize(2);
-		assertThat(this.commandService.findIdCommands(2).get().getName()).isEqualTo("Comanda Test");
+		assertThat(this.commandService.findIdCommands(2).get().getCostumers()).isEqualTo(3);
 	}
 
 }
