@@ -24,8 +24,8 @@
 @spring-blue: rgb(0, 128, 255);
 
 @dark: #192026;
-@green: #6B9D8E;
-@green-hover: #4b6e64;
+@green: #ffcb74;
+@green-hover: #bb924b;
 @gray: #9EACA8;
 @white: #ffff;
 
@@ -455,11 +455,6 @@ body {
 
 }
 
-@dark: #192026;
-@green: #6B9D8E;
-@gray: #9EACA8;
-@white: #ffff;
-
 /* CSS LISTADO RESTAURANTES */
 
 .label-input-listado{
@@ -519,6 +514,45 @@ body {
   grid-gap: 20px;
   margin: 10px;
   align-items: baseline;
+}
+
+/*CSS TICKET */
+
+.ticket-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 60px;
+  flex-direction: column;
+}
+
+.ticket-card{
+  background-color:rgba(158, 172, 168, 0.5) !important;
+  border-radius: 6px;
+  width: auto;
+  padding: 20px;
+}
+
+.ticket-title-container{
+  width: 100%;
+  display: flex;
+  text-align: start;
+}
+
+.ticket-buttons-container{
+  display:flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  > a {
+    margin-right: 16px;
+  }
+}
+
+.ticket-card-container{
+  display: flex;
+  width: 100%;
+
 }
 @import "typography.less";
 @import "header.less";

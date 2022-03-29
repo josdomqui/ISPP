@@ -9,10 +9,10 @@
 <html>
 <petclinic:htmlHeader/>
 
-<body>
+<body style="background-color: #192026; min-height: 100vh;">
 <petclinic:bodyHeader menuName="${pageName}"/>
 
-<div class="container-fluid" style="background-color: #192026;">
+<div class="container-fluid">
     <div class="container xd-container">
 	<c:if test="${not empty message}" >
 	<div class="alert alert-${not empty messageType ? messageType : 'info'}" role="alert">
