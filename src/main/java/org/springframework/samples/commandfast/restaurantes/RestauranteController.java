@@ -134,7 +134,7 @@ public class RestauranteController {
 		}
 		else {
 			this.restauranteService.save(restaurant);
-			return "/";
+			return "redirect:/login";
 		}
 	}
   
