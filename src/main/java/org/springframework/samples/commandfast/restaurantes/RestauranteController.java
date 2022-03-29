@@ -126,18 +126,14 @@ public class RestauranteController {
 	}
 
 	@PostMapping(value = "/{id}/product/new")
-	public String processCreationForm(@PathVariable("id") Integer id, @Valid Product product, BindingResult result,HttpServletRequest request) {
-		List<String> list= new ArrayList<>();
-		for(Product producto :restauranteService.findAllMenu()){
-			String name= producto.getName();
-			list.add(name);
-		}
+	public String processCreationForm(@PathVariable("id") Integer id, @Valid Product product, BindingResult result) {
 		if (result.hasErrors()) {
 			return "carta/addProduct";
 		}
 		else{
-			Integer id_restaurante = Integer.parseInt(request.getParameter("restaurante_id"));
-			product.setRestaurant(restauranteService.findRestaurantById(id_restaurante).get());
+			int id_plato = restauranteService.findAllMenu().size()+1;
+			product.setId(id_plato);
+			product.setRestaurant(restauranteService.findRestaurantById(id).get());
 			this.productService.save(product);
 			return "redirect:/restaurante/{id}/detalles/carta";
 			}
