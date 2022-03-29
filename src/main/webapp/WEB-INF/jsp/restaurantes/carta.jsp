@@ -12,7 +12,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <h2 class="display-2 text-center mt-3 mb-5" editable="inline" style="color: #bd8859;"> Menu</h2>
+          <h2 class="display-2 text-center mt-3 mb-5" editable="inline" style="color: #ffff;"> Menu</h2>
         </div>
       </div>
       <div class="row">
