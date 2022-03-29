@@ -39,7 +39,10 @@
     </table>
   </div>
 </div>
-
+</br>
+        <h3>Si pagais entre  <c:out value="${comensales}"/> sale a:
+        <c:out value= "${division}"/> cada uno.</h3>
+</br>
     			
    	<spring:url value="/payment/{id_comanda}" var="url">
     <spring:param name="id_comanda" value="${id_commanda}"/>

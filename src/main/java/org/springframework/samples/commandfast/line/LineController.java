@@ -16,15 +16,12 @@
 package org.springframework.samples.commandfast.line;
 
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
-import javax.validation.Valid;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.commandfast.command.Command;
@@ -36,13 +33,10 @@ import org.springframework.samples.commandfast.user.AuthoritiesService;
 import org.springframework.samples.commandfast.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -95,10 +89,14 @@ public class LineController {
 		}
 		command.get().setPrice(suma);
 		commandService.saveCommand(command.get());
+		
+		model.put("comensales", command.get().getCostumers());
 		model.put("lista_res", res);
 		model.put("id_commanda", id_commanda);
 		model.put("lista_linea", lineas);
 		model.put("suma", suma);
+		Double division = (suma/command.get().getCostumers());
+		model.put("division", String.format("%.2f", division));
 		return "carta/ticket";
 		//return new ModelAndView("carta/ticket", model);
 	}
