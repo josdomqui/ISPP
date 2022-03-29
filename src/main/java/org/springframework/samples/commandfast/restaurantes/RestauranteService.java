@@ -7,6 +7,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.commandfast.product.Product;
+import org.springframework.samples.commandfast.user.AuthoritiesService;
+import org.springframework.samples.commandfast.user.UserService;
+import org.springframework.samples.commandfast.product.ProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +22,15 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class RestauranteService {
 
+	
 	private RestauranteRepository restauranteRepository;	
+	
+
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private AuthoritiesService authoritiesService;
 
 	@Transactional
 	public List<Restaurante> findAllRestaurants() throws DataAccessException{
@@ -61,7 +72,15 @@ public class RestauranteService {
     }
 
 	public void save(Restaurante restaurante) {
-        restauranteRepository.save(restaurante);;
+		//Creating restaurant
+		restauranteRepository.save(restaurante);
+		//Creating user
+		userService.saveUser(restaurante.getUser());
+		//Creating authorities
+    authoritiesService.saveAuthorities(restaurante.getUser().getUsername(), "restaurant");
+
     }
+
+
 
 }
