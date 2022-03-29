@@ -17,6 +17,7 @@ package org.springframework.samples.commandfast.restaurantes;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -31,9 +32,11 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import org.springframework.samples.commandfast.user.User;
 
 import org.springframework.samples.commandfast.model.NamedEntity;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -77,14 +80,13 @@ public class Restaurante extends NamedEntity {
 	@NotEmpty
 	private String email;
 
-	@Column(name = "password")
-	@Size(min = 8, max = 30)
-	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=/S+$).{8,}$")
-	private String password;
-
 	@ElementCollection(targetClass =  RestauranteType.class)
 	@Column(name = "type", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private List<RestauranteType> type;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "username", referencedColumnName = "username")
+	private User user;
 
 }

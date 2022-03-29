@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class RestauranteController {
 
 	//TODO
-	private static final String RESTAURANTE_FORM = "URL_FORM";
+	private static final String RESTAURANTE_FORM = "restaurantes/createRestaurantForm";
 
 	private final RestauranteService restauranteService;
 
@@ -113,12 +113,24 @@ public class RestauranteController {
 	}
 
 	// REGISTRO RESTAURANTES
-	@GetMapping("/restaurantes/signup")
+	@GetMapping("/signup")
 	public String signupRestaurante(ModelMap model) {
 		ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
+		Restaurante restaurante = new Restaurante();
+		model.put("restaurant", restaurante);
 		model.put("listaTipos", listaTipoRestaurantes);
-		return "restaurantes/signup";
+		return RESTAURANTE_FORM;
 	}
 
+	@PostMapping(value = "/signup")
+	public String processCreationForm(@Valid Restaurante restaurant, BindingResult result) {
+		if (result.hasErrors()) {
+			return RESTAURANTE_FORM;
+		}
+		else {
+			this.restauranteService.save(restaurant);
+			return "/";
+		}
+	}
 
 }
