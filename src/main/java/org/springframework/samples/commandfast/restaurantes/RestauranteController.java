@@ -27,7 +27,7 @@ import org.springframework.samples.commandfast.product.ProductService;
 public class RestauranteController {
 
 	//TODO
-	private static final String RESTAURANTE_FORM = "URL_FORM";
+	private static final String RESTAURANTE_FORM = "restaurantes/createRestaurantForm";
 
 	private final RestauranteService restauranteService;
 	private final ProductService productService;
@@ -117,6 +117,27 @@ public class RestauranteController {
 		}
 	}
 
+	// REGISTRO RESTAURANTES
+	@GetMapping("/signup")
+	public String signupRestaurante(ModelMap model) {
+		ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
+		Restaurante restaurante = new Restaurante();
+		model.put("restaurant", restaurante);
+		model.put("listaTipos", listaTipoRestaurantes);
+		return RESTAURANTE_FORM;
+	}
+
+	@PostMapping(value = "/signup")
+	public String processCreationForm(@Valid Restaurante restaurant, BindingResult result) {
+		if (result.hasErrors()) {
+			return RESTAURANTE_FORM;
+		}
+		else {
+			this.restauranteService.save(restaurant);
+			return "/";
+		}
+	}
+  
 	@GetMapping(value = "/{id}/product/new")
 	public String initCreationForm(@PathVariable("id") Integer id, Map<String, Object> model) {
 		Product product = new Product();
@@ -138,6 +159,5 @@ public class RestauranteController {
 			return "redirect:/restaurante/{id}/detalles/carta";
 			}
 	}
-
 
 }

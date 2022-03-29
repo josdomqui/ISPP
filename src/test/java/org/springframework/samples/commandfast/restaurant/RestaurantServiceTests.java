@@ -46,7 +46,7 @@ public class RestaurantServiceTests {
         r.setCapacity(12);
         r.setCity("Granada");
         r.setDescription("descrition_newwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
-        r.setEmail("email@gmail.com");
+        //r.setEmail("email@gmail.com");
         r.setName("NuevoNombre");
         r.setPhoto("photo");
         r.setSchedule("schedule");

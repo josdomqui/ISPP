@@ -7,10 +7,18 @@ INSERT INTO authorities(id,username,authority) VALUES (2,'owner1','owner');
 -- One vet user, named vet1 with passwor v3t
 INSERT INTO users(username,password,enabled) VALUES ('vet1','v3t',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (3,'vet1','veterinarian');
+-- Username and authority
+INSERT INTO users(username,password,enabled) VALUES ('gomezmartin','Jnais872NS',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (4,'gomezmartin','restaurant');
+INSERT INTO restaurants(id, name, address, city, description, telephone, photo, capacity, schedule, email, username) VALUES (1, 'Gomez Martin SC', 'Avenida la borbolla 3', 'Sevilla', 'Establecimiento de bebidas y cafetería', 959121521,'/resources/images/bar1.jpg', 12, 'Lunes/Viernes 10:00 - 20:00', 'gomezmartin@gmail.com', 'gomezmartin');
+--
+INSERT INTO users(username,password,enabled) VALUES ('tabernasevilla','Jnais872N2sv231S;;',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (5,'tabernasevilla','restaurant');
+INSERT INTO restaurants(id, name, address, city, description, telephone, photo, capacity, schedule, email, username) VALUES (2, 'Tabernas Sevilla', 'C/Gamazo 6', 'Sevilla', 'Restaurante de cocina mediterránea con opciones vegetarianas', 954221128,'/resources/images/bar2.jpg', 20, 'Lunes/Viernes 10:00 - 22:00', 'tabernasevilla@gmail.com', 'tabernasevilla');
 
-INSERT INTO restaurants(id, name, address, city, description, telephone, photo, capacity, schedule, email) VALUES (1, 'Gomez Martin SC', 'Avenida la borbolla 3', 'Sevilla', 'Establecimiento de bebidas y cafetería', 959121521,'/resources/images/bar1.jpg', 12, 'Lunes/Viernes 10:00 - 20:00', 'gomezmartin@gmail.com');
-INSERT INTO restaurants(id, name, address, city, description, telephone, photo, capacity, schedule, email) VALUES (2, 'Tabernas Sevilla', 'C/Gamazo 6', 'Sevilla', 'Restaurante de cocina mediterránea con opciones vegetarianas', 954221128,'/resources/images/bar2.jpg', 20, 'Lunes/Viernes 10:00 - 22:00', 'tabernasevilla@gmail.com');
-INSERT INTO restaurants(id, name, address, city, description, telephone, photo, capacity, schedule, email) VALUES (3, 'La mitad del cuarto', 'C/AV José Laguillo', 'Sevilla', 'Lugar idóneo para tapear', 954533124,'/resources/images/bar3.jpg', 20, 'Lunes/Viernes 11:00 - 20:00', 'mitadcuarto@gmail.com');
+INSERT INTO users(username,password,enabled) VALUES ('mitadcuarto','s872N2sv2Ssdik928231S#',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (6,'mitadcuarto','restaurant');
+INSERT INTO restaurants(id, name, address, city, description, telephone, photo, capacity, schedule, email, username) VALUES (3, 'La mitad del cuarto', 'C/AV José Laguillo', 'Sevilla', 'Lugar idóneo para tapear', 954533124,'/resources/images/bar3.jpg', 20, 'Lunes/Viernes 11:00 - 20:00', 'mitadcuarto@gmail.com', 'mitadcuarto');
 
 INSERT INTO products(id, name, description, price, restaurant_id) VALUES (1, 'Ensalada gourmet', 'Lechuga Gourmet, Queso De Cabra, Cebolla Caramelizada, Nueces y Pasas',6.30, 1);
 INSERT INTO products(id, name, price, restaurant_id) VALUES (2, 'Patatas bravas', 2.90, 1);
