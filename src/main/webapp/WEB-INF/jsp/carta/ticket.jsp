@@ -41,21 +41,26 @@
                             </c:forEach>
                           </tbody>
                           <tfoot>
-                            <tr>     
+                            <tr>
                               <th><span><strong>Total</strong></span></th>
                               <th id="total" style="text-align: end;"><span><strong>
                                     <c:out value="$${suma}" />
                                   </strong>
                                 </span></th>
-                              </tr>
+                            </tr>
                           </tfoot>
-                              
+
                         </table>
                       </div>
                     </div>
                   </div>
 
-
+                  </br>
+                  <h3>Si pagais entre
+                    <c:out value="${comensales}" /> sale a:
+                    <c:out value="$ ${suma/comensales}" /> cada uno.
+                  </h3>
+                  </br>
 
                   </div>
                   <div class="ticket-buttons-container">
