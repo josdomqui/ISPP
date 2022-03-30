@@ -16,7 +16,6 @@
 package org.springframework.samples.commandfast.line;
 
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -32,7 +31,6 @@ import org.springframework.samples.commandfast.plate.PlateService;
 import org.springframework.samples.commandfast.user.AuthoritiesService;
 import org.springframework.samples.commandfast.user.UserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -68,7 +66,7 @@ public class LineController {
 		Collection<Line> lineas = this.lineService.findLineByCommandId(id_commanda);
 		Collection<Plate> platos = this.plateService.findAllPlates();
 		Optional<Command> command = this.commandService.findIdCommands(id_commanda);
-		List<Plate> res = new ArrayList<Plate>();
+		List<Plate> res = new ArrayList<>();
 		Double suma = 0.;
 		for (Line linea: lineas) {
 			for (Plate plato: platos) {
@@ -81,11 +79,8 @@ public class LineController {
 			}
 		}
 		if(suma == 0.) { //validación para que no se pueda hacer un pedido sin platos
-			ModelMap map = new ModelMap();
-			//map.addAttribute("message", true);
 			redirectAttrs.addFlashAttribute("message", "Por favor, añada platos a su pedido antes de finalizarlo");
 			return("redirect:/carta/" + id_commanda);
-			//return new ModelAndView("redirect:/carta/" + id_commanda, map);
 		}
 		command.get().setPrice(suma);
 		commandService.saveCommand(command.get());
@@ -98,7 +93,6 @@ public class LineController {
 		Double division = (suma/command.get().getCostumers());
 		model.put("division", String.format("%.2f", division));
 		return "carta/ticket";
-		//return new ModelAndView("carta/ticket", model);
 	}
 
 	

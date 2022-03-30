@@ -38,10 +38,6 @@ public class Command extends BaseEntity{
 	@Column(name = "price")
 	Double price;
 	
-//	@Column(name = "date")
-//	//@NotEmpty
-//	LocalDateTime date;
-	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "command")
 	private Set<Line> lines;
 	

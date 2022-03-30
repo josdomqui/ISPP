@@ -56,7 +56,7 @@
 		<div class="col-md-6">
 			<div class="lc-block mb-4">
 				<div class="ratio ratio-4x3 min-vh-50" lc-helper="gmap-embed">
-					<iframe src="https://maps.google.com/maps?q=<c:out value = "${detallesRestaurante.address}"/>&amp;t=m&amp;z=8&amp;output=embed&amp;iwloc=near"></iframe>
+					<iframe title="Google maps location" src="https://maps.google.com/maps?q=<c:out value = "${detallesRestaurante.address}"/>&amp;t=m&amp;z=8&amp;output=embed&amp;iwloc=near"></iframe>
 				</div>
 			</div><!-- /lc-block -->
 		</div><!-- /col -->

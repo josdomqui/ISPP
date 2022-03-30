@@ -25,7 +25,7 @@ import org.springframework.samples.commandfast.product.ProductService;
 @RequestMapping("/restaurante")
 public class RestauranteController {
 
-	//TODO
+
 	private static final String RESTAURANTE_FORM = "restaurantes/createRestaurantForm";
 
 	private final RestauranteService restauranteService;
@@ -50,13 +50,12 @@ public class RestauranteController {
 	public String showRestautanteToSearch(@RequestParam("inputPlace") String place, Map<String, Object> model, @RequestParam("inputState") String type) {
 		ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
 		model.put("listaTipos", listaTipoRestaurantes);
-		List<Restaurante> lrestaurantes= new ArrayList<>();
 		List<Restaurante> lres= new ArrayList<>();
 
 		if(place.isEmpty()){
-			lrestaurantes = restauranteService.findAllRestaurants();
+			List<Restaurante> lrestaurantes = restauranteService.findAllRestaurants();
 		}else{
-			lrestaurantes = restauranteService.findByCity(place.toUpperCase());
+			List<Restaurante> lrestaurantes  = restauranteService.findByCity(place.toUpperCase());
 			System.out.println(lrestaurantes);
 		}
 		if (!(type.equals("Selecciona una opción"))) {
@@ -68,7 +67,6 @@ public class RestauranteController {
 			lrestaurantes.retainAll(lres);
 		}
 		model.put("listaRestaurante", lrestaurantes);
-		//model.put("listaTipos", ltipos);
 		return "restaurantes/listado";
 	}
 

@@ -42,16 +42,6 @@
                     </c:forEach>
                 </td>
                 
-      
-<!--
-                <td> 
-                    <c:out value="${owner.user.username}"/> 
-                </td>
-                <td> 
-                   <c:out value="${owner.user.password}"/> 
-                </td> 
--->
-                
             </tr>
         </c:forEach>
         </tbody>

@@ -11,9 +11,7 @@ import org.springframework.samples.commandfast.mesa.MesaService;
 import org.springframework.samples.commandfast.user.AuthoritiesService;
 import org.springframework.samples.commandfast.user.UserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller

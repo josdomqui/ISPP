@@ -63,12 +63,12 @@ public class CommandController {
 	}
 
 	@PostMapping(value = "/command/new")
-	public String processCreationForm(@Valid Command command, BindingResult result) {
+	public String processCreationForm(@Valid Command comnd, BindingResult result) {
 		if (result.hasErrors()) {
 			return "command/createCommand";
 		} else {
-			this.commandService.saveCommand(command);
-			Integer id_command = command.getId();
+			this.commandService.saveCommand(comnd);
+			Integer id_command = comnd.getId();
 			return "redirect:/carta/"+id_command;
 		}
 	}
