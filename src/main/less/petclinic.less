@@ -253,72 +253,35 @@ hr {
   padding: 1.5em;
 }
 
-.menu {
-  font-family: "Inter", sans-serif;
-  font-size: 14px;
+.card-image  {
+	padding: 20px;
+    height: 200px;
+    width:  200px;
 }
 
-.menu-group-heading {
-  margin: 0;
-  padding-bottom: 1em;
-  border-bottom: 2px solid #ccc;
+.card-deck {
+	text-align: center;
 }
 
-.menu-group {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5em;
-  padding: 1.5em 0;
+.card {
+	margin: 10px;
+	padding: 5px;
+	width: 500px;
 }
 
-.menu-item {
-  display: flex;
-}
-
-.menu-item-image {
-  width: 80px;
-  height: 80px;
-  flex-shrink: 0;
-  object-fit: cover;
-  margin-right: 1.5em;
-}
-
-.menu-item-text {
-  flex-grow: 1;
-}
-
-.menu-item-heading {
-  display: flex;
-  justify-content: space-between;
-  margin: 0;
-}
-
-.menu-item-name {
-  margin-right: 1.5em;
-}
-
-.menu-item-description {
-  line-height: 1.6;
-}
-
-@media screen and (min-width: 992px) {
-  .menu {
-    font-size: 16px;
+@media screen and (max-width: 768px) {
+	
+  .card {
+	width: 300px;
   }
-
-  .menu-group {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .menu-item-image {
-    width: 125px;
-    height: 125px;
+  
+  .card-image   {
+	margin-top: 5px;
+	padding: 10px;
+    height: 100px;
+    width:  100px;
   }
 }
-
-
-
-
 
 
 body {
@@ -553,6 +516,29 @@ body {
   display: flex;
   width: 100%;
 
+}
+
+/* CSS CREAR COMANDA */
+
+.btn-pedir {
+  background-color: @green; 
+  padding: 6px !important;
+  border-radius: 6px;
+  border: none !important;
+  &:hover,
+  &:focus,
+  &:active,
+  &.active,
+  .open .dropdown-toggle& {
+    background-color: @green-hover !important;
+    border: none !important;
+  }
+}
+
+.container-carrito {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
 }
 @import "typography.less";
 @import "header.less";
