@@ -17,7 +17,7 @@
     <!--Stripe JavaScript Library-->
     <script src="https://js.stripe.com/v3/"></script>
 </head>
-<body class="bg-light pt-5" style="padding-top: 0rem !important;">
+<body class="bg-light pt-5" style="background-color: #192026; padding-top: 0rem !important;">
 <!-- <h2>Charge</h2> -->
 <!--hero section-->
 <section class="py-5">
