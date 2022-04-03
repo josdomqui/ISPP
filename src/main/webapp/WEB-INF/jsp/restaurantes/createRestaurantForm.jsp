@@ -23,17 +23,19 @@
             <petclinic:inputField label="Photo" name="photo"/>
             <petclinic:inputField label="Capacity" name="capacity"/>
             <petclinic:inputField label="Schedule" name="schedule"/>
+        <div class = "form-container-listado abs-center"  style="margin-left: 16.2%;">
             <select name="type" multiple style="background-color: white; border-radius:4px; width: 32.2%; margin-left: 10px; height: 120%">
             	<c:forEach items="${listaTipos}" var="mesa">
   					<option value="${mesa.name()}"><c:out value = "${mesa.name()}"/></option>
   				</c:forEach>
 			</select>
         </div>
+        </div>
         <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
+            <div class="col-sm-offset-2 col-sm-10" style="margin-left: 50%;">
                 <c:choose>
                     <c:when test="${restaurant['new']}">
-                        <button class="btn btn-default" type="submit">Add Restaurant</button>
+                        <button class="buton-detalles-listado" type="button" style="text-decoration: none; color: #ffff; font-size: 14px;">Add Restaurant</button>
                     </c:when>
                 </c:choose>
             </div>
