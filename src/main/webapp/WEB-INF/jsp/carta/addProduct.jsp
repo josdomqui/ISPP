@@ -19,9 +19,14 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                
-            <button style="background-color:#bd8859" class="btn btn-default" type="submit">Añadir Plato</button>
-                    
+                <c:choose>
+                    <c:when test="${product['new']}">
+                        <button style="background-color:#bd8859" class="btn btn-default" type="submit">Añadir Plato</button>
+                    </c:when>
+                    <c:otherwise>
+                        <button style="background-color:#bd8859" class="btn btn-default" type="submit">Editar Plato</button>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
     </form:form>

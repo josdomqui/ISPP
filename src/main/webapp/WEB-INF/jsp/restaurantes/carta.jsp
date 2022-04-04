@@ -5,6 +5,7 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
   
   
 <petclinic:layout pageName="carta">
@@ -24,6 +25,15 @@
               <div class="item-menu-content">
                 <p class="item-menu-title"><span editable="inline" class=""><c:out value = "${product.name}"/></span> <span editable="inline" class="item-menu-price"><c:out value = "${product.price}"/>€</span></p>
                 <p class="item-menu-desc" editable="inline"><c:out value = "${product.description}"/><br></p>
+                <sec:authorize access="hasAuthority('admin')">
+                                  <spring:url value="/restaurante/{id_restaurante}/{id}/product/edit" var="editProductUrl">
+                                    <spring:param name="id_restaurante" value="${id_restaurante}" />
+                                    <spring:param name="id" value="${product.id}" />
+                                  </spring:url>
+                                  <a type="button" class="btn-default" href="${fn:escapeXml(editProductUrl)}"
+                                    style="padding: 4px;border: 3px solid #9f6f44; text-decoration: none;">Editar
+                                    plato</a>
+                                </sec:authorize>
               </div>
             </div>
             </div>
