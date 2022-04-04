@@ -30,6 +30,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author Juergen Hoeller
@@ -63,13 +64,17 @@ public class CommandController {
 	}
 
 	@PostMapping(value = "/command/new")
-	public String processCreationForm(@Valid Command command, BindingResult result) {
+	public ModelAndView processCreationForm(@Valid Command command, BindingResult result) {
 		if (result.hasErrors()) {
-			return "command/createCommand";
+			Map<String, Object> model = result.getModel();
+			model.put("mesas", this.mesaService.findAllMesa());
+//			return "command/createCommand";
+			return new ModelAndView("command/createCommand", model);
 		} else {
 			this.commandService.saveCommand(command);
 			Integer id_command = command.getId();
-			return "redirect:/carta/"+id_command;
+//			return "redirect:/carta/"+id_command;
+			return new ModelAndView("redirect:/carta/"+id_command, result.getModel());
 		}
 	}
 	

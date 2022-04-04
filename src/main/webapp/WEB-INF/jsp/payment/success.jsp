@@ -7,9 +7,10 @@
 <petclinic:layout pageName="successPage"> 
     <div class="row">
         <div align="center">
-            <h2>Su pago se ha realizado con éxito</h2>
-            <spring:url value="/resources/images/pago.png" htmlEscape="true" var="checkPago"/>
-            <img style="width: 30%; height: 90%" class="img-responsive" src="${checkPago}"/>
+            <h2 class="img-title p-3">Su pago se ha realizado con éxito</h2>
+            <spring:url value="/resources/images/pago exitoso.png" htmlEscape="true" var="checkPago"/>
+            <img style="width: 25%; height: 85%" class="img-responsive" src="${checkPago}"/>
+            <h2 class="img-footer mt-4">¡Buen provecho!</h2>
         </div>
     </div>
 </petclinic:layout>
