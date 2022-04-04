@@ -22,7 +22,7 @@
 			    					<h2 class="card-title"><c:out value = "Mesa"/></h2>
 									<p class="card-text"><c:out value="${payment.table.number}"/></p>
 									<h2 class="card-title"><c:out value = "Importe"/></h2>
-									<p class="card-text"><c:out value="${payment.amount} $"/></p>
+									<p class="card-text"><c:out value="${payment.amount}"/> &euro;</p>
 								</div>		    				
 			   				</div>
 			   			</c:if>
@@ -43,7 +43,7 @@
 			    					<h2 class="card-title"><c:out value = "Mesa"/></h2>
 									<p class="card-text"><c:out value="${payment.table.number}"/></p>
 									<h2 class="card-title"><c:out value = "Importe"/></h2>
-									<p class="card-text"><c:out value="${payment.amount} $"/></p>
+									<p class="card-text"><c:out value="${payment.amount}"/> &euro;</p>
 								</div>		    				
 			   				</div>
 			   			</c:if>
