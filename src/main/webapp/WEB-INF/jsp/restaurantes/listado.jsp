@@ -15,7 +15,7 @@
                         <div>
                           <label for="inputEmail4" class="form-label label-input-listado"
                             style="font-size: 16px;">Lugar</label>
-                          <input type="text" class="form-control input-filtros" name="inputPlace" id="inputPlace"
+                          <input type="text" class="form-control input-filtros" value="${place}"name="inputPlace" id="inputPlace"
                             style="font-size: 14px;font-family: 'quicksand', sans-serif;">
                         </div>
                         <div>
