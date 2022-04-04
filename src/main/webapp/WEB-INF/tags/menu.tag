@@ -7,18 +7,18 @@
 <%@ attribute name="name" required="true" rtexprvalue="true"
 	description="Name of the active menu: home, owners, vets or error"%>
 
-<nav class="navbar navbar-expand-lg navbar">
+<nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
     <h1><a style="text-decoration: none; color: white;" href="/"><strong>Command Fast</strong></a></h1>
-<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="glyphicon glyphicon-align-justify"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a style="text-decoration: none; color: white;" class="navbar-text active" aria-current="page" href="/"><span style="color: rgb(255,255,255);" class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a>
         </li>
-		<li class="nav-item">
+		    <li class="nav-item">
           <a style="text-decoration: none; color: white;" class="navbar-text active" aria-current="page" href="/restaurante/list"><span style="color: rgb(255,255,255);" class="glyphicon glyphicon-search" aria-hidden="true"></span> Restaurantes</a>
         </li>
         <li class="nav-item">

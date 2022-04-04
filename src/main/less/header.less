@@ -8,11 +8,14 @@
   padding: 40px;
 }
 
+/*
 .navbar a.navbar-brand {
     text-decoration: none;
     padding: 0;
 }
+*/
 
+/*
 .navbar a.navbar-brand span {
   display: block;
   width: 229px;
@@ -23,10 +26,18 @@
   -webkit-transition: opacity 0.12s ease-in-out;
   -o-transition: opacity 0.12s ease-in-out;
 }
+*/
 
-
+/*
 .navbar a:hover.navbar-brand span {
   opacity: 1;
+}
+*/
+
+.nav-item {
+  @media (max-width: 768px) {
+  padding: 20px;
+  }
 }
 
 .navbar li > a, .navbar-text {
@@ -36,6 +47,7 @@
 
 
 /* line-height: 14px; */
+
   padding: 28px 20px;
   transition: all 0.15s;
   -webkit-transition: all 0.15s;
@@ -46,6 +58,7 @@
 
 .navbar li > a {
   color: #eeeeee;
+  padding: 28px 20px;
 }
 
 .navbar .navbar-text {
@@ -57,7 +70,7 @@
   background-color: #bb924b;
 }
 
-.navbar-toggle {
+.navbar-toggler {
   border-width: 0;
 
   .icon-bar + .icon-bar {
