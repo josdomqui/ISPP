@@ -1,8 +1,11 @@
 <%@ page session="false" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
-<!-- %@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %-->  
+
 <script type="text/javascript">
 //Step 1: Get user coordinates
 function getCoordintes() {
@@ -48,7 +51,7 @@ function getCity(coordinates) {
 			var response = JSON.parse(xhr.responseText);
 			var city = response.address.city;
 			console.log(city);
-			var container = '<input label="City" name="city" value="'+ city + '"type="hidden"/>';
+			var container = '<input label="City" name="city" value="'+ city + '" type="hidden"/>';
 			var div = document.querySelector(".location");
 			div.innerHTML = container;
 			return;
@@ -65,7 +68,12 @@ getCoordintes();
             <spring:url value="/resources/images/Imagen1.png" htmlEscape="true" var="petsImage"/>
             <img style="width: 30%; height: 90%" class="img-responsive" src="${petsImage}"/>
             <h2>Bienvenidos a Command-Fast, ¿desea consultar restaurantes cercanos que usen nuestra tecnología?</h2>
-        	<div class="location"></div>
+        	
+        	<form:form class="form-horizontal" id="add-command-form">
+        	<div class="location">
+        	</div>
+        		<button class="btn-default" type="submit"><span style="color: white;">Consultar</span></button>
+        	</form:form>
         </div>
     </div>
 </petclinic:layout>
