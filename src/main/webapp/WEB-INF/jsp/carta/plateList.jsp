@@ -39,7 +39,7 @@
 							</c:if>
 							</c:forEach>
 							</c:if>
-							<input label="Cantidad" style="width: 80px; height: 30px;  border-radius: 10px;" name="quantity" type="number" max="50" min="0"/>
+							<input label="Cantidad" style="color: black; width: 80px; height: 30px;  border-radius: 10px;" name="quantity" type="number" max="50" min="0"/>
 							<input label="Comanda" name="command" value="${id_commanda}" type="hidden"/>
 							<button style="margin-left: 10px" class="btn-pedir" type="submit"><span>Pedir</span></button>
 	       				</div>

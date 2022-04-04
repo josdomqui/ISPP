@@ -11,22 +11,22 @@
     <div class="form-group has-feedback">
        	<div class="container-carrito">
     		<div class="card mb-3" style="border: 2px solid; background-color: rgba(158, 172, 168, 0.5); border-radius:10px; ">
-    		<h2 class="card-title mt-3 mb-3 text-center"><strong>Nuevo pedido</strong></h2>
+    		<h1 class="card-title mt-3 mb-3 text-center"><strong>Nuevo pedido</strong></h1>
     		
-    		<div class="row">
-       			<div class="col-xs-2 col-lg-3">
-       				<p class="card-text p-3">Personas: </p>
+    		<div class="row mt-2">
+       			<div class="col-xs-2 col-md-3">
+       				<p class="card-text p-3">Personas:</p>
        			</div>
-   				<div class="col-xs-6 col-lg-9" style="width: 60%">		
+   				<div class="col-xs-10 col-md-9" style="width: 60%; margin-left: 5%">		
        				<petclinic:inputField label ="" name="costumers"/>
        			</div>
            	</div>
     		<div class="row mb-3">
-	            	<div class="col-xs-3 col-lg-4">
-	        			<p class="card-text p-3">Número de mesa: </p>
+	            	<div class="col-xs-5 col-md-5">
+	        			<p class="card-text p-3">Número de mesa:</p>
 	            	</div>
-	            	<div class="col-xs-4 col-lg-8 p-3">
-            			<select name="mesa" style="background-color: white; border-radius:4px; height: 80%; width: 30%; ">
+	            	<div class="col-xs-10 col-md-7 mt-2 mb-2">
+            			<select name="mesa" style="background-color: white; border-radius:4px; height: 100%; width: 75px; margin-left: 5%">
             				<c:forEach items="${mesas}" var="mesa">
   								<option value="${mesa.number}"><c:out value = "${mesa.number}"/></option>
   							</c:forEach>

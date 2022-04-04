@@ -10,44 +10,47 @@
 <petclinic:layout pageName="ticket">
 
 	<div class="container">
-	
-		<h1 class="col-md-12">Mesas con pago en efectivo</h1>
-		   
-	   	<div class="card-deck" style="background-color: black;">
-	  		<c:forEach items="${payments}" var="payment">
-		   		<c:if test="${payment.payHere==true}">
-		   			<c:if test="${payment.creditCard==false}">
-		   				<div class="col-12 col-md-3">
-		    				<div class="card-body mb-3 card border-dark" style="background-color: black;">
-		    					<h2 class="card-title"><c:out value = "Mesa"/></h2>
-								<p class="card-text"><c:out value="${payment.table.number}"/></p>
-								<h2 class="card-title"><c:out value = "Importe"/></h2>
-								<p class="card-text"><c:out value="${payment.amount} $"/></p>
-							</div>		    				
-		   				</div>
-		   			</c:if>
-		   		</c:if>   					
-	  		</c:forEach>
-	   	</div>
-		   
-		<h1 class="col-md-12">Mesas con pago con tarjeta</h1>
+		<div class="row">
+			<h1 class="col-md-12 p-2">Mesas con pago pendiente en efectivo</h1>
+			   
+		   	<div class="card-deck">
+		  		<c:forEach items="${payments}" var="payment">
+			   		<c:if test="${payment.payHere==true}">
+			   			<c:if test="${payment.creditCard==false}">
+			   				<div class="col-xs-12 col-md-3">
+			    				<div class="card-body mb-3" style="background-color: rgba(158, 172, 168, 0.5); border-radius:10px">
+			    					<h2 class="card-title"><c:out value = "Mesa"/></h2>
+									<p class="card-text"><c:out value="${payment.table.number}"/></p>
+									<h2 class="card-title"><c:out value = "Importe"/></h2>
+									<p class="card-text"><c:out value="${payment.amount} $"/></p>
+								</div>		    				
+			   				</div>
+			   			</c:if>
+			   		</c:if>   					
+		  		</c:forEach>
+		   	</div>
+		</div>
 		
-		<div class="card-deck" >
-	  		<c:forEach items="${payments}" var="payment">
-		   		<c:if test="${payment.payHere==true}">
-		   			<c:if test="${payment.creditCard==true}">
-		   				<div class="col-sm-3">
-		    				<div class="card-body mb-3 card border-dark" style="background-color: black;">
-		    					<h2 class="card-title"><c:out value = "Mesa"/></h2>
-								<p class="card-text"><c:out value="${payment.table.number}"/></p>
-								<h2 class="card-title"><c:out value = "Importe"/></h2>
-								<p class="card-text"><c:out value="${payment.amount} $"/></p>
-							</div>		    				
-		   				</div>
-		   			</c:if>
-		   		</c:if>   					
-	  		</c:forEach>
- 		</div>
+		<div class="row">   
+			<h1 class="col-md-12 p-2">Mesas con pago pendiente con tarjeta</h1>
+			
+			<div class="card-deck" >
+		  		<c:forEach items="${payments}" var="payment">
+			   		<c:if test="${payment.payHere==true}">
+			   			<c:if test="${payment.creditCard==true}">
+			   				<div class="col-xs-12 col-md-3">
+			    				<div class="card-body mb-3" style="background-color: rgba(158, 172, 168, 0.5); border-radius:10px">
+			    					<h2 class="card-title"><c:out value = "Mesa"/></h2>
+									<p class="card-text"><c:out value="${payment.table.number}"/></p>
+									<h2 class="card-title"><c:out value = "Importe"/></h2>
+									<p class="card-text"><c:out value="${payment.amount} $"/></p>
+								</div>		    				
+			   				</div>
+			   			</c:if>
+			   		</c:if>   					
+		  		</c:forEach>
+	 		</div>
+	 	</div>
 	</div>
  			
 </petclinic:layout>

@@ -1,4 +1,3 @@
-
 <%@ page session="false" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -11,11 +10,11 @@
 	
 <div class="container py-5">
 	<div class="row min-vh-50 align-items-center">
-		<div class="row" style="margin-left: 110px;">
+		<div class="row" style="margin-left: 20.1%;">
             <div class="col-md-3">
-              <img src="${detallesRestaurante.photo}" class="rounded" alt="..." style="height: 250px; width: 350px; margin: 10px;">
+              <img src="${detallesRestaurante.photo}" class="rounded" alt="..." style="object-fit: cover; height: 100%; width: 100%; float:left; margin:10px;">
             </div>
-		<div class="col-md-7" style="margin-left: 75px;">
+		<div class="col-md-3" style="margin-left: 5%; margin-top: 5%;">	
 			<div class="lc-block mb-4">
 				<div editable="rich">
 					<h2 class="display-3 fw-bolder" style="color: #ffff; font-size: 30px;"><c:out value = "${detallesRestaurante.name}"/></h2>
@@ -37,8 +36,8 @@
 </div>
 
 <div class="container">
-	<div class="row align-items-center  style="margin-left: 126px;">
-		<div class="col-md-7" style="margin-left: 126px;">
+	<div class="row align-items-center" style="margin-left: 21.2%;">
+		<div class="col-md-8" >
 			<div class="lc-block mb-4">
 				<div class="ratio ratio-4x3 min-vh-50" lc-helper="gmap-embed">
 					<iframe src="https://maps.google.com/maps?q=<c:out value = "${detallesRestaurante.address}"/>&amp;t=m&amp;z=8&amp;output=embed&amp;iwloc=near"></iframe>
