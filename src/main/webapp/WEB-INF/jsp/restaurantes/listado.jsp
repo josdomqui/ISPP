@@ -15,8 +15,8 @@
                         <div>
                           <label for="inputEmail4" class="form-label label-input-listado"
                             style="font-size: 16px;">Lugar</label>
-                          <input type="text" class="form-control input-filtros" value="${place}"name="inputPlace" id="inputPlace"
-                            style="font-size: 14px;font-family: 'quicksand', sans-serif;">
+                          <input type="text" class="form-control input-filtros" value="${place}" name="inputPlace"
+                            id="inputPlace" style="font-size: 14px;font-family: 'quicksand', sans-serif;">
                         </div>
                         <div>
                           <label for="inputState" class="form-label label-input-listado">Filtros</label>
@@ -39,16 +39,11 @@
                     </form>
                     <div class="container mt-3">
                       <c:forEach items="${listaRestaurante}" var="restaurante">
-                        <div class="card base-card-listado mb-5 mt-5">
+                        <div class="card base-card-listado mb-5 mt-5" style="width: auto;">
                           <div class="row">
+
                             <div class="col-3">
-                              <img src="${restaurante.photo}" class="rounded" alt="..." style="object-fit: cover;
-              height: 100%;
-              width: 100%;
-              max-width: 200px;
-              max-height: 200px;
-              margin-left: 12px;
-              margin-top: 4px;">
+                              <img id="imgCardRestaurant" src="${restaurante.photo}" class="rounded" alt="...">
                             </div>
                             <div class="col-9">
                               <div class="card-body d-flex flex-column" style="padding-bottom: 0px;">
@@ -81,13 +76,18 @@
                                   <spring:url value="/restaurante/{id}/product/new" var="addProductUrl">
                                     <spring:param name="id" value="${restaurante.id}" />
                                   </spring:url>
-                                  <a type="button" class="btn-default" href="${fn:escapeXml(addProductUrl)}"
-                                    style="padding: 4px;border: 3px solid #9f6f44; text-decoration: none;">Añadir
-                                    plato a la carta</a>
-                                    </c:if>
+
+                                  <p><a type="button" class="buton-detalles-listado"
+                                      href="${fn:escapeXml(addProductUrl)}"
+                                      style="text-decoration: none; color: #ffff; font-size: 14px;">Añadir
+                                      plato a la carta</a></p>
+                                  </c:if>
+
                                 </sec:authorize>
                               </div>
                             </div>
+
+
                           </div>
                         </div>
                       </c:forEach>

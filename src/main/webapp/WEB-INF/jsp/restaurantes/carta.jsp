@@ -30,11 +30,13 @@
                                     <spring:param name="id_restaurante" value="${restaurante.id}" />
                                     <spring:param name="id" value="${product.id}" />
                                   </spring:url>
-                                  <a type="button" class="btn-default" href="${fn:escapeXml(editProductUrl)}"
-                                    style="padding: 4px;border: 3px solid #9f6f44; text-decoration: none;">Editar
-                                    plato</a>
-                     </c:if>
-                </sec:authorize>
+                    
+                                  <p><a type="button" class="buton-detalles-listado mt-3" href="${fn:escapeXml(editProductUrl)}"
+                                    style="text-decoration: none; color: white;">Editar
+                                    plato</a></p>
+                                </c:if>
+                                </sec:authorize>
+
               </div>
             </div>
             </div>

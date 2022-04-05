@@ -13,18 +13,19 @@
     <form:form modelAttribute="product" class="form-horizontal" id="add-product-form">
         <div class="form-group has-feedback">
             <petclinic:inputField label="Nombre" name="name"/>
-            <petclinic:inputField label="Descripci�n" name="description"/>
+            <petclinic:inputField label="Descripción" name="description"/>
             <petclinic:inputField label="Precio" name="price"/>
+          
             <input label="Product" name="restaurante_id" value="${restaurante_id}" type="hidden"/>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <c:choose>
                     <c:when test="${product['new']}">
-                        <button style="background-color:#bd8859" class="btn btn-default" type="submit">A�adir Plato</button>
+                        <button style="background-color:#bd8859" class="buton-detalles-listado" type="submit">Aï¿½adir Plato</button>
                     </c:when>
                     <c:otherwise>
-                        <button style="background-color:#bd8859" class="btn btn-default" type="submit">Editar Plato</button>
+                        <button style="background-color:#bd8859" class="buton-detalles-listado" type="submit">Editar Plato</button>
                     </c:otherwise>
                 </c:choose>
             </div>
