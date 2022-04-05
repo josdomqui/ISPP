@@ -17,8 +17,7 @@
     <!--Stripe JavaScript Library-->
     <script src="https://js.stripe.com/v3/"></script>
 </head>
-<body class="bg-light pt-5" style="background-color: #192026; padding-top: 0rem !important;">
-<!-- <h2>Charge</h2> -->
+<body class="bg pt-5" style="padding-top: 0rem !important">
 <!--hero section-->
 <section class="py-5">
     <div class="container">
@@ -30,10 +29,10 @@
                 <p class="lead mb-4">
                     Por favor, complete el siguiente formulario para realizar el pago.
                 </p>
-                <div class="card mb-4">
+                <div class="card mb-4" style="background-color: rgba(158, 172, 168, 0.5)">
                     <div class="card-body">
                         <h5>Pedido CommandFast</h5>
-                        <c:out value="${price} $"/>
+                        <p><c:out value="${price}"/> &euro;</p>
                     </div>
                 </div>
                 <form action="#" id="payment-form" method="post">
@@ -54,7 +53,7 @@
                     <!-- Used to display Element errors. -->
                     <div class="text-danger w-100" id="card-errors" role="alert"></div>
                     <div class="form-group pt-2">
-                        <a class="btn btn-primary btn-block" id="submitButton" href="${fn:escapeXml('/payment/successPage')}">
+                        <a class="btn btn-block" id="submitButton" style="background-color: #ffcb74; color: #ffff" href="${fn:escapeXml('/payment/successPage')}">
                             Finalizar pago
                         </a>
                         <div class="small text-muted mt-2">
@@ -82,9 +81,15 @@
 
         // Create an instance of Elements.
         var elements = stripe.elements();
+        
+        var style = {
+        	base: {
+       		    color: "#ffffff",
+      		}
+       	};
 
         // Create an instance of the card Element.
-        var card = elements.create('card');
+        var card = elements.create("card", { style: style });
 
         // Add an instance of the card Element into the `card-element` <div>.
         card.mount('#card-element');
