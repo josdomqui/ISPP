@@ -1,7 +1,14 @@
 package org.springframework.samples.commandfast.payments;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,21 +41,59 @@ public class PaymentController {
 	}
 	
 	@GetMapping(value = "/payment/{id_comanda}")
-	public String payOrder(@PathVariable("id_comanda") int id_commanda,  Map<String, Object> model) {
-		Optional<Command> command = commandService.findIdCommands(id_commanda);
+	public String payOrder(@PathVariable("id_comanda") int id_comanda,  Map<String, Object> model) {
+		Optional<Command> command = commandService.findIdCommands(id_comanda);
 		this.paymentService.makePayment(command.get().getPrice(), command.get().getMesa());
 		model.put("stripePublicKey", API_PUBLIC_KEY);
 		model.put("price", command.get().getPrice());
-		
+		model.put("id_comanda", id_comanda);
 		return "payment/charge";
 	}
 	
-	@GetMapping(value = "/payment/successPage")
-	public String paymentSuccessPage(Map<String, Object> model){		
-		
-		return "payment/success";
-		
+	@GetMapping(value = "/payment/subscription")
+	public String subscription(Map<String, Object> model) {
+		model.put("stripePublicKey", API_PUBLIC_KEY);
+		return "payment/subscription";
 	}
+	
+	@GetMapping(value = "/payment/successPage/{id_comanda}")
+	public String paymentSuccessPage(@PathVariable("id_comanda") int id_comanda, Map<String, Object> model){
+		model.put("id_comanda", id_comanda);
+		return "payment/success";
+	}
+	
+	@GetMapping(value = "/payment/downloadRecipt/{id_comanda}")
+	public void downloadRecipt(@PathVariable("id_comanda") int id_comanda, Map<String, Object> model, HttpServletResponse response){
+		//get price
+		Optional<Command> command = commandService.findIdCommands(id_comanda);
+		Double price = command.get().getPrice();
+		//generate pdf
+		String file_name = this.paymentService.generateRecipt(price);
+		System.out.println(file_name);
+		//download pdf
+		File file = new File(file_name);
+		response.setContentType("application/octet-stream");
+		response.setHeader("Content-Disposition", "attachment; filename=" + file.getName()); 
+		try {
+			ServletOutputStream outputStream = response.getOutputStream();
+			BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+			
+			byte[] buffer = new byte[8192]; //8k buffer
+			int bytesRead = -1;
+			
+			while((bytesRead = inputStream.read(buffer)) != -1) {
+				outputStream.write(buffer, 0, bytesRead);
+			}
+			
+			inputStream.close();
+			outputStream.flush();
+			outputStream.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	
 	@GetMapping(value = "/payment/waitPage")
 	public String paymentWaitPage(Map<String, Object> model){		
