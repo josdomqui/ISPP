@@ -1,11 +1,13 @@
 package org.springframework.samples.commandfast.restaurantes;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
@@ -22,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.samples.commandfast.product.ProductService;
 import org.springframework.samples.commandfast.user.UserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @Controller
 @RequestMapping("/restaurante")
@@ -41,16 +45,20 @@ public class RestauranteController {
 	}
 
     @GetMapping(value = { "/list" })
-	public String showRestautanteList(Map<String, Object> model) {
+	public String showRestautanteList(Map<String, Object> model, HttpServletRequest request) {
 		
 		ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
 		model.put("listaRestaurante", restauranteService.findAllRestaurants());
 		model.put("listaTipos", listaTipoRestaurantes);
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(!principal.equals("anonymousUser")) {
+			model.put("username", request.getUserPrincipal().getName());
+		}
 		return "restaurantes/listado";
 	}
 
 	@GetMapping(value = { "/list/search" })
-	public String showRestautanteToSearch(@RequestParam("inputPlace") String place, Map<String, Object> model, @RequestParam("inputState") String type) {
+	public String showRestautanteToSearch(@RequestParam("inputPlace") String place, Map<String, Object> model, @RequestParam("inputState") String type, HttpServletRequest request) {
 		ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
 		model.put("listaTipos", listaTipoRestaurantes);
 		List<Restaurante> lrestaurantes= new ArrayList<>();
@@ -71,6 +79,10 @@ public class RestauranteController {
 			lrestaurantes.retainAll(lres);
 		}
 		model.put("listaRestaurante", lrestaurantes);
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(!principal.equals("anonymousUser")) {
+			model.put("username", request.getUserPrincipal().getName());
+		}
 		//model.put("listaTipos", ltipos);
 		return "restaurantes/listado";
 	}
@@ -85,11 +97,15 @@ public class RestauranteController {
 	
 	
 	@GetMapping(value = { "/{id}/detalles/carta" })
-	public String showMenuRestaurant(@PathVariable("id") Integer id, Map<String, Object> model) {
+	public String showMenuRestaurant(@PathVariable("id") Integer id, Map<String, Object> model, HttpServletRequest request) {
 		Optional<Restaurante> restauranteMenu = restauranteService.findRestaurantById(id);
 		model.put("menu", restauranteMenu.get());
 		model.put("products", restauranteService.findMenuByRestaurant(id));
-		model.put("id_restaurante", id);
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(!principal.equals("anonymousUser")) {
+			model.put("username", request.getUserPrincipal().getName());
+		}
+		model.put("restaurante", restauranteService.findRestaurantById(id).get());
 		return "restaurantes/carta";
 	}
 
