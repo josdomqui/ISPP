@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.commandfast.user;
 
+import java.util.Collection;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,9 @@ public class UserService {
 
 	public Optional<User> findUser(String username) {
 		return userRepository.findById(username);
+	}
+	
+	public Iterable<User> findAllUser() {
+		return userRepository.findAll();
 	}
 }

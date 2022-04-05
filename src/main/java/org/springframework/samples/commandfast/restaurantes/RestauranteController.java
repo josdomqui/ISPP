@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.samples.commandfast.product.ProductService;
+import org.springframework.samples.commandfast.user.User;
+import org.springframework.samples.commandfast.user.UserService;
 
 @Controller
 @RequestMapping("/restaurante")
@@ -31,11 +33,13 @@ public class RestauranteController {
 
 	private final RestauranteService restauranteService;
 	private final ProductService productService;
+	private final UserService userService;
 
 	@Autowired
-	public RestauranteController(RestauranteService restauranteService, ProductService productService) {
+	public RestauranteController(RestauranteService restauranteService, ProductService productService, UserService userService) {
 		this.restauranteService = restauranteService;
 		this.productService = productService;
+		this.userService = userService;
 	}
 
     @GetMapping(value = { "/list" })
@@ -123,18 +127,30 @@ public class RestauranteController {
 		ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
 		Restaurante restaurante = new Restaurante();
 		model.put("restaurant", restaurante);
+		model.put("error", false);
 		model.put("listaTipos", listaTipoRestaurantes);
 		return RESTAURANTE_FORM;
 	}
 
 	@PostMapping(value = "/signup")
-	public String processCreationForm(@Valid Restaurante restaurant, BindingResult result) {
+	public String processCreationForm(@Valid Restaurante restaurant, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			return RESTAURANTE_FORM;
 		}
 		else {
-			this.restauranteService.save(restaurant);
-			return "redirect:/login";
+			List<String> lista = new ArrayList<String>();
+			userService.findAllUser().forEach(x->lista.add(x.getUsername()));
+			if(lista.contains(restaurant.getUser().getUsername())){
+				ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
+				Restaurante restaurante = new Restaurante();
+				model.put("restaurant", restaurante);
+				model.put("error", true);
+				model.put("listaTipos", listaTipoRestaurantes);
+				return RESTAURANTE_FORM;
+			} else {
+				this.restauranteService.save(restaurant);
+				return "redirect:/login";
+			}
 		}
 	}
   
