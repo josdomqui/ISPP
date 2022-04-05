@@ -31,7 +31,7 @@ public class ProductService {
     }
 
 	@Transactional
-	public Product findProductById(Integer id) throws DataAccessException{
+	public Product findProductById(Integer id){
 		return productRepository.findProductById(id);
 	}
 
