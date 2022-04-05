@@ -20,12 +20,12 @@
         		<div style="display: flex; margin-left: 50px;">
         			<span>Personas: </span>
         				<div style="width: 50%;">
-            				<petclinic:inputField label="" name="costumers"/>
+            				<input required type="number" label="" name="costumers"/>
             			</div>
             	</div>
             	<div style="display: flex; margin-left: 50px;">
         			<span>Numero de mesa: </span>
-            			<select name="mesa" style="background-color: white; border-radius:4px; width: 32.2%; margin-left: 10px; height: 120%">
+            			<select required name="mesa" style="background-color: white; border-radius:4px; width: 32.2%; margin-left: 10px; height: 120%">
             				<c:forEach items="${mesas}" var="mesa">
   								<option value="${mesa.number}"><c:out value = "${mesa.number}"/></option>
   							</c:forEach>

@@ -12,16 +12,21 @@
     </h2>
     <form:form modelAttribute="product" class="form-horizontal" id="add-product-form">
         <div class="form-group has-feedback">
-            <petclinic:inputField label="Nombre" name="name"/>
-            <petclinic:inputField label="Descripción" name="description"/>
-            <petclinic:inputField label="Precio" name="price"/>
+            <petclinic:inputField required label="Nombre" name="name"/>
+            <petclinic:inputField  required label="Descripción" name="description"/>
+            <petclinic:inputField required label="Precio" name="price"/>
             <input label="Product" name="restaurante_id" value="${restaurante_id}" type="hidden"/>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                
-            <button style="background-color:#bd8859" class="btn btn-default" type="submit">Añadir Plato</button>
-                    
+                <c:choose>
+                    <c:when test="${product['new']}">
+                        <button style="background-color:#bd8859" class="btn btn-default" type="submit">Añadir Plato</button>
+                    </c:when>
+                    <c:otherwise>
+                        <button style="background-color:#bd8859" class="btn btn-default" type="submit">Editar Plato</button>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
     </form:form>

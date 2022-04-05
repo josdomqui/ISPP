@@ -1,15 +1,19 @@
 <%@ page session="false" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
-
-
-<petclinic:layout pageName="owners">
-
+<%@page contentType="text/html"%>
+<%@page pageEncoding="UTF-8"%>
+  
+  
+<petclinic:layout pageName="subscription">
 <head>
+    <title>Subscription</title>
     <!--Bootstrap 4 CSS-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
     <!--Bootstrap 4 JavaScript-->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -17,31 +21,52 @@
     <!--Stripe JavaScript Library-->
     <script src="https://js.stripe.com/v3/"></script>
 </head>
-<body class="bg-light pt-5" style="background-color: #192026; padding-top: 0rem !important;">
-<!-- <h2>Charge</h2> -->
+<body class="bg-light pt-5">
+
 <!--hero section-->
 <section class="py-5">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-8 col-12 my-auto mx-auto">
                 <h1>
-                    Gestión de pagos Stripe
+                    Stripe Recurring Subscription
                 </h1>
                 <p class="lead mb-4">
-                    Por favor, complete el siguiente formulario para realizar el pago.
+                    Please fill the form below to complete the payment
                 </p>
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h5>Pedido CommandFast</h5>
-                        <c:out value="${price} $"/>
+                <h5 class="mb-2">Choose your payment plan</h5>
+                <p class="text-muted">
+                    60% OFF when you upgrade to annual plan.
+                </p>
+                <div class="py-2">
+                    <div class="custom-control custom-radio">
+                        <input class="custom-control-input" id="monthly-plan" name="premium-plan" type="radio"
+                               value="monthly-subscription"/>
+                        <label class="custom-control-label" for="monthly-plan">
+                            <strong>Monthly $9.99</strong><br/>
+                            <small class="text-muted">
+                                Pay $9.99 every month and get access to all premium features.
+                            </small>
+                        </label>
+                    </div>
+                    <div class="custom-control custom-radio mt-3">
+                        <input checked="" class="custom-control-input" id="annually-plan" name="premium-plan"
+                               type="radio" value="annual-subscription"/>
+                        <label class="custom-control-label" for="annually-plan">
+                            <strong>Yearly $49.99</strong>
+                            <span class="badge badge-primary ml-1">60% OFF</span>
+                            <br/>
+                            <small class="text-muted">
+                                Pay $49.99 every year and get access to all premium features.
+                            </small>
+                        </label>
                     </div>
                 </div>
                 <form action="#" id="payment-form" method="post">
-                    <!--  <input id="api-key" type="hidden" th:value="${stripePublicKey}">-->
-                    <input id="api-key" type="hidden" value="${stripePublicKey}"/>
+                    <input id="api-key" type="hidden" value="${stripePublicKey}">
                     <div class="form-group">
                         <label class="font-weight-medium" for="card-element">
-                            Introduce su tarjeta de crédito/débito
+                            Introduce su tarjeta de crÃ©dito/dÃ©bito
                         </label>
                         <div class="w-100" id="card-element">
                             <!-- A Stripe Element will be inserted here. -->
@@ -49,16 +74,16 @@
                     </div>
                     <div class="form-group">
                         <input class="form-control" id="email" name="email"
-                               placeholder="Email" type="email" required>
+                               placeholder="Email Address" type="email" required>
                     </div>
-                    
+                    <div class="form-group">
+                        <input class="form-control" id="coupon" name="coupon"
+                               placeholder="Coupon code (optional)" type="text">
+                    </div>
                     <!-- Used to display Element errors. -->
                     <div class="text-danger w-100" id="card-errors" role="alert"></div>
                     <div class="form-group pt-2">
-	                    <spring:url value="/payment/successPage/{id_comanda}" var="url">
-	                      <spring:param name="id_comanda" value="${id_comanda}"/>
-	                    </spring:url>
-                        <a class="btn btn-primary btn-block" id="submitButton" href="${fn:escapeXml(url)}">
+                        <a class="btn btn-primary btn-block" id="submitButton" href="${fn:escapeXml('/welcome')}">
                             Finalizar pago
                         </a>
                         <div class="small text-muted mt-2">
@@ -107,8 +132,22 @@
         var form = document.getElementById('payment-form');
         form.addEventListener('submit', function (event) {
             event.preventDefault();
-            // handle payment
-            handlePayments();
+            //validate coupon if any
+            var code = $('#coupon').val().trim();
+            if (code.length > 0) {
+                $.post(
+                    "/coupon-validator",
+                    {code: code},
+                    function (data) {
+                        if (data.status) {
+                            handlePayments();
+                        } else {
+                            alert(data.details);
+                        }
+                    }, 'json');
+            } else {
+                handlePayments();
+            }
         });
 
         //handle card submission
@@ -121,10 +160,12 @@
                 } else {
                     // Send the token to your server.
                     var token = result.token.id;
+                    var plan = $('input[name="premium-plan"]:checked').val();
                     var email = $('#email').val();
-                    $.get(
+                    var coupon = $('#coupon').val();
+                    $.post(
                         "/welcome",
-                        {email: email, token: token},
+                        {email: email, token: token, plan: plan, coupon: coupon},
                         function (data) {
                             alert(data.details);
                         }, 'json');
@@ -133,8 +174,6 @@
         }
     });
 </script>
-
 </body>
 </html>
-
 </petclinic:layout>

@@ -12,6 +12,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.commandfast.product.Product;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,21 +21,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.samples.commandfast.product.ProductService;
+import org.springframework.samples.commandfast.user.UserService;
 
 @Controller
 @RequestMapping("/restaurante")
 public class RestauranteController {
 
-	//TODO
 	private static final String RESTAURANTE_FORM = "restaurantes/createRestaurantForm";
 
 	private final RestauranteService restauranteService;
 	private final ProductService productService;
+	private final UserService userService;
 
 	@Autowired
-	public RestauranteController(RestauranteService restauranteService, ProductService productService) {
-		this.restauranteService = restauranteService;
-		this.productService = productService;
+	public RestauranteController(RestauranteService restauranteService, ProductService productService, UserService userService) { 
+		this.restauranteService = restauranteService; 
+		this.productService = productService; 
+		this.userService = userService; 
 	}
 
     @GetMapping(value = { "/list" })
@@ -86,6 +89,7 @@ public class RestauranteController {
 		Optional<Restaurante> restauranteMenu = restauranteService.findRestaurantById(id);
 		model.put("menu", restauranteMenu.get());
 		model.put("products", restauranteService.findMenuByRestaurant(id));
+		model.put("id_restaurante", id);
 		return "restaurantes/carta";
 	}
 
@@ -121,21 +125,35 @@ public class RestauranteController {
 	public String signupRestaurante(ModelMap model) {
 		ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
 		Restaurante restaurante = new Restaurante();
+		model.put("error", false); 
 		model.put("restaurant", restaurante);
 		model.put("listaTipos", listaTipoRestaurantes);
 		return RESTAURANTE_FORM;
 	}
 
 	@PostMapping(value = "/signup")
-	public String processCreationForm(@Valid Restaurante restaurant, BindingResult result) {
-		if (result.hasErrors()) {
-			return RESTAURANTE_FORM;
-		}
-		else {
-			this.restauranteService.save(restaurant);
-			return "redirect:/login";
+	public String processCreationForm(@Valid Restaurante restaurant, BindingResult result, ModelMap model) {
+		if (result.hasErrors()) { 
+			return RESTAURANTE_FORM; 
+		} 
+		else { 
+			List<String> lista = new ArrayList<String>(); 
+			userService.findAllUser().forEach(x->lista.add(x.getUsername())); 
+			if(lista.contains(restaurant.getUser().getUsername())){ 
+				ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class)); 
+				Restaurante restaurante = new Restaurante(); 
+				model.put("restaurant", restaurante); 
+				model.put("error", true); 
+				model.put("listaTipos", listaTipoRestaurantes); 
+				return RESTAURANTE_FORM; 
+			} else { 
+				this.restauranteService.save(restaurant); 
+				return "redirect:/login"; 
+			} 
 		}
 	}
+	
+	// Crear/Editar productos
   
 	@GetMapping(value = "/{id}/product/new")
 	public String initCreationForm(@PathVariable("id") Integer id, Map<String, Object> model) {
@@ -158,5 +176,27 @@ public class RestauranteController {
 			return "redirect:/restaurante/{id}/detalles/carta";
 			}
 	}
+	
+	@GetMapping(value = "/{id_restaurante}/{id}/product/edit")
+	public String initUpdateProductForm(@PathVariable("id") int id, @PathVariable("id_restaurante") int id_restaurante, Model model) {
+		Product product = this.productService.findProductById(id);
+		model.addAttribute(product);
+		return "carta/addProduct";
+	}
+
+	@PostMapping(value = "/{id_restaurante}/{id}/product/edit")
+	public String processUpdateOwnerForm(@Valid Product product, BindingResult result,
+			@PathVariable("id") int id, @PathVariable("id_restaurante") int id_restaurante) {
+		if (result.hasErrors()) {
+			return "carta/addProduct";
+		}
+		else {
+			product.setId(id);
+			product.setRestaurant(restauranteService.findRestaurantById(id_restaurante).get());
+			this.productService.save(product);
+			return "redirect:/restaurante/{id_restaurante}/detalles/carta";
+		}
+	}
+
 
 }
