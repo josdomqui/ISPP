@@ -14,19 +14,19 @@
     		<h1 class="card-title mt-3 mb-3 text-center"><strong>Nuevo pedido</strong></h1>
     		
     		<div class="row mt-2">
-       			<div class="col-xs-2 col-md-3">
+       			<div class="col-xs-3 col-md-4" style="display: flex; align-items: center;">
        				<p class="card-text p-3">Personas:</p>
        			</div>
-   				<div class="col-xs-10 col-md-9 mt-3" style="width: 60%; height: 110%; margin-left: 5%; border-radius:4px">		
-       				<input required type="number" label="" name="costumers"/>
+   				<div class="col-xs-9 col-md-8 mt-3" >		
+       				<input required type="number" label="" name="costumers" class="input-filtros" style="color: black; font-size: 18px;"/>
        			</div>
            	</div>
     		<div class="row mb-3">
-	            	<div class="col-xs-5 col-md-5">
+	            	<div class="col-xs-4 col-md-4">
 	        			<p class="card-text p-3">N�mero de mesa:</p>
 	            	</div>
 	            	<div class="col-xs-10 col-md-7 mt-2 mb-2">
-            			<select required name="mesa" style="background-color: white; border-radius:4px; height: 100%; width: 75px; margin-left: 5%">
+            			<select required name="mesa" class="input-filtros" style=" font-size: 18px;">
             				<c:forEach items="${mesas}" var="mesa">
   								<option value="${mesa.number}"><c:out value = "${mesa.number}"/></option>
   							</c:forEach>
@@ -40,7 +40,7 @@
     
     <div class="form-group">
     	<div class="button" style="text-align: center">
-        	<button class="btn-pedir" type="submit" style= "text-decoration: none; color: #ffff; font-size: 14px;">Pedir</button>
+        	<p><button class="btn-pedir" type="submit" style= "text-decoration: none; color: #ffff; font-size: 14px; padding: 0 20px;"><strong>Pedir</strong></button></p>
         </div>
    	</div>
         
