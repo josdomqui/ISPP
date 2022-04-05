@@ -8,7 +8,7 @@
 
 <petclinic:layout pageName="successPage"> 
     <div class="row">
-        <div align="center">
+        <div>
             <h2>Su pago se ha realizado con �xito</h2>
             <spring:url value="/resources/images/pago.png" htmlEscape="true" var="checkPago"/>
             <img style="width: 30%; height: 90%" class="img-responsive" src="${checkPago}"/>

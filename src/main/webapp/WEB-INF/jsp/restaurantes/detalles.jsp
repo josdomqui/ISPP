@@ -26,7 +26,7 @@
 					<spring:url value="/restaurante/{id}/detalles/carta" var="menUrl">
 							<spring:param name="id" value="${detallesRestaurante.id}"/>
 					</spring:url>
-					<p><a type="button" class="buton-detalles-listado" href="${fn:escapeXml(url)}" style="text-decoration: none; color: #ffff; font-size: 14px;">Ver carta</a></p>
+					<p><a type="button" class="buton-detalles-listado" href="${fn:escapeXml(menUrl)}" style="text-decoration: none; color: #ffff; font-size: 14px;">Ver carta</a></p>
 				</div>																								
 
 			</div><!-- /lc-block -->
