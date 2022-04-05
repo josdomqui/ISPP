@@ -39,6 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/users/new").permitAll()
 				.antMatchers("/charge").permitAll()
 				.antMatchers("/create-charge").permitAll()
+				.antMatchers("/restaurante/signup").hasAnyAuthority("admin")
 				.antMatchers("/restaurante/list/**").permitAll()
 				.antMatchers("/restaurante/**").permitAll()
 				.antMatchers(HttpMethod.GET, "/restaurante/list/**").permitAll()
@@ -46,8 +47,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, "/restaurante/**").permitAll()
 				.antMatchers("/command/new").permitAll()
 				.antMatchers("/carta/**").permitAll()
-				.antMatchers("/admin/**").hasAnyAuthority("admin").antMatchers("/owners/**")
-				.hasAnyAuthority("owner", "admin").antMatchers("/vets/**", "/command/**", "/restaurantes/**").authenticated().and()
+				.antMatchers("/admin/**").hasAnyAuthority("admin")
+				.antMatchers("/owners/**").hasAnyAuthority("owner", "admin")
+				.antMatchers("/vets/**", "/command/**", "/restaurantes/**").authenticated().and()
 				.formLogin()
 				/* .loginPage("/login") */
 				.failureUrl("/login-error").and().logout().logoutSuccessUrl("/");

@@ -18,12 +18,12 @@
        				<p class="card-text p-3">Personas:</p>
        			</div>
    				<div class="col-xs-9 col-md-8 mt-3" >		
-       				<input required type="number" label="" name="costumers" class="input-filtros" style="color: black; font-size: 18px;"/>
+       				<input required type="number" max="4" min="1" name="costumers" class="input-filtros" style="color: black; font-size: 18px;"/>
        			</div>
            	</div>
     		<div class="row mb-3">
 	            	<div class="col-xs-4 col-md-4">
-	        			<p class="card-text p-3">N�mero de mesa:</p>
+	        			<p class="card-text p-3">Numero de mesa:</p>
 	            	</div>
 	            	<div class="col-xs-10 col-md-7 mt-2 mb-2">
             			<select required name="mesa" class="input-filtros" style=" font-size: 18px;">
