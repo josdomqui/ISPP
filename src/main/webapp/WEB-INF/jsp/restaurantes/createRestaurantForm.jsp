@@ -17,6 +17,7 @@
     <form:form modelAttribute="restaurant" class="form-horizontal" id="add-restaurant-form">
         
         <div class="form-group has-feedback">
+
             <span class="input-group" style="margin-left: 5%;margin-top: 5px;">Usuario: </span><input required type="text" class="form-control" style="width: 90%; margin-left: 5%;" id="username" name="user.username"/><br/>
             <c:if test="${error}"><span style="color: red"><c:out value="Ya existe un usuario con este nombre"/></span><br/></c:if>
             <span class="input-group" style="margin-left: 5%;">Contraseña: </span><input label="Password" required type="password" class="form-control" style="width: 90%; margin-left: 5%;" name="user.password"/><br/>
@@ -31,6 +32,8 @@
             <span class="input-group" style="margin-left: 5%;">Horarios: </span><input label="Schedule" required type="text" class="form-control" style="width: 90%; margin-left: 5%;" name="schedule"/><br/>
             <span  class="input-group" style="margin-left: 5%;">Tipos de restaurantes:</span>
             <select name="type" multiple style="background-color: white; border-radius:4px; width: 25%; margin-left: 5%; min-width: 300px; height: 120%;">
+
+
             	<c:forEach items="${listaTipos}" var="mesa">
   					<option value="${mesa.name()}"><c:out value = "${mesa.name()}"/></option>
   				</c:forEach>
@@ -41,7 +44,7 @@
             <div class="col-sm-12" style="text-align: center; margin-top: 5px;">
                 <c:choose>
                     <c:when test="${restaurant['new']}">
-                        <button class="buton-detalles-listado" type="button" style="text-decoration: none; color: #ffff; font-size: 14px;">Add Restaurant</button>
+                        <button class="buton-detalles-listado" type="button" style="text-decoration: none; color: #ffff; font-size: 14px;">Añadir restaurante</button>
                     </c:when>
                 </c:choose>
             </div>

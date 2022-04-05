@@ -24,7 +24,7 @@
         <div class="row">
             <div class="col-lg-6 col-md-8 col-12 my-auto mx-auto">
                 <h1>
-                    Gestión de pagos Stripe
+                    Gestiï¿½n de pagos Stripe
                 </h1>
                 <p class="lead mb-4">
                     Por favor, complete el siguiente formulario para realizar el pago.
@@ -40,7 +40,7 @@
                     <input id="api-key" type="hidden" value="${stripePublicKey}"/>
                     <div class="form-group">
                         <label class="font-weight-medium" for="card-element">
-                            Introduce su tarjeta de crédito/débito
+                            Introduce su tarjeta de crï¿½dito/dï¿½bito
                         </label>
                         <div class="w-100" id="card-element">
                             <!-- A Stripe Element will be inserted here. -->
@@ -54,14 +54,10 @@
                     <!-- Used to display Element errors. -->
                     <div class="text-danger w-100" id="card-errors" role="alert"></div>
                     <div class="form-group pt-2">
-<<<<<<< HEAD
-                        <a class="btn btn-block" id="submitButton" style="background-color: #ffcb74; color: #ffff" href="${fn:escapeXml('/payment/successPage')}">
-=======
 	                    <spring:url value="/payment/successPage/{id_comanda}" var="url">
 	                      <spring:param name="id_comanda" value="${id_comanda}"/>
 	                    </spring:url>
-                        <a class="btn btn-primary btn-block" id="submitButton" href="${fn:escapeXml(url)}">
->>>>>>> origin/CI
+                        <a class="btn btn-block" id="submitButton" style="background-color: #ffcb74; color: #ffff" href="${fn:escapeXml(url)}">
                             Finalizar pago
                         </a>
                         <div class="small text-muted mt-2">
@@ -72,7 +68,6 @@
 
                         </div>
                     </div>
-
 
                 </form>
             </div>

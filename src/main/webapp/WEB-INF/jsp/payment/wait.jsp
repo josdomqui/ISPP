@@ -6,11 +6,11 @@
 
 <petclinic:layout pageName="wait"> 
     <div class="row">
-        <div align="center">
-            <h2 class="img-title p-3">Operación realizada con éxito</h2>
+        <div >
+            <h2 class="img-title p-3">Operaciï¿½n realizada con ï¿½xito</h2>
             <spring:url value="/resources/images/esperar.png" htmlEscape="true" var="waitPago"/>
             <img style="width: 24%; height: 80%" class="img-responsive p-3" src="${waitPago}"/>
-            <h2 class="img-footer mt-2">Su cuenta está en camino</h2>
+            <h2 class="img-footer mt-2">Su cuenta estï¿½ en camino</h2>
         </div>
     </div>
 </petclinic:layout>

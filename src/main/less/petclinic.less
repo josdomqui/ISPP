@@ -11,6 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+ 
 @icon-font-path:    "../../webjars/bootstrap/fonts/";
 
 @spring-green:      #6db33f;
@@ -249,7 +250,9 @@ hr {
   border-top: 1px dotted @spring-brown;
 }
 
+
 /*CSS CARRITO*/
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -525,7 +528,7 @@ body {
 
 .btn-pedir {
   background-color: @green; 
-  padding: 6px !important;
+  padding: 10px 20px !important;
   border-radius: 6px;
   border: none !important;
   &:hover,
@@ -543,6 +546,18 @@ body {
   justify-content: center;
   margin-top: 10px;
 }
+
+#imgCardRestaurant {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  max-width: 200px;
+  max-height: 200px;
+  margin-left: 12px;
+  margin-top: 4px;
+}
+
+
 @import "typography.less";
 @import "header.less";
 @import "responsive.less";
