@@ -76,13 +76,15 @@
                                 </spring:url>
                                 <p><a type="button" class="buton-detalles-listado" href="${fn:escapeXml(url)}"
                                     style="text-decoration: none; color: #ffff; font-size: 14px;">Ver detalles</a></p>
-                                <sec:authorize access="hasAuthority('admin')">
+                                <sec:authorize access="hasAuthority('restaurant')">
+                                	<c:if test="${restaurante.user.username==username}">
                                   <spring:url value="/restaurante/{id}/product/new" var="addProductUrl">
                                     <spring:param name="id" value="${restaurante.id}" />
                                   </spring:url>
                                   <a type="button" class="btn-default" href="${fn:escapeXml(addProductUrl)}"
                                     style="padding: 4px;border: 3px solid #9f6f44; text-decoration: none;">Añadir
                                     plato a la carta</a>
+                                    </c:if>
                                 </sec:authorize>
                               </div>
                             </div>
