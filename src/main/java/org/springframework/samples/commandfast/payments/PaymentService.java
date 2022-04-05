@@ -11,6 +11,17 @@ import org.springframework.samples.commandfast.mesa.Mesa;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 @Service
 public class PaymentService {
 	
@@ -45,5 +56,25 @@ public class PaymentService {
 
 	public List<Payment> getAllPayments(){
 		return (List<Payment>) paymentRepository.findAll();
+	}
+	
+	public String generateRecipt(Double price) {
+		String fileName = "recipt.pdf";
+		try {
+            File file = new File(fileName);
+            PdfWriter pdfWriter = new PdfWriter(file);
+            PdfDocument pdfDocument = new PdfDocument(pdfWriter);
+            Document document = new Document(pdfDocument);
+            Paragraph paragraph = new Paragraph("Su pedido ha costado "+ price+ " euros.");
+            document.add(paragraph);
+            document.close();
+            pdfWriter.close();
+            System.out.println("PDF creado");
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+		return fileName;
 	}
 }
