@@ -54,14 +54,10 @@
                     <!-- Used to display Element errors. -->
                     <div class="text-danger w-100" id="card-errors" role="alert"></div>
                     <div class="form-group pt-2">
-<<<<<<< HEAD
-                        <a class="btn btn-block" id="submitButton" style="background-color: #ffcb74; color: #ffff" href="${fn:escapeXml('/payment/successPage')}">
-=======
 	                    <spring:url value="/payment/successPage/{id_comanda}" var="url">
 	                      <spring:param name="id_comanda" value="${id_comanda}"/>
 	                    </spring:url>
-                        <a class="btn btn-primary btn-block" id="submitButton" href="${fn:escapeXml(url)}">
->>>>>>> origin/CI
+                        <a class="btn btn-block" id="submitButton" style="background-color: #ffcb74; color: #ffff" href="${fn:escapeXml(url)}">
                             Finalizar pago
                         </a>
                         <div class="small text-muted mt-2">
@@ -72,7 +68,6 @@
 
                         </div>
                     </div>
-
 
                 </form>
             </div>
