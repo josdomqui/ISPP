@@ -12,9 +12,9 @@
     </h2>
     <form:form modelAttribute="product" class="form-horizontal" id="add-product-form">
         <div class="form-group has-feedback">
-            <petclinic:inputField label="Nombre" name="name"/>
-            <petclinic:inputField label="Descripción" name="description"/>
-            <petclinic:inputField label="Precio" name="price"/>
+            <petclinic:inputField required label="Nombre" name="name"/>
+            <petclinic:inputField  required label="Descripción" name="description"/>
+            <petclinic:inputField required label="Precio" name="price"/>
             <input label="Product" name="restaurante_id" value="${restaurante_id}" type="hidden"/>
         </div>
         <div class="form-group">
