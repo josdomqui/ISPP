@@ -13,6 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.samples.commandfast.restaurantes.Restaurante;
 import org.springframework.samples.commandfast.restaurantes.RestauranteService;
 import org.springframework.samples.commandfast.restaurantes.RestauranteType;
+import org.springframework.samples.commandfast.user.User;
 import org.springframework.stereotype.Service;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
@@ -30,34 +31,40 @@ public class RestaurantServiceTests {
     }
 
     
-    //@Test
-    //void shouldInsertRestaurant(){
-    //Collection<Restaurante> restaurant=this.restaurantService.findAllRestaurants();
-    //int found = restaurant.size();
+    @Test
+    void shouldInsertRestaurant(){
+    Collection<Restaurante> restaurant=this.restaurantService.findAllRestaurants();
+    int found = restaurant.size();
 
-       // Restaurante r = new Restaurante();
-       // r.setId(9);
-        //r.setName("NuevoNombre");
-        //r.setAddress("c viga");
-       // r.setCity("Granada");
-        //r.setDescription("descrition_newwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
-        //r.setTelephone("622423142");
-        //r.setPhoto("photo");
-        //r.setCapacity(12);
-       // r.setSchedule("schedule");
-       // r.setEmail("email@gmail.com");
-       // List<RestauranteType> l =  new ArrayList<>();
-       // l.add(RestauranteType.BAR);
-        //l.add(RestauranteType.CERVECERIA);
-        //r.setType(l);
+    User user = new User();
+    user.setUsername("Carlos");
+    user.setPassword("pass1234");
+    user.setEnabled(Boolean.TRUE);
+
+    Restaurante r = new Restaurante();
+    r.setId(9);
+    r.setName("NuevoNombre");
+    r.setAddress("c viga");
+    r.setCity("Granada");
+    r.setDescription("descrition_newwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
+    r.setTelephone("622423142");
+    r.setPhoto("photo");
+    r.setCapacity(12);
+    r.setSchedule("schedule");
+    r.setEmail("email@gmail.com");
+    List<RestauranteType> l =  new ArrayList<>();
+    l.add(RestauranteType.BAR);
+    l.add(RestauranteType.CERVECERIA);
+    r.setType(l);
+    r.setUser(user);
        
         
-        //this.restaurantService.save(r);
+        this.restaurantService.save(r);
         
-       // Collection<Restaurante> restaurants = this.restaurantService.findAllRestaurants();
-       // assertThat(restaurants.size()==(found + 1));
+       Collection<Restaurante> restaurants = this.restaurantService.findAllRestaurants();
+       assertThat(restaurants.size()==(found + 1));
 
-    //}
+    }
 
     @Test
     void shouldFindRestaurant(){
@@ -79,17 +86,41 @@ public class RestaurantServiceTests {
     assertThat(this.restaurantService.findMenuByRestaurant(id));
     }
 
-     //@Test
-    // void shouldFindRestaurantByType(){
-    // Restaurante r = this.restaurantService.findAllRestaurants().get(0);
-    // Collection<Restaurante>  c = this.restaurantService.findByType(RestauranteType.DOS_TENEDORES);
-    // assertThat(c.stream().collect(Collectors.toList()).contains(r));
-// }
 
     @Test
     void shouldFindAllMenu(){
     Collection<Product> p = this.restaurantService.findAllMenu();
     assertThat(p.size()!=0);
+   }
+
+   @Test
+   void shouldFindMenuByCity(){
+
+       User user = new User();
+       user.setUsername("Carlos");
+       user.setPassword("pass1234");
+       user.setEnabled(Boolean.TRUE);
+   
+       Restaurante r = new Restaurante();
+       r.setId(9);
+       r.setName("NuevoNombre");
+       r.setAddress("c viga");
+       r.setCity("Granada");
+       r.setDescription("descrition_newwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
+       r.setTelephone("622423142");
+       r.setPhoto("photo");
+       r.setCapacity(12);
+       r.setSchedule("schedule");
+       r.setEmail("email@gmail.com");
+       List<RestauranteType> l =  new ArrayList<>();
+       l.add(RestauranteType.BAR);
+       l.add(RestauranteType.CERVECERIA);
+       r.setType(l);
+       r.setUser(user);
+   this.restaurantService.save(r);
+   List<Restaurante> o = this.restaurantService.findByCity(r.getCity());
+   
+   assertThat(this.restaurantService.findAllRestaurants().contains(o));
    }
 
 }
