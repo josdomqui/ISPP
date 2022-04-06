@@ -1,5 +1,5 @@
 <%@ tag trimDirectiveWhitespaces="true" %>
-<%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="commandfast" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@ attribute name="pageName" required="true" %>
@@ -7,12 +7,12 @@
 
 <!doctype html>
 <html>
-<petclinic:htmlHeader/>
+<commandfast:htmlHeader/>
 
-<body>
-<petclinic:bodyHeader menuName="${pageName}"/>
+<body style="background-color: #192026; min-height: 100vh;">
+<commandfast:bodyHeader menuName="${pageName}"/>
 
-<div class="container-fluid" style="background-color: #f9e7cf57;height: 100vw">
+<div class="container-fluid">
     <div class="container xd-container">
 	<c:if test="${not empty message}" >
 	<div class="alert alert-${not empty messageType ? messageType : 'info'}" role="alert">
@@ -25,10 +25,10 @@
 
         <jsp:doBody/>
 
-        <petclinic:pivotal/>
+        <commandfast:pivotal/>
     </div>
 </div>
-<petclinic:footer/>
+<commandfast:footer/>
 <jsp:invoke fragment="customScript" />
 
 </body>

@@ -1,23 +1,21 @@
 .navbar {
-  border-top: 4px solid #6db33f;
-  background-color: #34302d;
+  border-top: 0px solid #ffff;
+  background-color: #fabb4d;
   margin-bottom: 0px;
   border-bottom: 0;
   border-left: 0;
   border-right: 0;
+  padding: 40px;
 }
 
+/*
 .navbar a.navbar-brand {
-    background: url(../images/Imagen1.png) 21px 0px no-repeat;
-    background-size: 50px;
-    margin: -1px 0px -1px;
-    width: 78px;
-    height: 74px;
-    display: inline-block;
     text-decoration: none;
     padding: 0;
 }
+*/
 
+/*
 .navbar a.navbar-brand span {
   display: block;
   width: 229px;
@@ -28,18 +26,28 @@
   -webkit-transition: opacity 0.12s ease-in-out;
   -o-transition: opacity 0.12s ease-in-out;
 }
+*/
 
+/*
 .navbar a:hover.navbar-brand span {
   opacity: 1;
 }
+*/
+
+.nav-item {
+  @media (max-width: 768px) {
+  padding: 20px;
+  }
+}
 
 .navbar li > a, .navbar-text {
-  font-family: "montserratregular", sans-serif;
+  font-family: "quicksand", sans-serif;
   text-shadow: none;
   font-size: 14px;
 
 
 /* line-height: 14px; */
+
   padding: 28px 20px;
   transition: all 0.15s;
   -webkit-transition: all 0.15s;
@@ -49,8 +57,8 @@
 }
 
 .navbar li > a {
-  text-transform: uppercase;
   color: #eeeeee;
+  padding: 28px 20px;
 }
 
 .navbar .navbar-text {
@@ -59,10 +67,10 @@
 }
 .navbar li:hover > a {
   color: #eeeeee;
-  background-color: #6db33f;
+  background-color: #bb924b;
 }
 
-.navbar-toggle {
+.navbar-toggler {
   border-width: 0;
 
   .icon-bar + .icon-bar {

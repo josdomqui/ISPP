@@ -3,9 +3,7 @@ package org.springframework.samples.commandfast.configuration;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Converter;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 
 import org.slf4j.Logger;
@@ -30,7 +28,7 @@ public final class GenericIdToEntityConverter implements ConditionalGenericConve
         
 
     public Set<ConvertiblePair> getConvertibleTypes() {
-    	Set<ConvertiblePair> result=new HashSet<ConvertiblePair>();
+    	Set<ConvertiblePair> result=new HashSet<>();
         result.add(new ConvertiblePair(Number.class, BaseEntity.class));
         result.add(new ConvertiblePair(CharSequence.class, BaseEntity.class));
         return result;

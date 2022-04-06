@@ -16,22 +16,29 @@
 package org.springframework.samples.commandfast.restaurantes;
 
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
+import org.springframework.samples.commandfast.command.Command;
 import org.springframework.samples.commandfast.model.NamedEntity;
+import org.springframework.samples.commandfast.user.User;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -41,9 +48,16 @@ import lombok.Setter;
 @Entity
 @Table(name = "restaurants")
 public class Restaurante extends NamedEntity {
+	
+	@Size(min = 3, max = 50)
+	@Column(name = "name")
+	@NotEmpty(message = "Se requiere un nombre")
+	@Pattern(regexp="^[ÁÉÍÓÚA-Z][a-záéíóú]+(\\s+[ÁÉÍÓÚA-Z]?[a-záéíóú]+)*$", message = "Introduce un nombre valido")
+	private String name;
 
 	@Column(name = "city")
-	@NotEmpty
+	@NotEmpty(message = "Se requiere introducir una ciudad")
+	@Pattern(regexp="^[ÁÉÍÓÚA-Z][a-záéíóú]+(\\s+[ÁÉÍÓÚA-Z]?[a-záéíóú]+)*$", message = "Introduce una ciudad valida")
 	private String city;
 
 	@Column(name = "telephone")
@@ -80,5 +94,12 @@ public class Restaurante extends NamedEntity {
 	@Column(name = "type", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private List<RestauranteType> type;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "username", referencedColumnName = "username")
+	private User user;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurante")
+	private Set<Command> commands;
 
 }

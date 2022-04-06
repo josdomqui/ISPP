@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Mostly used as a facade for all Petclinic controllers Also a placeholder
+ * Mostly used as a facade for all commandfast controllers Also a placeholder
  * for @Transactional and @Cacheable annotations
  *
  * @author Michael Isvy
@@ -46,5 +46,9 @@ public class UserService {
 
 	public Optional<User> findUser(String username) {
 		return userRepository.findById(username);
+	}
+	
+	public Iterable<User> findAllUser() {
+		return userRepository.findAll();
 	}
 }

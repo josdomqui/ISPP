@@ -22,7 +22,7 @@ public interface RestauranteRepository extends Repository<Restaurante, Integer> 
 	public Collection<Product> findAllProduct();
 	
 	@Query("SELECT product FROM Product product WHERE product.restaurant.id =:restaurant_id")
-	public Collection<Product> findProductsByRestaurant(@Param("restaurant_id") int restaurant_id);
+	public Collection<Product> findProductsByRestaurant(@Param("restaurant_id") int restaurantId);
 
 	@Query("SELECT restaurant FROM Restaurante restaurant WHERE restaurant.id =:id")
 	public Optional<Restaurante> findById(@Param("id") int id);
@@ -32,7 +32,8 @@ public interface RestauranteRepository extends Repository<Restaurante, Integer> 
 	@Query("SELECT restaurant FROM Restaurante restaurant WHERE UPPER(restaurant.city) =:city")
 	public List<Restaurante> findByCity(@Param("city") String city);
 	
-
+	@Query("SELECT restaurant FROM Restaurante restaurant WHERE username =:username")
+	public Restaurante findByUsername(@Param("username") String username);
 
 }
 
