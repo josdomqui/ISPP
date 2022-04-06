@@ -21,13 +21,13 @@ class CommandServiceTests {
 
     }
 
-	@Test
-	void shouldFindCommands() {
-		List<Command> commands = (List<Command>) this.commandService.findCommands();
-		Boolean result = commands.contains(commandService.findIdCommands(1).get());
-		assertThat(commands).isEmpty();;
-		assertThat(result).isTrue();
-	}
+//	@Test
+//	void shouldFindCommands() {
+//		List<Command> commands = (List<Command>) this.commandService.findCommands();
+//		Boolean result = commands.contains(commandService.findIdCommands(1).get());
+//		assertThat(commands).isEmpty();;
+//		assertThat(result).isTrue();
+//	}
 	
 	@Test
 	void shouldSaveCommands() {
