@@ -117,6 +117,12 @@
 
         // Create an instance of Elements.
         var elements = stripe.elements();
+        
+        var style = {
+            	base: {
+           		    color: "#ffffff",
+          		}
+           	};
 
         // Create an instance of the card Element.
         var card = elements.create('card', { style: style, required: true });
