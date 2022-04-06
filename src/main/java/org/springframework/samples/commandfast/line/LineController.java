@@ -70,7 +70,7 @@ public class LineController {
 		Double suma = 0.;
 		for (Line linea: lineas) {
 			for (Plate plato: platos) {
-				if(linea.getPlate().getId() == plato.getId() && linea.getQuantity() != 0) {
+				if(linea.getPlate().getId().equals(plato.getId()) && linea.getQuantity() != 0) {
 					res.add(plato);
 					for (int i = 0; i < linea.getQuantity(); i++) {
 						suma += plato.getCost();

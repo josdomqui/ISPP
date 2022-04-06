@@ -64,14 +64,13 @@ public class RestauranteController {
 	public String showRestautanteToSearch(@RequestParam("inputPlace") String place, Map<String, Object> model, @RequestParam("inputState") String type, HttpServletRequest request) {
 		ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
 		model.put(STRING_LISTA_TIPOS, listaTipoRestaurantes);
-		List<Restaurante> lrestaurantes= new ArrayList<>();
+		List<Restaurante> lrestaurantes;
 		List<Restaurante> lres= new ArrayList<>();
 
 		if(place.isEmpty()){
 			lrestaurantes = restauranteService.findAllRestaurants();
 		}else{
 			lrestaurantes = restauranteService.findByCity(place.toUpperCase());
-			System.out.println(lrestaurantes);
 		}
 		if (!(type.equals("Selecciona una opción"))) {
 			for(Restaurante r: restauranteService.findAllRestaurants()){
@@ -145,7 +144,7 @@ public class RestauranteController {
 		Restaurante restaurante = new Restaurante();
 		model.put("error", false); 
 		model.put("restaurant", restaurante);
-		model.put("listaTipos", listaTipoRestaurantes);
+		model.put(STRING_LISTA_TIPOS, listaTipoRestaurantes);
 		return RESTAURANTE_FORM;
 	}
 
@@ -162,7 +161,7 @@ public class RestauranteController {
 				Restaurante restaurante = new Restaurante(); 
 				model.put("restaurant", restaurante); 
 				model.put("error", true); 
-				model.put("listaTipos", listaTipoRestaurantes); 
+				model.put(STRING_LISTA_TIPOS, listaTipoRestaurantes); 
 				return RESTAURANTE_FORM; 
 			} else { 
 				this.restauranteService.save(restaurant); 

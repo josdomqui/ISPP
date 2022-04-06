@@ -6,12 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.samples.commandfast.command.Command;
 import org.springframework.samples.commandfast.model.BaseEntity;
 import org.springframework.samples.commandfast.plate.Plate;
 
-import com.sun.istack.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;

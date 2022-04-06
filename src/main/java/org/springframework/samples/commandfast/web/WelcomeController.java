@@ -35,14 +35,13 @@ public class WelcomeController {
 		String place = request.getParameter("city");
 		ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
 		model.put("listaTipos", listaTipoRestaurantes);
-		List<Restaurante> lrestaurantes= new ArrayList<>();
+		List<Restaurante> lrestaurantes;
 		List<Restaurante> lres= new ArrayList<>();
 
 		if(place.isEmpty()){
 			lrestaurantes = restauranteService.findAllRestaurants();
 		}else{
 			lrestaurantes = restauranteService.findByCity(place.toUpperCase());
-			System.out.println(lrestaurantes);
 		}
 		if (!(type.equals("Selecciona una opción"))) {
 			for(Restaurante r: restauranteService.findAllRestaurants()){

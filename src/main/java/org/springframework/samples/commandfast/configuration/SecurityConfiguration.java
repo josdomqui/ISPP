@@ -2,6 +2,7 @@ package org.springframework.samples.commandfast.configuration;
 
 import javax.sql.DataSource;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +26,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
+	private static final String RESTAURANTE_URL = "/restaurante/**";
+	private static final String STRING_ADMIN = "admin";
 	@Autowired
 	DataSource dataSource;
 	
@@ -38,16 +40,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/users/new").permitAll()
 				.antMatchers("/charge").permitAll()
 				.antMatchers("/create-charge").permitAll()
-				.antMatchers("/restaurante/signup").hasAnyAuthority("admin")
+				.antMatchers("/restaurante/signup").hasAnyAuthority(STRING_ADMIN)
 				.antMatchers("/restaurante/list/**").permitAll()
-				.antMatchers("/restaurante/**").permitAll()
+				.antMatchers(RESTAURANTE_URL).permitAll()
 				.antMatchers(HttpMethod.GET, "/restaurante/list/**").permitAll()
-				.antMatchers(HttpMethod.GET, "/restaurante/**").permitAll()
-				.antMatchers(HttpMethod.POST, "/restaurante/**").permitAll()
+				.antMatchers(HttpMethod.GET, RESTAURANTE_URL).permitAll()
+				.antMatchers(HttpMethod.POST, RESTAURANTE_URL).permitAll()
 				.antMatchers("/command/new").permitAll()
 				.antMatchers("/carta/**").permitAll()
-				.antMatchers("/admin/**").hasAnyAuthority("admin")
-				.antMatchers("/owners/**").hasAnyAuthority("owner", "admin")
+				.antMatchers("/admin/**").hasAnyAuthority(STRING_ADMIN)
+				.antMatchers("/owners/**").hasAnyAuthority("owner", STRING_ADMIN)
 				.antMatchers("/vets/**", "/command/**", "/restaurantes/**").authenticated().and()
 				.formLogin()
 				/* .loginPage("/login") */

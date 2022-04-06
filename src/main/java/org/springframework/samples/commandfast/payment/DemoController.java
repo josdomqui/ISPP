@@ -39,9 +39,8 @@ public class DemoController {
     
     @PostMapping(value = "/charge")
     public String saveCharge(String email, String token, Map<String, Object> model) {
-        String chargeId = stripeService.createCharge(email, token, 999); //$9.99 USD
+        String chargeId =stripeService.createCharge(email, token, 999); //$9.99 USD
         model.put("message", "Successful payment, your charde id is: "+ chargeId);
-        System.out.println("BUENAAAASSSS===============================");
         return "welcome";
         
     }

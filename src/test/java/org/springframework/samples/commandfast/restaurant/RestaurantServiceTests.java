@@ -1,9 +1,9 @@
 package org.springframework.samples.commandfast.restaurant;
 import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import org.springframework.samples.commandfast.product.Product;
 import org.junit.jupiter.api.Test;

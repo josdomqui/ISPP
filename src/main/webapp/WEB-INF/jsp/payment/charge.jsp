@@ -24,7 +24,7 @@
         <div class="row">
             <div class="col-lg-6 col-md-8 col-12 my-auto mx-auto">
                 <h1>
-                    Gestión de pagos Stripe
+                    Gestiï¿½n de pagos Stripe
                 </h1>
                 <p class="lead mb-4">
                     Por favor, complete el siguiente formulario para realizar el pago.
@@ -39,11 +39,10 @@
 	                      <spring:param name="id_comanda" value="${id_comanda}"/>
 	                 </spring:url>
                 <form action="${fn:escapeXml(url)}" id="payment-form" method="get">
-                    <!--  <input id="api-key" type="hidden" th:value="${stripePublicKey}">-->
                     <input id="api-key" type="hidden" value="${stripePublicKey}"/>
                     <div class="form-group">
                         <label class="font-weight-medium" for="card-element">
-                            Introduce su tarjeta de crédito/débito
+                            Introduce su tarjeta de crï¿½dito/dï¿½bito
                         </label>
                         <div class="w-100" id="card-element">
                             <!-- A Stripe Element will be inserted here. -->
@@ -114,11 +113,6 @@
 
         // Handle form submission.
         var form = document.getElementById('payment-form');
-        //form.addEventListener('submit', function (event) {
-            //event.preventDefault();
-            // handle payment
-            //handlePayments();
-        //});
 
         //handle card submission
         function handlePayments() {

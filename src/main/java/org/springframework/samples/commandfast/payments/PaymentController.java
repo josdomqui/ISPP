@@ -67,7 +67,6 @@ public class PaymentController {
 		Double price = command.get().getPrice();
 		//generate pdf
 		String fileName = this.paymentService.generateRecipt(price);
-		System.out.println(fileName);
 		//download pdf
 		File file = new File(fileName);
 		response.setContentType("application/octet-stream");

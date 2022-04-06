@@ -64,7 +64,6 @@ public class PaymentService {
             document.add(paragraph);
             document.close();
             pdfWriter.close();
-            System.out.println("PDF creado");
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
