@@ -6,18 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.commandfast.product.Product;
 import org.springframework.samples.commandfast.restaurantes.Restaurante;
 import org.springframework.samples.commandfast.restaurantes.RestauranteService;
 import org.springframework.samples.commandfast.restaurantes.RestauranteType;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class WelcomeController {
@@ -39,14 +35,13 @@ public class WelcomeController {
 		String place = request.getParameter("city");
 		ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
 		model.put("listaTipos", listaTipoRestaurantes);
-		List<Restaurante> lrestaurantes= new ArrayList<>();
+		List<Restaurante> lrestaurantes;
 		List<Restaurante> lres= new ArrayList<>();
 
 		if(place.isEmpty()){
 			lrestaurantes = restauranteService.findAllRestaurants();
 		}else{
 			lrestaurantes = restauranteService.findByCity(place.toUpperCase());
-			System.out.println(lrestaurantes);
 		}
 		if (!(type.equals("Selecciona una opción"))) {
 			for(Restaurante r: restauranteService.findAllRestaurants()){

@@ -11,7 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
-public class MesaServiceTests {
+class MesaServiceTests {
 
 	@Autowired
 	protected MesaService mesaService;
@@ -20,7 +20,7 @@ public class MesaServiceTests {
 	void shouldFindMesas() {
 		List<Mesa> mesas = (List<Mesa>) this.mesaService.findAllMesa();
 		Boolean result = mesas.contains(mesaService.findMesaByNumber(1));
-		assertThat(mesas.isEmpty()).isFalse();
+		assertThat(mesas).isEmpty();;
 		assertThat(result).isTrue();
 	}
 	

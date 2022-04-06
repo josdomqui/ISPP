@@ -24,7 +24,7 @@
         <div class="card d-inline-block" style="border: 2px solid; background-color: rgba(158, 172, 168, 0.5); border-radius:10px; min-height: 200px; max-height: 230px">
        		<div class="row">
 	           	<div class="col-5">
-	       			<img class="card-image" src="${listaPlatos.image}">
+	       			<img class="card-image" src="${listaPlatos.image}" alt="Imagen de ${listaPlatos}">
 	       		</div>
 	       		<div class="col-6 mt-3">
              		<h3 class="card-title text-left" style="width: 100px;"><c:out value="${listaPlatos.cost}"/> &euro;</h3>

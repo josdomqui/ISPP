@@ -40,7 +40,7 @@
 		<div class="col-md-8" >
 			<div class="lc-block mb-4">
 				<div class="ratio ratio-4x3 min-vh-50" lc-helper="gmap-embed">
-					<iframe src="https://maps.google.com/maps?q=<c:out value = "${detallesRestaurante.address}"/>&amp;t=m&amp;z=8&amp;output=embed&amp;iwloc=near"></iframe>
+					<iframe title="Localización del restaurante" src="https://maps.google.com/maps?q=<c:out value = "${detallesRestaurante.address}"/>&amp;t=m&amp;z=8&amp;output=embed&amp;iwloc=near"></iframe>
 				</div>
 				<div class="ratio-4x3 min-vh-50" style="background: #ffcb74;">
 					<h1 ALIGN = center ><c:out value = "${detallesRestaurante.address}"/> &nbsp;&nbsp;&nbsp;<c:out value = "${detallesRestaurante.telephone}"/></h1>

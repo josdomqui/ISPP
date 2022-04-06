@@ -20,7 +20,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +43,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class PlateController {
 
-	private static final String VIEWS_Plates = "carta/plateList";
+	private static final String VIEW_PLATES = "carta/plateList";
 
 	private final PlateService plateService;
 
@@ -63,36 +62,36 @@ public class PlateController {
 	
 	
 	@GetMapping(value = "/carta/{id_comanda}")
-	public String showAllPlates(@PathVariable("id_comanda") int id_commanda, Map<String, Object> model) {
+	public String showAllPlates(@PathVariable("id_comanda") int idCommanda, Map<String, Object> model) {
 		Collection<Plate> plate = plateService.findAllPlates();
 		model.put("platos", plate);
 		List<Line> line = new ArrayList<>();
 		model.put("lines", line);
-		model.put("id_commanda", id_commanda);
-		return VIEWS_Plates;
+		model.put("id_commanda", idCommanda);
+		return VIEW_PLATES;
 	}
 	
 	@PostMapping(value = "/carta/{id_comanda}")
-	public String processCreationForm(@PathVariable("id_comanda") int id_commanda, @Valid Line line, BindingResult result) {
+	public String processCreationForm(@PathVariable("id_comanda") int idCommanda, @Valid Line line, BindingResult result) {
 		this.lineService.saveline(line);
-		return "redirect:/carta/"+id_commanda+"/edit";
+		return "redirect:/carta/"+idCommanda+"/edit";
 	}
 	
 	@GetMapping(value = "/carta/{id_comanda}/edit")
-    public String initUpdateLineForm(@PathVariable("id_comanda") int id_comanda, Map<String, Object> model) {
-        Collection<Line> line = this.lineService.findLineByCommandId(id_comanda);
+    public String initUpdateLineForm(@PathVariable("id_comanda") int idComanda, Map<String, Object> model) {
+        Collection<Line> line = this.lineService.findLineByCommandId(idComanda);
         model.put("lines", line);
 		Collection<Plate> plate = plateService.findAllPlates();
 		model.put("platos", plate);        
-		model.put("id_commanda", id_comanda);
-		return VIEWS_Plates;
+		model.put("id_commanda", idComanda);
+		return VIEW_PLATES;
     }
 
 	
 	@PostMapping(value = "/carta/{id_comanda}/edit")
-	public String processUForm(@PathVariable("id_comanda") int id_commanda, @Valid Line line, BindingResult result) {
+	public String processUForm(@PathVariable("id_comanda") int idCommanda, @Valid Line line, BindingResult result) {
 		this.lineService.saveline(line);
-		return "redirect:/carta/"+id_commanda+"/edit";
+		return "redirect:/carta/"+idCommanda+"/edit";
 	}
 	
 }

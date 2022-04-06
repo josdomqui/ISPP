@@ -17,7 +17,6 @@ package org.springframework.samples.commandfast.plate;
 
 import java.util.Collection;
 
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -35,7 +34,6 @@ public class PlateService {
 
 	private PlateRepository plateRepository;
 
-//	private static final Logger log = LoggerFactory.getLogger(PlateService.class);
 
 
     @Autowired
@@ -50,15 +48,12 @@ public class PlateService {
 	
 	@Transactional(readOnly = true)
     public Plate findPlateById(int id) throws DataAccessException {
-//        log.info("Buscando el plato con id "+ id);
         return plateRepository.findById(id);
     }
 	
 	@Transactional
     public void savePlate(Plate plate) throws DataAccessException {
-//        log.info("Guardando plato en la BD");
         plateRepository.save(plate);
-//        log.info("Plato guardado correctamente");
 
     }
 }

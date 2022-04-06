@@ -2,6 +2,7 @@ package org.springframework.samples.commandfast.configuration;
 
 import javax.sql.DataSource;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +11,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -26,7 +26,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
+	private static final String RESTAURANTE_URL = "/restaurante/**";
+	private static final String STRING_ADMIN = "admin";
 	@Autowired
 	DataSource dataSource;
 	
@@ -42,15 +43,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/restaurant/paymentPanel").hasAnyAuthority("restaurant")
 				.antMatchers("/restaurante/signup").permitAll()
 				.antMatchers("/restaurante/list/**").permitAll()
-				.antMatchers("/restaurante/**").permitAll()
+				.antMatchers(RESTAURANTE_URL).permitAll()
 				.antMatchers(HttpMethod.GET, "/restaurante/list/**").permitAll()
-				.antMatchers(HttpMethod.GET, "/restaurante/**").permitAll()
-				.antMatchers(HttpMethod.POST, "/restaurante/**").permitAll()
+				.antMatchers(HttpMethod.GET, RESTAURANTE_URL).permitAll()
+				.antMatchers(HttpMethod.POST, RESTAURANTE_URL).permitAll()
 				.antMatchers("/command/new").permitAll()
 				.antMatchers("/command/all").hasAnyAuthority("restaurant")
 				.antMatchers("/carta/**").permitAll()
-				.antMatchers("/admin/**").hasAnyAuthority("admin")
-				.antMatchers("/owners/**").hasAnyAuthority("owner", "admin")
+				.antMatchers("/admin/**").hasAnyAuthority(STRING_ADMIN)
+				.antMatchers("/owners/**").hasAnyAuthority("owner", STRING_ADMIN)
 				.antMatchers("/command/**", "/restaurantes/**").authenticated().and()
 				.formLogin()
 				/* .loginPage("/login") */
@@ -81,8 +82,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {	    
-		PasswordEncoder encoder =  NoOpPasswordEncoder.getInstance();
-	    return encoder;
+		return NoOpPasswordEncoder.getInstance();
 	}
 	
 }

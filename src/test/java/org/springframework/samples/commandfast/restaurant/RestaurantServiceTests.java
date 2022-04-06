@@ -1,5 +1,6 @@
 package org.springframework.samples.commandfast.restaurant;
 import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -16,7 +17,7 @@ import org.springframework.samples.commandfast.user.User;
 import org.springframework.stereotype.Service;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
-public class RestaurantServiceTests {
+class RestaurantServiceTests {
 
     @Autowired
     private RestauranteService restaurantService;

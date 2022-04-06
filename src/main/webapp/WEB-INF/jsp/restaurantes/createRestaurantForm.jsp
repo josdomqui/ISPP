@@ -35,7 +35,6 @@
             
             <span class="input-group" style="margin-left: 5%;">Descripcion: </span><input required minlength="25" maxlength="250" class="form-control" style="width: 90%; margin-left: 5%;" name="description"/><br/>
             
-            <!--<span class="input-group" style="margin-left: 5%;">Url de la foto: </span><input label="URL Photo" type="text" name="photo" class="form-control" style="width: 90%; margin-left: 5%;"/><br/>-->
             <span class="input-group" style="margin-left: 5%;">Capacidad del restaurante: </span><input required type="number" class="form-control" style="width: 90%; margin-left: 5%;" min="0" max="10000" name="capacity"/><br/>
             <span class="input-group" style="margin-left: 5%;">Horarios: </span><input label="Schedule" pattern="^((([0-1]{1}[0-9]{1}|[1-2]{1}[0-3]{1}):[0-5]{1}[0-9]{1}))-((([0-1]{1}[0-9]{1}|[1-2]{1}[0-3]{1}):[0-5]{1}[0-9]{1})) y ((([0-1]{1}[0-9]{1}|[1-2]{1}[0-3]{1}):[0-5]{1}[0-9]{1}))-((([0-1]{1}[0-9]{1}|[1-2]{1}[0-3]{1}):[0-5]{1}[0-9]{1}))|^((([0-1]{1}[0-9]{1}|[1-2]{1}[0-3]{1}):[0-5]{1}[0-9]{1}))-((([0-1]{1}[0-9]{1}|[1-2]{1}[0-3]{1}):[0-5]{1}[0-9]{1}))" 
             placeholder="hh:mm-hh:mm o hh:mm-hh:mm y hh:mm-hh:mm" required type="text" class="form-control" style="width: 90%; margin-left: 5%;" name="schedule"/><br/>

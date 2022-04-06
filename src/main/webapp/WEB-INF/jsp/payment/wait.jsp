@@ -3,7 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="commandfast" tagdir="/WEB-INF/tags" %>
 <%@page pageEncoding="UTF-8"%>
-<!-- %@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %-->  
 
 <commandfast:layout pageName="wait"> 
     <div class="row">

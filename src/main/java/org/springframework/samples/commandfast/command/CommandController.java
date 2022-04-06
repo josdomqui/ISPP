@@ -34,7 +34,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -78,13 +77,11 @@ public class CommandController {
 			Map<String, Object> model = result.getModel();
 			model.put("mesas", this.mesaService.findAllMesa());
 			model.put("restaurantes", this.restauranteService.findAllRestaurants());
-//			return "command/createCommand";
 			return new ModelAndView("command/createCommand", model);
 		} else {
 			this.commandService.saveCommand(command);
-			Integer id_command = command.getId();
-//			return "redirect:/carta/"+id_command;
-			return new ModelAndView("redirect:/carta/"+id_command, result.getModel());
+			Integer idCommand = command.getId();
+			return new ModelAndView("redirect:/carta/"+idCommand, result.getModel());
 		}
 	}
 	

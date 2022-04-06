@@ -14,7 +14,7 @@ import org.springframework.samples.commandfast.user.UserService;
 import org.springframework.stereotype.Service;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
-public class UsersServiceTests {
+class UsersServiceTests {
 
     @Autowired
     private UserService userService;

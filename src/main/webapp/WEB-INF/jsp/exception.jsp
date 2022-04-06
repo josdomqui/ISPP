@@ -5,7 +5,8 @@
 <commandfast:layout pageName="error">
 
     <spring:url value="/resources/images/error-icon.png" var="error"/>
-    <img src="${error}"/>
+    <img src="${error}" alt="Error image"/>
+
 
     <h2>Disculpe las molestisas, ha ocurrido un error inesperado</h2>
 

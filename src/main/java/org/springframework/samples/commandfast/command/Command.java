@@ -40,10 +40,6 @@ public class Command extends BaseEntity{
 	@Column(name = "state")
 	Boolean state;
 	
-//	@Column(name = "date")
-//	//@NotEmpty
-//	LocalDateTime date;
-	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "command")
 	private Set<Line> lines;
 	

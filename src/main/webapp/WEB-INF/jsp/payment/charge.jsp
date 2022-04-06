@@ -40,7 +40,6 @@
 	                      <spring:param name="id_comanda" value="${id_comanda}"/>
 	                 </spring:url>
                 <form action="${fn:escapeXml(url)}" id="payment-form" method="get">
-                    <!--  <input id="api-key" type="hidden" th:value="${stripePublicKey}">-->
                     <input id="api-key" type="hidden" value="${stripePublicKey}"/>
                     <div class="form-group">
                         <label class="font-weight-medium" for="card-element">
@@ -119,11 +118,6 @@
 
         // Handle form submission.
         var form = document.getElementById('payment-form');
-        //form.addEventListener('submit', function (event) {
-            //event.preventDefault();
-            // handle payment
-            //handlePayments();
-        //});
 
         //handle card submission
         function handlePayments() {

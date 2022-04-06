@@ -9,7 +9,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.samples.commandfast.product.Product;
 import org.springframework.samples.commandfast.user.AuthoritiesService;
 import org.springframework.samples.commandfast.user.UserService;
-import org.springframework.samples.commandfast.product.ProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,8 +58,8 @@ public class RestauranteService {
 	}
 	
 	@Transactional
-	public Collection<Product> findMenuByRestaurant(Integer restaurant_id) throws DataAccessException{
-		return restauranteRepository.findProductsByRestaurant(restaurant_id);
+	public Collection<Product> findMenuByRestaurant(Integer restaurantId) throws DataAccessException{
+		return restauranteRepository.findProductsByRestaurant(restaurantId);
 	}
 
     public List<Restaurante> findByType(RestauranteType restauranteType) {
