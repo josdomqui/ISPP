@@ -1,22 +1,34 @@
-<%@ page session="false" trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="commandfast" tagdir="/WEB-INF/tags"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@page contentType="text/html"%>
-<%@page pageEncoding="UTF-8"%>
+<%@ page session="false" trimDirectiveWhitespaces="true" %>
+  <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+        <%@ taglib prefix="commandfast" tagdir="/WEB-INF/tags" %>
+          <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+            <%@page contentType="text/html" %>
+              <%@page pageEncoding="UTF-8" %>
 
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+                <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+                <script>
+                  function validateString(){
+                    var uname=document.forms[0].inputPlace.value;
 
+                    if (!/^[a-zA-Z]+/.test(uname)) {
+                      alert("La dirección debe ser una cadena de caracteres del alfabeto");
+                      document.forms[0].inputPlace.focus();
+                      return false;
+                  }else{
+                    return true;
+
+                  }
+                }
+                </script>
+                
 <commandfast:layout pageName="vets">
 	<form method="get" action="/restaurante/list/search">
 		<div class="form-container-listado">
 			<div>
 				<label for="inputEmail4" class="form-label label-input-listado"
-					style="font-size: 16px;">Lugar</label> <input pattern="^[a-zA-Z]+"
-					oninvalid="setCustomValidity('Introduce sólo caracteres del alfabeto')"
+					style="font-size: 16px;">Lugar</label> <input name="inputPlace"
 					type="text" class="form-control input-filtros" value="${place}"
 					name="inputPlace">
 			</div>
@@ -34,7 +46,7 @@
 				</select>
 			</div>
 			<div style="display: flex; align-self: flex-end;">
-				<button type="submit" class="btn-default buton-base-listado">
+				<button type="submit" onclick="return validateString()"class="btn-default buton-base-listado">
 					<span style="color: rgb(255, 255, 255);"
 						class="glyphicon glyphicon-search" aria-hidden="true"></span>
 				</button>

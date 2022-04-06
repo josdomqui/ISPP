@@ -23,7 +23,7 @@
             
             <span class="input-group" style="margin-left: 5%;">Contraseña: </span><input required type="password" class="form-control" style="width: 90%; margin-left: 5%;" name="user.password"/><br/>
             
-            <span class="input-group" style="margin-left: 5%;">Nombre: </span><input required pattern="^[ÑÁÉÍÓÚA-Z][a-zñáéíóú]+(\s+[ÑÁÉÍÓÚA-Z]?[a-zñáéíóú]+)*$" type="text" class="form-control" style="width: 90%; margin-left: 5%;" minlength="3" maxlength="50" name="name"/><br/>
+            <span class="input-group" style="margin-left: 5%;">Nombre: </span><input required pattern="^[ÑÁÉÍÓÚA-Z][a-zñáéíóú]+(\s+[ÑÁÉÍÓÚA-Z]?[a-zñáéíóú]+)*$" type="text" class="form-control" style="width: 90%; margin-left: 5%;" minlength="3" maxlength="50" name="name" placeholder="Introduce siguiente formato: José Antonio"/><br/>
            
             <span class="input-group" style="margin-left: 5%;">Direccion de correo: </span><input required type="email" class="form-control" style="width: 90%; margin-left: 5%;" name="email"/><br/>
             
