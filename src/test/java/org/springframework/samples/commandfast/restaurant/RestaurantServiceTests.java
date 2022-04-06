@@ -42,7 +42,7 @@ public class RestaurantServiceTests {
 
     Restaurante r = new Restaurante();
     r.setId(9);
-    r.setName("NuevoNombre");
+    r.setName("Jose");
     r.setAddress("c viga");
     r.setCity("Granada");
     r.setDescription("descrition_newwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
