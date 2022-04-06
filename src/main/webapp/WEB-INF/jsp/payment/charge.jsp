@@ -62,9 +62,8 @@
 	                    <spring:url value="/payment/successPage/{id_comanda}" var="url">
 	                      <spring:param name="id_comanda" value="${id_comanda}"/>
 	                    </spring:url>
-                        <a class="btn btn-block" id="submitButton" style="background-color: #ffcb74; color: #ffff; font-size: 14px" href="${fn:escapeXml(url)}">
-                            Finalizar pago
-                        </a>
+                        <button class="btn btn-block" disabled=true id="submitButton" style="background-color: #ffcb74; color: #ffff" type="submit">
+                            Finalizar pago</button>
                       
                         <div class="small text-muted mt-2">
                             Pay securely with Stripe. By clicking the button above, you agree

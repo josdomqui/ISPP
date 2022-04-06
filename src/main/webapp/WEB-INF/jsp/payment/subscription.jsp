@@ -41,9 +41,9 @@
                         <input class="custom-control-input" id="monthly-plan" name="premium-plan" type="radio"
                                value="monthly-subscription"/>
                         <label class="custom-control-label" for="monthly-plan">
-                            <p>Mensual 9.99 €</p>
+                            <p>Mensual 150.00 €</p>
                             <small class="text-muted">
-                                Por 9.99€ cada mes consigue acceso a todas las características premium.
+                                Por 150.00€ cada mes consigue acceso a todas las características premium.
                             </small>
                         </label>
                     </div>
@@ -53,15 +53,15 @@
                         <label class="custom-control-label" for="annually-plan">
                             <div class="row">
                             	<div class="col-sm-4">
-                            		<p style="margin-left: 5px">Anual 49.99 €</p>
+                            		<p style="margin-left: 5px">Anual 1710.00 €</p>
                             	</div>
                             	<div class="col-sm-4">
-                            		<span class="badge badge-primary" style="width: 80%">60% DESCUENTO</span>
+                            		<span class="badge badge-primary" style="width: 80%">5% DESCUENTO</span>
                             	</div>
                             	
                             </div>
                             <small class="text-muted mb-4">
-                                Por 49.99€ cada mes consigue acceso a todas las características premium.
+                                Por 150.00€ cada mes consigue acceso a todas las características premium.
                             </small>
                         </label>
                     </div>
