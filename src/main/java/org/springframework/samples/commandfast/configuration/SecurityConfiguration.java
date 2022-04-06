@@ -50,8 +50,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/command/new").permitAll()
 				.antMatchers("/command/all").hasAnyAuthority("restaurant")
 				.antMatchers("/carta/**").permitAll()
-				.antMatchers("/admin/**").hasAnyAuthority("admin")
-				.antMatchers("/owners/**").hasAnyAuthority("owner", "admin")
+				.antMatchers("/admin/**").hasAnyAuthority(STRING_ADMIN)
+				.antMatchers("/owners/**").hasAnyAuthority("owner", STRING_ADMIN)
 				.antMatchers("/command/**", "/restaurantes/**").authenticated().and()
 				.formLogin()
 				/* .loginPage("/login") */
