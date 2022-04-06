@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
-public class PlateServiceTests {
+class PlateServiceTests {
 
 	@Autowired
 	protected PlateService plateService;
@@ -19,7 +19,7 @@ public class PlateServiceTests {
 	void shouldFindPlates() {
 		Collection<Plate> plates = (Collection<Plate>) this.plateService.findAllPlates();
 		Boolean result = plates.contains(plateService.findPlateById(1));
-		assertThat(plates.isEmpty()).isFalse();
+		assertThat(plates).isEmpty();
 		assertThat(result).isTrue();
 	}
 	

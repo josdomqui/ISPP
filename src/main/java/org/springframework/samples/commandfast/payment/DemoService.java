@@ -3,7 +3,6 @@ package org.springframework.samples.commandfast.payment;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +13,12 @@ import com.stripe.model.Charge;
 public class DemoService {
 	
 	@Value("${STRIPE_SECRET_KEY}")
-    private String API_SECRET_KEY;
+    private static String apiSecretKey;
 
-	public String createCharge(String email, String token, int amount) {
+	public static String createCharge(String email, String token, int amount) {
         String id = null;
         try {
-            Stripe.apiKey = API_SECRET_KEY;
+            Stripe.apiKey = apiSecretKey;
             Map<String, Object> chargeParams = new HashMap<>();
             chargeParams.put("amount", amount);
             chargeParams.put("currency", "usd");

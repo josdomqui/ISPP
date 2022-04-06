@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.samples.commandfast.line.Line;
 import org.springframework.samples.commandfast.mesa.Mesa;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,10 +16,6 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @Service
 public class PaymentService {
@@ -70,8 +65,6 @@ public class PaymentService {
             document.close();
             pdfWriter.close();
             System.out.println("PDF creado");
-        } catch (FileNotFoundException ex) {
-            System.out.println(ex.getMessage());
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }

@@ -10,7 +10,7 @@ import org.springframework.samples.commandfast.restaurantes.Restaurante;
 import org.springframework.stereotype.Service;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
-public class ProductServiceTests {
+class ProductServiceTests {
 
 	@Autowired
 	protected ProductService productService;

@@ -68,13 +68,11 @@ public class CommandController {
 		if (result.hasErrors()) {
 			Map<String, Object> model = result.getModel();
 			model.put("mesas", this.mesaService.findAllMesa());
-//			return "command/createCommand";
 			return new ModelAndView("command/createCommand", model);
 		} else {
 			this.commandService.saveCommand(command);
-			Integer id_command = command.getId();
-//			return "redirect:/carta/"+id_command;
-			return new ModelAndView("redirect:/carta/"+id_command, result.getModel());
+			Integer idCommand = command.getId();
+			return new ModelAndView("redirect:/carta/"+idCommand, result.getModel());
 		}
 	}
 	

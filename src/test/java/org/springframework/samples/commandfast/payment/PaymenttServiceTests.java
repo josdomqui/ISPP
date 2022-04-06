@@ -20,7 +20,7 @@ import org.springframework.samples.commandfast.user.User;
 import org.springframework.stereotype.Service;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
-public class PaymenttServiceTests {
+class PaymenttServiceTests {
 
     @Autowired
     private PaymentService paymentService;

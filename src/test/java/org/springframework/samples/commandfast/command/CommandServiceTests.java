@@ -25,7 +25,7 @@ class CommandServiceTests {
 	void shouldFindCommands() {
 		List<Command> commands = (List<Command>) this.commandService.findCommands();
 		Boolean result = commands.contains(commandService.findIdCommands(1).get());
-		assertThat(commands.isEmpty()).isFalse();
+		assertThat(commands).isEmpty();;
 		assertThat(result).isTrue();
 	}
 	

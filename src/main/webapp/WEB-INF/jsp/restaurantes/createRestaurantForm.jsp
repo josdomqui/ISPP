@@ -27,7 +27,6 @@
             <span class="input-group" style="margin-left: 5%;">Ciudad: </span><input label="City" required type="text" class="form-control" style="width: 90%; margin-left: 5%;" name="city"/><br/>
             <span class="input-group" style="margin-left: 5%;">Direccion: </span><input label="Address" required type="text" class="form-control" style="width: 90%; margin-left: 5%;" name="address"/><br/>
             <span class="input-group" style="margin-left: 5%;">Descripcion: </span><input label="Description" required minlength="25" maxlength="250" class="form-control" style="width: 90%; margin-left: 5%;" name="description"/><br/>
-            <!--<span class="input-group" style="margin-left: 5%;">Url de la foto: </span><input label="URL Photo" type="text" name="photo" class="form-control" style="width: 90%; margin-left: 5%;"/><br/>-->
             <span class="input-group" style="margin-left: 5%;">Capacidad del restaurante: </span><input label="Capacity" required type="number" class="form-control" style="width: 90%; margin-left: 5%;" min="0" name="capacity"/><br/>
             <span class="input-group" style="margin-left: 5%;">Horarios: </span><input label="Schedule" required type="text" class="form-control" style="width: 90%; margin-left: 5%;" name="schedule"/><br/>
             <span  class="input-group" style="margin-left: 5%;">Tipos de restaurantes:</span>

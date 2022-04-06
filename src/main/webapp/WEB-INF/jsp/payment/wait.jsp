@@ -9,7 +9,7 @@
         <div >
             <h2 class="img-title p-3">Operaci�n realizada con �xito</h2>
             <spring:url value="/resources/images/esperar.png" htmlEscape="true" var="waitPago"/>
-            <img style="width: 24%; height: 80%" class="img-responsive p-3" src="${waitPago}"/>
+            <img style="width: 24%; height: 80%" class="img-responsive p-3" src="${waitPago}" alt="Imagen de espera al pago"/>
             <h2 class="img-footer mt-2">Su cuenta est� en camino</h2>
         </div>
     </div>
