@@ -29,7 +29,7 @@
                         <button class="buton-detalles-listado" type="submit" style="text-decoration: none; color: #ffff; font-size: 17px;">Añadir Plato</button>
                     </c:when>
                     <c:otherwise>
-                        <button style="background-color:#bd8859" class="buton-detalles-listado" type="submit">Editar Plato</button>
+                        <button class="buton-detalles-listado" type="submit" style="text-decoration: none; color: #ffff; font-size: 17px;">Editar Plato</button>
                     </c:otherwise>
                 </c:choose>
             </div>

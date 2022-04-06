@@ -68,13 +68,13 @@ getCoordintes();
     <div class="row">
         <div align="center">
             <spring:url value="/resources/images/Imagen1.png" htmlEscape="true" var="petsImage"/>
-            <img class="rounded" alt="..." style="object-fit: cover;width: 30%; height: 90%" class="img-responsive" src="${petsImage}"/>
+            <img class="rounded" alt="..." style="object-fit: cover;width: 27%; height: 85%" class="img-responsive" src="${petsImage}"/>
             <h2>Bienvenidos a Command-Fast, ¿desea consultar restaurantes cercanos que usen nuestra tecnología?</h2>
         	
         	<form:form class="form-horizontal" id="add-command-form">
         	<div class="location">
         	</div>
-        		<button class="btn-default" type="submit"><span style="color: white;">Consultar</span></button>
+        		<button class="buton-detalles-listado mt-3 mb-3" type="submit"><span style="color: white;">Consultar</span></button>
         	</form:form>
         </div>
     </div>
