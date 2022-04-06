@@ -2,6 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page pageEncoding="UTF-8"%>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
 
@@ -24,7 +25,7 @@
         <div class="row">
             <div class="col-lg-6 col-md-8 col-12 my-auto mx-auto">
                 <h1>
-                    Gestión de pagos Stripe
+                    GestiÃ³n de pagos Stripe
                 </h1>
                 <p class="lead mb-4">
                     Por favor, complete el siguiente formulario para realizar el pago.
@@ -43,7 +44,7 @@
                     <input id="api-key" type="hidden" value="${stripePublicKey}"/>
                     <div class="form-group">
                         <label class="font-weight-medium" for="card-element">
-                            Introduce su tarjeta de crédito/débito
+                            Introduce su tarjeta de crÃ©dito/dÃ©bito
                         </label>
                         <div class="w-100" id="card-element">
                             <!-- A Stripe Element will be inserted here. -->
