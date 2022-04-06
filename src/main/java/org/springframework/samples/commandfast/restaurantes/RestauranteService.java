@@ -70,6 +70,10 @@ public class RestauranteService {
 	public List<Restaurante> findByCity(String city) {
         return restauranteRepository.findByCity(city);
     }
+	
+	public Restaurante findByUsername(String username) {
+        return restauranteRepository.findByUsername(username);
+    }
 
 	public void save(Restaurante restaurante) {
 		//Creating restaurant
