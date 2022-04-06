@@ -41,9 +41,9 @@
                         <input class="custom-control-input" id="monthly-plan" name="premium-plan" type="radio"
                                value="monthly-subscription"/>
                         <label class="custom-control-label" for="monthly-plan">
-                            <p>Mensual 9.99 €</p>
+                            <p>Mensual 150.00 €</p>
                             <small class="text-muted">
-                                Por 9.99€ cada mes consigue acceso a todas las características premium.
+                                Por 150.00€ cada mes consigue acceso a todas las características premium.
                             </small>
                         </label>
                     </div>
@@ -53,20 +53,23 @@
                         <label class="custom-control-label" for="annually-plan">
                             <div class="row">
                             	<div class="col-sm-4">
-                            		<p style="margin-left: 5px">Anual 49.99 €</p>
+                            		<p style="margin-left: 5px">Anual 1710.00 €</p>
                             	</div>
                             	<div class="col-sm-4">
-                            		<span class="badge badge-primary" style="width: 80%">60% DESCUENTO</span>
+                            		<span class="badge badge-primary" style="width: 80%">5% DESCUENTO</span>
                             	</div>
                             	
                             </div>
                             <small class="text-muted mb-4">
-                                Por 49.99€ cada mes consigue acceso a todas las características premium.
+                                Por 150.00€ cada mes consigue acceso a todas las características premium.
                             </small>
                         </label>
                     </div>
                 </div>
-                <form action="#" id="payment-form" method="post">
+                <spring:url value="/payment/successPage/{id_comanda}" var="url">
+                    <spring:param name="id_comanda" value="0"/>
+               </spring:url>
+                <form action="${fn:escapeXml(url)}" id="payment-form" method="get">
                     <input id="api-key" type="hidden" value="${stripePublicKey}">
                     <div class="form-group">
                         <label class="font-weight-medium" for="card-element">
@@ -87,9 +90,8 @@
                     <!-- Used to display Element errors. -->
                     <div class="text-danger w-100" id="card-errors" role="alert"></div>
                     <div class="form-group pt-2">
-                        <a class="btn btn-block" id="submitButton" style="background-color: #ffcb74; color: #ffff; font-size: 14px" href="${fn:escapeXml('/welcome')}">
-                            Finalizar pago
-                        </a>
+                        <button class="btn btn-block" disabled=true id="submitButton" style="background-color: #ffcb74; color: #ffff" type="submit">
+                            Finalizar pago</button>
                         <div class="small text-muted mt-2">
                             Pay securely with Stripe. By clicking the button above, you agree
                             to our <a target="_blank" href="#">Terms of Service</a>,
@@ -130,29 +132,34 @@
             } else {
                 displayError.textContent = '';
             }
+            if (event.complete) {
+          	    var button = document.getElementById('submitButton');
+          	    button.disabled = false;
+          	}
         });
 
         // Handle form submission.
-        var form = document.getElementById('payment-form');
-        form.addEventListener('submit', function (event) {
-            event.preventDefault();
-            //validate coupon if any
-            var code = $('#coupon').val().trim();
-            if (code.length > 0) {
-                $.post(
-                    "/coupon-validator",
-                    {code: code},
-                    function (data) {
-                        if (data.status) {
-                            handlePayments();
-                        } else {
-                            alert(data.details);
-                        }
-                    }, 'json');
-            } else {
-                handlePayments();
-            }
-        });
+
+        // var form = document.getElementById('payment-form');
+        // form.addEventListener('submit', function (event) {
+        //     event.preventDefault();
+        //     //validate coupon if any
+        //     var code = $('#coupon').val().trim();
+        //     if (code.length > 0) {
+        //         $.post(
+        //             "/coupon-validator",
+        //             {code: code},
+        //             function (data) {
+        //                 if (data.status) {
+        //                     handlePayments();
+        //                 } else {
+        //                     alert(data.details);
+        //                 }
+        //             }, 'json');
+        //     } else {
+        //         //handlePayments();
+        //     }
+        // });
 
         //handle card submission
         function handlePayments() {
