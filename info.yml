@@ -1,10 +1,10 @@
 project:
-  name: 'PSG2-2021-GX-XY Petclinic'
+  name: 'PSG2-2021-GX-XY commandfast'
   owner: 'LX'
   teamId: 'XY'
   identities:
     github:
-      url: 'https://github.com/gii-is-psg2/spring-petclinic'
+      url: 'https://github.com/gii-is-psg2/spring-commandfast'
   members:
     member1:
       name: 'José María'

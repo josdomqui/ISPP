@@ -3,12 +3,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="commandfast" tagdir="/WEB-INF/tags" %>
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
   
   
-<petclinic:layout pageName="subscription">
+<commandfast:layout pageName="subscription">
 <head>
     <title>Subscription</title>
     <!--Bootstrap 4 CSS-->
@@ -21,31 +21,29 @@
     <!--Stripe JavaScript Library-->
     <script src="https://js.stripe.com/v3/"></script>
 </head>
-<body class="bg-light pt-5">
+<body class="bg">
 
 <!--hero section-->
 <section class="py-5">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-8 col-12 my-auto mx-auto">
-                <h1>
-                    Stripe Recurring Subscription
-                </h1>
+                <h1>Gestión de suscripciones Stripe</h1>
                 <p class="lead mb-4">
-                    Please fill the form below to complete the payment
+                    Por favor, complete el siguiente formulario para realizar el pago.
                 </p>
-                <h5 class="mb-2">Choose your payment plan</h5>
+                <h5 class="mb-2">Escoja su plan de pago.</h5>
                 <p class="text-muted">
-                    60% OFF when you upgrade to annual plan.
+                    60% de descuento cuando escoges el plan anual.
                 </p>
                 <div class="py-2">
                     <div class="custom-control custom-radio">
                         <input class="custom-control-input" id="monthly-plan" name="premium-plan" type="radio"
                                value="monthly-subscription"/>
                         <label class="custom-control-label" for="monthly-plan">
-                            <strong>Monthly $9.99</strong><br/>
+                            <p>Mensual 9.99 €</p>
                             <small class="text-muted">
-                                Pay $9.99 every month and get access to all premium features.
+                                Por 9.99€ cada mes consigue acceso a todas las características premium.
                             </small>
                         </label>
                     </div>
@@ -53,11 +51,17 @@
                         <input checked="" class="custom-control-input" id="annually-plan" name="premium-plan"
                                type="radio" value="annual-subscription"/>
                         <label class="custom-control-label" for="annually-plan">
-                            <strong>Yearly $49.99</strong>
-                            <span class="badge badge-primary ml-1">60% OFF</span>
-                            <br/>
-                            <small class="text-muted">
-                                Pay $49.99 every year and get access to all premium features.
+                            <div class="row">
+                            	<div class="col-sm-4">
+                            		<p style="margin-left: 5px">Anual 49.99 €</p>
+                            	</div>
+                            	<div class="col-sm-4">
+                            		<span class="badge badge-primary" style="width: 80%">60% DESCUENTO</span>
+                            	</div>
+                            	
+                            </div>
+                            <small class="text-muted mb-4">
+                                Por 49.99€ cada mes consigue acceso a todas las características premium.
                             </small>
                         </label>
                     </div>
@@ -74,16 +78,16 @@
                     </div>
                     <div class="form-group">
                         <input class="form-control" id="email" name="email"
-                               placeholder="Email Address" type="email" required>
+                               placeholder="Email" type="email" required>
                     </div>
                     <div class="form-group">
                         <input class="form-control" id="coupon" name="coupon"
-                               placeholder="Coupon code (optional)" type="text">
+                               placeholder="Código de descuento(opcional)" type="text">
                     </div>
                     <!-- Used to display Element errors. -->
                     <div class="text-danger w-100" id="card-errors" role="alert"></div>
                     <div class="form-group pt-2">
-                        <a class="btn btn-primary btn-block" id="submitButton" href="${fn:escapeXml('/welcome')}">
+                        <a class="btn btn-block" id="submitButton" style="background-color: #ffcb74; color: #ffff; font-size: 14px" href="${fn:escapeXml('/welcome')}">
                             Finalizar pago
                         </a>
                         <div class="small text-muted mt-2">
@@ -113,7 +117,7 @@
         var elements = stripe.elements();
 
         // Create an instance of the card Element.
-        var card = elements.create('card');
+        var card = elements.create('card', { style: style, required: true });
 
         // Add an instance of the card Element into the `card-element` <div>.
         card.mount('#card-element');
@@ -176,4 +180,4 @@
 </script>
 </body>
 </html>
-</petclinic:layout>
+</commandfast:layout>

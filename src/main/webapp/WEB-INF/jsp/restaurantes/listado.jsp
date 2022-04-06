@@ -2,21 +2,20 @@
   <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
       <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-        <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+        <%@ taglib prefix="commandfast" tagdir="/WEB-INF/tags" %>
           <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
             <%@page contentType="text/html" %>
               <%@page pageEncoding="UTF-8" %>
 
                 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-                  <petclinic:layout pageName="vets">
+                  <commandfast:layout pageName="vets">
                     <form method="get" action="/restaurante/list/search">
                       <div class="form-container-listado">
                         <div>
                           <label for="inputEmail4" class="form-label label-input-listado"
                             style="font-size: 16px;">Lugar</label>
-                          <input type="text" class="form-control input-filtros" value="${place}" name="inputPlace"
-                            id="inputPlace" style="font-size: 14px;font-family: 'quicksand', sans-serif;">
+                            <input pattern="^[a-zA-Z]+" oninvalid="setCustomValidity('Introduce sólo caracteres del alfabeto')" type="text" class="form-control input-filtros" value="${place}" name="inputPlace">
                         </div>
                         <div>
                           <label for="inputState" class="form-label label-input-listado">Filtros</label>
@@ -65,25 +64,13 @@
                                   </c:forEach>
                                 </div>
                               </div>
-                              <div class="col-6 mb-3 mt-3">
+                              <div class="col-6 mb-3 mt-3 m-3">
                                 <spring:url value="/restaurante/{id}/detalles" var="url">
                                   <spring:param name="id" value="${restaurante.id}" />
                                 </spring:url>
                                 <p><a type="button" class="buton-detalles-listado" href="${fn:escapeXml(url)}"
                                     style="text-decoration: none; color: #ffff; font-size: 14px;">Ver detalles</a></p>
-                                <sec:authorize access="hasAuthority('restaurant')">
-                                	<c:if test="${restaurante.user.username==username}">
-                                  <spring:url value="/restaurante/{id}/product/new" var="addProductUrl">
-                                    <spring:param name="id" value="${restaurante.id}" />
-                                  </spring:url>
 
-                                  <p><a type="button" class="buton-detalles-listado"
-                                      href="${fn:escapeXml(addProductUrl)}"
-                                      style="text-decoration: none; color: #ffff; font-size: 14px;">Añadir
-                                      plato a la carta</a></p>
-                                  </c:if>
-
-                                </sec:authorize>
                               </div>
                             </div>
 
@@ -92,4 +79,4 @@
                         </div>
                       </c:forEach>
                     </div>
-                  </petclinic:layout>
+                  </commandfast:layout>

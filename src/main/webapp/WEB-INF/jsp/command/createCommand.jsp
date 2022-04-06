@@ -4,9 +4,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="commandfast" tagdir="/WEB-INF/tags" %>
 
-<petclinic:layout pageName="commands">
+<commandfast:layout pageName="commands">
 <form:form modelAttribute="command" class="form-horizontal" id="add-command-form">
     <div class="form-group has-feedback">
        	<div class="container-carrito">
@@ -55,9 +55,9 @@
     
     <div class="form-group">
     	<div class="button" style="text-align: center">
-        	<p><button class="btn-pedir" type="submit" style= "text-decoration: none; color: #ffff; font-size: 14px; padding: 0 20px;"><strong>Pedir</strong></button></p>
+        	<p><button class="btn-pedir" type="submit" style= "text-decoration: none; color: #ffff; font-size: 16px; padding: 0 20px;"><strong>Pedir</strong></button></p>
         </div>
    	</div>
         
 </form:form>
-</petclinic:layout>
+</commandfast:layout>
