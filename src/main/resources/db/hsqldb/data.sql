@@ -51,7 +51,7 @@ INSERT INTO tables(id, number, costumer) values (3, 3, 5);
 INSERT INTO tables(id, number, costumer) values (4, 4, 6);
 INSERT INTO tables(id, number, costumer) values (5, 5, 7);
 
-INSERT INTO commands(id, costumers, price, mesa_id) values (1, 4, 53.02, 1);
+INSERT INTO commands(id, costumers, price, mesa_id, restaurant_id) values (1, 4, 53.02, 1, 1);
 
 INSERT INTO plates(id, name, category, cost, image) values (1, 'Huevos Lartisan', 'Media-Racion', '11', '/resources/images/Huevos Lartisan.jpg');
 INSERT INTO plates(id, name, category, cost, image) values (2, 'Solomillo de vaca', 'Racion', '18', '/resources/images/Solomillo de vaca.jpg');
