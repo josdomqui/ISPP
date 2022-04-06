@@ -17,7 +17,8 @@
        			<div class="col-xs-3 col-md-4" style="display: flex; align-items: center;">
        				<p class="card-text p-3">Personas:</p>
        			</div>
-   				<div class="col-xs-9 col-md-8 mt-3" >		
+   				<div class="col-xs-9 col-md-8 mt-3" >
+   					<input type="hidden" name="state" value="true" class="input-filtros" style="color: black; font-size: 18px;"/>	
        				<input required type="number" max="4" min="1" name="costumers" class="input-filtros" style="color: black; font-size: 18px;"/>
        			</div>
            	</div>
@@ -33,6 +34,20 @@
 						</select>
 	           		</div>
         		</div>
+        	
+        	<div class="row mb-3">
+	            	<div class="col-xs-4 col-md-4">
+	        			<p class="card-text p-3">Restaurante:</p>
+	            	</div>
+	            	<div class="col-xs-10 col-md-7 mt-2 mb-2">
+            			<select required name="restaurante" class="input-filtros" style=" font-size: 18px;">
+            				<c:forEach items="${restaurantes}" var="restaurante">
+  								<option value="${restaurante.id}"><c:out value = "${restaurante.name}"/></option>
+  							</c:forEach>
+						</select>
+	           		</div>
+        		</div>
+        		
         	</div>
         	
     	</div>

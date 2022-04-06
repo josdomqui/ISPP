@@ -31,6 +31,9 @@ public interface RestauranteRepository extends Repository<Restaurante, Integer> 
 	
 	@Query("SELECT restaurant FROM Restaurante restaurant WHERE UPPER(restaurant.city) =:city")
 	public List<Restaurante> findByCity(@Param("city") String city);
+	
+	@Query("SELECT restaurant FROM Restaurante restaurant WHERE username =:username")
+	public Restaurante findByUsername(@Param("username") String username);
 
 }
 
