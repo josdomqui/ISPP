@@ -202,16 +202,16 @@ public class RestauranteController {
 				List<Payment>payments = paymentService.getAllPayments();
 				model.put("payments", payments);
 				
-				List<Payment> conTarjeta = new ArrayList<Payment>();
-				List<Payment> conEfectivo = new ArrayList<Payment>();
+				List<Payment> conTarjeta = new ArrayList<>();
+				List<Payment> conEfectivo = new ArrayList<>();
 				
 				for(Payment pago: payments) {
 					for(Command comandaSet: pago.getTable().getCommands()) {
-						if(comandaSet.getRestaurante().getId() == idSesionRestaurante) {
-							if(pago.getPayHere() == true && pago.getCreditCard() == false) {
+						if(comandaSet.getRestaurante().getId().equals(idSesionRestaurante)) {
+							if(pago.getPayHere() && pago.getCreditCard() == false) {
 								conEfectivo.add(pago);
 								break;
-							} else if (pago.getPayHere() == true && pago.getCreditCard() == true) {
+							} else if (pago.getPayHere() && pago.getCreditCard()) {
 								conTarjeta.add(pago);
 								break;
 							}
