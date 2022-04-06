@@ -34,6 +34,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @RequestMapping("/restaurante")
 
 public class RestauranteController {
+	private static final String STRING_EMPTY_CARD = "conTarjetaVacio";
+	private static final String STRING_CASH_EMPTY = "conEfectivoVacio";
 	private static final String STRING_ANONYMOUS_USER = "anonymousUser";
 	private static final String STRING_USER_NAME = "username";
 	private static final String STRING_LISTA_TIPOS = "listaTipos";
@@ -185,7 +187,7 @@ public class RestauranteController {
 	public String payments(Map<String, Object> model, HttpServletRequest request){
 		
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		if(!principal.equals("anonymousUser")) {
+		if(!principal.equals(STRING_ANONYMOUS_USER)) {
 			String username = request.getUserPrincipal().getName();
 			
 			Restaurante restauranteSesion = restauranteService.findByUsername(username);
@@ -195,8 +197,8 @@ public class RestauranteController {
 			Collection<Command> listaComandas = commandService.findCommandsOfARestaurant(idSesionRestaurante);
 			
 			if(listaComandas.isEmpty()) {
-				model.put("conTarjetaVacio", true);
-				model.put("conEfectivoVacio", true);
+				model.put(STRING_EMPTY_CARD, true);
+				model.put(STRING_CASH_EMPTY, true);
 			} else {
 				model.put("listaComandas", listaComandas);
 				List<Payment>payments = paymentService.getAllPayments();
@@ -219,12 +221,12 @@ public class RestauranteController {
 					}
 				}
 				if(conTarjeta.isEmpty() && !conEfectivo.isEmpty()) {
-					model.put("conTarjetaVacio", true);
+					model.put(STRING_EMPTY_CARD, true);
 				} else if (conEfectivo.isEmpty() && !conTarjeta.isEmpty()) {
-					model.put("conEfectivoVacio", true);
+					model.put(STRING_CASH_EMPTY, true);
 				} else if(conTarjeta.isEmpty() && conTarjeta.isEmpty()) {
-					model.put("conTarjetaVacio", true);
-					model.put("conEfectivoVacio", true);
+					model.put(STRING_EMPTY_CARD, true);
+					model.put(STRING_CASH_EMPTY, true);
 				}
 				model.put("conTarjeta", conTarjeta);
 				model.put("conEfectivo", conEfectivo);
