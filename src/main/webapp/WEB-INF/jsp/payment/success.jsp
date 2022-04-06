@@ -4,11 +4,12 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="commandfast" tagdir="/WEB-INF/tags" %>
+<%@page pageEncoding="UTF-8"%>
 
 <commandfast:layout pageName="successPage"> 
     <div class="row">
         <div align="center">
-            <h2 class="img-title p-3">Su pago se ha realizado con �xito</h2>
+            <h2 class="img-title p-3">Su pago se ha realizado con éxito</h2>
             <spring:url value="/resources/images/pago exitoso.png" htmlEscape="true" var="checkPago"/>
             <img style="width: 25%; height: 85%" class="img-responsive" src="${checkPago}" alt="Imagen del pago"/>
             <h2 class="img-footer mt-4 mb-4">!Buen provecho!</h2>

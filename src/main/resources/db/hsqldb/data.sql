@@ -17,6 +17,10 @@ INSERT INTO users(username,password,enabled) VALUES ('mitadcuarto','s872N2sv2Ssd
 INSERT INTO authorities(id,username,authority) VALUES (6,'mitadcuarto','restaurant');
 INSERT INTO restaurants(id, name, address, city, description, telephone, photo, capacity, schedule, email, username) VALUES (3, 'La mitad del cuarto', 'C/AV José Laguillo', 'Sevilla', 'Lugar idóneo para tapear', 954533124,'/resources/images/bar3.jpg', 20, 'Lunes/Viernes 11:00 - 20:00', 'mitadcuarto@gmail.com', 'mitadcuarto');
 
+INSERT INTO users(username,password,enabled) VALUES ('parada','parada',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (7,'parada','restaurant');
+INSERT INTO restaurants(id, name, address, city, description, telephone, photo, capacity, schedule, email, username) VALUES (4, 'Bar Parada', 'C/AV Sanchez Romero', 'Huelva', 'Lugar idóneo para tapear', 666666666,'/resources/images/bar1.jpg', 20, 'Lunes/Viernes 11:00 - 20:00', 'barparada@gmail.com', 'parada');
+
 INSERT INTO products(id, name, description, price, restaurant_id) VALUES (1, 'Ensalada gourmet', 'Lechuga Gourmet, Queso De Cabra, Cebolla Caramelizada, Nueces y Pasas',6.30, 1);
 INSERT INTO products(id, name, price, restaurant_id) VALUES (2, 'Patatas bravas', 2.90, 1);
 INSERT INTO products(id, name, price, restaurant_id) VALUES (3, 'Montadito Pollo', 2.60, 1);
