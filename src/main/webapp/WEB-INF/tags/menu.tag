@@ -25,20 +25,33 @@
           <a style="text-decoration: none; color: white;" class="navbar-text active" aria-current="page" href="/command/new"><span style="color: rgb(255,255,255);" class="glyphicon glyphicon-cutlery" aria-hidden="true"></span> Pedir</a>
         </li>
         
+        <sec:authorize access="hasAuthority('restaurant')">
+        <li class="nav-item">
+          <a style="text-decoration: none; color: white;" class="navbar-text active" aria-current="page" href="/command/all"><span style="color: rgb(255,255,255);" class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Comandas</a>
+        </li>
+        </sec:authorize>
+        
+        <sec:authorize access="hasAuthority('restaurant')">
+        <li class="nav-item">
+          <a style="text-decoration: none; color: white;" class="navbar-text active" aria-current="page" href="/restaurante/paymentPanel"><span style="color: rgb(255,255,255);" class="glyphicon glyphicon-euro" aria-hidden="true"></span> Pago fisico</a>
+        </li>
+        </sec:authorize>
+        
         <sec:authorize access="hasAuthority('admin')">
            <li class="nav-item">
           <a style="text-decoration: none; color: white;" class="navbar-text active" aria-current="page" href="/admin/paymentPanel"><span style="color: rgb(255,255,255);"  aria-hidden="true"></span>Administrador</a>
         </li>
         </sec:authorize>
+        
         <sec:authorize access="!isAuthenticated()">
-          <li class="nav-item">
-          <a style="text-decoration: none; color: white;" class="navbar-text active" aria-current="page" href="/login"><span style="color: rgb(255,255,255);"  aria-hidden="true"></span>Iniciar sesi�n</a>
-        </li>
+          	<li class="nav-item">
+          		<a style="text-decoration: none; color: white;" class="navbar-text active" aria-current="page" href="/login"><span style="color: rgb(255,255,255);" class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&ensp;Iniciar sesion</a>
+        	</li>
         </sec:authorize>
         
         <sec:authorize access="isAuthenticated()">
           <li class="nav-item">
-          <a style="text-decoration: none; color: white;" class="navbar-text active" aria-current="page" href="/logout"><span style="color: rgb(255,255,255);"  aria-hidden="true"></span>Cerrar sesi�n</a>
+          <a style="text-decoration: none; color: white;" class="navbar-text active" aria-current="page" href="/logout"><span style="color: rgb(255,255,255);" class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&ensp;Cerrar sesion</a>
         </li>
         </sec:authorize>
         
@@ -47,6 +60,8 @@
           <a style="text-decoration: none; color: white;" class="navbar-text active" aria-current="page" href="/restaurante/signup"><span style="color: rgb(255,255,255);" class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Registrar restaurante</a>
         </li>
         </sec:authorize>
+        
+        
         
       </ul>
     </div>

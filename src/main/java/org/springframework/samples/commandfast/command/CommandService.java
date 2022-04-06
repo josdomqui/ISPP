@@ -60,8 +60,13 @@ public class CommandService {
 	public void saveCommand(Command command) throws DataAccessException {
 		log.info("Guardando la comanda en la BD");
 		commandRepository.save(command);
-		log.info("Comanda guardada correctamente");
+		log.info("Comanda guardada correctamente");	
+	}
 	
+	@Transactional(readOnly = true)
+	public Collection<Command> findCommandsOfARestaurant(Integer id) throws DataAccessException {
+		log.info("Buscando todas las comandas existentes de un restaurante");
+		return commandRepository.findCommandsOfARestaurant(id);
 	}
 
 

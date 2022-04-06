@@ -19,12 +19,9 @@ public class AdminController {
 	@GetMapping(value = "/admin/paymentPanel")
 	public String payments(Map<String, Object> model){
 		
-		
 		List<Payment >payments = paymentService.getAllPayments();
-		
 		model.put("payments", payments);
 		return "admin/payments";
-		
 	}
 
 }
