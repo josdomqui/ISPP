@@ -1,15 +1,22 @@
 package org.springframework.samples.commandfast.restaurantes;
 
+import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.commandfast.command.Command;
+import org.springframework.samples.commandfast.command.CommandService;
+import org.springframework.samples.commandfast.payments.Payment;
+import org.springframework.samples.commandfast.payments.PaymentService;
 import org.springframework.samples.commandfast.product.Product;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +29,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.samples.commandfast.product.ProductService;
 import org.springframework.samples.commandfast.user.UserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @Controller
 @RequestMapping("/restaurante")
@@ -32,25 +41,33 @@ public class RestauranteController {
 	private final RestauranteService restauranteService;
 	private final ProductService productService;
 	private final UserService userService;
+	private final PaymentService paymentService;
+	private final CommandService commandService;
 
 	@Autowired
-	public RestauranteController(RestauranteService restauranteService, ProductService productService, UserService userService) { 
+	public RestauranteController(RestauranteService restauranteService, ProductService productService, UserService userService, PaymentService paymentService, CommandService commandService) { 
 		this.restauranteService = restauranteService; 
 		this.productService = productService; 
 		this.userService = userService; 
+		this.paymentService = paymentService;
+		this.commandService = commandService;
 	}
 
     @GetMapping(value = { "/list" })
-	public String showRestautanteList(Map<String, Object> model) {
+	public String showRestautanteList(Map<String, Object> model, HttpServletRequest request) {
 		
 		ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
 		model.put("listaRestaurante", restauranteService.findAllRestaurants());
 		model.put("listaTipos", listaTipoRestaurantes);
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(!principal.equals("anonymousUser")) {
+			model.put("username", request.getUserPrincipal().getName());
+		}
 		return "restaurantes/listado";
 	}
 
 	@GetMapping(value = { "/list/search" })
-	public String showRestautanteToSearch(@RequestParam("inputPlace") String place, Map<String, Object> model, @RequestParam("inputState") String type) {
+	public String showRestautanteToSearch(@RequestParam("inputPlace") String place, Map<String, Object> model, @RequestParam("inputState") String type, HttpServletRequest request) {
 		ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
 		model.put("listaTipos", listaTipoRestaurantes);
 		List<Restaurante> lrestaurantes= new ArrayList<>();
@@ -71,6 +88,10 @@ public class RestauranteController {
 			lrestaurantes.retainAll(lres);
 		}
 		model.put("listaRestaurante", lrestaurantes);
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(!principal.equals("anonymousUser")) {
+			model.put("username", request.getUserPrincipal().getName());
+		}
 		//model.put("listaTipos", ltipos);
 		return "restaurantes/listado";
 	}
@@ -85,11 +106,15 @@ public class RestauranteController {
 	
 	
 	@GetMapping(value = { "/{id}/detalles/carta" })
-	public String showMenuRestaurant(@PathVariable("id") Integer id, Map<String, Object> model) {
+	public String showMenuRestaurant(@PathVariable("id") Integer id, Map<String, Object> model, HttpServletRequest request) {
 		Optional<Restaurante> restauranteMenu = restauranteService.findRestaurantById(id);
 		model.put("menu", restauranteMenu.get());
 		model.put("products", restauranteService.findMenuByRestaurant(id));
-		model.put("id_restaurante", id);
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(!principal.equals("anonymousUser")) {
+			model.put("username", request.getUserPrincipal().getName());
+		}
+		model.put("restaurante", restauranteService.findRestaurantById(id).get());
 		return "restaurantes/carta";
 	}
 
@@ -150,6 +175,62 @@ public class RestauranteController {
 				this.restauranteService.save(restaurant); 
 				return "redirect:/login"; 
 			} 
+		}
+	}
+	
+	//Payment de restaurante
+	
+	@GetMapping(value = "/paymentPanel")
+	public String payments(Map<String, Object> model, HttpServletRequest request){
+		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(!principal.equals("anonymousUser")) {
+			String username = request.getUserPrincipal().getName();
+			
+			Restaurante restauranteSesion = restauranteService.findByUsername(username);
+			Integer idSesionRestaurante = restauranteSesion.getId();
+			model.put("sesionRestaurant", restauranteSesion);
+			
+			Collection<Command> listaComandas = commandService.findCommandsOfARestaurant(idSesionRestaurante);
+			
+			if(listaComandas.isEmpty()) {
+				model.put("conTarjetaVacio", true);
+				model.put("conEfectivoVacio", true);
+			} else {
+				model.put("listaComandas", listaComandas);
+				List<Payment>payments = paymentService.getAllPayments();
+				model.put("payments", payments);
+				
+				List<Payment> conTarjeta = new ArrayList<Payment>();
+				List<Payment> conEfectivo = new ArrayList<Payment>();
+				
+				for(Payment pago: payments) {
+					for(Command comandaSet: pago.getTable().getCommands()) {
+						if(comandaSet.getRestaurante().getId() == idSesionRestaurante) {
+							if(pago.getPayHere() == true && pago.getCreditCard() == false) {
+								conEfectivo.add(pago);
+								break;
+							} else if (pago.getPayHere() == true && pago.getCreditCard() == true) {
+								conTarjeta.add(pago);
+								break;
+							}
+						}
+					}
+				}
+				if(conTarjeta.isEmpty() && !conEfectivo.isEmpty()) {
+					model.put("conTarjetaVacio", true);
+				} else if (conEfectivo.isEmpty() && !conTarjeta.isEmpty()) {
+					model.put("conEfectivoVacio", true);
+				} else if(conTarjeta.isEmpty() && conTarjeta.isEmpty()) {
+					model.put("conTarjetaVacio", true);
+					model.put("conEfectivoVacio", true);
+				}
+				model.put("conTarjeta", conTarjeta);
+				model.put("conEfectivo", conEfectivo);
+			}
+			return "restaurantes/payments";
+		} else {
+			return "/";
 		}
 	}
 	

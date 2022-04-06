@@ -7,16 +7,18 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 <%@ page import="org.springframework.samples.commandfast.plate.Plate" %>
 
-<petclinic:layout pageName="ticket">
+<petclinic:layout pageName="paymentsRestaurantes">
 
 	<div class="container">
 		<div class="row">
 			<h1 class="col-md-12 p-2">Mesas con pago pendiente en efectivo</h1>
-			   
 		   	<div class="card-deck">
-		  		<c:forEach items="${payments}" var="payment">
-			   		<c:if test="${payment.payHere==true}">
-			   			<c:if test="${payment.creditCard==false}">
+		   	<c:choose>
+		   		<c:when test="${conEfectivoVacio==true}">
+		   		<span style="color: white">No hay cuentas a pagar en efectivo</span>
+		   		</c:when>
+		   		<c:otherwise>
+		  		<c:forEach items="${conEfectivo}" var="payment">
 			   				<div class="col-xs-12 col-md-3">
 			    				<div class="card-body mb-3" style="background-color: rgba(158, 172, 168, 0.5); border-radius:10px">
 			    					<h2 class="card-title"><c:out value = "Mesa"/></h2>
@@ -24,10 +26,10 @@
 									<h2 class="card-title"><c:out value = "Importe"/></h2>
 									<p class="card-text"><c:out value="${payment.amount}"/> &euro;</p>
 								</div>		    				
-			   				</div>
-			   			</c:if>
-			   		</c:if>   					
+			   				</div>  					
 		  		</c:forEach>
+		  		</c:otherwise>
+		  	</c:choose>
 		   	</div>
 		</div>
 		
@@ -35,24 +37,26 @@
 			<h1 class="col-md-12 p-2">Mesas con pago pendiente con tarjeta</h1>
 			
 			<div class="card-deck" >
-		  		<c:forEach items="${payments}" var="payment">
-			   		<c:if test="${payment.payHere==true}">
-			   			<c:if test="${payment.creditCard==true}">
+			<c:choose>
+				<c:when test="${conTarjetaVacio==true}">
+		   		<span style="color: white">No hay cuentas a pagar con tarjeta</span>
+		   		</c:when>
+		   		<c:otherwise>
+		  		<c:forEach items="${conTarjeta}" var="payment">
 			   				<div class="col-xs-12 col-md-3">
 			    				<div class="card-body mb-3" style="background-color: rgba(158, 172, 168, 0.5); border-radius:10px">
 			    					<h2 class="card-title"><c:out value = "Mesa"/></h2>
 									<p class="card-text"><c:out value="${payment.table.number}"/></p>
 									<h2 class="card-title"><c:out value = "Importe"/></h2>
 									<p class="card-text"><c:out value="${payment.amount}"/> &euro;</p>
-								</div>		    				
+								</div>
 			   				</div>
-			   			</c:if>
-			   		</c:if>   					
 		  		</c:forEach>
+		  		</c:otherwise>
+		  	</c:choose>
 	 		</div>
 	 	</div>
 	</div>
- 			
 </petclinic:layout>
 
     					

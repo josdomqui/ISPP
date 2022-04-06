@@ -17,8 +17,7 @@
     <!--Stripe JavaScript Library-->
     <script src="https://js.stripe.com/v3/"></script>
 </head>
-<body class="bg-light pt-5" style="background-color: #192026; padding-top: 0rem !important;">
-<!-- <h2>Charge</h2> -->
+<body class="bg pt-5" style="padding-top: 0rem !important">
 <!--hero section-->
 <section class="py-5">
     <div class="container">
@@ -30,13 +29,16 @@
                 <p class="lead mb-4">
                     Por favor, complete el siguiente formulario para realizar el pago.
                 </p>
-                <div class="card mb-4">
+                <div class="card mb-4" style="background-color: rgba(158, 172, 168, 0.5)">
                     <div class="card-body">
                         <h5>Pedido CommandFast</h5>
-                        <c:out value="${price} $"/>
+                        <p><c:out value="${price}"/> &euro;</p>
                     </div>
                 </div>
-                <form action="#" id="payment-form" method="post">
+                	<spring:url value="/payment/successPage/{id_comanda}" var="url">
+	                      <spring:param name="id_comanda" value="${id_comanda}"/>
+	                 </spring:url>
+                <form action="${fn:escapeXml(url)}" id="payment-form" method="get">
                     <!--  <input id="api-key" type="hidden" th:value="${stripePublicKey}">-->
                     <input id="api-key" type="hidden" value="${stripePublicKey}"/>
                     <div class="form-group">
@@ -55,12 +57,9 @@
                     <!-- Used to display Element errors. -->
                     <div class="text-danger w-100" id="card-errors" role="alert"></div>
                     <div class="form-group pt-2">
-	                    <spring:url value="/payment/successPage/{id_comanda}" var="url">
-	                      <spring:param name="id_comanda" value="${id_comanda}"/>
-	                    </spring:url>
-                        <a class="btn btn-primary btn-block" id="submitButton" href="${fn:escapeXml(url)}">
-                            Finalizar pago
-                        </a>
+	                    
+                        <button class="btn btn-block" disabled=true id="submitButton" style="background-color: #ffcb74; color: #ffff" type="submit">
+                            Finalizar pago</button>
                         <div class="small text-muted mt-2">
                             Pay securely with Stripe. By clicking the button above, you agree
                             to our <a target="_blank" href="#">Terms of Service</a>,
@@ -69,7 +68,6 @@
 
                         </div>
                     </div>
-
 
                 </form>
             </div>
@@ -86,30 +84,41 @@
 
         // Create an instance of Elements.
         var elements = stripe.elements();
+        
+        var style = {
+        	base: {
+       		    color: "#ffffff",
+      		}
+       	};
 
         // Create an instance of the card Element.
-        var card = elements.create('card');
+        var card = elements.create("card", { style: style, required: true });
 
         // Add an instance of the card Element into the `card-element` <div>.
         card.mount('#card-element');
 
         // Handle real-time validation errors from the card Element.
         card.addEventListener('change', function (event) {
+        	
             var displayError = document.getElementById('card-errors');
             if (event.error) {
                 displayError.textContent = event.error.message;
             } else {
                 displayError.textContent = '';
             }
+            if (event.complete) {
+          	    var button = document.getElementById('submitButton');
+          	    button.disabled = false;
+          	}
         });
 
         // Handle form submission.
         var form = document.getElementById('payment-form');
-        form.addEventListener('submit', function (event) {
-            event.preventDefault();
+        //form.addEventListener('submit', function (event) {
+            //event.preventDefault();
             // handle payment
-            handlePayments();
-        });
+            //handlePayments();
+        //});
 
         //handle card submission
         function handlePayments() {
@@ -123,11 +132,10 @@
                     var token = result.token.id;
                     var email = $('#email').val();
                     $.get(
-                        "/welcome",
-                        {email: email, token: token},
-                        function (data) {
-                            alert(data.details);
-                        }, 'json');
+                            "/payment/successPage/",
+                            function (data) {
+                                alert(data.details);
+                            }, 'json');
                 }
             });
         }

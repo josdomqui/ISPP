@@ -16,20 +16,27 @@
 package org.springframework.samples.commandfast.command;
 
 
+import java.util.Collection;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.commandfast.mesa.MesaService;
+import org.springframework.samples.commandfast.restaurantes.Restaurante;
+import org.springframework.samples.commandfast.restaurantes.RestauranteService;
 import org.springframework.samples.commandfast.user.AuthoritiesService;
 import org.springframework.samples.commandfast.user.UserService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author Juergen Hoeller
@@ -42,11 +49,13 @@ public class CommandController {
 
 	private final CommandService commandService;
 	private final MesaService mesaService;
+	private final RestauranteService restauranteService;
 
 	@Autowired
-	public CommandController(CommandService commandService,MesaService mesaService, UserService userService, AuthoritiesService authoritiesService) {
+	public CommandController(CommandService commandService,MesaService mesaService, UserService userService, RestauranteService restauranteService, AuthoritiesService authoritiesService) {
 		this.commandService = commandService;
 		this.mesaService = mesaService;
+		this.restauranteService = restauranteService;
 	}
 
 	@InitBinder
@@ -57,20 +66,45 @@ public class CommandController {
 	@GetMapping(value = "/command/new")
 	public String initCreationForm(Map<String, Object> model) {
 		Command command = new Command();
+		model.put("restaurantes", this.restauranteService.findAllRestaurants());
 		model.put("mesas", this.mesaService.findAllMesa());
 		model.put("command", command);
 		return "command/createCommand";
 	}
 
 	@PostMapping(value = "/command/new")
-	public String processCreationForm(@Valid Command command, BindingResult result) {
+	public ModelAndView processCreationForm(@Valid Command command, BindingResult result) {
 		if (result.hasErrors()) {
-			return "command/createCommand";
+			Map<String, Object> model = result.getModel();
+			model.put("mesas", this.mesaService.findAllMesa());
+			model.put("restaurantes", this.restauranteService.findAllRestaurants());
+//			return "command/createCommand";
+			return new ModelAndView("command/createCommand", model);
 		} else {
 			this.commandService.saveCommand(command);
 			Integer id_command = command.getId();
-			return "redirect:/carta/"+id_command;
+//			return "redirect:/carta/"+id_command;
+			return new ModelAndView("redirect:/carta/"+id_command, result.getModel());
 		}
+	}
+	
+	
+	@GetMapping("/command/all")
+	public String commandsOfARestaurant(Map<String, Object> model, HttpServletRequest request) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(!principal.equals("anonymousUser")) {
+			String username = request.getUserPrincipal().getName();
+			Restaurante restauranteSesion = restauranteService.findByUsername(username);
+			model.put("sesionRestaurant", restauranteSesion);
+			Collection<Command> listaComandas = commandService.findCommandsOfARestaurant(restauranteSesion.getId());
+			if(listaComandas.isEmpty()) {
+				model.put("vacio", true);
+			} else {
+				model.put("listaComandas", listaComandas);
+			}
+			return "command/commandOfRestaurant";
+		}
+		return "/";
 	}
 	
 	

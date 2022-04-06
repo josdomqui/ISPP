@@ -33,8 +33,8 @@
                                   </p>
                                 </th>
                                 <th id="total">
-                                  <p style="font-size: 14px; margin-bottom: 0px; text-align: end;">$
-                                    <c:out value="${plato.cost}" />
+                                  <p style="font-size: 14px; margin-bottom: 0px; text-align: end;">
+                                    <c:out value="${plato.cost}" /> &euro;
                                   </p>
                                 </th>
                               </tr>
@@ -44,7 +44,7 @@
                             <tr>
                               <th><span><strong>Total</strong></span></th>
                               <th id="total" style="text-align: end;"><span><strong>
-                                    <c:out value="$${suma}" />
+                                    <c:out value="${suma}"/> &euro;
                                   </strong>
                                 </span></th>
                             </tr>
@@ -58,7 +58,7 @@
                   </br>
                   <h3>Si pagais entre
                     <c:out value="${comensales}" /> sale a:
-                    <c:out value="$ ${suma/comensales}" /> cada uno.
+                    <c:out value="${suma/comensales}"/> &euro; cada uno.
                   </h3>
                   </br>
 
