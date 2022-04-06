@@ -27,7 +27,7 @@ class RestaurantServiceTests {
     @Test
     void shouldFindAll(){
     Collection<Restaurante> r = this.restaurantService.findAllRestaurants();
-    assertThat(r.size()!=0);
+    assertThat(r.isEmpty()).isFalse();
     }
 
     
@@ -43,7 +43,7 @@ class RestaurantServiceTests {
 
     Restaurante r = new Restaurante();
     r.setId(9);
-    r.setName("NuevoNombre");
+    r.setName("Jose");
     r.setAddress("c viga");
     r.setCity("Granada");
     r.setDescription("descrition_newwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
@@ -62,65 +62,39 @@ class RestaurantServiceTests {
         this.restaurantService.save(r);
         
        Collection<Restaurante> restaurants = this.restaurantService.findAllRestaurants();
-       assertThat(restaurants.size()==(found + 1));
+       assertThat(restaurants.size()).isEqualTo(found+1);
 
     }
 
     @Test
     void shouldFindRestaurant(){
-    String city = this.restaurantService.findAllRestaurants().get(0).getCity();
-    assertThat(this.restaurantService.findByCity(city));
+    String city = "Sevilla";
+    assertThat(this.restaurantService.findRestaurantById(1).get().getCity()).isEqualTo(city);
 
     }
 
     @Test
     void shouldFindRestaurantById(){
-    Integer id = this.restaurantService.findAllRestaurants().get(0).getId();
-    assertThat(this.restaurantService.findRestaurantById(id));
+    assertThat(this.restaurantService.findRestaurantById(1).get().getId()).isEqualTo(1);
 
     }
 
     @Test
     void shouldFindMenuByRestaurant(){
-    Integer id = this.restaurantService.findAllRestaurants().get(0).getId();
-    assertThat(this.restaurantService.findMenuByRestaurant(id));
+    assertThat(this.restaurantService.findMenuByRestaurant(1).isEmpty()).isFalse();
     }
 
 
     @Test
     void shouldFindAllMenu(){
     Collection<Product> p = this.restaurantService.findAllMenu();
-    assertThat(p.size()!=0);
+    assertThat(p.isEmpty()).isFalse();
    }
 
    @Test
-   void shouldFindMenuByCity(){
-
-       User user = new User();
-       user.setUsername("Carlos");
-       user.setPassword("pass1234");
-       user.setEnabled(Boolean.TRUE);
-   
-       Restaurante r = new Restaurante();
-       r.setId(9);
-       r.setName("NuevoNombre");
-       r.setAddress("c viga");
-       r.setCity("Granada");
-       r.setDescription("descrition_newwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
-       r.setTelephone("622423142");
-       r.setPhoto("photo");
-       r.setCapacity(12);
-       r.setSchedule("schedule");
-       r.setEmail("email@gmail.com");
-       List<RestauranteType> l =  new ArrayList<>();
-       l.add(RestauranteType.BAR);
-       l.add(RestauranteType.CERVECERIA);
-       r.setType(l);
-       r.setUser(user);
-   this.restaurantService.save(r);
-   List<Restaurante> o = this.restaurantService.findByCity(r.getCity());
-   
-   assertThat(this.restaurantService.findAllRestaurants().contains(o));
+   void shouldFindRestaurants(){
+    Restaurante re = this.restaurantService.findRestaurantById(1).get();
+    assertThat(this.restaurantService.findAllRestaurants().contains(re)).isTrue();
    }
 
 }

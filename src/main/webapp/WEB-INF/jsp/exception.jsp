@@ -1,14 +1,15 @@
 <%@ page session="false" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="commandfast" tagdir="/WEB-INF/tags" %>
 
-<petclinic:layout pageName="error">
+<commandfast:layout pageName="error">
 
-    <spring:url value="/resources/images/pets.png" var="petsImage"/>
-    <img src="${petsImage}" alt="Error image"/>
+    <spring:url value="/resources/images/error-icon.png" var="error"/>
+    <img src="${error}" alt="Error image"/>
 
-    <h2>Something happened...</h2>
+
+    <h2>Disculpe las molestisas, ha ocurrido un error inesperado</h2>
 
     <p>${exception.message}</p>
 
-</petclinic:layout>
+</commandfast:layout>

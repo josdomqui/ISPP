@@ -174,7 +174,7 @@ public class RestauranteController {
 				return RESTAURANTE_FORM; 
 			} else { 
 				this.restauranteService.save(restaurant); 
-				return "redirect:/login"; 
+				return "/payment/subscription"; 
 			} 
 		}
 	}

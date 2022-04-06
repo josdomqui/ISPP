@@ -3,9 +3,9 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="commandfast" tagdir="/WEB-INF/tags" %>
 
-<petclinic:layout pageName="successPage"> 
+<commandfast:layout pageName="successPage"> 
     <div class="row">
         <div align="center">
             <h2 class="img-title p-3">Su pago se ha realizado con �xito</h2>
@@ -20,4 +20,4 @@
             </a>
         </div>
     </div>
-</petclinic:layout>
+</commandfast:layout>

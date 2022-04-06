@@ -24,6 +24,9 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
@@ -31,12 +34,11 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import org.springframework.samples.commandfast.user.User;
+
 import org.springframework.samples.commandfast.command.Command;
 import org.springframework.samples.commandfast.model.NamedEntity;
+import org.springframework.samples.commandfast.user.User;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -45,9 +47,16 @@ import lombok.Setter;
 @Entity
 @Table(name = "restaurants")
 public class Restaurante extends NamedEntity {
+	
+	@Size(min = 3, max = 50)
+	@Column(name = "name")
+	@NotEmpty(message = "Se requiere un nombre")
+	@Pattern(regexp="^[ÁÉÍÓÚA-Z][a-záéíóú]+(\\s+[ÁÉÍÓÚA-Z]?[a-záéíóú]+)*$", message = "Introduce un nombre valido")
+	private String name;
 
 	@Column(name = "city")
-	@NotEmpty
+	@NotEmpty(message = "Se requiere introducir una ciudad")
+	@Pattern(regexp="^[ÁÉÍÓÚA-Z][a-záéíóú]+(\\s+[ÁÉÍÓÚA-Z]?[a-záéíóú]+)*$", message = "Introduce una ciudad valida")
 	private String city;
 
 	@Column(name = "telephone")
