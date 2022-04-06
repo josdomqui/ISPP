@@ -40,7 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/charge").permitAll()
 				.antMatchers("/create-charge").permitAll()
 				.antMatchers("/restaurant/paymentPanel").hasAnyAuthority("restaurant")
-				.antMatchers("/restaurante/signup").hasAnyAuthority("admin")
+				.antMatchers("/restaurante/signup").permitAll()
 				.antMatchers("/restaurante/list/**").permitAll()
 				.antMatchers("/restaurante/**").permitAll()
 				.antMatchers(HttpMethod.GET, "/restaurante/list/**").permitAll()

@@ -1,25 +1,16 @@
 package org.springframework.samples.commandfast.line;
 import static org.assertj.core.api.Assertions.assertThat;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
-
-import com.stripe.param.AccountLinkCreateParams.Collect;
-
 import org.springframework.samples.commandfast.command.Command;
 import org.springframework.samples.commandfast.mesa.Mesa;
 import org.springframework.samples.commandfast.plate.Plate;
-import org.springframework.samples.commandfast.product.Product;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.samples.commandfast.restaurantes.Restaurante;
-import org.springframework.samples.commandfast.restaurantes.RestauranteService;
-import org.springframework.samples.commandfast.restaurantes.RestauranteType;
-import org.springframework.samples.commandfast.user.User;
 import org.springframework.stereotype.Service;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
@@ -32,8 +23,31 @@ public class LineServiceTests {
     
     @Test
     void shouldFindLine(){
-    Collection<Line> l = this.lineService.findlines();
-    assertThat(l.size()!=0);
+    Mesa m = new Mesa();
+    m.setCostumer(5);
+    m.setId(1);
+    m.setNumber(50);
+
+    Command c = new Command();
+    c.setCostumers(5);
+    c.setId(1);
+    c.setPrice(50.0);
+    c.setMesa(m);
+    
+    Plate p = new Plate();
+    p.setCategory("pescado");
+    p.setCost(12.50);
+    p.setId(1);
+    p.setImage("image");
+
+    Line l = new Line();
+    l.setCommand(c);
+    l.setId(1);
+    l.setPlate(p);
+    l.setQuantity(30);
+    this.lineService.saveline(l);
+    Collection<Line> lin = this.lineService.findlines();
+    assertThat(lin.isEmpty()).isFalse();
     }
 
     @Test
@@ -41,28 +55,31 @@ public class LineServiceTests {
    
     Mesa m = new Mesa();
     m.setCostumer(5);
-    m.setId(50);
+    m.setId(1);
     m.setNumber(50);
 
     Command c = new Command();
     c.setCostumers(5);
-    c.setId(50);
+    c.setId(1);
     c.setPrice(50.0);
     c.setMesa(m);
     
     Plate p = new Plate();
     p.setCategory("pescado");
     p.setCost(12.50);
-    p.setId(50);
+    p.setId(1);
     p.setImage("image");
 
     Line l = new Line();
     l.setCommand(c);
-    l.setId(50);
+    l.setId(1);
     l.setPlate(p);
     l.setQuantity(30);
+    this.lineService.saveline(l);
 
-    assertThat(this.lineService.findLineById(l.getId()));
+    Line line = this.lineService.findLineById(l.getId()).get();
+    
+    assertThat(line.getId()).isEqualTo(1);
     }
 
     @Test
@@ -70,28 +87,30 @@ public class LineServiceTests {
    
     Mesa m = new Mesa();
     m.setCostumer(5);
-    m.setId(50);
+    m.setId(1);
     m.setNumber(50);
 
     Command c = new Command();
     c.setCostumers(5);
-    c.setId(50);
+    c.setId(1);
     c.setPrice(50.0);
     c.setMesa(m);
     
     Plate p = new Plate();
     p.setCategory("pescado");
     p.setCost(12.50);
-    p.setId(50);
+    p.setId(1);
     p.setImage("image");
 
     Line l = new Line();
     l.setCommand(c);
-    l.setId(50);
+    l.setId(1);
     l.setPlate(p);
     l.setQuantity(30);
 
-    assertThat(this.lineService.findLineByCommandId(c.getId()));
+    this.lineService.saveline(l);
+    List<Line> line = this.lineService.findLineByCommandId(c.getId()).stream().collect(Collectors.toList());
+    assertThat(line.get(0).getId()).isEqualTo(1);
     }
 
     @Test
@@ -99,28 +118,30 @@ public class LineServiceTests {
    
     Mesa m = new Mesa();
     m.setCostumer(5);
-    m.setId(50);
+    m.setId(1);
     m.setNumber(50);
 
     Command c = new Command();
     c.setCostumers(5);
-    c.setId(50);
+    c.setId(1);
     c.setPrice(50.0);
     c.setMesa(m);
     
     Plate p = new Plate();
     p.setCategory("pescado");
     p.setCost(12.50);
-    p.setId(50);
+    p.setId(1);
     p.setImage("image");
 
     Line l = new Line();
     l.setCommand(c);
-    l.setId(50);
+    l.setId(1);
     l.setPlate(p);
     l.setQuantity(30);
 
-    assertThat(this.lineService.findLineCoById(l.getId(), c.getId()));
+    this.lineService.saveline(l);
+    Line line = this.lineService.findLineCoById(l.getId(), c.getId()).get();
+    assertThat(line.getId()).isEqualTo(1);
     }
 
     @Test
@@ -129,7 +150,7 @@ public class LineServiceTests {
    
     Mesa m = new Mesa();
     m.setCostumer(5);
-    m.setId(50);
+    m.setId(1);
     m.setNumber(50);
 
     Command c = new Command();
@@ -154,7 +175,7 @@ public class LineServiceTests {
     List<Line> lineas = this.lineService.findlines().stream().collect(Collectors.toList());
 
 
-    assertThat(lineas.size()==(found + 1));
+    assertThat(lineas.size()).isEqualTo((found + 1));
     }
     
 

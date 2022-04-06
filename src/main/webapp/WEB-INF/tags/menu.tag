@@ -1,6 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="commandfast" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <!--  >%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%-->
@@ -55,14 +55,10 @@
         </li>
         </sec:authorize>
         
-        <sec:authorize access="hasAuthority('admin')">
         <li class="nav-item">
           <a style="text-decoration: none; color: white;" class="navbar-text active" aria-current="page" href="/restaurante/signup"><span style="color: rgb(255,255,255);" class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Registrar restaurante</a>
         </li>
-        </sec:authorize>
-        
-        
-        
+  
       </ul>
     </div>
   </div>
