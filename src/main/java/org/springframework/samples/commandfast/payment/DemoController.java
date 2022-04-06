@@ -6,14 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 //import org.springframework.samples.commandfast.common.Response
-import org.springframework.web.servlet.view.RedirectView;
-
-import com.stripe.net.StripeResponse;
 
 
 @Controller

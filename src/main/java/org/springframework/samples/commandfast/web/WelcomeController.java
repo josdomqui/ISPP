@@ -4,20 +4,14 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.commandfast.product.Product;
 import org.springframework.samples.commandfast.restaurantes.Restaurante;
 import org.springframework.samples.commandfast.restaurantes.RestauranteService;
 import org.springframework.samples.commandfast.restaurantes.RestauranteType;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class WelcomeController {

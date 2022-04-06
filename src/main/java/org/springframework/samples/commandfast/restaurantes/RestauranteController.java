@@ -1,6 +1,5 @@
 package org.springframework.samples.commandfast.restaurantes;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.samples.commandfast.product.ProductService;
 import org.springframework.samples.commandfast.user.UserService;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 @Controller
