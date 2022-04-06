@@ -18,9 +18,7 @@ import org.springframework.samples.commandfast.mesa.MesaService;
 import org.springframework.samples.commandfast.user.AuthoritiesService;
 import org.springframework.samples.commandfast.user.UserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
@@ -55,7 +53,7 @@ public class PaymentController {
 		model.put("stripePublicKey", API_PUBLIC_KEY);
 		return "payment/subscription";
 	}
-	
+    
 	@GetMapping(value = "/payment/successPage/{id_comanda}")
 	public String paymentSuccessPage(@PathVariable("id_comanda") int id_comanda, Map<String, Object> model){
 		model.put("id_comanda", id_comanda);
@@ -64,9 +62,12 @@ public class PaymentController {
 	
 	@GetMapping(value = "/payment/downloadRecipt/{id_comanda}")
 	public void downloadRecipt(@PathVariable("id_comanda") int id_comanda, Map<String, Object> model, HttpServletResponse response){
+		Double price = 0.0;
 		//get price
-		Optional<Command> command = commandService.findIdCommands(id_comanda);
-		Double price = command.get().getPrice();
+		if(id_comanda != 0){ //this means that it is a subscription
+			Optional<Command> command = commandService.findIdCommands(id_comanda);
+			price = command.get().getPrice();
+		}
 		//generate pdf
 		String file_name = this.paymentService.generateRecipt(price);
 		System.out.println(file_name);
