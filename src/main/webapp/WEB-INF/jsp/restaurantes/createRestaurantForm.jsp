@@ -38,14 +38,14 @@
   				</c:forEach>
 			</select><br/>
 			<br/>
-			<span>**Si desea añadir una foto contacte con nosotros indicandonos el nombre de restaurante y la foto que desee</span><br/>
+			<span class="input-group" style="margin-left: 5%;">**Si desea añadir una foto contacte con nosotros indicandonos el nombre de restaurante y la foto que desee</span><br/>
         </div>
 
         <div class="form-group">
             <div class="col-sm-12" style="text-align: center; margin-top: 5px;">
                 <c:choose>
                     <c:when test="${restaurant['new']}">
-                        <button class="buton-detalles-listado" type="submit" style="text-decoration: none; color: #ffff; font-size: 14px;">Añadir restaurante</button>
+                        <button class="buton-detalles-listado" type="submit" style="text-decoration: none; color: #ffff; font-size: 17px;">Añadir restaurante</button>
                     </c:when>
                 </c:choose>
             </div>

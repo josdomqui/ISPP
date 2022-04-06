@@ -17,14 +17,14 @@
     <!--Stripe JavaScript Library-->
     <script src="https://js.stripe.com/v3/"></script>
 </head>
-<body class="bg pt-5" style="padding-top: 0rem !important">
+<body class="bg" style="padding-top: 0rem !important">
 <!--hero section-->
 <section class="py-5">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-8 col-12 my-auto mx-auto">
                 <h1>
-                    Gestión de pagos Stripe
+                    GestiÃ³n de pagos Stripe
                 </h1>
                 <p class="lead mb-4">
                     Por favor, complete el siguiente formulario para realizar el pago.
@@ -43,7 +43,7 @@
                     <input id="api-key" type="hidden" value="${stripePublicKey}"/>
                     <div class="form-group">
                         <label class="font-weight-medium" for="card-element">
-                            Introduce su tarjeta de crédito/débito
+                            Introduce su tarjeta de crÃ©dito/dÃ©bito
                         </label>
                         <div class="w-100" id="card-element">
                             <!-- A Stripe Element will be inserted here. -->
@@ -57,9 +57,14 @@
                     <!-- Used to display Element errors. -->
                     <div class="text-danger w-100" id="card-errors" role="alert"></div>
                     <div class="form-group pt-2">
-	                    
-                        <button class="btn btn-block" disabled=true id="submitButton" style="background-color: #ffcb74; color: #ffff" type="submit">
-                            Finalizar pago</button>
+
+	                    <spring:url value="/payment/successPage/{id_comanda}" var="url">
+	                      <spring:param name="id_comanda" value="${id_comanda}"/>
+	                    </spring:url>
+                        <a class="btn btn-block" id="submitButton" style="background-color: #ffcb74; color: #ffff; font-size: 14px" href="${fn:escapeXml(url)}">
+                            Finalizar pago
+                        </a>
+                      
                         <div class="small text-muted mt-2">
                             Pay securely with Stripe. By clicking the button above, you agree
                             to our <a target="_blank" href="#">Terms of Service</a>,

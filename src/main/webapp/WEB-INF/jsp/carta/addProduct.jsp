@@ -5,30 +5,36 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@page contentType="text/html"%>
+<%@page pageEncoding="UTF-8"%>
 
 <petclinic:layout pageName="products">
+    <div class="container">
     <h2>
-        <c:if test="${product['new']}">Nuevo </c:if> Plato
+        <strong><c:if test="${product['new']}">Nuevo </c:if> Plato</strong>
     </h2>
+    <div class="card mb-3" style="border: 2px solid; background-color: rgba(158, 172, 168, 0.5); border-radius:10px; width: 100%; ">
     <form:form modelAttribute="product" class="form-horizontal" id="add-product-form">
-        <div class="form-group has-feedback">
-            <petclinic:inputField label="Nombre" name="name"/>
-            <petclinic:inputField label="Descripción" name="description"/>
-            <petclinic:inputField label="Precio" name="price"/>
+        <div class="form-group has-feedback" style="margin-top: 18px; width: 95%; margin-left: 0%;">
+            <petclinic:inputField label="Nombre:" name="name"/>
+            <petclinic:inputField label="Descripción:" name="description"/>
+            <petclinic:inputField label="Precio:" name="price"/>
           
             <input label="Product" name="restaurante_id" value="${restaurante_id}" type="hidden"/>
         </div>
         <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
+            <div class="col-sm-12" style="text-align: center;">
                 <c:choose>
                     <c:when test="${product['new']}">
-                        <button style="background-color:#bd8859" class="buton-detalles-listado" type="submit">Aï¿½adir Plato</button>
+                        <button class="buton-detalles-listado" type="submit" style="text-decoration: none; color: #ffff; font-size: 17px;">Añadir Plato</button>
                     </c:when>
                     <c:otherwise>
-                        <button style="background-color:#bd8859" class="buton-detalles-listado" type="submit">Editar Plato</button>
+                        <button class="buton-detalles-listado" type="submit" style="text-decoration: none; color: #ffff; font-size: 17px;">Editar Plato</button>
                     </c:otherwise>
                 </c:choose>
             </div>
         </div>
     </form:form>
+</div>
+</div>
 </petclinic:layout>
