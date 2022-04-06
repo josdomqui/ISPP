@@ -17,7 +17,7 @@
     <form:form modelAttribute="product" class="form-horizontal" id="add-product-form">
         <div class="form-group has-feedback" style="margin-top: 18px; width: 95%; margin-left: 0%;">
             <petclinic:inputField label="Nombre:" name="name"/>
-            <petclinic:inputField label="Descripción:" name="description"/>
+            <petclinic:inputField label="Descripción (opcional):" name="description"/>
             <petclinic:inputField label="Precio:" name="price"/>
           
             <input label="Product" name="restaurante_id" value="${restaurante_id}" type="hidden"/>

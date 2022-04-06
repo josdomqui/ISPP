@@ -24,7 +24,7 @@
         <div class="row">
             <div class="col-lg-6 col-md-8 col-12 my-auto mx-auto">
                 <h1>
-                    GestiÃ³n de pagos Stripe
+                    Gestión de pagos Stripe
                 </h1>
                 <p class="lead mb-4">
                     Por favor, complete el siguiente formulario para realizar el pago.

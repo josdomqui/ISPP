@@ -24,8 +24,10 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -33,12 +35,11 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import org.springframework.samples.commandfast.user.User;
+
 import org.springframework.samples.commandfast.command.Command;
 import org.springframework.samples.commandfast.model.NamedEntity;
+import org.springframework.samples.commandfast.user.User;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -50,6 +51,7 @@ public class Restaurante extends NamedEntity {
 
 	@Column(name = "city")
 	@NotEmpty
+	@Pattern(regexp="^[a-zA-Z]+", message = "Se requiere texto")
 	private String city;
 
 	@Column(name = "telephone")
