@@ -51,7 +51,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/carta/**").permitAll()
 				.antMatchers("/admin/**").hasAnyAuthority("admin")
 				.antMatchers("/owners/**").hasAnyAuthority("owner", "admin")
-				.antMatchers("/vets/**", "/command/**", "/restaurantes/**").authenticated().and()
+				.antMatchers("/command/**", "/restaurantes/**").authenticated().and()
 				.formLogin()
 				/* .loginPage("/login") */
 				.failureUrl("/login-error").and().logout().logoutSuccessUrl("/");

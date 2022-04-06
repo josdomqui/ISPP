@@ -23,13 +23,13 @@
             
             <span class="input-group" style="margin-left: 5%;">Contraseña: </span><input required type="password" class="form-control" style="width: 90%; margin-left: 5%;" name="user.password"/><br/>
             
-            <span class="input-group" style="margin-left: 5%;">Nombre: </span><input required pattern="^[ÁÉÍÓÚA-Z][a-záéíóú]+(\s+[ÁÉÍÓÚA-Z]?[a-záéíóú]+)*$" type="text" class="form-control" style="width: 90%; margin-left: 5%;" minlength="3" maxlength="50" name="name"/><br/>
+            <span class="input-group" style="margin-left: 5%;">Nombre: </span><input required pattern="^[ÑÁÉÍÓÚA-Z][a-zñáéíóú]+(\s+[ÑÁÉÍÓÚA-Z]?[a-zñáéíóú]+)*$" type="text" class="form-control" style="width: 90%; margin-left: 5%;" minlength="3" maxlength="50" name="name"/><br/>
            
             <span class="input-group" style="margin-left: 5%;">Direccion de correo: </span><input required type="email" class="form-control" style="width: 90%; margin-left: 5%;" name="email"/><br/>
             
             <span class="input-group" style="margin-left: 5%;">Telefono : </span><input required type="tel" class="form-control" style="width: 90%; margin-left: 5%;" pattern="[0-9]{9}" name="telephone"/><br/>
             
-            <span class="input-group" style="margin-left: 5%;">Ciudad: </span><input required pattern="^[ÁÉÍÓÚA-Z][a-záéíóú]+(\s+[ÁÉÍÓÚA-Z]?[a-záéíóú]+)*$" type="text" class="form-control" style="width: 90%; margin-left: 5%;" name="city"/><br/>
+            <span class="input-group" style="margin-left: 5%;">Ciudad: </span><input required pattern="^[ÑÁÉÍÓÚA-Z][a-zñáéíóú]+(\s+[ÑÁÉÍÓÚA-Z]?[a-zñáéíóú]+)*$" type="text" class="form-control" style="width: 90%; margin-left: 5%;" name="city"/><br/>
             
             <span class="input-group" style="margin-left: 5%;">Direccion: </span><input required type="text" class="form-control" style="width: 90%; margin-left: 5%;" name="address"/><br/>
             
