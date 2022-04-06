@@ -53,7 +53,7 @@ public class PaymentController {
 		model.put("stripePublicKey", apiPublicKey);
 		return "payment/subscription";
 	}
-	
+    
 	@GetMapping(value = "/payment/successPage/{id_comanda}")
 	public String paymentSuccessPage(@PathVariable("id_comanda") int idComanda, Map<String, Object> model){
 		model.put("id_comanda", idComanda);
@@ -61,10 +61,12 @@ public class PaymentController {
 	}
 	
 	@GetMapping(value = "/payment/downloadRecipt/{id_comanda}")
-	public void downloadRecipt(@PathVariable("id_comanda") int idComanda, Map<String, Object> model, HttpServletResponse response){
-		//get price
-		Optional<Command> command = commandService.findIdCommands(idComanda);
-		Double price = command.get().getPrice();
+	public void downloadRecipt(@PathVariable("id_comanda") int id_comanda, Map<String, Object> model, HttpServletResponse response){
+		Double price = 0.0;
+		if(id_comanda != 0){ //this means that it is a subscription
+			Optional<Command> command = commandService.findIdCommands(id_comanda);
+			price = command.get().getPrice();
+		}
 		//generate pdf
 		String fileName = this.paymentService.generateRecipt(price);
 		//download pdf
