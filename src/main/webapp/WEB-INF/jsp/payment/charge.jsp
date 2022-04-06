@@ -2,10 +2,10 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="commandfast" tagdir="/WEB-INF/tags" %>
 
 
-<petclinic:layout pageName="owners">
+<commandfast:layout pageName="owners">
 
 <head>
     <!--Bootstrap 4 CSS-->
@@ -150,4 +150,4 @@
 </body>
 </html>
 
-</petclinic:layout>
+</commandfast:layout>

@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="commandfast" tagdir="/WEB-INF/tags" %>
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 
@@ -64,7 +64,7 @@ function getCity(coordinates) {
 getCoordintes();
 
 </script>
-<petclinic:layout pageName="home"> 
+<commandfast:layout pageName="home"> 
     <div class="row">
         <div align="center">
             <spring:url value="/resources/images/Imagen1.png" htmlEscape="true" var="petsImage"/>
@@ -78,4 +78,4 @@ getCoordintes();
         	</form:form>
         </div>
     </div>
-</petclinic:layout>
+</commandfast:layout>

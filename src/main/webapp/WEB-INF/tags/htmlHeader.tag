@@ -1,7 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <%--
-PetClinic :: a Spring Framework demonstration
+commandfast :: a Spring Framework demonstration
 --%>
 
 <head>
@@ -17,11 +17,11 @@ PetClinic :: a Spring Framework demonstration
     <title>Command-Fast</title>
 
     <%-- CSS generated from LESS --%>
-    <spring:url value="/resources/css/petclinic.css" var="petclinicCss"/>
-    <link href="${petclinicCss}" rel="stylesheet"/>
+    <spring:url value="/resources/css/commandfast.css" var="commandfastCss"/>
+    <link href="${commandfastCss}" rel="stylesheet"/>
 
 
-    <link href="/resources/css/petclinic.css" rel="stylesheet">
+    <link href="/resources/css/commandfast.css" rel="stylesheet">
     <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="/resources/css/bootstrap-icons.css" rel="stylesheet">
     

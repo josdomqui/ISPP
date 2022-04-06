@@ -4,11 +4,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="commandfast" tagdir="/WEB-INF/tags" %>
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 
-<petclinic:layout pageName="restaurant">
+<commandfast:layout pageName="restaurant">
     <div class="container">
     <h2>
         <strong><c:if test="${restaurant['new']}">Nuevo </c:if> Restaurante</strong>
@@ -54,4 +54,4 @@
     </form:form>
 </div>
 </div>
-</petclinic:layout>
+</commandfast:layout>

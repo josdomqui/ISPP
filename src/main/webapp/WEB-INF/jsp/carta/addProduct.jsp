@@ -4,11 +4,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="commandfast" tagdir="/WEB-INF/tags" %>
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 
-<petclinic:layout pageName="products">
+<commandfast:layout pageName="products">
     <div class="container">
     <h2>
         <strong><c:if test="${product['new']}">Nuevo </c:if> Plato</strong>
@@ -16,9 +16,9 @@
     <div class="card mb-3" style="border: 2px solid; background-color: rgba(158, 172, 168, 0.5); border-radius:10px; width: 100%; ">
     <form:form modelAttribute="product" class="form-horizontal" id="add-product-form">
         <div class="form-group has-feedback" style="margin-top: 18px; width: 95%; margin-left: 0%;">
-            <petclinic:inputField label="Nombre:" name="name"/>
-            <petclinic:inputField label="Descripción (opcional):" name="description"/>
-            <petclinic:inputField label="Precio:" name="price"/>
+            <commandfast:inputField label="Nombre:" name="name"/>
+            <commandfast:inputField label="Descripción (opcional):" name="description"/>
+            <commandfast:inputField label="Precio:" name="price"/>
           
             <input label="Product" name="restaurante_id" value="${restaurante_id}" type="hidden"/>
         </div>
@@ -37,4 +37,4 @@
     </form:form>
 </div>
 </div>
-</petclinic:layout>
+</commandfast:layout>
