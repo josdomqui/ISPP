@@ -1,16 +1,16 @@
 <%@ page session="false" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
-<!-- %@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %-->  
+<%@ taglib prefix="commandfast" tagdir="/WEB-INF/tags" %>
+<%@page pageEncoding="UTF-8"%>
 
-<petclinic:layout pageName="wait"> 
+<commandfast:layout pageName="wait"> 
     <div class="row">
-        <div align="center">
-            <h2>OperaciÛn realizada con Èxito</h2>
-            <spring:url value="/resources/images/waiting.png" htmlEscape="true" var="waitPago"/>
-            <img style="width: 30%; height: 90%" class="img-responsive" src="${waitPago}"/>
-            <h2>Su cuenta est· en camino</h2>
+        <div >
+            <h2 class="img-title p-3">Operaci√≥n realizada con √©xito</h2>
+            <spring:url value="/resources/images/esperar.png" htmlEscape="true" var="waitPago"/>
+            <img style="width: 24%; height: 80%" class="img-responsive p-3" src="${waitPago}"/>
+            <h2 class="img-footer mt-2">Su cuenta est√° en camino</h2>
         </div>
     </div>
-</petclinic:layout>
+</commandfast:layout>

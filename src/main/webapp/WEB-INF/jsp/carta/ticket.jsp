@@ -4,10 +4,10 @@
       <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
           <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-            <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
+            <%@ taglib prefix="commandfast" tagdir="/WEB-INF/tags" %>
               <%@ page import="org.springframework.samples.commandfast.plate.Plate" %>
 
-                <petclinic:layout pageName="ticket">
+                <commandfast:layout pageName="ticket">
                   <div class="ticket-container">
                     <div class="ticket-title-container">
                       <h2>Finalizar pedido</h2>
@@ -33,8 +33,8 @@
                                   </p>
                                 </th>
                                 <th id="total">
-                                  <p style="font-size: 14px; margin-bottom: 0px; text-align: end;">$
-                                    <c:out value="${plato.cost}" />
+                                  <p style="font-size: 14px; margin-bottom: 0px; text-align: end;">
+                                    <c:out value="${plato.cost}" /> &euro;
                                   </p>
                                 </th>
                               </tr>
@@ -44,7 +44,7 @@
                             <tr>
                               <th><span><strong>Total</strong></span></th>
                               <th id="total" style="text-align: end;"><span><strong>
-                                    <c:out value="$${suma}" />
+                                    <c:out value="${suma}"/> &euro;
                                   </strong>
                                 </span></th>
                             </tr>
@@ -58,7 +58,7 @@
                   </br>
                   <h3>Si pagais entre
                     <c:out value="${comensales}" /> sale a:
-                    <c:out value="$ ${suma/comensales}" /> cada uno.
+                    <c:out value="${suma/comensales}"/> &euro; cada uno.
                   </h3>
                   </br>
 
@@ -84,4 +84,4 @@
                         style="font-size: 14px;">Pagar con tarjeta</span></a>
                   </div>
 
-                </petclinic:layout>
+                </commandfast:layout>

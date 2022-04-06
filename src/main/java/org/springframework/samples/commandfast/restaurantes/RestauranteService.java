@@ -9,12 +9,11 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.samples.commandfast.product.Product;
 import org.springframework.samples.commandfast.user.AuthoritiesService;
 import org.springframework.samples.commandfast.user.UserService;
-import org.springframework.samples.commandfast.product.ProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Mostly used as a facade for all Petclinic controllers Also a placeholder
+ * Mostly used as a facade for all commandfast controllers Also a placeholder
  * for @Transactional and @Cacheable annotations
  *
  * @author Michael Isvy
@@ -59,8 +58,8 @@ public class RestauranteService {
 	}
 	
 	@Transactional
-	public Collection<Product> findMenuByRestaurant(Integer restaurant_id) throws DataAccessException{
-		return restauranteRepository.findProductsByRestaurant(restaurant_id);
+	public Collection<Product> findMenuByRestaurant(Integer restaurantId) throws DataAccessException{
+		return restauranteRepository.findProductsByRestaurant(restaurantId);
 	}
 
     public List<Restaurante> findByType(RestauranteType restauranteType) {
@@ -69,6 +68,10 @@ public class RestauranteService {
 
 	public List<Restaurante> findByCity(String city) {
         return restauranteRepository.findByCity(city);
+    }
+	
+	public Restaurante findByUsername(String username) {
+        return restauranteRepository.findByUsername(username);
     }
 
 	public void save(Restaurante restaurante) {

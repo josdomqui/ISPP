@@ -20,6 +20,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
@@ -43,6 +44,7 @@ public class Product extends NamedEntity {
 	private String description;
 
 	@Column(name = "price")
+	@NotNull(message="Tiene que introducir un precio")
 	@Positive
 	private Double price;
 

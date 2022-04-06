@@ -4,9 +4,6 @@ INSERT INTO authorities(id,username,authority) VALUES (1,'admin1','admin');
 -- One owner user, named owner1 with passwor 0wn3r
 INSERT INTO users(username,password,enabled) VALUES ('owner1','0wn3r',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (2,'owner1','owner');
--- One vet user, named vet1 with passwor v3t
-INSERT INTO users(username,password,enabled) VALUES ('vet1','v3t',TRUE);
-INSERT INTO authorities(id,username,authority) VALUES (3,'vet1','veterinarian');
 -- Username and authority
 INSERT INTO users(username,password,enabled) VALUES ('gomezmartin','Jnais872NS',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (4,'gomezmartin','restaurant');
@@ -19,6 +16,10 @@ INSERT INTO restaurants(id, name, address, city, description, telephone, photo, 
 INSERT INTO users(username,password,enabled) VALUES ('mitadcuarto','s872N2sv2Ssdik928231S#',TRUE);
 INSERT INTO authorities(id,username,authority) VALUES (6,'mitadcuarto','restaurant');
 INSERT INTO restaurants(id, name, address, city, description, telephone, photo, capacity, schedule, email, username) VALUES (3, 'La mitad del cuarto', 'C/AV José Laguillo', 'Sevilla', 'Lugar idóneo para tapear', 954533124,'/resources/images/bar3.jpg', 20, 'Lunes/Viernes 11:00 - 20:00', 'mitadcuarto@gmail.com', 'mitadcuarto');
+
+INSERT INTO users(username,password,enabled) VALUES ('parada','parada',TRUE);
+INSERT INTO authorities(id,username,authority) VALUES (7,'parada','restaurant');
+INSERT INTO restaurants(id, name, address, city, description, telephone, photo, capacity, schedule, email, username) VALUES (4, 'Bar Parada', 'C/AV Sanchez Romero', 'Huelva', 'Lugar idóneo para tapear', 666666666,'/resources/images/bar1.jpg', 20, 'Lunes/Viernes 11:00 - 20:00', 'barparada@gmail.com', 'parada');
 
 INSERT INTO products(id, name, description, price, restaurant_id) VALUES (1, 'Ensalada gourmet', 'Lechuga Gourmet, Queso De Cabra, Cebolla Caramelizada, Nueces y Pasas',6.30, 1);
 INSERT INTO products(id, name, price, restaurant_id) VALUES (2, 'Patatas bravas', 2.90, 1);
@@ -51,7 +52,7 @@ INSERT INTO tables(id, number, costumer) values (3, 3, 5);
 INSERT INTO tables(id, number, costumer) values (4, 4, 6);
 INSERT INTO tables(id, number, costumer) values (5, 5, 7);
 
-INSERT INTO commands(id, costumers, price, mesa_id) values (1, 4, 53.02, 1);
+INSERT INTO commands(id, costumers, price, mesa_id, restaurant_id) values (1, 4, 53.02, 1, 1);
 
 INSERT INTO plates(id, name, category, cost, image) values (1, 'Huevos Lartisan', 'Media-Racion', '11', '/resources/images/Huevos Lartisan.jpg');
 INSERT INTO plates(id, name, category, cost, image) values (2, 'Solomillo de vaca', 'Racion', '18', '/resources/images/Solomillo de vaca.jpg');

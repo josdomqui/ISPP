@@ -15,7 +15,6 @@
  */
 package org.springframework.samples.commandfast.mesa;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -26,7 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Mostly used as a facade for all Petclinic controllers Also a placeholder
+ * Mostly used as a facade for all commandfast controllers Also a placeholder
  * for @Transactional and @Cacheable annotations
  *
  * @author Michael Isvy

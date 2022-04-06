@@ -17,6 +17,7 @@ package org.springframework.samples.commandfast.model;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
@@ -32,6 +33,7 @@ public class NamedEntity extends BaseEntity {
 
 	@Size(min = 3, max = 50)
 	@Column(name = "name")
+	@Pattern(regexp="^[a-zA-Z]+", message = "Se requiere texto")
 	private String name;
 
 	public String getName() {
