@@ -20,6 +20,7 @@
 					<h2 class="display-3 fw-bolder" style="color: #ffff; font-size: 30px;"><c:out value = "${detallesRestaurante.name}"/></h2>
 					<h1 class="display-3 fw-bolder" style="color: #ffff; font-size: 20px;"><c:out value = "${detallesRestaurante.schedule}"/></h2><br>
 					<p><c:out value = "${detallesRestaurante.description}"/></p><br>
+					<p>Valoración media del restaurante: <c:out value = "${detallesRestaurante.valoracionMedia}"/></p><br>
 				</div>
 		
 				<div>

@@ -94,6 +94,14 @@
 									style="text-decoration: none; color: #ffff; font-size: 14px;">Ver
 									detalles</a>
 							</p>
+							<spring:url value="/restaurante/{id2}/valoraciones" var="url2">
+								<spring:param name="id2" value="${restaurante.id}" />
+							</spring:url>
+							<p>
+								<a type="button" class="buton-detalles-listado"
+									href="${fn:escapeXml(url2)}"
+									style="text-decoration: none; color: #ffff; font-size: 14px;">Opiniones de nuestros clientes</a>
+							</p>
 							<sec:authorize access="hasAuthority('restaurant')">
 								<c:if test="${restaurante.user.username==username}">
 									<spring:url value="/restaurante/{id}/product/new"

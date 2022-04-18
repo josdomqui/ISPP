@@ -39,6 +39,7 @@ import javax.validation.constraints.Size;
 import org.springframework.samples.commandfast.command.Command;
 import org.springframework.samples.commandfast.model.NamedEntity;
 import org.springframework.samples.commandfast.user.User;
+import org.springframework.samples.commandfast.valoracion.Valoracion;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -89,6 +90,10 @@ public class Restaurante extends NamedEntity {
 	@Column(name = "email")
 	@NotEmpty
 	private String email;
+	
+	@Column(name = "valoracion_media")
+	@NotEmpty
+	private double valoracionMedia;
 
 	@ElementCollection(targetClass =  RestauranteType.class)
 	@Column(name = "type", nullable = false)
@@ -101,5 +106,8 @@ public class Restaurante extends NamedEntity {
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurante")
 	private Set<Command> commands;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurante")
+	private List<Valoracion> valoraciones;
 
 }

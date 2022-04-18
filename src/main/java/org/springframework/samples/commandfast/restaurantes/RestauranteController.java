@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.samples.commandfast.product.ProductService;
 import org.springframework.samples.commandfast.user.UserService;
+import org.springframework.samples.commandfast.valoracion.ValoracionService;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 @Controller
@@ -48,14 +49,16 @@ public class RestauranteController {
 	private final UserService userService;
 	private final PaymentService paymentService;
 	private final CommandService commandService;
+	private final ValoracionService valoracionService;
 
 	@Autowired
-	public RestauranteController(RestauranteService restauranteService, ProductService productService, UserService userService, PaymentService paymentService, CommandService commandService) { 
+	public RestauranteController(RestauranteService restauranteService, ProductService productService, UserService userService, PaymentService paymentService, CommandService commandService, ValoracionService valoracionService) { 
 		this.restauranteService = restauranteService; 
 		this.productService = productService; 
 		this.userService = userService; 
 		this.paymentService = paymentService;
 		this.commandService = commandService;
+		this.valoracionService = valoracionService;
 	}
 
     @GetMapping(value = { "/list" })
@@ -281,6 +284,5 @@ public class RestauranteController {
 			return "redirect:/restaurante/{id_restaurante}/detalles/carta";
 		}
 	}
-
-
+	
 }
