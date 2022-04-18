@@ -45,6 +45,22 @@
 					</c:forEach>
 				</select>
 			</div>
+			<br>			<br>
+			
+			<div>
+				<label for="inputValor" class="form-label label-input-listado">Filtrar por valoración: </label>
+				<select id="inputValor" name="inputValor"
+					class="form-control form-select input-filtros"
+					style="font-size: 14px; font-family: 'quicksand', sans-serif;">
+					<option selected
+						style="font-size: 14px; font-family: 'quicksand', sans-serif;">Selecciona
+						una opción</option>
+						<option>Más valorados</option> 
+						<option>Menos valorados</option>
+				</select>
+			</div>
+			
+			
 			<div style="display: flex; align-self: flex-end;">
 				<button type="submit" onclick="return validateString()"class="btn-default buton-base-listado">
 					<span style="color: rgb(255, 255, 255);"

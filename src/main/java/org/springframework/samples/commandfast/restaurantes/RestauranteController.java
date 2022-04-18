@@ -2,6 +2,7 @@ package org.springframework.samples.commandfast.restaurantes;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
@@ -75,7 +76,7 @@ public class RestauranteController {
 	}
 
 	@GetMapping(value = { "/list/search" })
-	public String showRestautanteToSearch(@RequestParam("inputPlace") String place, Map<String, Object> model, @RequestParam("inputState") String type, HttpServletRequest request) {
+	public String showRestautanteToSearch(@RequestParam("inputPlace") String place, Map<String, Object> model, @RequestParam("inputState") String type,@RequestParam("inputValor") String valor, HttpServletRequest request) {
 		ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
 		model.put(STRING_LISTA_TIPOS, listaTipoRestaurantes);
 		List<Restaurante> lrestaurantes;
@@ -94,6 +95,15 @@ public class RestauranteController {
 			}
 			lrestaurantes.retainAll(lres);
 		}
+		if (!(valor.equals("Selecciona una opción"))) {
+			if(valor.equals("Menos valorados")){
+				lrestaurantes.sort(Comparator.comparing(Restaurante::getValoracionMedia));
+				
+			}else if(valor.equals("Más valorados")){
+				lrestaurantes.sort(Comparator.comparing(Restaurante::getValoracionMedia).reversed());
+
+			
+		}}
 		model.put("listaRestaurante", lrestaurantes);
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if(!principal.equals(STRING_ANONYMOUS_USER)) {
