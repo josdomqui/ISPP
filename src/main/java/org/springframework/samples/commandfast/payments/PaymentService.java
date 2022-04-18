@@ -11,10 +11,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+
+import com.itextpdf.io.image.ImageData;
+import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Text;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -61,13 +67,23 @@ public class PaymentService {
 			PdfWriter pdfWriter = new PdfWriter(file);
 			PdfDocument pdfDocument = new PdfDocument(pdfWriter);
 			Document document = new Document(pdfDocument);
+			// Add logo banner to recipt
+			String imageFile = "./src/main/resources/static/resources/images/pdf/banner-recibo.png";
+			ImageData data = ImageDataFactory.create(imageFile);
+			Image img = new Image(data);
+			document.add(img);
+
+			Paragraph paragraph = new Paragraph();
+			Text blankLine = new Text("\n");
+			paragraph.add(blankLine);
+			paragraph.add(blankLine);
 			String mensajePDF = "";
 			if (price == 0.0) {
 				mensajePDF = "Gracias por suscribirte a CommandFast. Su id de compra es: 98892";
 			} else {
 				mensajePDF = "Su pedido ha costado " + price + " euros.";
 			}
-			Paragraph paragraph = new Paragraph(mensajePDF);
+			paragraph.add(new Text(mensajePDF));
 			document.add(paragraph);
 			document.close();
 			pdfWriter.close();
