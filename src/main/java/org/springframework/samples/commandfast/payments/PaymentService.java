@@ -68,7 +68,7 @@ public class PaymentService {
 			PdfDocument pdfDocument = new PdfDocument(pdfWriter);
 			Document document = new Document(pdfDocument);
 			// Add logo banner to recipt
-			String imageFile = "./src/main/resources/static/resources/images/pdf/banner-recibo.png";
+			String imageFile = "src/main/resources/static/resources/images/pdf/banner-recibo.jpeg";
 			ImageData data = ImageDataFactory.create(imageFile);
 			Image img = new Image(data);
 			document.add(img);
