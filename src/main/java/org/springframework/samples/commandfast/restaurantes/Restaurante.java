@@ -92,8 +92,7 @@ public class Restaurante extends NamedEntity {
 	private String email;
 	
 	@Column(name = "valoracion_media")
-	@NotEmpty
-	private double valoracionMedia;
+	private Double valoracionMedia;
 
 	@ElementCollection(targetClass =  RestauranteType.class)
 	@Column(name = "type", nullable = false)
