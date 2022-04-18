@@ -48,9 +48,9 @@
                         </label>
                     </div>
                     <div class="custom-control custom-radio mt-3">
-                        <input checked="" class="custom-control-input" id="annually-plan" name="premium-plan"
+                        <input checked="" class="custom-control-input input-filtros" id="annually-plan" name="premium-plan"
                                type="radio" value="annual-subscription"/>
-                        <label class="custom-control-label" for="annually-plan">
+                        <label class="custom-control-label input-filtros" for="annually-plan">
                             <div class="row">
                             	<div class="col-sm-4">
                             		<p style="margin-left: 5px">Anual 1710.00 €</p>

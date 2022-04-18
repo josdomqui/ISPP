@@ -8,7 +8,7 @@
 
 <commandfast:layout pageName="successPage"> 
     <div class="row">
-        <div align="center">
+        <div>
             <h2 class="img-title p-3">Su pago se ha realizado con éxito</h2>
             <spring:url value="/resources/images/pago exitoso.png" htmlEscape="true" var="checkPago"/>
             <img style="width: 25%; height: 85%" class="img-responsive" src="${checkPago}" alt="Imagen del pago"/>

@@ -40,7 +40,7 @@
 	                      <spring:param name="id_comanda" value="${id_comanda}"/>
 	                 </spring:url>
                 <form action="${fn:escapeXml(url)}" id="payment-form" method="get">
-                    <input id="api-key" type="hidden" value="${stripePublicKey}"/>
+                    <input class="input-filtros" id="api-key" type="hidden" value="${stripePublicKey}"/>
                     <div class="form-group">
                         <label class="font-weight-medium" for="card-element">
                             Introduce su tarjeta de crédito/débito
@@ -50,7 +50,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <input class="form-control" id="email" name="email"
+                        <input class="form-control input-filtros" id="email" name="email"
                                placeholder="Email" type="email" required>
                     </div>
                     
