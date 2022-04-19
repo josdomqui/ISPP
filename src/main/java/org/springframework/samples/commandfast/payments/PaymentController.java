@@ -62,13 +62,8 @@ public class PaymentController {
 	
 	@GetMapping(value = "/payment/downloadRecipt/{id_comanda}")
 	public void downloadRecipt(@PathVariable("id_comanda") int id_comanda, Map<String, Object> model, HttpServletResponse response){
-		Double price = 0.0;
-		if(id_comanda != 0){ //this means that it is a subscription
-			Optional<Command> command = commandService.findIdCommands(id_comanda);
-			price = command.get().getPrice();
-		}
 		//generate pdf
-		String fileName = this.paymentService.generateRecipt(price);
+		String fileName = this.paymentService.generateRecipt(id_comanda);
 		//download pdf
 		File file = new File(fileName);
 		response.setContentType("application/octet-stream");
