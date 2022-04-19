@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="commandfast" tagdir="/WEB-INF/tags" %>
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
@@ -24,8 +25,9 @@
   			<option value="4">4</option>
   			<option value="5">5</option>
 		</select>
-   		<span class="input-group" style="margin-left: 5%;">Opinión: </span><input maxlength="500" class="form-control" style="width: 90%; margin-left: 5%;" name="opinion"/><br/>
+   	<petclinic:inputField label="Opinion:" name="opinion"/>
    		<input name="restaurante" value="${restaurante.id}" type="hidden"/>
+   		<button class="buton-detalles-listado" type="submit" style="text-decoration: none; color: #ffff; font-size: 17px;">Enviar</button>
     </form:form>
 </div>
 </div>

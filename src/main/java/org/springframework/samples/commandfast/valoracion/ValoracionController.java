@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.commandfast.restaurantes.Restaurante;
 import org.springframework.samples.commandfast.restaurantes.RestauranteService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -60,8 +61,9 @@ public class ValoracionController {
 	}
 
 	@PostMapping(value = "/restaurante/{id2}/valoracion")
-	public String processCreationForm(@Valid Valoracion valoracion, BindingResult result, @PathVariable("id2") Integer id) {
+	public String processCreationForm(@Valid Valoracion valoracion, BindingResult result, @PathVariable("id2") Integer id,ModelMap modelMap) {
 		if (result.hasErrors()) {
+			modelMap.addAttribute("valoracion", valoracion);
 			return "restaurantes/valorarRestauranteForm";
 		}
 		else {
