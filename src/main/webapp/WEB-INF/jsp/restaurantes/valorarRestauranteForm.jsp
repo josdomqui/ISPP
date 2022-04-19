@@ -16,18 +16,31 @@
     </h2>
     <h3>Tu valoración es muy valiosa para nuestros clientes. ¡Muchas gracias!</h3>
     <div class="card mb-3" style="border: 2px solid; background-color: rgba(158, 172, 168, 0.5); border-radius:10px; width: 100%; ">
-    <form:form modelAttribute="valoracion" class="form-horizontal"  style="margin-left: 5%;" id="add-restaurant-form">
-    	<p>Puntuación:</p>
-   		<select required name="puntuacion" class="form-select form-select-lg mb-3" style=" font-size: 18px;border-radius:10px; width: 90%;">
+    <form:form modelAttribute="valoracion" class="form-horizontal" id="add-restaurant-form">
+		<div class="row" style="margin-top: 10px;">
+			<div class="col-xs-4 col-md-4" style="margin-left: 5%;">
+				<p class="card-text">Puntuación:</p>
+			</div>
+			<div class="col-xs-10 col-md-8 mt-2 mb-2"  style="width: 87.5%; margin-left: 16%;">
+   		<select required id="puntuacion" name="puntuacion" class="form-control form-select input-filtros" style=" font-size: 18px;border-radius:10px; width: 90%;">
   			<option value="1">1</option>
   			<option value="2">2</option>
   			<option value="3">3</option>
   			<option value="4">4</option>
   			<option value="5">5</option>
 		</select>
-		   	<span class="input-group" style="margin-top: 18px;">Opinion: </span>
-   			<input type="text" class="form-control input-filtros" style="width: 90%;"name="restaurante" value="${restaurante.id}" type="hidden"/>
-			<button class="buton-detalles-listado" type="submit" style="text-decoration: none; margin-top: 18px; color: #ffff; font-size: 17px;">Enviar</button>	
+	</div>
+</div>
+
+		<div class="form-group has-feedback" style="width: 95%; margin-left: 0%; margin-top: 25px;">
+		<petclinic:inputField label="Opinion:" name="opinion"/>
+		<input style="width: 100%;" name="restaurante" value="${restaurante.id}" type="hidden"/>
+		</div>
+		<div class="form-group">
+            <div class="col-sm-12" style="text-align: center;">
+			<button class="buton-detalles-listado" type="submit" style="text-decoration: none; color: #ffff; font-size: 17px;">Enviar</button>	
+			</div>
+		</div>
     </form:form>
 </div>
 </div>
