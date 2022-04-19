@@ -78,4 +78,62 @@ getCoordintes();
         	</form:form>
         </div>
     </div>
+    <h1>Restaurantes más valorados</h1>
+    		<c:forEach items="${listaRestaurante}" var="restaurante">
+			<div class="card base-card-listado mb-5 mt-5" style="width: auto;">
+				<div class="row">
+
+					<div class="col-3">
+						<img id="imgCardRestaurant" src="${restaurante.photo}"
+							class="rounded" alt="...">
+					</div>
+					<div class="col-9">
+						<div class="card-body d-flex flex-column"
+							style="padding-bottom: 0px;">
+							<h1 class="card-title mb-3" style="color: #ffff;">
+								<strong> <c:out value="${restaurante.name}" />
+								</strong>
+							</h1>
+							<p class="card-text" style="color: #ffff; font-size: 16px;">
+								<c:out value="${restaurante.city}" />
+							</p>
+							<p class="card-text" style="color: #ffff; font-size: 18px;">
+								<c:out value="${restaurante.description}" />
+							</p>
+							<div class="col-12 mb-3">
+								<c:forEach items="${restaurante.type}" var="tipos">
+									<span class="badge"
+										style="padding: 6px; font-size: 10px; background-color: #bb924b; margin-right: 6px;">
+										<c:out value="${tipos}" />
+									</span>
+								</c:forEach>
+							</div>
+						</div>
+						<div class="col-6 mb-3 mt-3 m-3">
+							<spring:url value="/restaurante/{id}/detalles" var="url">
+								<spring:param name="id" value="${restaurante.id}" />
+							</spring:url>
+							<p>
+								<a type="button" class="buton-detalles-listado"
+									href="${fn:escapeXml(url)}"
+									style="text-decoration: none; color: #ffff; font-size: 14px;">Ver
+									detalles</a>
+							</p>
+							<spring:url value="/restaurante/{id2}/valoraciones" var="url2">
+								<spring:param name="id2" value="${restaurante.id}" />
+							</spring:url>
+							<p>
+								<a type="button" class="buton-detalles-listado"
+									href="${fn:escapeXml(url2)}"
+									style="text-decoration: none; color: #ffff; font-size: 14px;">Opiniones de nuestros clientes</a>
+							</p>
+
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</c:forEach>
+    
 </commandfast:layout>
