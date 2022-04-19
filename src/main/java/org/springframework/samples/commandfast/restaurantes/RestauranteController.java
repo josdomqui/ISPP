@@ -2,6 +2,7 @@ package org.springframework.samples.commandfast.restaurantes;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.samples.commandfast.product.ProductService;
 import org.springframework.samples.commandfast.user.UserService;
+import org.springframework.samples.commandfast.valoracion.ValoracionService;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 @Controller
@@ -48,14 +50,16 @@ public class RestauranteController {
 	private final UserService userService;
 	private final PaymentService paymentService;
 	private final CommandService commandService;
+	private final ValoracionService valoracionService;
 
 	@Autowired
-	public RestauranteController(RestauranteService restauranteService, ProductService productService, UserService userService, PaymentService paymentService, CommandService commandService) { 
+	public RestauranteController(RestauranteService restauranteService, ProductService productService, UserService userService, PaymentService paymentService, CommandService commandService, ValoracionService valoracionService) { 
 		this.restauranteService = restauranteService; 
 		this.productService = productService; 
 		this.userService = userService; 
 		this.paymentService = paymentService;
 		this.commandService = commandService;
+		this.valoracionService = valoracionService;
 	}
 
     @GetMapping(value = { "/list" })
@@ -72,7 +76,7 @@ public class RestauranteController {
 	}
 
 	@GetMapping(value = { "/list/search" })
-	public String showRestautanteToSearch(@RequestParam("inputPlace") String place, Map<String, Object> model, @RequestParam("inputState") String type, HttpServletRequest request) {
+	public String showRestautanteToSearch(@RequestParam("inputPlace") String place, Map<String, Object> model, @RequestParam("inputState") String type,@RequestParam("inputValor") String valor, HttpServletRequest request) {
 		ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
 		model.put(STRING_LISTA_TIPOS, listaTipoRestaurantes);
 		List<Restaurante> lrestaurantes;
@@ -91,6 +95,15 @@ public class RestauranteController {
 			}
 			lrestaurantes.retainAll(lres);
 		}
+		if (!(valor.equals("Selecciona una opción"))) {
+			if(valor.equals("Menos valorados")){
+				lrestaurantes.sort(Comparator.comparing(Restaurante::getValoracionMedia));
+				
+			}else if(valor.equals("Más valorados")){
+				lrestaurantes.sort(Comparator.comparing(Restaurante::getValoracionMedia).reversed());
+
+			
+		}}
 		model.put("listaRestaurante", lrestaurantes);
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if(!principal.equals(STRING_ANONYMOUS_USER)) {
@@ -104,6 +117,7 @@ public class RestauranteController {
 	public String showRestautanteDetails(@PathVariable("id") Integer id, Map<String, Object> model) {
 		Optional<Restaurante> restaurante = restauranteService.findRestaurantById(id);
 		model.put("detallesRestaurante", restaurante.get());
+		model.put("valoracion",  String.format("%.2f", restaurante.get().getValoracionMedia()));
 		return "restaurantes/detalles";
 	}
 	
@@ -281,6 +295,5 @@ public class RestauranteController {
 			return "redirect:/restaurante/{id_restaurante}/detalles/carta";
 		}
 	}
-
-
+	
 }
