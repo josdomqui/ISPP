@@ -48,12 +48,13 @@ public class ValoracionService {
 	
 	@Transactional
 	public void actualizarPuntuacionMedia(Restaurante restaurante) {
+		
 		Double valoracionTotal = 0.0;
 		for(Valoracion v : restaurante.getValoraciones()) {
 			valoracionTotal += v.getPuntuacion();
 		}
 		Integer numTotalValoraciones = restaurante.getValoraciones().size();
-		Double valoracionMedia = valoracionTotal / numTotalValoraciones;
+		Double valoracionMedia = (valoracionTotal / numTotalValoraciones);
 		restaurante.setValoracionMedia(valoracionMedia);
 		restauranteService.saveRestaurant(restaurante);
 	}

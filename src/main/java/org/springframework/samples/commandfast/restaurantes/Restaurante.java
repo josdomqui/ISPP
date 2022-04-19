@@ -91,7 +91,7 @@ public class Restaurante extends NamedEntity {
 	@NotEmpty
 	private String email;
 	
-	@Column(name = "valoracion_media")
+	@Column(name = "media")
 	private Double valoracionMedia;
 
 	@ElementCollection(targetClass =  RestauranteType.class)

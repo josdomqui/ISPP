@@ -117,6 +117,7 @@ public class RestauranteController {
 	public String showRestautanteDetails(@PathVariable("id") Integer id, Map<String, Object> model) {
 		Optional<Restaurante> restaurante = restauranteService.findRestaurantById(id);
 		model.put("detallesRestaurante", restaurante.get());
+		model.put("valoracion",  String.format("%.2f", restaurante.get().getValoracionMedia()));
 		return "restaurantes/detalles";
 	}
 	
