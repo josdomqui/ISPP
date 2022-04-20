@@ -107,6 +107,13 @@ public class RestauranteController {
 		return "restaurantes/detalles";
 	}
 	
+	@GetMapping(value = {"/{id}/detalles/qr"})
+	public String showQRGenerator(@PathVariable("id") Integer id, Map<String, Object> model) {
+		Optional<Restaurante> restaurante = restauranteService.findRestaurantById(id);
+		model.put("restaurante", restaurante.get());
+		return "restaurantes/qr";
+	}
+	
 	
 	@GetMapping(value = { "/{id}/detalles/carta" })
 	public String showMenuRestaurant(@PathVariable("id") Integer id, Map<String, Object> model, HttpServletRequest request) {
