@@ -90,6 +90,7 @@ public class PaymentService {
 			PdfWriter pdfWriter = new PdfWriter(file);
 			PdfDocument pdfDocument = new PdfDocument(pdfWriter);
 			Document document = new Document(pdfDocument);
+			
 			// Add logo banner to recipt
 			String imageFile = "src/main/resources/static/resources/images/pdf/banner-recibo.jpeg";
 			ImageData data = ImageDataFactory.create(imageFile);
@@ -111,7 +112,7 @@ public class PaymentService {
 			body.setFont(fontRoman).setFontSize(14);
 			
 			String body_message = "";
-			if (id_comanda == 0) { // esto significa que es una suscripción
+			if (id_comanda == 0) { // subscription
 				body_message = "Gracias por suscribirte a CommandFast. Su id de compra es: 98892";
 				paragraph.add(new Text(body_message).addStyle(body));
 			} else {
