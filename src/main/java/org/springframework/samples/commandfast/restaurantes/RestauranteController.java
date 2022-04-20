@@ -13,6 +13,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.samples.commandfast.command.Command;
 import org.springframework.samples.commandfast.command.CommandService;
 import org.springframework.samples.commandfast.payments.Payment;
@@ -51,6 +52,8 @@ public class RestauranteController {
 	private final PaymentService paymentService;
 	private final CommandService commandService;
 	private final ValoracionService valoracionService;
+	@Value("${STRIPE_PUBLIC_KEY}")
+    private String apiPublicKey;
 
 	@Autowired
 	public RestauranteController(RestauranteService restauranteService, ProductService productService, UserService userService, PaymentService paymentService, CommandService commandService, ValoracionService valoracionService) { 
@@ -121,6 +124,13 @@ public class RestauranteController {
 		return "restaurantes/detalles";
 	}
 	
+	@GetMapping(value = {"/{id}/detalles/qr"})
+	public String showQRGenerator(@PathVariable("id") Integer id, Map<String, Object> model) {
+		Optional<Restaurante> restaurante = restauranteService.findRestaurantById(id);
+		model.put("restaurante", restaurante.get());
+		return "restaurantes/qr";
+	}
+	
 	
 	@GetMapping(value = { "/{id}/detalles/carta" })
 	public String showMenuRestaurant(@PathVariable("id") Integer id, Map<String, Object> model, HttpServletRequest request) {
@@ -165,6 +175,7 @@ public class RestauranteController {
 	// REGISTRO RESTAURANTES
 	@GetMapping("/signup")
 	public String signupRestaurante(ModelMap model) {
+		model.put("stripePublicKey", apiPublicKey);
 		ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
 		Restaurante restaurante = new Restaurante();
 		model.put("error", false); 
@@ -175,11 +186,13 @@ public class RestauranteController {
 
 	@PostMapping(value = "/signup")
 	public String processCreationForm(@Valid Restaurante restaurant, BindingResult result, ModelMap model) {
+    model.put("stripePublicKey", apiPublicKey);
 		if (result.hasErrors()) {
 			if(restaurant.getType().isEmpty()) model.put("error_tipos", true);
 			else model.put("error_tipos", false);
 			ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
 			model.put("listaTipos", listaTipoRestaurantes);
+		if (result.hasErrors()) { 
 			return RESTAURANTE_FORM; 
 		} else {
 			
@@ -215,7 +228,6 @@ public class RestauranteController {
 	
 	@GetMapping(value = "/paymentPanel")
 	public String payments(Map<String, Object> model, HttpServletRequest request){
-		
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if(!principal.equals(STRING_ANONYMOUS_USER)) {
 			String username = request.getUserPrincipal().getName();
@@ -254,7 +266,7 @@ public class RestauranteController {
 					model.put(STRING_EMPTY_CARD, true);
 				} else if (conEfectivo.isEmpty() && !conTarjeta.isEmpty()) {
 					model.put(STRING_CASH_EMPTY, true);
-				} else if(conTarjeta.isEmpty() && conTarjeta.isEmpty()) {
+				} else if(conTarjeta.isEmpty() && conEfectivo.isEmpty()) {
 					model.put(STRING_EMPTY_CARD, true);
 					model.put(STRING_CASH_EMPTY, true);
 				}
