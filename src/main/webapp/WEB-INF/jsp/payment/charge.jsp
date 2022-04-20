@@ -27,12 +27,12 @@
                 <h1>
                     Gestión de pagos Stripe
                 </h1>
-                <p class="lead mb-4">
+                <p class="lead mb-4" style="font-size: 19px;">
                     Por favor, complete el siguiente formulario para realizar el pago.
                 </p>
                 <div class="card mb-4" style="background-color: rgba(158, 172, 168, 0.5)">
-                    <div class="card-body">
-                        <h5>Pedido CommandFast</h5>
+                    <div class="card-body" style="font-size: 20px;">
+                        <h4>Pedido CommandFast</h4>
                         <p><c:out value="${price}"/> &euro;</p>
                     </div>
                 </div>
