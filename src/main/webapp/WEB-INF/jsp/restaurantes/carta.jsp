@@ -32,7 +32,7 @@
                                   </spring:url>
                     
                                   <p><a type="button" class="buton-detalles-listado mt-3" href="${fn:escapeXml(editProductUrl)}"
-                                    style="text-decoration: none; color: white;">Editar
+                                    style="text-decoration: none; color: black;">Editar
                                     plato</a></p>
                                 </c:if>
                                 </sec:authorize>
@@ -51,7 +51,7 @@
 
             <p><a type="button" class="buton-detalles-listado"
                 href="${fn:escapeXml(addProductUrl)}"
-                style="text-decoration: none; color: #ffff; font-size: 22px;">Añadir
+                style="text-decoration: none; color: black; font-size: 22px;">Añadir
                 plato a la carta</a></p>
             </c:if>
 

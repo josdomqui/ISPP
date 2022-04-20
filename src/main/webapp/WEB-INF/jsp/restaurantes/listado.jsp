@@ -107,7 +107,7 @@
 							<p>
 								<a type="button" class="buton-detalles-listado"
 									href="${fn:escapeXml(url)}"
-									style="text-decoration: none; color: #ffff; font-size: 14px;">Ver
+									style="text-decoration: none; color: black; font-size: 16px;">Ver
 									detalles</a>
 							</p>
 							<spring:url value="/restaurante/{id2}/valoraciones" var="url2">
@@ -116,7 +116,7 @@
 							<p>
 								<a type="button" class="buton-detalles-listado"
 									href="${fn:escapeXml(url2)}"
-									style="text-decoration: none; color: #ffff; font-size: 14px;">Opiniones de nuestros clientes</a>
+									style="text-decoration: none; color: black; font-size: 16px;">Opiniones de nuestros clientes</a>
 							</p>
 							<sec:authorize access="hasAuthority('restaurant')">
 								<c:if test="${restaurante.user.username==username}">
@@ -127,7 +127,7 @@
 									<p>
 										<a type="button" class="buton-detalles-listado"
 											href="${fn:escapeXml(addProductUrl)}"
-											style="text-decoration: none; color: #ffff; font-size: 14px;">Añadir
+											style="text-decoration: none; color: black; font-size: 16px;">Añadir
 											plato a la carta</a>
 									</p>
 								</c:if>
@@ -140,7 +140,7 @@
 									<p>
 										<a type="button" class="buton-detalles-listado"
 											href="${fn:escapeXml(addProductUrl)}"
-											style="text-decoration: none; color: #ffff; font-size: 14px;">Añadir
+											style="text-decoration: none; color: black; font-size: 16px;">Añadir
 											plato a la carta</a>
 									</p>
 							</sec:authorize>
