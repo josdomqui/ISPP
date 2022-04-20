@@ -59,6 +59,6 @@ class PaymenttServiceTests {
 
     @Test
     void shouldGeneratePayment(){
-    assertThat(this.paymentService.generateRecipt(2.5)).isNotEmpty();
+    assertThat(this.paymentService.generateRecipt(1)).isNotEmpty();
     }
 }
