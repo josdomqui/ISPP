@@ -21,7 +21,7 @@
 		</spring:url>
 		<p>
 			<a type="button" class="buton-detalles-listado"href="${fn:escapeXml(url2)}"
-			style="text-decoration: none; color: #ffff; font-size: 14px;">¡Déjanos tu opinión!</a>
+			style="text-decoration: none; color: black; font-size: 16px;">¡Déjanos tu opinión!</a>
 		</p>
 	</div>
 </commandfast:layout>

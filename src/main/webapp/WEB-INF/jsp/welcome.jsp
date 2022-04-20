@@ -74,7 +74,7 @@ getCoordintes();
         	<form:form class="form-horizontal" id="add-command-form">
         	<div class="location">
         	</div>
-        		<button class="buton-detalles-listado mt-3 mb-3" type="submit"><span style="color: white;">Consultar</span></button>
+        		<button class="buton-detalles-listado mt-3 mb-3" type="submit"><span style="color: black;">Consultar</span></button>
         	</form:form>
         </div>
     </div>
@@ -116,7 +116,7 @@ getCoordintes();
 							<p>
 								<a type="button" class="buton-detalles-listado"
 									href="${fn:escapeXml(url)}"
-									style="text-decoration: none; color: #ffff; font-size: 14px;">Ver
+									style="text-decoration: none; color: black; font-size: 16px;">Ver
 									detalles</a>
 							</p>
 							<spring:url value="/restaurante/{id2}/valoraciones" var="url2">
@@ -125,7 +125,7 @@ getCoordintes();
 							<p>
 								<a type="button" class="buton-detalles-listado"
 									href="${fn:escapeXml(url2)}"
-									style="text-decoration: none; color: #ffff; font-size: 14px;">Opiniones de nuestros clientes</a>
+									style="text-decoration: none; color: black; font-size: 16px;">Opiniones de nuestros clientes</a>
 							</p>
 
 						</div>

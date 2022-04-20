@@ -69,19 +69,19 @@
                       <spring:param name="id_comanda" value="${id_commanda}" />
                     </spring:url>
                     <a class="buton-detalles-listado" href="${fn:escapeXml(url)}" style="text-decoration: none;"><span
-                        style="font-size: 14px;">Pagar online</span></a>
+                        style="font-size: 16px; color: black">Pagar online</span></a>
 
                     <spring:url value="/payment/cash/{id_comanda}" var="url2">
                       <spring:param name="id_comanda" value="${id_commanda}" />
                     </spring:url>
                     <a class="buton-detalles-listado" href="${fn:escapeXml(url2)}" style="text-decoration: none;"><span
-                        style="font-size: 14px;">Pagar en efectivo</span></a>
+                        style="font-size: 16px; color: black">Pagar en efectivo</span></a>
 
                     <spring:url value="/payment/creditCard/{id_comanda}" var="url3">
                       <spring:param name="id_comanda" value="${id_commanda}" />
                     </spring:url>
                     <a class="buton-detalles-listado" href="${fn:escapeXml(url3)}" style="text-decoration: none;"><span
-                        style="font-size: 14px;">Pagar con tarjeta</span></a>
+                        style="font-size: 16px; color: black">Pagar con tarjeta</span></a>
                   </div>
 
                 </commandfast:layout>

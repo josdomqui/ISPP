@@ -16,7 +16,7 @@
             <spring:url value="/payment/downloadRecipt/{id_comanda}" var="url">
             	<spring:param name="id_comanda" value="${id_comanda}"/>
             </spring:url>
-            <a class="btn-pedir" id="submitButton" style="text-decoration: none; background-color: #ffcb74; color: #ffff" href="${fn:escapeXml(url)}">
+            <a class="btn-pedir" id="submitButton" style="text-decoration: none; background-color: #ffcb74; color: black; font-size: 16px" href="${fn:escapeXml(url)}">
                 Descargar recibo
             </a>
         </div>

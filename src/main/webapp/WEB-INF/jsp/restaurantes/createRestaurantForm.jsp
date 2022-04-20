@@ -54,7 +54,7 @@
             <div class="col-sm-12" style="text-align: center; margin-top: 5px;">
                 <c:choose>
                     <c:when test="${restaurant['new']}">
-                        <button class="buton-detalles-listado" type="submit" style="text-decoration: none; color: #ffff; font-size: 17px;">Registra Pago</button>
+                        <button class="buton-detalles-listado" type="submit" style="text-decoration: none; color: black; font-size: 17px;">Registra Pago</button>
                     </c:when>
                 </c:choose>
             </div>

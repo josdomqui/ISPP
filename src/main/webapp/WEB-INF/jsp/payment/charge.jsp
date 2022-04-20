@@ -61,7 +61,7 @@
 	                    <spring:url value="/payment/successPage/{id_comanda}" var="url">
 	                      <spring:param name="id_comanda" value="${id_comanda}"/>
 	                    </spring:url>
-                        <button class="btn btn-block" disabled=true id="submitButton" style="background-color: #ffcb74; color: #ffff" type="submit">
+                        <button class="btn btn-block" disabled=true id="submitButton" style="background-color: #ffcb74; color: black; font-size: 16px" type="submit">
                             Finalizar pago</button>
                       
                         <div class="small text-muted mt-2">

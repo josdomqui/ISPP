@@ -38,7 +38,7 @@
 		</div>
 		<div class="form-group">
             <div class="col-sm-12" style="text-align: center;">
-			<button class="buton-detalles-listado" type="submit" style="text-decoration: none; color: #ffff; font-size: 17px;">Enviar</button>	
+			<button class="buton-detalles-listado" type="submit" style="text-decoration: none; color: black; font-size: 17px;">Enviar</button>	
 			</div>
 		</div>
     </form:form>
