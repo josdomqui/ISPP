@@ -19,7 +19,9 @@
         
         <div class="form-group has-feedback">
 
-			<petclinic:inputField label="Usuario" name="user.username"/> 
+			<petclinic:inputField label="Usuario" name="user.username"/>
+			
+			<c:if test="${error}"><span style="color: red"><c:out value="Ya existe un usuario con este nombre"/></span><br/></c:if>
 
 			<petclinic:inputField label="Contraseña" name="user.password"/> 
 						
@@ -41,7 +43,9 @@
 			           
      
             <petclinic:selectField label="Tipos de restaurantes" name="type" size="3" names="${listaTipos}"/>
-
+			
+			<c:if test="${error_tipos == true}"><span style="color: red"><c:out value="Debe seleccionar algun tipo de restaurante."/></span><br/></c:if>
+			
 			<br/>
 			<br/>
 			<span class="input-group" style="margin-left: 5%;">**Si desea añadir una foto contacte con nosotros indicandonos el nombre de restaurante y la foto que desee</span><br/>

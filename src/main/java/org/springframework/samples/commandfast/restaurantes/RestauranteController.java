@@ -175,22 +175,36 @@ public class RestauranteController {
 
 	@PostMapping(value = "/signup")
 	public String processCreationForm(@Valid Restaurante restaurant, BindingResult result, ModelMap model) {
-		if (result.hasErrors()) { 
+		if (result.hasErrors()) {
+			if(restaurant.getType().isEmpty()) model.put("error_tipos", true);
+			else model.put("error_tipos", false);
 			ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
 			model.put("listaTipos", listaTipoRestaurantes);
 			return RESTAURANTE_FORM; 
-		} 
-		else { 
+		} else {
+			
 			List<String> lista = new ArrayList<>(); 
-			userService.findAllUser().forEach(x->lista.add(x.getUsername())); 
-			if(lista.contains(restaurant.getUser().getUsername())){ 
+			userService.findAllUser().forEach(x->lista.add(x.getUsername()));
+			
+			if(lista.contains(restaurant.getUser().getUsername())){
+				if(restaurant.getType().isEmpty()) model.put("error_tipos", true);
+				else model.put("error_tipos", false);
+				
 				ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class)); 
 				Restaurante restaurante = new Restaurante(); 
-				model.put("restaurant", restaurante); 
-				model.put("error", true); 
-				model.put(STRING_LISTA_TIPOS, listaTipoRestaurantes); 
+				model.put("restaurant", restaurante);
+				model.put("error", true);
+				model.put(STRING_LISTA_TIPOS, listaTipoRestaurantes);
+				
 				return RESTAURANTE_FORM; 
-			} else { 
+			} else if(restaurant.getType().isEmpty()) {
+				ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class)); 
+				Restaurante restaurante = new Restaurante();
+				model.put("restaurant", restaurante);
+				model.put("error_tipos", true);
+				model.put(STRING_LISTA_TIPOS, listaTipoRestaurantes);
+				return RESTAURANTE_FORM;
+			} else {
 				this.restauranteService.save(restaurant); 
 				return "/payment/subscription"; 
 			} 
