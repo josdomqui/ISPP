@@ -18,6 +18,7 @@ package org.springframework.samples.commandfast.command;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -34,6 +35,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -65,12 +67,24 @@ public class CommandController {
 	@GetMapping(value = "/command/new")
 	public String initCreationForm(Map<String, Object> model) {
 		Command command = new Command();
+		model.put("id_restaurante", 1);
+		model.put("id_mesa", 1);
 		model.put("restaurantes", this.restauranteService.findAllRestaurants());
 		model.put("mesas", this.mesaService.findAllMesa());
 		model.put("command", command);
 		return "command/createCommand";
 	}
-
+	
+	@GetMapping(value = "/command/new/{id_restaurante}/{id_mesa}")
+	public String initFromQR(Map<String, Object> model, @PathVariable("id_restaurante") int id_restaurante, @PathVariable("id_mesa") int id_mesa) {
+		Command command = new Command();
+		model.put("id_restaurante", id_restaurante);
+		model.put("id_mesa", id_mesa);
+		model.put("restaurantes", this.restauranteService.findAllRestaurants());
+		model.put("mesas", this.mesaService.findAllMesa());
+		model.put("command", command);
+		return "command/createCommand";
+	}
 	@PostMapping(value = "/command/new")
 	public ModelAndView processCreationForm(@Valid Command command, BindingResult result) {
 		if (result.hasErrors()) {
