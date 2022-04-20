@@ -84,7 +84,7 @@
     
     <div class="form-group">
     	<div class="button" style="text-align: center">
-        	<p><button class="btn-pedir" type="submit" style= "text-decoration: none; color: #ffff; font-size: 16px; padding: 0 20px;"><strong>Pedir</strong></button></p>
+        	<p><button class="btn-pedir" type="submit" style= "text-decoration: none; color: black; font-size: 16px; padding: 0 20px;">Pedir</button></p>
         </div>
    	</div>
         

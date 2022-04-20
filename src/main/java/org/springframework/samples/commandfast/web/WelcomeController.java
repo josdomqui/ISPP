@@ -1,6 +1,7 @@
 package org.springframework.samples.commandfast.web;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
@@ -19,14 +20,30 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class WelcomeController {
 
 	@Autowired
-	private RestauranteService restauranteService;
+	private RestauranteService restauranteService;	
 	
 	@GetMapping({ "/", "/welcome" })
 	public String welcome(Map<String, Object> model) {
-
+		List<Restaurante> lrestaurantes;
+		lrestaurantes = restauranteService.findAllRestaurants();
+		lrestaurantes.sort(Comparator.comparing(Restaurante::getValoracionMedia).reversed());
+		List<Restaurante> lres =new ArrayList<>();
+		Integer i= 0;
+		while(i<3) {
+		for(Restaurante l: lrestaurantes) {
+			lres.add(l);
+			i++;
+		}
+		}
+		model.put("listaRestaurante", lres);
+		model.put("message", "Por favor activa tu ubicación");
 		return "welcome";
 	}
-
+	
+	@GetMapping({ "/terms" })
+	public String terms(Map<String, Object> model) {
+		return "terms-conditions";
+	}
 	
 	@PostMapping(value =  "/" )
 	public String showRestautanteUbication( HttpServletRequest request,Map<String, Object> model) {

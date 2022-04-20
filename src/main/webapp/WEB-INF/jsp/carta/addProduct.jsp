@@ -26,10 +26,10 @@
             <div class="col-sm-12" style="text-align: center;">
                 <c:choose>
                     <c:when test="${product['new']}">
-                        <button class="buton-detalles-listado" type="submit" style="text-decoration: none; color: #ffff; font-size: 17px;">Añadir Plato</button>
+                        <button class="buton-detalles-listado" type="submit" style="text-decoration: none; color: black; font-size: 17px;">Añadir Plato</button>
                     </c:when>
                     <c:otherwise>
-                        <button class="buton-detalles-listado" type="submit" style="text-decoration: none; color: #ffff; font-size: 17px;">Editar Plato</button>
+                        <button class="buton-detalles-listado" type="submit" style="text-decoration: none; color: black; font-size: 17px;">Editar Plato</button>
                     </c:otherwise>
                 </c:choose>
             </div>

@@ -1,6 +1,7 @@
 package org.springframework.samples.commandfast.command;
 import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -21,13 +22,13 @@ class CommandServiceTests {
 
     }
 
-//	@Test
-//	void shouldFindCommands() {
-//		List<Command> commands = (List<Command>) this.commandService.findCommands();
-//		Boolean result = commands.contains(commandService.findIdCommands(1).get());
-//		assertThat(commands).isEmpty();;
-//		assertThat(result).isTrue();
-//	}
+	@Test
+	void shouldFindCommands() {
+		List<Command> commands = this.commandService.findCommands().stream().collect(Collectors.toList());
+		Boolean result = commands.contains(commandService.findIdCommands(1).get());
+		assertThat(commands).isNotEmpty();
+		assertThat(result).isTrue();
+	}
 	
 	@Test
 	void shouldSaveCommands() {
