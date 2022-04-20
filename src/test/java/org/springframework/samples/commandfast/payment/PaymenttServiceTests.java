@@ -58,9 +58,9 @@ class PaymenttServiceTests {
     assertThat(this.paymentService.getPaymentById(pa.getId()).get().getId()).isEqualTo(pa.getId());
     }
     
-    @Ignore
-    @Test
-    void shouldGeneratePayment(){
-    assertThat(this.paymentService.generateRecipt(2)).isNotEmpty();
-    }
+    //@Ignore
+    //@Test
+    //void shouldGeneratePayment(){
+    //assertThat(this.paymentService.generateRecipt(2)).isNotEmpty();
+    //}
 }

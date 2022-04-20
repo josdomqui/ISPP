@@ -99,6 +99,22 @@ public class CommandController {
 		}
 	}
 	
+	@PostMapping(value = "/command/new/{id_restaurante}/{id_mesa}")
+	public ModelAndView processCreationFormFromQr(@Valid Command command, BindingResult result, @PathVariable("id_restaurante") int id_restaurante, @PathVariable("id_mesa") int id_mesa) {
+		if (result.hasErrors()) {
+			Map<String, Object> model = result.getModel();
+			model.put("mesas", this.mesaService.findAllMesa());
+			model.put("restaurantes", this.restauranteService.findAllRestaurants());
+			return new ModelAndView("command/createCommand", model);
+		} else {
+			command.setRestaurante(restauranteService.findRestaurantById(id_restaurante).get());
+			command.setMesa(mesaService.findMesaByNumber(id_mesa));
+			this.commandService.saveCommand(command);
+			Integer idCommand = command.getId();
+			return new ModelAndView("redirect:/carta/"+idCommand, result.getModel());
+		}
+	}
+	
 	
 	@GetMapping("/command/all")
 	public String commandsOfARestaurant(Map<String, Object> model, HttpServletRequest request) {

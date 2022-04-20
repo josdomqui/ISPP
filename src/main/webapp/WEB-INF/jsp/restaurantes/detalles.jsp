@@ -26,7 +26,11 @@
 					<spring:url value="/restaurante/{id}/detalles/carta" var="menUrl">
 							<spring:param name="id" value="${detallesRestaurante.id}"/>
 					</spring:url>
+					<spring:url value="/restaurante/{id}/detalles/qr" var="qrUrl">
+							<spring:param name="id" value="${detallesRestaurante.id}"/>
+					</spring:url>
 					<p><a type="button" class="buton-detalles-listado" href="${fn:escapeXml(menUrl)}" style="text-decoration: none; color: #ffff; font-size: 14px;">Ver carta</a></p>
+					<p><a type="button" class="buton-detalles-listado" href="${fn:escapeXml(qrUrl)}" style="text-decoration: none; color: #ffff; font-size: 14px;">Generar QRs</a></p>
 				</div>																								
 
 			</div><!-- /lc-block -->
