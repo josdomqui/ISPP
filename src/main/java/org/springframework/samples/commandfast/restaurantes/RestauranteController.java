@@ -168,7 +168,7 @@ public class RestauranteController {
 		ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
 		Restaurante restaurante = new Restaurante();
 		model.put("error", false); 
-		model.put("restaurant", restaurante);
+		model.put("restaurante", restaurante);
 		model.put(STRING_LISTA_TIPOS, listaTipoRestaurantes);
 		return RESTAURANTE_FORM;
 	}
@@ -176,6 +176,8 @@ public class RestauranteController {
 	@PostMapping(value = "/signup")
 	public String processCreationForm(@Valid Restaurante restaurant, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) { 
+			ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
+			model.put("listaTipos", listaTipoRestaurantes);
 			return RESTAURANTE_FORM; 
 		} 
 		else { 
