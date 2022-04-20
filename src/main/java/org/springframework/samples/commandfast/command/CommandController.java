@@ -67,8 +67,8 @@ public class CommandController {
 	@GetMapping(value = "/command/new")
 	public String initCreationForm(Map<String, Object> model) {
 		Command command = new Command();
-		model.put("id_restaurante", 1);
-		model.put("id_mesa", 1);
+		model.put("id_restaurante", 0);
+		model.put("id_mesa", 0);
 		model.put("restaurantes", this.restauranteService.findAllRestaurants());
 		model.put("mesas", this.mesaService.findAllMesa());
 		model.put("command", command);

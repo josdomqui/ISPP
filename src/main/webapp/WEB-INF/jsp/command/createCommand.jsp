@@ -27,8 +27,14 @@
 	        			<p class="card-text p-3">Numero de mesa:</p>
 	            	</div>
 	            	<div class="col-xs-10 col-md-7 mt-2 mb-2">
-	            		
-            			<select required name="mesa" class="input-filtros" style=" font-size: 18px;">
+	            		<c:choose>
+	            			<c:when test="${id_mesa == 0 }">
+	            				<select required name="mesa" class="input-filtros" style=" font-size: 18px;">
+	            			</c:when>
+	            			<c:otherwise>
+	            				<select disabled required name="mesa" class="input-filtros" style=" font-size: 18px;">
+	            			</c:otherwise>
+	            		</c:choose>
             				<c:forEach items="${mesas}" var="mesa">
             					<c:choose>
             						<c:when test="${id_mesa == mesa.number}">
@@ -48,7 +54,15 @@
 	        			<p class="card-text p-3">Restaurante:</p>
 	            	</div>
 	            	<div class="col-xs-10 col-md-7 mt-2 mb-2">
-            			<select required name="restaurante" class="input-filtros" style=" font-size: 18px;">
+	            		<c:choose>
+	            			<c:when test="${id_restaurante == 0 }">
+	            				<select required name="restaurante" class="input-filtros" style=" font-size: 18px;">
+	            			</c:when>
+	            			<c:otherwise>
+	            				<select disabled required name="restaurante" class="input-filtros" style=" font-size: 18px;">
+	            			</c:otherwise>
+	            		</c:choose>
+            			
             				<c:forEach items="${restaurantes}" var="restaurante">
             					<c:choose>
             						<c:when test="${id_restaurante == restaurante.id}">
