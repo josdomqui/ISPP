@@ -67,8 +67,8 @@ public class CommandController {
 	@GetMapping(value = "/command/new")
 	public String initCreationForm(Map<String, Object> model) {
 		Command command = new Command();
-		model.put("id_restaurante", 1);
-		model.put("id_mesa", 1);
+		model.put("id_restaurante", 0);
+		model.put("id_mesa", 0);
 		model.put("restaurantes", this.restauranteService.findAllRestaurants());
 		model.put("mesas", this.mesaService.findAllMesa());
 		model.put("command", command);
@@ -93,6 +93,22 @@ public class CommandController {
 			model.put("restaurantes", this.restauranteService.findAllRestaurants());
 			return new ModelAndView("command/createCommand", model);
 		} else {
+			this.commandService.saveCommand(command);
+			Integer idCommand = command.getId();
+			return new ModelAndView("redirect:/carta/"+idCommand, result.getModel());
+		}
+	}
+	
+	@PostMapping(value = "/command/new/{id_restaurante}/{id_mesa}")
+	public ModelAndView processCreationFormFromQr(@Valid Command command, BindingResult result, @PathVariable("id_restaurante") int id_restaurante, @PathVariable("id_mesa") int id_mesa) {
+		if (result.hasErrors()) {
+			Map<String, Object> model = result.getModel();
+			model.put("mesas", this.mesaService.findAllMesa());
+			model.put("restaurantes", this.restauranteService.findAllRestaurants());
+			return new ModelAndView("command/createCommand", model);
+		} else {
+			command.setRestaurante(restauranteService.findRestaurantById(id_restaurante).get());
+			command.setMesa(mesaService.findMesaByNumber(id_mesa));
 			this.commandService.saveCommand(command);
 			Integer idCommand = command.getId();
 			return new ModelAndView("redirect:/carta/"+idCommand, result.getModel());

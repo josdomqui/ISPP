@@ -1,5 +1,9 @@
 package org.springframework.samples.commandfast.restaurantes;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -8,7 +12,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
@@ -28,6 +34,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.google.zxing.WriterException;
+
 import org.springframework.samples.commandfast.product.ProductService;
 import org.springframework.samples.commandfast.user.UserService;
 import org.springframework.samples.commandfast.valoracion.ValoracionService;
@@ -128,6 +137,60 @@ public class RestauranteController {
 	public String showQRGenerator(@PathVariable("id") Integer id, Map<String, Object> model) {
 		Optional<Restaurante> restaurante = restauranteService.findRestaurantById(id);
 		model.put("restaurante", restaurante.get());
+		model.put("id_restaurante", restaurante.get().getId());
+		return "restaurantes/qr";
+	}
+	
+	@GetMapping(value = {"/{id}/detalles/qr/descargar"})
+	public String downloadQR(@PathVariable("id") Integer id, Map<String, Object> model, @RequestParam("numero_mesa") String numero_mesa, HttpServletRequest request, HttpServletResponse response) {
+		Optional<Restaurante> restaurante = restauranteService.findRestaurantById(id);
+		model.put("restaurante", restaurante.get());
+		model.put("id_restaurante", restaurante.get().getId());
+
+        String base= request.getLocalName();
+        System.out.println(base);
+        String url = "";
+        if(base.equals("localhost")) {
+        	url = "http://localhost:8080/command/new/"+id.toString()+"/"+numero_mesa;
+        }else {
+        	url = "https://command-fast-app-s3.herokuapp.com/"+id.toString()+"/"+numero_mesa;
+        }
+        String fileName = "qr.png";
+        // Generate and Save Qr Code Image 
+        try {
+			QRCodeGenerator.generateQRCodeImage(url,250,250,fileName);
+		} catch (WriterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        
+        	//download pdf
+      		File file = new File(fileName);
+      		response.setContentType("application/octet-stream");
+      		response.setHeader("Content-Disposition", "attachment; filename=" + file.getName()); 
+      		try {
+      			ServletOutputStream outputStream = response.getOutputStream();
+      			BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+      			
+      			byte[] buffer = new byte[8192]; //8k buffer
+      			int bytesRead = -1;
+      			
+      			while((bytesRead = inputStream.read(buffer)) != -1) {
+      				outputStream.write(buffer, 0, bytesRead);
+      			}
+      			
+      			inputStream.close();
+      			outputStream.flush();
+      			outputStream.close();
+      			
+      		} catch (IOException e) {
+      			e.printStackTrace();
+      		}
+        
 		return "restaurantes/qr";
 	}
 	
