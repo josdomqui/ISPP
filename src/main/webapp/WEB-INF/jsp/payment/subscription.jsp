@@ -48,9 +48,9 @@
                         </label>
                     </div>
                     <div class="custom-control custom-radio mt-3">
-                        <input checked="" class="custom-control-input input-filtros" id="annually-plan" name="premium-plan"
+                        <input checked="" class="custom-control-input" id="annually-plan" name="premium-plan"
                                type="radio" value="annual-subscription"/>
-                        <label class="custom-control-label input-filtros" for="annually-plan">
+                        <label class="custom-control-label" for="annually-plan">
                             <div class="row">
                             	<div class="col-sm-4">
                             		<p style="margin-left: 5px">Anual 1710.00 €</p>
@@ -80,17 +80,17 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <input class="form-control" id="email" name="email"
+                        <input class="form-control input-filtros" id="email" name="email"
                                placeholder="Email" type="email" required>
                     </div>
                     <div class="form-group">
-                        <input class="form-control" id="coupon" name="coupon"
+                        <input class="form-control input-filtros" id="coupon" name="coupon"
                                placeholder="Código de descuento(opcional)" type="text">
                     </div>
                     <!-- Used to display Element errors. -->
                     <div class="text-danger w-100" id="card-errors" role="alert"></div>
                     <div class="form-group pt-2">
-                        <button class="btn btn-block" disabled=true id="submitButton" style="background-color: #ffcb74; color: #ffff" type="submit">
+                        <button class="buton-detalles-listado" disabled=true id="submitButton" style="color: black; font-size: 22px; width: 100%;" type="submit">
                             Finalizar pago</button>
                         <div class="small text-muted mt-2">
                             Pay securely with Stripe. By clicking the button above, you agree
