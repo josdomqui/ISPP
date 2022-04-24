@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.commandfast.product;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -48,7 +49,7 @@ public class Product extends NamedEntity {
 	@Positive
 	private Double price;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "restaurant_id")
 	private Restaurante restaurant;
 
