@@ -25,6 +25,10 @@ import org.springframework.samples.commandfast.command.CommandService;
 import org.springframework.samples.commandfast.payments.Payment;
 import org.springframework.samples.commandfast.payments.PaymentService;
 import org.springframework.samples.commandfast.product.Product;
+import org.springframework.samples.commandfast.product.ProductService;
+import org.springframework.samples.commandfast.user.UserService;
+import org.springframework.samples.commandfast.valoracion.ValoracionService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -36,11 +40,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.zxing.WriterException;
-
-import org.springframework.samples.commandfast.product.ProductService;
-import org.springframework.samples.commandfast.user.UserService;
-import org.springframework.samples.commandfast.valoracion.ValoracionService;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 @Controller
 @RequestMapping("/restaurante")
@@ -249,12 +248,14 @@ public class RestauranteController {
 
 	@PostMapping(value = "/signup")
 	public String processCreationForm(@Valid Restaurante restaurant, BindingResult result, ModelMap model) {
-    model.put("stripePublicKey", apiPublicKey);
+		model.put("stripePublicKey", apiPublicKey);
 		if (result.hasErrors()) {
 			if(restaurant.getType().isEmpty()) model.put("error_tipos", true);
 			else model.put("error_tipos", false);
 			ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
 			model.put("listaTipos", listaTipoRestaurantes);
+			
+		}
 		if (result.hasErrors()) { 
 			return RESTAURANTE_FORM; 
 		} else {
@@ -285,6 +286,7 @@ public class RestauranteController {
 				return "/payment/subscription"; 
 			} 
 		}
+		
 	}
 	
 	//Payment de restaurante

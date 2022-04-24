@@ -20,7 +20,7 @@
     <form method="get" class="form-horizontal" id="qr-form" action="${fn:escapeXml(url)}">
         <div class="form-group has-feedback justify-content-center" style="margin-top: 18px; width: 55%; margin-left:22%;">
         	<label for="numero_mesa" class="form-label">Número de mesa</label>
-            <select class= "form-control" name="numero_mesa">
+            <select class= "form-control" name="numero_mesa" style="text-decoration: none; color: black; font-size: 16px;">
 	              <option value="1">1</option>
 			      <option value="2">2</option>
 			      <option value="3">3</option>
