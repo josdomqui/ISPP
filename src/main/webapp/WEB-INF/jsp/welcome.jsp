@@ -70,7 +70,7 @@ getCoordintes();
     <div class="row">
         <div class ="col text-center">
             <spring:url value="/resources/images/Imagen1.png" htmlEscape="true" var="petsImage"/>
-            <img class="img-fluid" src="${petsImage}" alt="Imagen de bienvenida" />
+            <img class="img-fluid" src="${petsImage}" alt="Imagen de bienvenida" style="width: 25%;"/>
             <h2>Bienvenidos a Command-Fast, ¿desea consultar restaurantes cercanos que usen nuestra tecnología?</h2>
         	
         	<form:form class="form-horizontal" id="add-command-form">
