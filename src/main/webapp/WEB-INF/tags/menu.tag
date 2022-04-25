@@ -40,6 +40,12 @@
         </li>
         </sec:authorize>
         
+        <sec:authorize access="hasAuthority('restaurant')">
+        <li class="nav-item">
+          <a style="text-decoration: none; color: white;" class="navbar-text active" aria-current="page" href="/restaurante/notifications"><span style="color: rgb(255,255,255);" class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span> Notificaciones</a>
+        </li>
+        </sec:authorize>
+        
         <sec:authorize access="hasAuthority('admin')">
            <li class="nav-item">
           <a style="text-decoration: none; color: white;" class="navbar-text active" aria-current="page" href="/admin/paymentPanel"><span style="color: rgb(255,255,255);"  aria-hidden="true"></span>Administrador</a>

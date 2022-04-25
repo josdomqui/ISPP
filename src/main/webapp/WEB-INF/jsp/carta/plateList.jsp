@@ -7,7 +7,9 @@
 <%@ taglib prefix="commandfast" tagdir="/WEB-INF/tags" %>
 
 <commandfast:layout pageName="menu">
-	   
+	 <c:if test="${message}">
+	 ${message}
+	 </c:if>
     <div class="container">
     	<div class="row">
     		<div class="col-3 offset-1"><h1><strong>Menu</strong></h1></div>
@@ -16,6 +18,12 @@
           		<spring:param name="id_comanda" value="${id_commanda}"/>
 			</spring:url>																																		
    			<a class="btn-pedir" href="${fn:escapeXml(url)}" style="text-decoration: none; color: black; font-size: 16px;">Finalizar pedido</a>
+   			
+  
+   			<spring:url value="/restaurante/notify/{id_comanda}" var="url">
+          		<spring:param name="id_comanda" value="${id_commanda}"/>
+			</spring:url>																																		
+   			<a class="btn-pedir" href="${fn:escapeXml(url)}" style="text-decoration: none; color: black; font-size: 16px; margin-left: 2%;">Solicitar camarero</a>
    			</div>
     	</div>
         
