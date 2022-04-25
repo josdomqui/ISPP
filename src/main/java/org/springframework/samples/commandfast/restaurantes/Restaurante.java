@@ -98,7 +98,8 @@ public class Restaurante extends NamedEntity {
 	@ElementCollection(targetClass =  RestauranteType.class)
 	@Column(name = "type", nullable = false)
 	@Enumerated(EnumType.STRING)
-	@NotNull
+	//No es posible poner Not Null TODO
+	//@NotNull
 	private List<RestauranteType> type;
 
 	@OneToOne(cascade = CascadeType.ALL)
