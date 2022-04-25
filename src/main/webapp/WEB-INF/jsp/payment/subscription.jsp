@@ -29,10 +29,10 @@
         <div class="row">
             <div class="col-lg-6 col-md-8 col-12 my-auto mx-auto">
                 <h1>Gestión de suscripciones Stripe</h1>
-                <p class="lead mb-4">
+                <p class="lead mb-4" style="font-size: 19px;">
                     Por favor, complete el siguiente formulario para realizar el pago.
                 </p>
-                <h5 class="mb-2">Escoja su plan de pago.</h5>
+                <h5 class="mb-2" style="font-size: 16px;">Escoja su plan de pago.</h5>
                 <p class="text-muted">
                     60% de descuento cuando escoges el plan anual.
                 </p>
