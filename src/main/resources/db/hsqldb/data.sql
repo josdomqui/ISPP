@@ -68,6 +68,9 @@ INSERT INTO restaurante_type(restaurante_id, type) VALUES (2,'COMEDORES');
 INSERT INTO restaurante_type(restaurante_id, type) VALUES (2,'EUROPA_DEL_ESTE');
 INSERT INTO restaurante_type(restaurante_id, type) VALUES (3,'GOURMET');
 INSERT INTO restaurante_type(restaurante_id, type) VALUES (3,'AUTOR');
+INSERT INTO restaurante_type(restaurante_id, type) VALUES (4,'TRES_TENEDORES');
+INSERT INTO restaurante_type(restaurante_id, type) VALUES (4,'AFRICANA');
+
 
 
 INSERT INTO valoraciones(id, opinion, puntuacion, restaurant_id) values (1, 'El restaurante es muy recomendable', 4, 1);
