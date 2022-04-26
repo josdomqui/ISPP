@@ -16,6 +16,7 @@ import org.springframework.samples.commandfast.restaurantes.Restaurante;
 import org.springframework.samples.commandfast.restaurantes.RestauranteService;
 import org.springframework.samples.commandfast.restaurantes.RestauranteType;
 import org.springframework.samples.commandfast.user.User;
+import org.springframework.samples.commandfast.user.UserService;
 import org.springframework.stereotype.Service;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
@@ -23,6 +24,7 @@ class RestaurantServiceTests {
 
 	@Autowired
 	private RestauranteService restaurantService;
+	private UserService userService;
 	EntityManager em;
 
 	@Test
@@ -38,21 +40,24 @@ class RestaurantServiceTests {
 		int found = restaurant.size();
 
 		User user = new User();
-		user.setUsername("Carlos");
-		user.setPassword("pass1234");
-		user.setEnabled(Boolean.TRUE);
+    	user.setUsername("Martin");
+    	user.setPassword("pass1234");
+    	user.setEnabled(Boolean.TRUE);
+    
+    	this.userService.saveUser(user);
 
 		Restaurante r = new Restaurante();
 		r.setId(9);
-		r.setName("Jose");
-		r.setAddress("c viga");
+		r.setName("Maritn Avecilla");
+		r.setAddress("	Avenida la borbolla 3");
 		r.setCity("Granada");
-		r.setDescription("descrition_newwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
+		r.setDescription("Establecimiento de bebidas y cafes");
 		r.setTelephone("622423142");
-		r.setPhoto("photo");
-		r.setCapacity(12);
-		r.setSchedule("schedule");
+		r.setPhoto("/resources/images/bar1.jpg");
+		r.setCapacity("12");
+		r.setSchedule("Lunes/Viernes 10:00 - 20:00");
 		r.setEmail("email@gmail.com");
+		r.setValoracionMedia(2.5);
 		List<RestauranteType> l = new ArrayList<RestauranteType>();
 		l.add(RestauranteType.BAR);
 		l.add(RestauranteType.CERVECERIA);
@@ -94,6 +99,21 @@ class RestaurantServiceTests {
 	void shouldFindRestaurants() {
 		Restaurante re = this.restaurantService.findRestaurantById(1).get();
 		assertThat(this.restaurantService.findAllRestaurants().contains(re)).isTrue();
+	}
+
+	@Test
+	void shouldEditRestaurants() {
+		Restaurante re = this.restaurantService.findRestaurantById(1).get();
+		re.setCity("Nueva York");
+		this.restaurantService.save(re);
+		assertThat(re.getCity()).isEqualTo("Nueva York");
+	}
+
+	@Test
+	void shouldDeleteRestaurants() {
+		Restaurante re = this.restaurantService.findRestaurantById(1).get();
+		this.restaurantService.delete(re.getId());
+		assertThat(this.restaurantService.findAllRestaurants().contains(re)).isFalse();
 	}
 
 }

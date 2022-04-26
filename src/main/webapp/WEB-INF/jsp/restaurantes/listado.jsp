@@ -142,6 +142,22 @@
 											href="${fn:escapeXml(addProductUrl)}"
 											style="text-decoration: none; color: black; font-size: 16px;">Añadir
 											plato a la carta</a>
+											
+									<spring:url value="/restaurante/{id}/delete"
+										var="deleteRestaurante">
+										<spring:param name="id" value="${restaurante.id}" />
+									</spring:url>
+										<a type="button" class="buton-detalles-listado"
+											href="${fn:escapeXml(deleteRestaurante)}"
+											style="text-decoration: none; color: black; font-size: 16px;">Borrar</a>
+											
+									<spring:url value="/admin/editarRestaurante/{restauranteId}"
+										var="editarRestaurante">
+										<spring:param name="restauranteId" value="${restaurante.id}" />
+									</spring:url>
+										<a type="button" class="buton-detalles-listado"
+											href="${fn:escapeXml(editarRestaurante)}"
+											style="text-decoration: none; color: black; font-size: 16px;">Editar</a>
 									</p>
 							</sec:authorize>
 						</div>

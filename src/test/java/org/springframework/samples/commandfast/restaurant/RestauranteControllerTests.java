@@ -5,23 +5,15 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.FilterType;
-import org.springframework.samples.commandfast.configuration.SecurityConfiguration;
 import org.springframework.samples.commandfast.restaurantes.RestauranteController;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -100,6 +92,13 @@ class RestauranteControllerTests {
     @Test
     void testNoDeberiaMostarFormularioEditarRestaurante() throws Exception{
         mockMvc.perform(get("/restaurante/restaurantes/{id}/edit", 8373)).andExpect(status().is3xxRedirection()).andExpect(view().name("redirect:/"));
+
+    }
+
+    @WithMockUser
+    @Test
+    void testDeberiaMostarTerminosYServicios() throws Exception{
+        mockMvc.perform(get("/terms", 1)).andExpect(status().isOk()).andExpect(view().name("terms-conditions"));
 
     }
    
