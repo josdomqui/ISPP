@@ -17,7 +17,7 @@
     <div class="card mb-3" style="border: 2px solid; background-color: rgba(158, 172, 168, 0.5); border-radius:10px; width: 100%; ">
     <form:form modelAttribute="restaurante" class="form-horizontal" id="add-restaurant-form">
         
-        <div class="form-group has-feedback">
+        <div class="form-group has-feedback" style="margin: 20px;">
 
 			<petclinic:inputField label="Usuario" name="user.username"/>
 			

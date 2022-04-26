@@ -21,7 +21,7 @@
 			   		<c:forEach items="${notificaciones}" var="noti">
 			   		<c:if test="${noti.atendido == 0}">
 			   		<div class="col-xs-12 col-md-3">
-			    				<div class="card-body mb-3" style="background-color: rgba(158, 172, 168, 0.5); border-radius:10px">
+			    				<div class="card-body mb-3" style="background-color: rgba(158, 172, 168, 0.5); border-radius:10px; padding: 20px;">
 			    					<h2 class="card-title"><c:out value = "Mesa"/></h2>
 									<p class="card-text"><c:out value="${noti.numeroMesa}"/></p>
 									<spring:url value="/restaurante/notify/clear/{id_notification}" var="url">
