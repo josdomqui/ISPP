@@ -20,7 +20,7 @@
         <div class="form-group has-feedback" style="margin: 20px;">
 
 			<petclinic:inputField label="Usuario" name="user.username"/>
-			
+			<input type="hidden" name="valoracionMedia" value="0.0">
 			<c:if test="${error}"><span style="color: red"><c:out value="Ya existe un usuario con este nombre"/></span><br/></c:if>
 			
 			<spring:bind path="user.password">
@@ -78,7 +78,7 @@
             <div class="col-sm-12" style="text-align: center; margin-top: 5px;">
                 <c:choose>
                     <c:when test="${restaurante['new']}">
-                        <button class="buton-detalles-listado" type="submit" style="text-decoration: none; color: black; font-size: 17px;">Registra Pago</button>
+                        <button class="buton-detalles-listado" type="submit" style="text-decoration: none; color: black; font-size: 17px;">Registrar Restaurante</button>
                     </c:when>
                 </c:choose>
             </div>

@@ -109,7 +109,7 @@ public class Restaurante extends NamedEntity {
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "restaurante")
 	private Set<Command> commands;
 	
-	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "restaurante")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurante")
 	private List<Valoracion> valoraciones;
 
 }
