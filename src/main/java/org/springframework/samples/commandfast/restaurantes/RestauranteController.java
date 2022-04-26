@@ -38,6 +38,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.samples.commandfast.product.ProductService;
 import org.springframework.samples.commandfast.user.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -61,16 +62,22 @@ public class RestauranteController {
 	private final UserService userService;
 	private final PaymentService paymentService;
 	private final CommandService commandService;
+	private final ValoracionService valoracionService;
+	private final NotificationService notificationService;
+
 	@Value("${STRIPE_PUBLIC_KEY}")
     private String apiPublicKey;
 
 	@Autowired
-	public RestauranteController(RestauranteService restauranteService, ProductService productService, UserService userService, PaymentService paymentService, CommandService commandService) { 
+	public RestauranteController(RestauranteService restauranteService, ProductService productService, UserService userService, PaymentService paymentService, CommandService commandService, ValoracionService valoracionService, NotificationService notificationService) { 
 		this.restauranteService = restauranteService; 
 		this.productService = productService; 
 		this.userService = userService; 
 		this.paymentService = paymentService;
 		this.commandService = commandService;
+		this.valoracionService = valoracionService;
+		this.notificationService = notificationService;
+
 	}
 
     @GetMapping(value = { "/list" })
@@ -341,6 +348,62 @@ public class RestauranteController {
 				model.put("conEfectivo", conEfectivo);
 			}
 			return "restaurantes/payments";
+		} else {
+			return "/";
+		}
+	}
+	
+	// Notifications
+	
+	@GetMapping(value = "/notify/clear/{id_notification}")
+	public String notifyClear(Map<String, Object> model, @PathVariable("id_notification") Integer id_notification, RedirectAttributes redirectAttrs) {
+		// update notification
+		Notification notif = new Notification();
+		notif = notificationService.findNotificationById(id_notification);
+		notif.setAtendido(1);
+		try {
+			this.notificationService.saveNotification(notif);
+			redirectAttrs.addFlashAttribute("message", "Se ha marcado como atendida.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+		return ("redirect:/restaurante/notifications");
+	}
+	
+	@GetMapping(value = "/notify/{id_comanda}")
+	public String notify(Map<String, Object> model, @PathVariable("id_comanda") Integer id_comanda, RedirectAttributes redirectAttrs) {
+		Optional<Command> comanda = commandService.findIdCommands(id_comanda);
+		// create notification
+		Notification notif = new Notification();
+		notif.setAtendido(0);
+		notif.setNumeroMesa(comanda.get().getMesa().getNumber());
+		notif.setRestaurant(comanda.get().getRestaurante());
+		System.out.println(notif.toString());
+		try {
+			this.notificationService.saveNotification(notif);
+			redirectAttrs.addFlashAttribute("message", "Se ha notificado al camarero, por favor espere su llegada...");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+		return ("redirect:/carta/"+id_comanda.toString());
+	}
+	
+	// Ver si han solicitado camarero
+	@GetMapping(value = "/notifications")
+	public String notifications(Map<String, Object> model, HttpServletRequest request){
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(!principal.equals(STRING_ANONYMOUS_USER)) {
+			String username = request.getUserPrincipal().getName();
+			
+			Restaurante restauranteSesion = restauranteService.findByUsername(username);
+			List<Notification> notificaciones = notificationService.findNotificationsByRestaurant(restauranteSesion.getId());
+
+			model.put("sesionRestaurant", restauranteSesion);
+			model.put("notificaciones", notificaciones);
+			
+			return "restaurantes/notifications";
 		} else {
 			return "/";
 		}
