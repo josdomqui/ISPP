@@ -22,9 +22,33 @@
 			<petclinic:inputField label="Usuario" name="user.username"/>
 			
 			<c:if test="${error}"><span style="color: red"><c:out value="Ya existe un usuario con este nombre"/></span><br/></c:if>
-
-			<petclinic:inputField label="Contraseña" name="user.password"/> 
-						
+			
+			<spring:bind path="user.password">
+			 <c:set var="cssGroup" value="form-group ${status.error ? 'has-error' : '' }"/>
+    		 <c:set var="valid" value="${not status.error and not empty status.actualValue}"/>
+    		 <div class="${cssGroup}">
+			<c:if test="${status.error}">
+			<label  class="col-sm-2 control-label" style="color:red">Contraseña</label>
+			</c:if>
+			<c:if test="${!status.error}">
+			<label class="col-sm-2 control-label" >Contraseña</label>
+			</c:if>
+			
+			<div class="col-sm-10">
+			<input  class="form-control input-filtros" type="password" name="user.password"/> 
+			<c:if test="${status.error}">
+                <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                <span class="help-inline">${status.errorMessage}</span>
+            </c:if>
+			
+			
+			</div>
+			</div>
+			</spring:bind>
+			
+			
+			
+			
 			<petclinic:inputField label="Nombre" name="name"/>    
 			           
 			<petclinic:inputField label="Dirección de correo" name="email"/>  
