@@ -36,7 +36,6 @@ public class WelcomeController {
 		}
 		}
 		model.put("listaRestaurante", lres);
-		model.put("message", "Por favor activa tu ubicación");
 		return "welcome";
 	}
 	
