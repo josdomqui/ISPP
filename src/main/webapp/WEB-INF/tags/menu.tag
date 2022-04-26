@@ -24,7 +24,7 @@
 
         <sec:authorize access="!hasAuthority('restaurant')">
         <li class="nav-item">
-          <a style="text-decoration: none; color: white;" class="navbar-text active" aria-current="page" href="/command/new"><span style="color: rgb(255,255,255);" class="glyphicon glyphicon-cutlery" aria-hidden="true"></span> Test Pedir</a>
+          <a style="text-decoration: none; color: white;" class="navbar-text active" aria-current="page" href="/command/new"><span style="color: rgb(255,255,255);" class="glyphicon glyphicon-cutlery" aria-hidden="true"></span>Pedir</a>
         </li>
         </sec:authorize>
 

@@ -14,16 +14,15 @@
     	<div class="row">
     		<div class="col-3 offset-1"><h1><strong>Menu</strong></h1></div>
     		<div class="col-7 text-right">
+    		<spring:url value="/restaurante/notify/{id_comanda}" var="url">
+          		<spring:param name="id_comanda" value="${id_commanda}"/>
+			</spring:url>																																		
+   			<a class="btn-pedir" href="${fn:escapeXml(url)}" style="text-decoration: none; color: black; font-size: 16px; margin-left: 2%;">Solicitar camarero</a>
+    		
 			<spring:url value="/carta/{id_comanda}/ticket" var="url">
           		<spring:param name="id_comanda" value="${id_commanda}"/>
 			</spring:url>																																		
    			<a class="btn-pedir" href="${fn:escapeXml(url)}" style="text-decoration: none; color: black; font-size: 16px;">Finalizar pedido</a>
-   			
-  
-   			<spring:url value="/restaurante/notify/{id_comanda}" var="url">
-          		<spring:param name="id_comanda" value="${id_commanda}"/>
-			</spring:url>																																		
-   			<a class="btn-pedir" href="${fn:escapeXml(url)}" style="text-decoration: none; color: black; font-size: 16px; margin-left: 2%;">Solicitar camarero</a>
    			</div>
     	</div>
         

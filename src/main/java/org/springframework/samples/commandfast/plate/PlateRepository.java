@@ -21,13 +21,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-
-/**
- * Spring Data JPA OwnerRepository interface
- *
- * @author Michael Isvy
- * @since 15.1.2013
- */
 public interface PlateRepository extends CrudRepository<Plate, Integer> {
 	
 	@Query("SELECT plate FROM Plate plate")
