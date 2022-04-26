@@ -11,6 +11,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -38,7 +39,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.samples.commandfast.product.ProductService;
+import org.springframework.samples.commandfast.user.UserService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import com.google.zxing.WriterException;
 
 @Controller
@@ -60,17 +64,21 @@ public class RestauranteController {
 	private final PaymentService paymentService;
 	private final CommandService commandService;
 	private final ValoracionService valoracionService;
+	private final NotificationService notificationService;
+
 	@Value("${STRIPE_PUBLIC_KEY}")
     private String apiPublicKey;
 
 	@Autowired
-	public RestauranteController(RestauranteService restauranteService, ProductService productService, UserService userService, PaymentService paymentService, CommandService commandService, ValoracionService valoracionService) { 
+	public RestauranteController(RestauranteService restauranteService, ProductService productService, UserService userService, PaymentService paymentService, CommandService commandService, ValoracionService valoracionService, NotificationService notificationService) { 
 		this.restauranteService = restauranteService; 
 		this.productService = productService; 
 		this.userService = userService; 
 		this.paymentService = paymentService;
 		this.commandService = commandService;
 		this.valoracionService = valoracionService;
+		this.notificationService = notificationService;
+
 	}
 
     @GetMapping(value = { "/list" })
@@ -250,16 +258,18 @@ public class RestauranteController {
 	public String processCreationForm(@Valid Restaurante restaurant, BindingResult result, ModelMap model) {
 		model.put("stripePublicKey", apiPublicKey);
 		if (result.hasErrors()) {
+			
 			if(restaurant.getType().isEmpty()) model.put("error_tipos", true);
+			
 			else model.put("error_tipos", false);
+			
 			ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
 			model.put("listaTipos", listaTipoRestaurantes);
-			
 		}
 		if (result.hasErrors()) { 
 			return RESTAURANTE_FORM; 
-		} else {
-			
+		}
+		else {
 			List<String> lista = new ArrayList<>(); 
 			userService.findAllUser().forEach(x->lista.add(x.getUsername()));
 			
@@ -344,6 +354,62 @@ public class RestauranteController {
 		}
 	}
 	
+	// Notifications
+	
+	@GetMapping(value = "/notify/clear/{id_notification}")
+	public String notifyClear(Map<String, Object> model, @PathVariable("id_notification") Integer id_notification, RedirectAttributes redirectAttrs) {
+		// update notification
+		Notification notif = new Notification();
+		notif = notificationService.findNotificationById(id_notification);
+		notif.setAtendido(1);
+		try {
+			this.notificationService.saveNotification(notif);
+			redirectAttrs.addFlashAttribute("message", "Se ha marcado como atendida.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+		return ("redirect:/restaurante/notifications");
+	}
+	
+	@GetMapping(value = "/notify/{id_comanda}")
+	public String notify(Map<String, Object> model, @PathVariable("id_comanda") Integer id_comanda, RedirectAttributes redirectAttrs) {
+		Optional<Command> comanda = commandService.findIdCommands(id_comanda);
+		// create notification
+		Notification notif = new Notification();
+		notif.setAtendido(0);
+		notif.setNumeroMesa(comanda.get().getMesa().getNumber());
+		notif.setRestaurant(comanda.get().getRestaurante());
+		System.out.println(notif.toString());
+		try {
+			this.notificationService.saveNotification(notif);
+			redirectAttrs.addFlashAttribute("message", "Se ha notificado al camarero, por favor espere su llegada...");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+		return ("redirect:/carta/"+id_comanda.toString());
+	}
+	
+	// Ver si han solicitado camarero
+	@GetMapping(value = "/notifications")
+	public String notifications(Map<String, Object> model, HttpServletRequest request){
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(!principal.equals(STRING_ANONYMOUS_USER)) {
+			String username = request.getUserPrincipal().getName();
+			
+			Restaurante restauranteSesion = restauranteService.findByUsername(username);
+			List<Notification> notificaciones = notificationService.findNotificationsByRestaurant(restauranteSesion.getId());
+
+			model.put("sesionRestaurant", restauranteSesion);
+			model.put("notificaciones", notificaciones);
+			
+			return "restaurantes/notifications";
+		} else {
+			return "/";
+		}
+	}
+	
 	// Crear/Editar productos
   
 	@GetMapping(value = "/{id}/product/new")
@@ -360,7 +426,8 @@ public class RestauranteController {
 			return CARTA_FORM;
 		}
 		else{
-			int idPlato = restauranteService.findAllMenu().size()+1;
+			int lastIdx = restauranteService.findAllMenu().stream().collect(Collectors.toList()).size() - 1;
+			int idPlato = restauranteService.findAllMenu().stream().collect(Collectors.toList()).get(lastIdx).getId()+1;
 			product.setId(idPlato);
 			product.setRestaurant(restauranteService.findRestaurantById(id).get());
 			this.productService.save(product);
@@ -389,4 +456,98 @@ public class RestauranteController {
 		}
 	}
 	
+	@GetMapping(value = "/{id_restaurante}/{id}/product/delete")
+	public String deleteProduct(@PathVariable("id") int id, @PathVariable("id_restaurante") int id_restaurante, ModelMap model) {
+		productService.delete(id);
+		model.addAttribute("message","Producto eliminado correctamente.");
+		return "redirect:/restaurante/{id_restaurante}/detalles/carta";
+	}
+	
+	@GetMapping(value = "/{id}/delete")
+	public String deleteRestaurante(@PathVariable("id") int id, ModelMap model) {
+		
+		ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
+		restauranteService.delete(id);
+		model.put("listaRestaurante", restauranteService.findAllRestaurants());
+		model.put(STRING_LISTA_TIPOS, listaTipoRestaurantes);
+
+		return "redirect:/restaurante/list";
+	}
+	
+	@GetMapping("/editar")
+	public String editarRestaurante(ModelMap model) {
+	
+		ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
+		Restaurante restaurante = restauranteService.obtenerRestaurante();
+		model.put("error", false); 
+		model.put("restaurante", restaurante);
+		model.put(STRING_LISTA_TIPOS, listaTipoRestaurantes);
+		return "restaurantes/editarRestauranteForm";
+	}
+	
+	@PostMapping(value = "/editar")
+	public String editarRestaurante(@Valid Restaurante restaurante,BindingResult result, ModelMap model,HttpServletRequest request) {
+		Restaurante restaurant = restauranteService.obtenerRestaurante();
+		if (result.hasErrors()) {
+			
+			if(restaurant.getType().isEmpty()) model.put("error_tipos", true);
+			
+			else model.put("error_tipos", false);
+			
+			ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
+			model.put("listaTipos", listaTipoRestaurantes);
+			return "restaurantes/editarRestauranteForm"; 
+		}
+		else {
+
+			
+		
+			}if(restaurant.getType().isEmpty()) {
+				ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class)); 
+				model.put("restaurant", restaurant);
+				model.put("error_tipos", true);
+				model.put(STRING_LISTA_TIPOS, listaTipoRestaurantes);
+				return "restaurantes/editarRestauranteForm";
+			} else {
+				
+				List<RestauranteType> aux = new ArrayList<>();
+				
+				String[] tipos = request.getParameter("type").split(",");
+				 
+				for (String s: tipos) {
+					aux.add(RestauranteType.valueOf(s));
+				}
+				
+				restaurant.getUser().setPassword(request.getParameter("user.password"));
+				restaurant.setName(request.getParameter("name"));
+				restaurant.setTelephone(request.getParameter("telephone"));
+				restaurant.setEmail(request.getParameter("email"));
+				restaurant.setCity(request.getParameter("city"));
+				restaurant.setAddress(request.getParameter("address"));
+				restaurant.setDescription(request.getParameter("description"));
+				restaurant.setCapacity(request.getParameter("capacity"));
+				restaurant.setSchedule(request.getParameter("schedule"));
+				restaurant.setType(aux);
+				
+				
+				this.restauranteService.save(restaurant); 
+				return "redirect:/welcome"; 
+			} 
+	
+	}
+	
+	
+	
+	
 }
+
+	
+	
+	
+	
+	
+	
+	
+
+	
+

@@ -81,8 +81,8 @@ public class Restaurante extends NamedEntity {
 	
 	@Column(name = "capacity")
 	@NotNull
-	@Positive
-	private Integer capacity;
+	@Min(1)
+	private String capacity;
 	
 	@Column(name = "schedule")
 	@NotEmpty
@@ -101,15 +101,15 @@ public class Restaurante extends NamedEntity {
 	@NotNull
 	private List<RestauranteType> type;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "username", referencedColumnName = "username")
 	@Valid
 	private User user;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurante")
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "restaurante")
 	private Set<Command> commands;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurante")
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "restaurante")
 	private List<Valoracion> valoraciones;
 
 }

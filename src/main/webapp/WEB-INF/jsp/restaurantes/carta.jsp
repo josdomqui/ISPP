@@ -34,8 +34,36 @@
                                   <p><a type="button" class="buton-detalles-listado mt-3" href="${fn:escapeXml(editProductUrl)}"
                                     style="text-decoration: none; color: black;">Editar
                                     plato</a></p>
+                                    
+                                  <spring:url value="/restaurante/{id_restaurante}/{id}/product/delete" var="deleteProductUrl">
+                                    <spring:param name="id_restaurante" value="${restaurante.id}" />
+                                    <spring:param name="id" value="${product.id}" />
+                                  </spring:url>
+                                    <p><a type="button" class="buton-detalles-listado mt-3" href="${fn:escapeXml(deleteProductUrl)}"
+                                    style="text-decoration: none; color: black;">Borrar
+                                    plato</a></p>
                                 </c:if>
                                 </sec:authorize>
+                                
+                                <sec:authorize access="hasAuthority('admin')">
+                                  <spring:url value="/restaurante/{id_restaurante}/{id}/product/edit" var="editProductUrl">
+                                    <spring:param name="id_restaurante" value="${restaurante.id}" />
+                                    <spring:param name="id" value="${product.id}" />
+                                  </spring:url>
+                    
+                                  <p><a type="button" class="buton-detalles-listado mt-3" href="${fn:escapeXml(editProductUrl)}"
+                                    style="text-decoration: none; color: black;">Editar
+                                    plato</a></p>
+                                    
+                                  <spring:url value="/restaurante/{id_restaurante}/{id}/product/delete" var="deleteProductUrl">
+                                    <spring:param name="id_restaurante" value="${restaurante.id}" />
+                                    <spring:param name="id" value="${product.id}" />
+                                  </spring:url>
+                                    <p><a type="button" class="buton-detalles-listado mt-3" href="${fn:escapeXml(deleteProductUrl)}"
+                                    style="text-decoration: none; color: black;">Borrar
+                                    plato</a></p>
+                                </sec:authorize>
+                                
 
               </div>
             </div>
@@ -54,6 +82,18 @@
                 style="text-decoration: none; color: black; font-size: 22px;">Añadir
                 plato a la carta</a></p>
             </c:if>
+
+          </sec:authorize>
+          
+          <sec:authorize access="hasAuthority('admin')">
+            <spring:url value="/restaurante/{id}/product/new" var="addProductUrl">
+              <spring:param name="id" value="${restaurante.id}" />
+            </spring:url>
+
+            <p><a type="button" class="buton-detalles-listado"
+                href="${fn:escapeXml(addProductUrl)}"
+                style="text-decoration: none; color: black; font-size: 22px;">Añadir
+                plato a la carta</a></p>
 
           </sec:authorize>
         </div>

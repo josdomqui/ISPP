@@ -50,7 +50,7 @@ class RestaurantServiceTests {
     r.setDescription("descrition_newwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
     r.setTelephone("622423142");
     r.setPhoto("photo");
-    r.setCapacity(12);
+    r.setCapacity("12");
     r.setSchedule("schedule");
     r.setEmail("email@gmail.com");
     List<RestauranteType> l =  new ArrayList<>();
