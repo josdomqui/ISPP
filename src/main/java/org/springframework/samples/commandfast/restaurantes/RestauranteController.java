@@ -147,7 +147,6 @@ public class RestauranteController {
 		model.put("id_restaurante", restaurante.get().getId());
 
         String base= request.getLocalName();
-        System.out.println(base);
         String url = "";
         if(base.equals("localhost")) {
         	url = "http://localhost:8080/command/new/"+id.toString()+"/"+numero_mesa;
