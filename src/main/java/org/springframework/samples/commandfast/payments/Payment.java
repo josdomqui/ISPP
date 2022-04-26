@@ -6,6 +6,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.samples.commandfast.command.Command;
 import org.springframework.samples.commandfast.mesa.Mesa;
 import org.springframework.samples.commandfast.model.BaseEntity;
 
