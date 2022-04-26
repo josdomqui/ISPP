@@ -47,7 +47,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, "/restaurante/list/**").permitAll()
 				.antMatchers(HttpMethod.GET, RESTAURANTE_URL).permitAll()
 				.antMatchers(HttpMethod.POST, RESTAURANTE_URL).permitAll()
+				.antMatchers(HttpMethod.POST, "/command/new/**/**").permitAll()
 				.antMatchers("/command/new").permitAll()
+				.antMatchers("/command/new/**/**").permitAll()
 				.antMatchers("/command/all").hasAnyAuthority("restaurant")
 				.antMatchers("/carta/**").permitAll()
 				.antMatchers("/admin/**").hasAnyAuthority(STRING_ADMIN)
@@ -60,7 +62,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		// de la BD H2 (deshabilitar las cabeceras de protección contra
 		// ataques de tipo csrf y habilitar los framesets si su contenido
 		// se sirve desde esta misma página.
-		http.csrf().ignoringAntMatchers("/h2-console/**", "/charge", "command/new", "/payment/subscription");
+		http.csrf().ignoringAntMatchers("/h2-console/**", "/charge", "command/new", "command/new/**/**", "/payment/subscription");
 		http.headers().frameOptions().sameOrigin();
 
 	}

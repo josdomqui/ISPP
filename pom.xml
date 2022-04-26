@@ -70,7 +70,17 @@
 	        <artifactId>itext7-core</artifactId>
 	        <version>${itext.version}</version>
 	        <type>pom</type>
-    	</dependency>        
+    	</dependency>
+    	<dependency>
+		    <groupId>com.google.zxing</groupId>
+		    <artifactId>core</artifactId>
+		    <version>3.4.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.google.zxing</groupId>
+		    <artifactId>javase</artifactId>
+		    <version>3.4.0</version>
+		</dependency>       
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>

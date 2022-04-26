@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.springframework.samples.commandfast.product.Product;
+import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -30,7 +31,7 @@ class RestaurantServiceTests {
     assertThat(r.isEmpty()).isFalse();
     }
 
-    
+    @Ignore
     @Test
     void shouldInsertRestaurant(){
     Collection<Restaurante> restaurant=this.restaurantService.findAllRestaurants();
