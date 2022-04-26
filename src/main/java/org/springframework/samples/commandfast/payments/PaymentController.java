@@ -20,6 +20,7 @@ import org.springframework.samples.commandfast.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class PaymentController {
@@ -39,8 +40,12 @@ public class PaymentController {
 	}
 	
 	@GetMapping(value = "/payment/{id_comanda}")
-	public String payOrder(@PathVariable("id_comanda") int idComanda,  Map<String, Object> model) {
+	public String payOrder(@PathVariable("id_comanda") int idComanda,  Map<String, Object> model, RedirectAttributes redirectAttrs) {
 		Optional<Command> command = commandService.findIdCommands(idComanda);
+		if(command.get().getPayment() != null) {
+			redirectAttrs.addFlashAttribute("message", "Usted ya ha pagado el pedido.");
+			return "redirect:/command/new";
+		}
 		this.paymentService.makePayment(command.get().getPrice(), command.get().getMesa());
 		model.put("stripePublicKey", apiPublicKey);
 		model.put("price", command.get().getPrice());
@@ -56,6 +61,10 @@ public class PaymentController {
     
 	@GetMapping(value = "/payment/successPage/{id_comanda}")
 	public String paymentSuccessPage(@PathVariable("id_comanda") int idComanda, Map<String, Object> model){
+		Optional<Command> command = commandService.findIdCommands(idComanda);
+		Payment payment =this.paymentService.makePayment(command.get().getPrice(), command.get().getMesa());
+		payment.setPayHere(false);
+		command.get().setPayment(payment);
 		model.put("id_comanda", idComanda);
 		return "payment/success";
 	}
@@ -97,10 +106,15 @@ public class PaymentController {
 	}
 	
 	@GetMapping(value = "/payment/cash/{id_comanda}")
-	public String payHereCash(@PathVariable("id_comanda") int idCommanda,  Map<String, Object> model){
-		Optional<Command> command = commandService.findIdCommands(idCommanda);	
+	public String payHereCash(@PathVariable("id_comanda") int idCommanda,  Map<String, Object> model, RedirectAttributes redirectAttrs){
+		Optional<Command> command = commandService.findIdCommands(idCommanda);
+		if(command.get().getPayment() != null) {
+			redirectAttrs.addFlashAttribute("message", "Usted ya ha pagado el pedido.");
+			return "redirect:/command/new";
+		}
 		Payment payment = this.paymentService.makePayment(command.get().getPrice(), command.get().getMesa());
 		payment.setPayHere(true);
+		command.get().setPayment(payment);
 		this.paymentService.savePayment(payment);
 		
 		return "redirect:/payment/waitPage";
@@ -108,12 +122,16 @@ public class PaymentController {
 	}
 	
 	@GetMapping(value = "/payment/creditCard/{id_comanda}")
-	public String payHerecCard(@PathVariable("id_comanda") int idCommanda,  Map<String, Object> model){
+	public String payHerecCard(@PathVariable("id_comanda") int idCommanda,  Map<String, Object> model, RedirectAttributes redirectAttrs){
 		Optional<Command> command = commandService.findIdCommands(idCommanda);
-		
+		if(command.get().getPayment() != null) {
+			redirectAttrs.addFlashAttribute("message", "Usted ya ha pagado el pedido.");
+			return "redirect:/command/new";
+		}
 		Payment payment =this.paymentService.makePayment(command.get().getPrice(), command.get().getMesa());
 		payment.setCreditCard(true);
 		payment.setPayHere(true);
+		command.get().setPayment(payment);
 		this.paymentService.savePayment(payment);
 		
 		return "redirect:/payment/waitPage";

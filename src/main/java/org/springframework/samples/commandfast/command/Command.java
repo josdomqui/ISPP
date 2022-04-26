@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.samples.commandfast.line.Line;
 import org.springframework.samples.commandfast.mesa.Mesa;
 import org.springframework.samples.commandfast.model.BaseEntity;
+import org.springframework.samples.commandfast.payments.Payment;
 import org.springframework.samples.commandfast.restaurantes.Restaurante;
 
 import lombok.Getter;
@@ -50,6 +51,9 @@ public class Command extends BaseEntity{
 	@ManyToOne
 	@JoinColumn(name="restaurant_id")
 	private Restaurante restaurante;
+	
+	@ManyToOne
+	private Payment payment;
 	
 	
 }
