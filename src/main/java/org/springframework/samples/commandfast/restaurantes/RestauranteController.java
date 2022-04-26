@@ -39,7 +39,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+import org.springframework.samples.commandfast.product.ProductService;
+import org.springframework.samples.commandfast.user.UserService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import com.google.zxing.WriterException;
 
 @Controller
@@ -62,6 +64,7 @@ public class RestauranteController {
 	private final CommandService commandService;
 	private final ValoracionService valoracionService;
 	private final NotificationService notificationService;
+
 	@Value("${STRIPE_PUBLIC_KEY}")
     private String apiPublicKey;
 
@@ -74,6 +77,7 @@ public class RestauranteController {
 		this.commandService = commandService;
 		this.valoracionService = valoracionService;
 		this.notificationService = notificationService;
+
 	}
 
     @GetMapping(value = { "/list" })
@@ -253,16 +257,18 @@ public class RestauranteController {
 	public String processCreationForm(@Valid Restaurante restaurant, BindingResult result, ModelMap model) {
 		model.put("stripePublicKey", apiPublicKey);
 		if (result.hasErrors()) {
+			
 			if(restaurant.getType().isEmpty()) model.put("error_tipos", true);
+			
 			else model.put("error_tipos", false);
+			
 			ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
 			model.put("listaTipos", listaTipoRestaurantes);
-			
 		}
 		if (result.hasErrors()) { 
 			return RESTAURANTE_FORM; 
-		} else {
-			
+		}
+		else {
 			List<String> lista = new ArrayList<>(); 
 			userService.findAllUser().forEach(x->lista.add(x.getUsername()));
 			
@@ -448,4 +454,91 @@ public class RestauranteController {
 		}
 	}
 	
+	@GetMapping(value = "/{id}/delete")
+	public String deleteRestaurante(@PathVariable("id") int id, ModelMap model) {
+		
+		ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
+		restauranteService.delete(id);
+		model.put("listaRestaurante", restauranteService.findAllRestaurants());
+		model.put(STRING_LISTA_TIPOS, listaTipoRestaurantes);
+
+		return "redirect:/restaurante/list";
+	}
+	
+	@GetMapping("/editar")
+	public String editarRestaurante(ModelMap model) {
+	
+		ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
+		Restaurante restaurante = restauranteService.obtenerRestaurante();
+		model.put("error", false); 
+		model.put("restaurante", restaurante);
+		model.put(STRING_LISTA_TIPOS, listaTipoRestaurantes);
+		return "restaurantes/editarRestauranteForm";
+	}
+	
+	@PostMapping(value = "/editar")
+	public String editarRestaurante(@Valid Restaurante restaurante,BindingResult result, ModelMap model,HttpServletRequest request) {
+		Restaurante restaurant = restauranteService.obtenerRestaurante();
+		if (result.hasErrors()) {
+			
+			if(restaurant.getType().isEmpty()) model.put("error_tipos", true);
+			
+			else model.put("error_tipos", false);
+			
+			ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
+			model.put("listaTipos", listaTipoRestaurantes);
+			return "restaurantes/editarRestauranteForm"; 
+		}
+		else {
+
+			
+		
+			}if(restaurant.getType().isEmpty()) {
+				ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class)); 
+				model.put("restaurant", restaurant);
+				model.put("error_tipos", true);
+				model.put(STRING_LISTA_TIPOS, listaTipoRestaurantes);
+				return "restaurantes/editarRestauranteForm";
+			} else {
+				
+				List<RestauranteType> aux = new ArrayList<>();
+				
+				String[] tipos = request.getParameter("type").split(",");
+				 
+				for (String s: tipos) {
+					aux.add(RestauranteType.valueOf(s));
+				}
+				
+				restaurant.getUser().setPassword(request.getParameter("user.password"));
+				restaurant.setName(request.getParameter("name"));
+				restaurant.setTelephone(request.getParameter("telephone"));
+				restaurant.setEmail(request.getParameter("email"));
+				restaurant.setCity(request.getParameter("city"));
+				restaurant.setAddress(request.getParameter("address"));
+				restaurant.setDescription(request.getParameter("description"));
+				restaurant.setCapacity(request.getParameter("capacity"));
+				restaurant.setSchedule(request.getParameter("schedule"));
+				restaurant.setType(aux);
+				
+				
+				this.restauranteService.save(restaurant); 
+				return "redirect:/welcome"; 
+			} 
+	
+	}
+	
+	
+	
+	
 }
+
+	
+	
+	
+	
+	
+	
+	
+
+	
+

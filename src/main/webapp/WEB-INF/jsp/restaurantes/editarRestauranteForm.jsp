@@ -12,34 +12,33 @@
 <commandfast:layout pageName="restaurante">
     <div class="container">
     <h2>
-        <strong><c:if test="${restaurante['new']}">Nuevo </c:if> Restaurante</strong>
+        <strong>Editar Restaurante</strong>
     </h2>
     <div class="card mb-3" style="border: 2px solid; background-color: rgba(158, 172, 168, 0.5); border-radius:10px; width: 100%; ">
     <form:form modelAttribute="restaurante" class="form-horizontal" id="add-restaurant-form">
         
         <div class="form-group has-feedback">
-
-			<petclinic:inputField label="Usuario" name="user.username"/>
 			
 			<c:if test="${error}"><span style="color: red"><c:out value="Ya existe un usuario con este nombre"/></span><br/></c:if>
 
-			<petclinic:inputField label="Contraseña" name="user.password"/> 
+			<input type="hidden" name="user.username" value="${restaurante.user.username}">
+			<petclinic:inputField label="Contraseña" name="user.password" /> 
 						
-			<petclinic:inputField label="Nombre" name="name"/>    
+			<petclinic:inputField label="Nombre" name="name" />    
 			           
-			<petclinic:inputField label="Dirección de correo" name="email"/>  
+			<petclinic:inputField label="Dirección de correo" name="email" />  
 			              
-			<petclinic:inputField label="Telefono" name="telephone"/>                
+			<petclinic:inputField label="Telefono" name="telephone" />                
             
-			<petclinic:inputField label="Ciudad" name="city"/>                
+			<petclinic:inputField label="Ciudad" name="city" />                
             
-			<petclinic:inputField label="Dirección" name="address"/>                
+			<petclinic:inputField label="Dirección" name="address" />                
             
-			<petclinic:inputField label="Descripción" name="description"/>                
+			<petclinic:inputField label="Descripción" name="description" />                
             
-			<petclinic:inputField label="Capacidad del restaurante" name="capacity"/> 
+			<petclinic:inputField label="Capacidad del restaurante" name="capacity" /> 
 			
-			<petclinic:inputField label="Horarios" name="schedule"/> 
+			<petclinic:inputField label="Horarios" name="schedule" /> 
      
             <petclinic:selectField label="Tipos de restaurantes" name="type" size="3" names="${listaTipos}"/>
 			
@@ -47,18 +46,8 @@
 			
 			<br/>
 			<br/>
-			<span class="input-group" style="margin-left: 5%;">**Si desea añadir una foto contacte con nosotros indicandonos el nombre de restaurante y la foto que desee</span><br/>
-        </div>
 
-        <div class="form-group">
-            <div class="col-sm-12" style="text-align: center; margin-top: 5px;">
-                <c:choose>
-                    <c:when test="${restaurante['new']}">
-                        <button class="buton-detalles-listado" type="submit" style="text-decoration: none; color: black; font-size: 17px;">Registra Pago</button>
-                    </c:when>
-                </c:choose>
-            </div>
-        </div>
+        <button class="buton-detalles-listado" type="submit" style="text-decoration: none; color: black; font-size: 17px;">Confirmar Cambios</button>
          </form:form>
     </div>
     
