@@ -3,13 +3,41 @@
 <%@ taglib prefix="commandfast" tagdir="/WEB-INF/tags" %>
 
 <commandfast:layout pageName="terms">
-
-
-	    <iframe id="terminos_de_uso" src="https://docs.google.com/viewer?srcid=1Flu9tm41yOyE8Uqvs0ivOcInwUT3GWhK&pid=explorer&efh=false&a=v&chrome=false&embedded=true" 
-	    	width="100%" height="680px" ></iframe>
-	    	
-	    <iframe id="politicas" src="https://docs.google.com/viewer?srcid=1r6f4BnDnw6zRmoA-urYeAaYLYua_qiT1&pid=explorer&efh=false&a=v&chrome=false&embedded=true" 
-	    	width="100%" height="680px" ></iframe>
-
+	
+	<div class="terms">
+		<h1>Seguridad y transparencia como principio</h1>
+		<br>
+			<p>Nuestra aplicacion usa en todo momento el cifrado https para todas las comunicaciones realizadas a traves de la misma, asegurando
+			de esta forma que nadie pueda interceptar dicha informacion de forma fraudulenta.</p>
+			<p>Además cuenta con un correo electronico de atención al cliente mediante el cual puede contactar con nosotros ante cualquier duda,
+			asi como para solicitar cualquier derecho <a href='https://www.aepd.es/es/derechos-y-deberes/conoce-tus-derechos'>ARCO</a> de los detallados en los documentos posteriores de "Terminos y Condiciones de Uso" y
+			"Políticas de Privacidad", o desde el que será infomado en caso de cualquier falla de seguridad o filtrado de datos. 
+			Siendo el correo electronico <i>commandfastispp@gmail.com</i></p>
+		<br>
+		
+		<h1>Datos recogidos del usuario</h1>
+		 <br>
+			<p>En caso de que se registre en nuestra aplicacion, los datos que serán recogidos en nuestra base de datos serán los correspondientes 
+			al formulario de registro, concretamente: </p>
+			<br>
+			<ul>
+				<li><p>Patata</p></li>
+			</ul>
+		<br>
+		
+	</div>
+	<div class='container'>
+		<div class='row'>
+			<div class='col-lg-6'>
+			<iframe id="terminos_de_uso" src="https://docs.google.com/viewer?srcid=1Flu9tm41yOyE8Uqvs0ivOcInwUT3GWhK&pid=explorer&efh=false&a=v&chrome=false&embedded=true" 
+			    	width="100%" height="680px" ></iframe>
+			</div>
+			
+			<div class='col-lg-6'>
+			<iframe id="politicas" src="https://docs.google.com/viewer?srcid=1r6f4BnDnw6zRmoA-urYeAaYLYua_qiT1&pid=explorer&efh=false&a=v&chrome=false&embedded=true" 
+			    	width="100%" height="680px" ></iframe>
+			</div>  	
+		</div>
+	</div>
 
 </commandfast:layout>
