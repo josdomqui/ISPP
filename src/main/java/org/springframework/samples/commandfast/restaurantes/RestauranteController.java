@@ -11,6 +11,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -425,7 +426,8 @@ public class RestauranteController {
 			return CARTA_FORM;
 		}
 		else{
-			int idPlato = restauranteService.findAllMenu().size()+1;
+			int lastIdx = restauranteService.findAllMenu().stream().collect(Collectors.toList()).size() - 1;
+			int idPlato = restauranteService.findAllMenu().stream().collect(Collectors.toList()).get(lastIdx).getId()+1;
 			product.setId(idPlato);
 			product.setRestaurant(restauranteService.findRestaurantById(id).get());
 			this.productService.save(product);
@@ -452,6 +454,13 @@ public class RestauranteController {
 			this.productService.save(product);
 			return "redirect:/restaurante/{id_restaurante}/detalles/carta";
 		}
+	}
+	
+	@GetMapping(value = "/{id_restaurante}/{id}/product/delete")
+	public String deleteProduct(@PathVariable("id") int id, @PathVariable("id_restaurante") int id_restaurante, ModelMap model) {
+		productService.delete(id);
+		model.addAttribute("message","Producto eliminado correctamente.");
+		return "redirect:/restaurante/{id_restaurante}/detalles/carta";
 	}
 	
 	@GetMapping(value = "/{id}/delete")
