@@ -52,12 +52,23 @@ class RestauranteControllerTests {
     
     @BeforeEach
 	void setup() {
+    	Restaurante rest = restaurantService.findRestaurantById(1).get();
 		Notification notificacion = new Notification();
 		notificacion.setId(1);
 		notificacion.setAtendido(0);
 		notificacion.setNumeroMesa(1);
-		Restaurante rest = restaurantService.findRestaurantById(1).get();
 		notificacion.setRestaurant(rest);
+		
+		Command comanda = new Command();
+		comanda.setCostumers(2);
+		comanda.setId(2);
+		
+		Mesa mesa = new Mesa();
+		mesa.setCostumer(2);
+		mesa.setNumber(2);
+		comanda.setMesa(mesa);
+		comanda.setRestaurante(rest);
+		
 		this.notificationService.saveNotification(notificacion);
 	}
 
@@ -135,13 +146,17 @@ class RestauranteControllerTests {
     @WithMockUser
     @Test
     void testInitCreationForm() throws Exception{
-        mockMvc.perform(get("/restaurante/{id}/product/new", 1)).andExpect(status().isOk()).andExpect(model().attributeExists("product")).andExpect(model().attributeExists("restaurante_id")).andExpect(view().name("carta/addProduct"));
+        mockMvc.perform(get("/restaurante/{id}/product/new", 1)).andExpect(status().isOk())
+        .andExpect(model().attributeExists("plate"))
+        .andExpect(model().attributeExists("restaurante_id"))
+        .andExpect(view().name("carta/addProduct"));
     }
     
     @WithMockUser
     @Test
     void testProcessCreationForm() throws Exception{
-        mockMvc.perform(post("/restaurante/{id}/product/new", 1).with(csrf())).andExpect(status().isOk()).andExpect(model().attributeExists("product")).andExpect(view().name("carta/addProduct"));
+        mockMvc.perform(post("/restaurante/{id}/product/new", 1).with(csrf())).andExpect(status().isOk())
+        .andExpect(view().name("carta/addProduct"));
     }
     
     @WithMockUser
@@ -175,7 +190,7 @@ class RestauranteControllerTests {
     @WithMockUser
     @Test
     void testNotif() throws Exception{
-        mockMvc.perform(get("/restaurante/notify/3", 1)).andExpect(status().isOk());
+        mockMvc.perform(get("/restaurante/notify/{id_comanda}/{id_restaurante}",2,1)).andExpect(status().isOk());
 
     }
 
