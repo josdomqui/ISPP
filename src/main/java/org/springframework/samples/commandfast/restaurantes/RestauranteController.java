@@ -18,8 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import com.google.zxing.WriterException;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,7 +25,8 @@ import org.springframework.samples.commandfast.command.Command;
 import org.springframework.samples.commandfast.command.CommandService;
 import org.springframework.samples.commandfast.payments.Payment;
 import org.springframework.samples.commandfast.payments.PaymentService;
-import org.springframework.samples.commandfast.product.Product;
+import org.springframework.samples.commandfast.plate.Plate;
+import org.springframework.samples.commandfast.plate.PlateService;
 import org.springframework.samples.commandfast.product.ProductService;
 import org.springframework.samples.commandfast.user.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -41,6 +40,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.google.zxing.WriterException;
 
 @Controller
 @RequestMapping("/restaurante")
@@ -51,37 +51,32 @@ public class RestauranteController {
 	private static final String STRING_ANONYMOUS_USER = "anonymousUser";
 	private static final String STRING_USER_NAME = "username";
 	private static final String STRING_LISTA_TIPOS = "listaTipos";
-	private static final String STRING_ERROR = "error";
-	private static final String STRING_ERROR_TIPOS = "error_tipos";
-	private static final String STRING_LISTA_RESTAURANTE = "listaRestaurante";
-	private static final String STRING_MESSAGE = "message";
-	private static final String STRING_RESTAURANT = "restaurant";
-	private static final String STRING_RESTAURANTE = "restaurante";
+
 	private static final String RESTAURANTE_FORM = "restaurantes/createRestaurantForm";
 	private static final String CARTA_FORM = "carta/addProduct";
-	private static final String FORM_EDITAR_RESTAURANTE = "restaurantes/editarRestauranteForm";
 
-	
 	private final RestauranteService restauranteService;
 	private final ProductService productService;
 	private final UserService userService;
 	private final PaymentService paymentService;
 	private final CommandService commandService;
 	private final NotificationService notificationService;
+	private final PlateService plateService;
 
 	@Value("${STRIPE_PUBLIC_KEY}")
 	private String apiPublicKey;
 
 	@Autowired
 	public RestauranteController(RestauranteService restauranteService, ProductService productService,
-			UserService userService, PaymentService paymentService, CommandService commandService,
-			NotificationService notificationService) {
+			UserService userService, PaymentService paymentService, PlateService plateService,
+			CommandService commandService, NotificationService notificationService) {
 		this.restauranteService = restauranteService;
 		this.productService = productService;
 		this.userService = userService;
 		this.paymentService = paymentService;
 		this.commandService = commandService;
 		this.notificationService = notificationService;
+		this.plateService = plateService;
 
 	}
 
@@ -89,7 +84,7 @@ public class RestauranteController {
 	public String showRestautanteList(Map<String, Object> model, HttpServletRequest request) {
 
 		ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
-		model.put(STRING_LISTA_RESTAURANTE, restauranteService.findAllRestaurants());
+		model.put("listaRestaurante", restauranteService.findAllRestaurants());
 		model.put(STRING_LISTA_TIPOS, listaTipoRestaurantes);
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (!principal.equals(STRING_ANONYMOUS_USER)) {
@@ -129,7 +124,7 @@ public class RestauranteController {
 
 			}
 		}
-		model.put(STRING_LISTA_RESTAURANTE, lrestaurantes);
+		model.put("listaRestaurante", lrestaurantes);
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (!principal.equals(STRING_ANONYMOUS_USER)) {
 			model.put(STRING_USER_NAME, request.getUserPrincipal().getName());
@@ -148,30 +143,36 @@ public class RestauranteController {
 	@GetMapping(value = { "/{id}/detalles/qr" })
 	public String showQRGenerator(@PathVariable("id") Integer id, Map<String, Object> model) {
 		Optional<Restaurante> restaurante = restauranteService.findRestaurantById(id);
-		model.put(STRING_RESTAURANTE, restaurante.get());
+		model.put("restaurante", restaurante.get());
 		model.put("id_restaurante", restaurante.get().getId());
 		return "restaurantes/qr";
 	}
 
 	@GetMapping(value = { "/{id}/detalles/qr/descargar" })
 	public String downloadQR(@PathVariable("id") Integer id, Map<String, Object> model,
-			@RequestParam("numero_mesa") String numeroMesa, HttpServletRequest request, HttpServletResponse response) {
+			@RequestParam("numero_mesa") String numero_mesa, HttpServletRequest request, HttpServletResponse response) {
 		Optional<Restaurante> restaurante = restauranteService.findRestaurantById(id);
-		model.put(STRING_RESTAURANTE, restaurante.get());
+		model.put("restaurante", restaurante.get());
 		model.put("id_restaurante", restaurante.get().getId());
 
-		String base = request.getLocalName();
+		String base = request.getRequestURL().toString();
+		System.out.println("===============================");
+		System.out.println(base);
 		String url = "";
-		if (base.equals("localhost")) {
-			url = "http://localhost:8080/command/new/" + id.toString() + "/" + numeroMesa;
+		if (base.contains("localhost")) {
+			url = "http://localhost:8080/command/new/" + id.toString() + "/" + numero_mesa;
 		} else {
-			url = "https://command-fast-app-s3.herokuapp.com/" + id.toString() + "/" + numeroMesa;
+			url = "https://command-fast-app-s3.herokuapp.com/command/new/" + id.toString() + "/" + numero_mesa;
 		}
 		String fileName = "qr.png";
 		// Generate and Save Qr Code Image
 		try {
 			QRCodeGenerator.generateQRCodeImage(url, 250, 250, fileName);
-		} catch (WriterException|IOException e) {
+		} catch (WriterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -211,7 +212,7 @@ public class RestauranteController {
 		if (!principal.equals(STRING_ANONYMOUS_USER)) {
 			model.put(STRING_USER_NAME, request.getUserPrincipal().getName());
 		}
-		model.put(STRING_RESTAURANTE, restauranteService.findRestaurantById(id).get());
+		model.put("restaurante", restauranteService.findRestaurantById(id).get());
 		return "restaurantes/carta";
 	}
 
@@ -219,10 +220,10 @@ public class RestauranteController {
 	public String editRestaurante(@PathVariable("id") Integer id, ModelMap model) {
 		Optional<Restaurante> restaurante = restauranteService.findRestaurantById(id);
 		if (restaurante.isPresent()) {
-			model.addAttribute(STRING_RESTAURANTE, restaurante.get());
+			model.addAttribute("restaurante", restaurante.get());
 			return RESTAURANTE_FORM;
 		} else {
-			model.addAttribute(STRING_MESSAGE, "We cannot find the restaurant you tried to edit!");
+			model.addAttribute("message", "We cannot find the restaurant you tried to edit!");
 			return "redirect:/";
 		}
 	}
@@ -236,7 +237,7 @@ public class RestauranteController {
 		} else {
 			BeanUtils.copyProperties(modifiedRestaurant, restaurante.get(), "id");
 			restauranteService.saveRestaurant(restaurante.get());
-			model.addAttribute(STRING_MESSAGE, "Restaurant updated succesfully!");
+			model.addAttribute("message", "Restaurant updated succesfully!");
 			return "redirect:/";
 		}
 	}
@@ -247,26 +248,26 @@ public class RestauranteController {
 		model.put("stripePublicKey", apiPublicKey);
 		ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
 		Restaurante restaurante = new Restaurante();
-		model.put(STRING_ERROR, false);
-		model.put(STRING_RESTAURANTE, restaurante);
+		model.put("error", false);
+		model.put("restaurante", restaurante);
 		model.put(STRING_LISTA_TIPOS, listaTipoRestaurantes);
 		return RESTAURANTE_FORM;
 	}
 
+	// buenosdias
 	@PostMapping(value = "/signup")
 	public String processCreationForm(@Valid Restaurante restaurant, BindingResult result, ModelMap model) {
 		model.put("stripePublicKey", apiPublicKey);
 		if (result.hasErrors()) {
-			Boolean error = null;
-			if (restaurant.getType().isEmpty()) {
-				error = true;
 
-			} else {
-				error = false;
-			}
-			model.put(STRING_ERROR_TIPOS, error);
+			if (restaurant.getType().isEmpty())
+				model.put("error_tipos", true);
+
+			else
+				model.put("error_tipos", false);
+
 			ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
-			model.put(STRING_LISTA_TIPOS, listaTipoRestaurantes);
+			model.put("listaTipos", listaTipoRestaurantes);
 		}
 		if (result.hasErrors()) {
 			return RESTAURANTE_FORM;
@@ -275,18 +276,16 @@ public class RestauranteController {
 			userService.findAllUser().forEach(x -> lista.add(x.getUsername()));
 
 			if (lista.contains(restaurant.getUser().getUsername())) {
-				Boolean error = null;
-				if (restaurant.getType().isEmpty()) {
-					error = true;
-				} else {
-					error = false;
-				}
-				model.put(STRING_ERROR_TIPOS, error);
+				if (restaurant.getType().isEmpty())
+					model.put("error_tipos", true);
+				else
+					model.put("error_tipos", false);
+
 				ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(
 						EnumSet.allOf(RestauranteType.class));
 				Restaurante restaurante = new Restaurante();
-				model.put(STRING_RESTAURANT, restaurante);
-				model.put(STRING_ERROR, true);
+				model.put("restaurant", restaurante);
+				model.put("error", true);
 				model.put(STRING_LISTA_TIPOS, listaTipoRestaurantes);
 
 				return RESTAURANTE_FORM;
@@ -294,8 +293,8 @@ public class RestauranteController {
 				ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(
 						EnumSet.allOf(RestauranteType.class));
 				Restaurante restaurante = new Restaurante();
-				model.put(STRING_RESTAURANT, restaurante);
-				model.put(STRING_ERROR_TIPOS, true);
+				model.put("restaurant", restaurante);
+				model.put("error_tipos", true);
 				model.put(STRING_LISTA_TIPOS, listaTipoRestaurantes);
 				return RESTAURANTE_FORM;
 			} else {
@@ -308,7 +307,7 @@ public class RestauranteController {
 
 	// Payment de restaurante
 
-	@GetMapping(value = "/paymentPanel")
+	@GetMapping(value = "/notifications")
 	public String payments(Map<String, Object> model, HttpServletRequest request) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (!principal.equals(STRING_ANONYMOUS_USER)) {
@@ -316,7 +315,11 @@ public class RestauranteController {
 
 			Restaurante restauranteSesion = restauranteService.findByUsername(username);
 			Integer idSesionRestaurante = restauranteSesion.getId();
+			List<Notification> notificaciones = notificationService
+					.findNotificationsByRestaurant(restauranteSesion.getId());
+
 			model.put("sesionRestaurant", restauranteSesion);
+			model.put("notificaciones", notificaciones);
 
 			Collection<Command> listaComandas = commandService.findCommandsOfARestaurant(idSesionRestaurante);
 
@@ -334,7 +337,7 @@ public class RestauranteController {
 				for (Payment pago : payments) {
 					for (Command comandaSet : pago.getTable().getCommands()) {
 						if (comandaSet.getRestaurante().getId().equals(idSesionRestaurante)) {
-							if (Boolean.TRUE.equals(pago.getPayHere()) && Boolean.FALSE.equals(!pago.getCreditCard())) {
+							if (pago.getPayHere() && pago.getCreditCard() == false) {
 								conEfectivo.add(pago);
 								break;
 							} else if (pago.getPayHere() && pago.getCreditCard()) {
@@ -355,7 +358,7 @@ public class RestauranteController {
 				model.put("conTarjeta", conTarjeta);
 				model.put("conEfectivo", conEfectivo);
 			}
-			return "restaurantes/payments";
+			return "restaurantes/notifications";
 		} else {
 			return "/";
 		}
@@ -364,15 +367,15 @@ public class RestauranteController {
 	// Notifications
 
 	@GetMapping(value = "/notify/clear/{id_notification}")
-	public String notifyClear(Map<String, Object> model, @PathVariable("id_notification") Integer idNotification,
+	public String notifyClear(Map<String, Object> model, @PathVariable("id_notification") Integer id_notification,
 			RedirectAttributes redirectAttrs) {
 		// update notification
 		Notification notif = new Notification();
-		notif = notificationService.findNotificationById(idNotification);
+		notif = notificationService.findNotificationById(id_notification);
 		notif.setAtendido(1);
 		try {
 			this.notificationService.saveNotification(notif);
-			redirectAttrs.addFlashAttribute(STRING_MESSAGE, "Se ha marcado como atendida.");
+			redirectAttrs.addFlashAttribute("message", "Se ha marcado como atendida.");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
@@ -380,10 +383,10 @@ public class RestauranteController {
 		return ("redirect:/restaurante/notifications");
 	}
 
-	@GetMapping(value = "/notify/{id_comanda}")
-	public String notify(Map<String, Object> model, @PathVariable("id_comanda") Integer idComanda,
-			RedirectAttributes redirectAttrs) {
-		Optional<Command> comanda = commandService.findIdCommands(idComanda);
+	@GetMapping(value = "/notify/{id_comanda}/{id_restaurante}")
+	public String notify(Map<String, Object> model, @PathVariable("id_comanda") Integer id_comanda,
+			@PathVariable("id_restaurante") Integer id_restaurante, RedirectAttributes redirectAttrs) {
+		Optional<Command> comanda = commandService.findIdCommands(id_comanda);
 		// create notification
 		Notification notif = new Notification();
 		notif.setAtendido(0);
@@ -392,55 +395,33 @@ public class RestauranteController {
 		System.out.println(notif.toString());
 		try {
 			this.notificationService.saveNotification(notif);
-			redirectAttrs.addFlashAttribute(STRING_MESSAGE, "Se ha notificado al camarero, por favor espere su llegada...");
+			redirectAttrs.addFlashAttribute("message", "Se ha notificado al camarero, por favor espere su llegada...");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
 		}
-		return ("redirect:/carta/" + idComanda.toString() + "/edit");
+		return ("redirect:/carta/" + id_comanda + "/" + id_restaurante + "/edit");
 	}
 
-	// Ver si han solicitado camarero
-	@GetMapping(value = "/notifications")
-	public String notifications(Map<String, Object> model, HttpServletRequest request) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		if (!principal.equals(STRING_ANONYMOUS_USER)) {
-			String username = request.getUserPrincipal().getName();
-
-			Restaurante restauranteSesion = restauranteService.findByUsername(username);
-			List<Notification> notificaciones = notificationService
-					.findNotificationsByRestaurant(restauranteSesion.getId());
-
-			model.put("sesionRestaurant", restauranteSesion);
-			model.put("notificaciones", notificaciones);
-
-			return "restaurantes/notifications";
-		} else {
-			return "/";
-		}
-	}
-
-	// Crear/Editar productos
 
 	@GetMapping(value = "/{id}/product/new")
 	public String initCreationForm(@PathVariable("id") Integer id, Map<String, Object> model) {
-		Product product = new Product();
-		model.put("product", product);
+		Plate plate = new Plate();
+		model.put("plate", plate);
 		model.put("restaurante_id", id);
 		return CARTA_FORM;
 	}
 
 	@PostMapping(value = "/{id}/product/new")
-	public String processCreationForm(@PathVariable("id") Integer id, @Valid Product product, BindingResult result) {
+	public String processCreationForm(@PathVariable("id") Integer id, @Valid Plate plate, BindingResult result) {
 		if (result.hasErrors()) {
 			return CARTA_FORM;
 		} else {
-			int lastIdx = restauranteService.findAllMenu().stream().collect(Collectors.toList()).size() - 1;
-			int idPlato = restauranteService.findAllMenu().stream().collect(Collectors.toList()).get(lastIdx).getId()
-					+ 1;
-			product.setId(idPlato);
-			product.setRestaurant(restauranteService.findRestaurantById(id).get());
-			this.productService.save(product);
+			int lastIdx = plateService.findAllPlates().stream().collect(Collectors.toList()).size() - 1;
+			int idPlato = plateService.findAllPlates().stream().collect(Collectors.toList()).get(lastIdx).getId() + 1;
+			plate.setId(idPlato);
+			plate.setRestaurant(restauranteService.findRestaurantById(id).get());
+			this.plateService.savePlate(plate);
 			return "redirect:/restaurante/{id}/detalles/carta";
 		}
 	}
@@ -448,29 +429,29 @@ public class RestauranteController {
 	@GetMapping(value = "/{id_restaurante}/{id}/product/edit")
 	public String initUpdateProductForm(@PathVariable("id") int id, @PathVariable("id_restaurante") int idRestaurante,
 			Model model) {
-		Product product = this.productService.findProductById(id);
-		model.addAttribute(product);
+		Plate plate = this.plateService.findPlateById(id);
+		model.addAttribute(plate);
 		return CARTA_FORM;
 	}
 
 	@PostMapping(value = "/{id_restaurante}/{id}/product/edit")
-	public String processUpdateOwnerForm(@Valid Product product, BindingResult result, @PathVariable("id") int id,
-			@PathVariable("id_restaurante") int idRestaurante) {
+	public String processUpdateOwnerForm(@Valid Plate plate, BindingResult result,
+			@PathVariable("id") int id, @PathVariable("id_restaurante") int idRestaurante) {
 		if (result.hasErrors()) {
 			return CARTA_FORM;
 		} else {
-			product.setId(id);
-			product.setRestaurant(restauranteService.findRestaurantById(idRestaurante).get());
-			this.productService.save(product);
+			plate.setId(id);
+			plate.setRestaurant(restauranteService.findRestaurantById(idRestaurante).get());
+			this.plateService.savePlate(plate);
 			return "redirect:/restaurante/{id_restaurante}/detalles/carta";
 		}
 	}
 
 	@GetMapping(value = "/{id_restaurante}/{id}/product/delete")
-	public String deleteProduct(@PathVariable("id") int id, @PathVariable("id_restaurante") int idRestaurante,
+	public String deleteProduct(@PathVariable("id") int id, @PathVariable("id_restaurante") int id_restaurante,
 			ModelMap model) {
-		productService.delete(id);
-		model.addAttribute(STRING_MESSAGE, "Producto eliminado correctamente.");
+		plateService.delete(id);
+		model.addAttribute("message", "Producto eliminado correctamente.");
 		return "redirect:/restaurante/{id_restaurante}/detalles/carta";
 	}
 
@@ -479,7 +460,7 @@ public class RestauranteController {
 
 		ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
 		restauranteService.delete(id);
-		model.put(STRING_LISTA_RESTAURANTE, restauranteService.findAllRestaurants());
+		model.put("listaRestaurante", restauranteService.findAllRestaurants());
 		model.put(STRING_LISTA_TIPOS, listaTipoRestaurantes);
 
 		return "redirect:/restaurante/list";
@@ -490,10 +471,10 @@ public class RestauranteController {
 
 		ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
 		Restaurante restaurante = restauranteService.obtenerRestaurante();
-		model.put(STRING_ERROR, false);
-		model.put(STRING_RESTAURANTE, restaurante);
+		model.put("error", false);
+		model.put("restaurante", restaurante);
 		model.put(STRING_LISTA_TIPOS, listaTipoRestaurantes);
-		return FORM_EDITAR_RESTAURANTE;
+		return "restaurantes/editarRestauranteForm";
 	}
 
 	@PostMapping(value = "/editar")
@@ -501,24 +482,25 @@ public class RestauranteController {
 			HttpServletRequest request) {
 		Restaurante restaurant = restauranteService.obtenerRestaurante();
 		if (result.hasErrors()) {
-			Boolean error = null;
-			if (restaurant.getType().isEmpty()) {
-				error = true;
-			} else {
-				error = false;
-			}
 
-			model.put(STRING_ERROR_TIPOS, error);
+			if (restaurant.getType().isEmpty())
+				model.put("error_tipos", true);
+
+			else
+				model.put("error_tipos", false);
+
 			ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
-			model.put(STRING_LISTA_TIPOS, listaTipoRestaurantes);
-			return FORM_EDITAR_RESTAURANTE;
+			model.put("listaTipos", listaTipoRestaurantes);
+			return "restaurantes/editarRestauranteForm";
+		} else {
+
 		}
 		if (restaurant.getType().isEmpty()) {
 			ArrayList<RestauranteType> listaTipoRestaurantes = new ArrayList<>(EnumSet.allOf(RestauranteType.class));
-			model.put(STRING_RESTAURANT, restaurant);
-			model.put(STRING_ERROR_TIPOS, true);
+			model.put("restaurant", restaurant);
+			model.put("error_tipos", true);
 			model.put(STRING_LISTA_TIPOS, listaTipoRestaurantes);
-			return FORM_EDITAR_RESTAURANTE;
+			return "restaurantes/editarRestauranteForm";
 		} else {
 
 			List<RestauranteType> aux = new ArrayList<>();
