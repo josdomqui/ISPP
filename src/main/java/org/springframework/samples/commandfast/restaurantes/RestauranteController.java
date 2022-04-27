@@ -256,7 +256,7 @@ public class RestauranteController {
 		model.put(STRING_LISTA_TIPOS, listaTipoRestaurantes);
 		return RESTAURANTE_FORM;
 	}
-
+//buenas
 	@PostMapping(value = "/signup")
 	public String processCreationForm(@Valid Restaurante restaurant, BindingResult result, ModelMap model) {
 		model.put("stripePublicKey", apiPublicKey);
