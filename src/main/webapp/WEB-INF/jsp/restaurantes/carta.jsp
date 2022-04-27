@@ -6,6 +6,7 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
   
   
 <commandfast:layout pageName="carta">
@@ -26,24 +27,22 @@
                 <p class="item-menu-desc" editable="inline"><c:out value = "${product.description}"/><br></p>
                 <sec:authorize access="hasAuthority('restaurant')">
                 	<c:if test="${restaurante.user.username==username}">
-                                  <spring:url value="/restaurante/{id_restaurante}/{id}/product/edit" var="editProductUrl">
-                                    <spring:param name="id_restaurante" value="${restaurante.id}" />
-                                    <spring:param name="id" value="${product.id}" />
-                                  </spring:url>
+                        <spring:url value="/restaurante/{id_restaurante}/{id}/product/edit" var="editProductUrl">
+                           	<spring:param name="id_restaurante" value="${restaurante.id}" />
+                            <spring:param name="id" value="${product.id}" />
+                        </spring:url>
                     
-                                  <p><a type="button" class="buton-detalles-listado mt-3" href="${fn:escapeXml(editProductUrl)}"
-                                    style="text-decoration: none; color: black;">Editar
-                                    plato</a></p>
+                        <p><a type="button" class="buton-detalles-listado mt-3" href="${fn:escapeXml(editProductUrl)}"
+                              style="text-decoration: none; color: black;">Editar plato</a></p>
                                     
-                                  <spring:url value="/restaurante/{id_restaurante}/{id}/product/delete" var="deleteProductUrl">
-                                    <spring:param name="id_restaurante" value="${restaurante.id}" />
-                                    <spring:param name="id" value="${product.id}" />
-                                  </spring:url>
-                                    <p><a type="button" class="buton-detalles-listado mt-3" href="${fn:escapeXml(deleteProductUrl)}"
-                                    style="text-decoration: none; color: black;">Borrar
-                                    plato</a></p>
-                                </c:if>
-                                </sec:authorize>
+                        <spring:url value="/restaurante/{id_restaurante}/{id}/product/delete" var="deleteProductUrl">
+                             <spring:param name="id_restaurante" value="${restaurante.id}" />
+                             <spring:param name="id" value="${product.id}" />
+                        </spring:url>
+                        <p><a type="button" class="buton-detalles-listado mt-3" href="${fn:escapeXml(deleteProductUrl)}"
+                              style="text-decoration: none; color: black;">Borrar plato</a></p>
+                     </c:if>
+                 </sec:authorize>
                                 
                                 <sec:authorize access="hasAuthority('admin')">
                                   <spring:url value="/restaurante/{id_restaurante}/{id}/product/edit" var="editProductUrl">
