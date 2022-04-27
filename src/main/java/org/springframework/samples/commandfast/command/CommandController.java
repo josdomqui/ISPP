@@ -18,8 +18,6 @@ package org.springframework.samples.commandfast.command;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.Optional;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
