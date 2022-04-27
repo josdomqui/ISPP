@@ -56,4 +56,8 @@ public class PlateService {
         plateRepository.save(plate);
 
     }
+	@Transactional
+	public void delete(Integer id) {
+		this.plateRepository.deletePlateByPlateId(id);;
+	}
 }

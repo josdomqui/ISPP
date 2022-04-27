@@ -8,6 +8,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.samples.commandfast.plate.Plate;
 import org.springframework.samples.commandfast.product.Product;
 public interface RestauranteRepository extends Repository<Restaurante, Integer> {
 	
@@ -34,6 +35,10 @@ public interface RestauranteRepository extends Repository<Restaurante, Integer> 
 	
 	@Query("SELECT restaurant FROM Restaurante restaurant WHERE username =:username")
 	public Restaurante findByUsername(@Param("username") String username);
+	
+	
+	@Query("SELECT plate FROM Plate plate WHERE plate.restaurant.id =:restaurant_id")
+	public Collection<Plate> findPlatesByRestaurant(@Param("restaurant_id") int restaurantId);
 
 }
 

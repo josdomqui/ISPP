@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import org.springframework.samples.commandfast.line.Line;
 import org.springframework.samples.commandfast.model.NamedEntity;
@@ -29,7 +31,8 @@ import lombok.Setter;
 public class Plate extends NamedEntity{
 	
 	@Column(name = "cost")
-	@NotEmpty
+	@NotNull(message="Tiene que introducir un precio")
+	@Positive	
 	Double cost; 
 	
 	@Column(name = "category")
@@ -43,7 +46,6 @@ public class Plate extends NamedEntity{
 	private Set<Line> lines;
 	
 	@Column(name = "image")
-	@NotEmpty
 	String image;
 	
 	@ManyToOne(cascade = CascadeType.REMOVE)

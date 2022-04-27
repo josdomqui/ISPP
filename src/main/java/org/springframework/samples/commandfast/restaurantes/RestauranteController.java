@@ -25,6 +25,8 @@ import org.springframework.samples.commandfast.command.Command;
 import org.springframework.samples.commandfast.command.CommandService;
 import org.springframework.samples.commandfast.payments.Payment;
 import org.springframework.samples.commandfast.payments.PaymentService;
+import org.springframework.samples.commandfast.plate.Plate;
+import org.springframework.samples.commandfast.plate.PlateService;
 import org.springframework.samples.commandfast.product.Product;
 import org.springframework.samples.commandfast.product.ProductService;
 import org.springframework.samples.commandfast.user.UserService;
@@ -64,18 +66,21 @@ public class RestauranteController {
 	private final PaymentService paymentService;
 	private final CommandService commandService;
 	private final NotificationService notificationService;
+	private final PlateService plateService;
+
 
 	@Value("${STRIPE_PUBLIC_KEY}")
     private String apiPublicKey;
 
 	@Autowired
-	public RestauranteController(RestauranteService restauranteService, ProductService productService, UserService userService, PaymentService paymentService, CommandService commandService, NotificationService notificationService) { 
+	public RestauranteController(RestauranteService restauranteService, ProductService productService, UserService userService, PaymentService paymentService,PlateService plateService, CommandService commandService, NotificationService notificationService) { 
 		this.restauranteService = restauranteService; 
 		this.productService = productService; 
 		this.userService = userService; 
 		this.paymentService = paymentService;
 		this.commandService = commandService;
 		this.notificationService = notificationService;
+		this.plateService=plateService;
 
 	}
 
@@ -415,51 +420,51 @@ public class RestauranteController {
   
 	@GetMapping(value = "/{id}/product/new")
 	public String initCreationForm(@PathVariable("id") Integer id, Map<String, Object> model) {
-		Product product = new Product();
-		model.put("product", product);
+		Plate plate= new Plate();
+		model.put("plate", plate);
 		model.put("restaurante_id", id);
 		return CARTA_FORM;
 	}
 
 	@PostMapping(value = "/{id}/product/new")
-	public String processCreationForm(@PathVariable("id") Integer id, @Valid Product product, BindingResult result) {
+	public String processCreationForm(@PathVariable("id") Integer id, @Valid Plate plate, BindingResult result) {
 		if (result.hasErrors()) {
 			return CARTA_FORM;
 		}
 		else{
-			int lastIdx = restauranteService.findAllMenu().stream().collect(Collectors.toList()).size() - 1;
-			int idPlato = restauranteService.findAllMenu().stream().collect(Collectors.toList()).get(lastIdx).getId()+1;
-			product.setId(idPlato);
-			product.setRestaurant(restauranteService.findRestaurantById(id).get());
-			this.productService.save(product);
+			int lastIdx = plateService.findAllPlates().stream().collect(Collectors.toList()).size() - 1;
+			int idPlato = plateService.findAllPlates().stream().collect(Collectors.toList()).get(lastIdx).getId()+1;
+			plate.setId(idPlato);
+			plate.setRestaurant(restauranteService.findRestaurantById(id).get());
+			this.plateService.savePlate(plate);
 			return "redirect:/restaurante/{id}/detalles/carta";
 			}
 	}
 	
 	@GetMapping(value = "/{id_restaurante}/{id}/product/edit")
 	public String initUpdateProductForm(@PathVariable("id") int id, @PathVariable("id_restaurante") int idRestaurante, Model model) {
-		Product product = this.productService.findProductById(id);
-		model.addAttribute(product);
+		Plate plate= this.plateService.findPlateById(id);
+		model.addAttribute(plate);
 		return CARTA_FORM;
 	}
 
 	@PostMapping(value = "/{id_restaurante}/{id}/product/edit")
-	public String processUpdateOwnerForm(@Valid Product product, BindingResult result,
+	public String processUpdateOwnerForm(@Valid Plate plate, BindingResult result,
 			@PathVariable("id") int id, @PathVariable("id_restaurante") int idRestaurante) {
 		if (result.hasErrors()) {
 			return CARTA_FORM;
 		}
 		else {
-			product.setId(id);
-			product.setRestaurant(restauranteService.findRestaurantById(idRestaurante).get());
-			this.productService.save(product);
+			plate.setId(id);
+			plate.setRestaurant(restauranteService.findRestaurantById(idRestaurante).get());
+			this.plateService.savePlate(plate);
 			return "redirect:/restaurante/{id_restaurante}/detalles/carta";
 		}
 	}
 	
 	@GetMapping(value = "/{id_restaurante}/{id}/product/delete")
 	public String deleteProduct(@PathVariable("id") int id, @PathVariable("id_restaurante") int id_restaurante, ModelMap model) {
-		productService.delete(id);
+		plateService.delete(id);
 		model.addAttribute("message","Producto eliminado correctamente.");
 		return "redirect:/restaurante/{id_restaurante}/detalles/carta";
 	}
