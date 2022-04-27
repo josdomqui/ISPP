@@ -2,7 +2,6 @@ package org.springframework.samples.commandfast.plate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import java.util.Collection;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

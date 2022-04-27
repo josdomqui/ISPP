@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.samples.commandfast.mesa.Mesa;
 import org.springframework.samples.commandfast.payments.Payment;
 import org.springframework.samples.commandfast.payments.PaymentService;
-import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -37,7 +36,7 @@ class PaymenttServiceTests {
     this.paymentService.savePayment(pa);
     List<Payment> p = this.paymentService.getAllPayments();
 
-    assertThat(p.isEmpty()).isFalse();
+    assertThat(p).isNotEmpty();
     }
 
     @Test

@@ -35,7 +35,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
@@ -102,7 +101,6 @@ public class Restaurante extends NamedEntity {
 	@ElementCollection(targetClass =  RestauranteType.class)
 	@Column(name = "type", nullable = false)
 	@Enumerated(EnumType.STRING)
-	@NotNull
 	private List<RestauranteType> type;
 
 	@OneToOne(cascade = CascadeType.ALL)

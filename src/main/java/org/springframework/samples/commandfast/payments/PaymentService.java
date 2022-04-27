@@ -1,6 +1,7 @@
 package org.springframework.samples.commandfast.payments;
 
 import java.time.LocalDate;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +33,9 @@ import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.properties.TextAlignment;
+
+import java.util.logging.Logger;
+
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -83,7 +87,7 @@ public class PaymentService {
 		return (List<Payment>) paymentRepository.findAll();
 	}
 
-	public String generateRecipt(int id_comanda) {
+	public String generateRecipt(int idComanda) {
 		String fileName = "recipt.pdf";
 		try {
 			File file = new File(fileName);
@@ -111,14 +115,14 @@ public class PaymentService {
 			PdfFont fontRoman = PdfFontFactory.createFont(StandardFonts.TIMES_ROMAN);
 			body.setFont(fontRoman).setFontSize(14);
 			
-			String body_message = "";
-			if (id_comanda == 0) { // subscription
-				body_message = "Gracias por suscribirte a CommandFast. Su id de compra es: 98892";
-				paragraph.add(new Text(body_message).addStyle(body));
+			String bodyMessage = "";
+			if (idComanda == 0) { // subscription
+				bodyMessage = "Gracias por suscribirte a CommandFast. Su id de compra es: 98892";
+				paragraph.add(new Text(bodyMessage).addStyle(body));
 			} else {
 				Double price = 0.0;
-				Optional<Command> command = commandService.findIdCommands(id_comanda);
-				Collection<Line> lineas = this.lineService.findLineByCommandId(id_comanda);
+				Optional<Command> command = commandService.findIdCommands(idComanda);
+				Collection<Line> lineas = this.lineService.findLineByCommandId(idComanda);
 				Collection<Plate> platos = this.plateService.findAllPlates();
 				
 				// pretext
@@ -136,32 +140,32 @@ public class PaymentService {
 					for (Plate plato: platos) {
 						if(linea.getPlate().getId().equals(plato.getId()) && linea.getQuantity() != 0) {
 							Double total = plato.getCost()*linea.getQuantity();
-							body_message = plato.getName() + " = " + plato.getCost().toString() + "€ x" + linea.getQuantity().toString() + " = " + String.format("%.2f", total) + "€"; 
-							paragraph.add(new Text(body_message).addStyle(body));
+							bodyMessage = plato.getName() + " = " + plato.getCost().toString() + "€ x" + linea.getQuantity().toString() + " = " + String.format("%.2f", total) + "€"; 
+							paragraph.add(new Text(bodyMessage).addStyle(body));
 							paragraph.add(blankLine);
 						}
 					}
 				}
 				price = command.get().getPrice();
-				body_message = "=========================================";
-				paragraph.add(new Text(body_message).addStyle(body));
+				bodyMessage = "=========================================";
+				paragraph.add(new Text(bodyMessage).addStyle(body));
 				paragraph.add(blankLine);
-				body_message = "Coste total del pedido: " + price + "€";
-				paragraph.add(new Text(body_message).addStyle(body));
+				bodyMessage = "Coste total del pedido: " + price + "€";
+				paragraph.add(new Text(bodyMessage).addStyle(body));
 				paragraph.add(blankLine);
-				body_message = "Id de compra: 932442";
-				paragraph.add(new Text(body_message).addStyle(italic));
+				bodyMessage = "Id de compra: 932442";
+				paragraph.add(new Text(bodyMessage).addStyle(italic));
 			}
 			
 			document.add(paragraph);
 			document.close();
 			pdfWriter.close();
 			System.out.println("PDF creado");
-			
 		} catch (FileNotFoundException ex) {
-			System.out.println(ex.getMessage());
+			System.err.println(ex.getMessage());
 		} catch (IOException ex) {
-			System.out.println(ex.getMessage());
+			System.err.println(ex.getMessage());
+			
 		}
 		return fileName;
 	}

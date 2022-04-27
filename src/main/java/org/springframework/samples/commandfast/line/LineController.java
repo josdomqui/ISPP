@@ -93,9 +93,6 @@ public class LineController {
 		Double division = (suma/command.get().getCostumers());
 		model.put("division", String.format("%.2f", division));
 		String view = "carta/ticket";
-		if(command.get().getPrice() != null) {
-			//view = "redirect:/command/new";
-		}
 		return view;
 	}
 
