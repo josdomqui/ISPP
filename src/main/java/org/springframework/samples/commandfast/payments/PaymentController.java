@@ -61,10 +61,12 @@ public class PaymentController {
     
 	@GetMapping(value = "/payment/successPage/{id_comanda}")
 	public String paymentSuccessPage(@PathVariable("id_comanda") int idComanda, Map<String, Object> model){
-		Optional<Command> command = commandService.findIdCommands(idComanda);
-		Payment payment =this.paymentService.makePayment(command.get().getPrice(), command.get().getMesa());
-		payment.setPayHere(false);
-		command.get().setPayment(payment);
+		if(idComanda != 0){	
+			Optional<Command> command = commandService.findIdCommands(idComanda);
+			Payment payment =this.paymentService.makePayment(command.get().getPrice(), command.get().getMesa());
+			payment.setPayHere(false);
+			command.get().setPayment(payment);
+		}
 		model.put("id_comanda", idComanda);
 		return "payment/success";
 	}
