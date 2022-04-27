@@ -6,6 +6,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <commandfast:layout pageName="detalles-restaurante">
 	
 <div class="container py-5">
@@ -31,7 +33,9 @@
 							<spring:param name="id" value="${detallesRestaurante.id}"/>
 					</spring:url>
 					<p><a type="button" class="buton-detalles-listado" href="${fn:escapeXml(menUrl)}" style="text-decoration: none; color: black; font-size: 16px;">Ver carta</a></p>
+					<sec:authorize access="hasAuthority('restaurant')">
 					<p><a type="button" class="buton-detalles-listado" href="${fn:escapeXml(qrUrl)}" style="text-decoration: none; color: black; font-size: 16px;">Generar QRs</a></p>
+					</sec:authorize>
 				</div>																								
 
 			</div><!-- /lc-block -->

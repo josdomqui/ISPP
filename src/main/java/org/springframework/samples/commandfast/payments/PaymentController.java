@@ -30,6 +30,11 @@ public class PaymentController {
 	private final PaymentService paymentService;
 	@Value("${STRIPE_PUBLIC_KEY}")
     private String apiPublicKey;
+	private static final String STRING_MESSAGE = "message";
+	private static final String STRING_ALREADY_PAID = "Usted ya ha pagado el pedido.";
+	private static final String STRING_REDIRECT_COMMAND = "redirect:/command/new";
+	
+	
 	
 	@Autowired
 	public PaymentController(UserService userService, AuthoritiesService authoritiesService, MesaService mesaService, CommandService commandService, PaymentService paymentService) {
@@ -43,8 +48,8 @@ public class PaymentController {
 	public String payOrder(@PathVariable("id_comanda") int idComanda,  Map<String, Object> model, RedirectAttributes redirectAttrs) {
 		Optional<Command> command = commandService.findIdCommands(idComanda);
 		if(command.get().getPayment() != null) {
-			redirectAttrs.addFlashAttribute("message", "Usted ya ha pagado el pedido.");
-			return "redirect:/command/new";
+			redirectAttrs.addFlashAttribute(STRING_MESSAGE, STRING_ALREADY_PAID);
+			return STRING_REDIRECT_COMMAND;
 		}
 		this.paymentService.makePayment(command.get().getPrice(), command.get().getMesa());
 		model.put("stripePublicKey", apiPublicKey);
@@ -76,9 +81,9 @@ public class PaymentController {
 	}
 	
 	@GetMapping(value = "/payment/downloadRecipt/{id_comanda}")
-	public void downloadRecipt(@PathVariable("id_comanda") int id_comanda, Map<String, Object> model, HttpServletResponse response){
+	public void downloadRecipt(@PathVariable("id_comanda") int idComanda, Map<String, Object> model, HttpServletResponse response){
 		//generate pdf
-		String fileName = this.paymentService.generateRecipt(id_comanda);
+		String fileName = this.paymentService.generateRecipt(idComanda);
 		//download pdf
 		File file = new File(fileName);
 		response.setContentType("application/octet-stream");
@@ -115,8 +120,8 @@ public class PaymentController {
 	public String payHereCash(@PathVariable("id_comanda") int idCommanda,  Map<String, Object> model, RedirectAttributes redirectAttrs){
 		Optional<Command> command = commandService.findIdCommands(idCommanda);
 		if(command.get().getPayment() != null) {
-			redirectAttrs.addFlashAttribute("message", "Usted ya ha pagado el pedido.");
-			return "redirect:/command/new";
+			redirectAttrs.addFlashAttribute(STRING_MESSAGE, STRING_ALREADY_PAID);
+			return STRING_REDIRECT_COMMAND;
 		}
 		Payment payment = this.paymentService.makePayment(command.get().getPrice(), command.get().getMesa());
 		payment.setPayHere(true);
@@ -132,8 +137,8 @@ public class PaymentController {
 	public String payHerecCard(@PathVariable("id_comanda") int idCommanda,  Map<String, Object> model, RedirectAttributes redirectAttrs){
 		Optional<Command> command = commandService.findIdCommands(idCommanda);
 		if(command.get().getPayment() != null) {
-			redirectAttrs.addFlashAttribute("message", "Usted ya ha pagado el pedido.");
-			return "redirect:/command/new";
+			redirectAttrs.addFlashAttribute(STRING_MESSAGE, STRING_ALREADY_PAID);
+			return STRING_REDIRECT_COMMAND;
 		}
 		Payment payment =this.paymentService.makePayment(command.get().getPrice(), command.get().getMesa());
 		payment.setCreditCard(true);

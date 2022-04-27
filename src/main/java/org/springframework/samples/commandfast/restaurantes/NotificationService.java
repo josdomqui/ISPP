@@ -1,14 +1,7 @@
 package org.springframework.samples.commandfast.restaurantes;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.samples.commandfast.product.Product;
-import org.springframework.samples.commandfast.user.AuthoritiesService;
-import org.springframework.samples.commandfast.user.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,8 +27,8 @@ public class NotificationService {
 		return notificationRepository.findNotificationsByRestaurant(id);
 	}
 
-	public Notification findNotificationById(int id_notification) {
-		return notificationRepository.findById(id_notification);
+	public Notification findNotificationById(int idNotification) {
+		return notificationRepository.findById(idNotification);
 	}
 
 }

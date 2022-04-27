@@ -35,7 +35,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
@@ -56,7 +55,6 @@ public class Restaurante extends NamedEntity {
 	@Size(min = 3, max = 50)
 	@Column(name = "name")
 	@NotEmpty(message = "Se requiere un nombre")
-//	@Pattern(regexp="^[ÁÉÍÓÚA-Z][a-záéíóú]+(\\s+[ÁÉÍÓÚA-Z]?[a-záéíóú]+)*$", message = "Introduce un nombre valido")
 	private String name;
 
 	@Column(name = "city")
@@ -102,7 +100,6 @@ public class Restaurante extends NamedEntity {
 	@ElementCollection(targetClass =  RestauranteType.class)
 	@Column(name = "type", nullable = false)
 	@Enumerated(EnumType.STRING)
-	@NotNull
 	private List<RestauranteType> type;
 
 	@OneToOne(cascade = CascadeType.ALL)

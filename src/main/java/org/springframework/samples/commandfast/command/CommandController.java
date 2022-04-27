@@ -18,8 +18,6 @@ package org.springframework.samples.commandfast.command;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.Optional;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -52,6 +50,9 @@ public class CommandController {
 	private final MesaService mesaService;
 	private final RestauranteService restauranteService;
 
+	private static final String FORM_CREATE_COMMAND = "command/createCommand";
+	private static final String STRING_MESAS = "mesas";
+	private static final String STRING_RESTAURANTES = "restaurantes";
 	@Autowired
 	public CommandController(CommandService commandService,MesaService mesaService, UserService userService, RestauranteService restauranteService, AuthoritiesService authoritiesService) {
 		this.commandService = commandService;
@@ -69,10 +70,10 @@ public class CommandController {
 		Command command = new Command();
 		model.put("id_restaurante", 0);
 		model.put("id_mesa", 0);
-		model.put("restaurantes", this.restauranteService.findAllRestaurants());
-		model.put("mesas", this.mesaService.findAllMesa());
+		model.put(STRING_RESTAURANTES, this.restauranteService.findAllRestaurants());
+		model.put(STRING_MESAS, this.mesaService.findAllMesa());
 		model.put("command", command);
-		return "command/createCommand";
+		return FORM_CREATE_COMMAND;
 	}
 
 	@GetMapping(value = "/command/redirect/qr")
@@ -81,22 +82,22 @@ public class CommandController {
 	}
 	
 	@GetMapping(value = "/command/new/{id_restaurante}/{id_mesa}")
-	public String initFromQR(Map<String, Object> model, @PathVariable("id_restaurante") int id_restaurante, @PathVariable("id_mesa") int id_mesa) {
+	public String initFromQR(Map<String, Object> model, @PathVariable("id_restaurante") int idRestaurante, @PathVariable("id_mesa") int idMesa) {
 		Command command = new Command();
-		model.put("id_restaurante", id_restaurante);
-		model.put("id_mesa", id_mesa);
-		model.put("restaurantes", this.restauranteService.findAllRestaurants());
-		model.put("mesas", this.mesaService.findAllMesa());
+		model.put("id_restaurante", idRestaurante);
+		model.put("id_mesa", idMesa);
+		model.put(STRING_RESTAURANTES, this.restauranteService.findAllRestaurants());
+		model.put(STRING_MESAS, this.mesaService.findAllMesa());
 		model.put("command", command);
-		return "command/createCommand";
+		return FORM_CREATE_COMMAND;
 	}
 	@PostMapping(value = "/command/new")
 	public ModelAndView processCreationForm(@Valid Command command, BindingResult result,HttpServletRequest request) {
 		if (result.hasErrors()) {
 			Map<String, Object> model = result.getModel();
-			model.put("mesas", this.mesaService.findAllMesa());
-			model.put("restaurantes", this.restauranteService.findAllRestaurants());
-			return new ModelAndView("command/createCommand", model);
+			model.put(STRING_MESAS, this.mesaService.findAllMesa());
+			model.put(STRING_RESTAURANTES, this.restauranteService.findAllRestaurants());
+			return new ModelAndView(FORM_CREATE_COMMAND, model);
 		} else {
 			Restaurante restaurante = restauranteService.findRestaurantById(Integer.parseInt(request.getParameter("restaurante"))).get();
 			this.commandService.saveCommand(command);
@@ -106,18 +107,18 @@ public class CommandController {
 	}
 	
 	@PostMapping(value = "/command/new/{id_restaurante}/{id_mesa}")
-	public ModelAndView processCreationFormFromQr(@Valid Command command, BindingResult result, @PathVariable("id_restaurante") int id_restaurante, @PathVariable("id_mesa") int id_mesa) {
+	public ModelAndView processCreationFormFromQr(@Valid Command command, BindingResult result, @PathVariable("id_restaurante") int idRestaurante, @PathVariable("id_mesa") int idMesa) {
 		if (result.hasErrors()) {
 			Map<String, Object> model = result.getModel();
-			model.put("mesas", this.mesaService.findAllMesa());
-			model.put("restaurantes", this.restauranteService.findAllRestaurants());
-			return new ModelAndView("command/createCommand", model);
+			model.put(STRING_MESAS, this.mesaService.findAllMesa());
+			model.put(STRING_RESTAURANTES, this.restauranteService.findAllRestaurants());
+			return new ModelAndView(FORM_CREATE_COMMAND, model);
 		} else {
-			command.setRestaurante(restauranteService.findRestaurantById(id_restaurante).get());
-			command.setMesa(mesaService.findMesaByNumber(id_mesa));
+			command.setRestaurante(restauranteService.findRestaurantById(idRestaurante).get());
+			command.setMesa(mesaService.findMesaByNumber(idMesa));
 			this.commandService.saveCommand(command);
 			Integer idCommand = command.getId();
-			return new ModelAndView("redirect:/carta/"+idCommand+"/"+ id_restaurante, result.getModel());
+			return new ModelAndView("redirect:/carta/"+idCommand+"/"+ idRestaurante, result.getModel());
 		}
 	}
 	

@@ -34,8 +34,7 @@ public class QRCodeGenerator {
         MatrixToImageConfig con = new MatrixToImageConfig( 0xFF000002 , 0xFFFFC041 ) ;
 
         MatrixToImageWriter.writeToStream(bitMatrix, "PNG", pngOutputStream,con);
-        byte[] pngData = pngOutputStream.toByteArray();
-        return pngData;
+        return pngOutputStream.toByteArray();
     }
 
 }

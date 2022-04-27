@@ -14,9 +14,12 @@ import javax.persistence.Table;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
 import org.springframework.samples.commandfast.line.Line;
+import org.springframework.samples.commandfast.model.BaseEntity;
 import org.springframework.samples.commandfast.model.NamedEntity;
 import org.springframework.samples.commandfast.restaurantes.Restaurante;
 
@@ -28,7 +31,11 @@ import lombok.Setter;
 @Table(name = "plates")
 @Getter
 @Setter
-public class Plate extends NamedEntity{
+public class Plate extends BaseEntity{
+	
+	@Size(min = 1, max = 50)
+	@Column(name = "name")
+	private String name;
 	
 	@Column(name = "cost")
 	@NotNull(message="Tiene que introducir un precio")
