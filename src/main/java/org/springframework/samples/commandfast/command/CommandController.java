@@ -18,7 +18,6 @@ package org.springframework.samples.commandfast.command;
 
 import java.util.Collection;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -76,6 +75,11 @@ public class CommandController {
 		model.put("command", command);
 		return FORM_CREATE_COMMAND;
 	}
+
+	@GetMapping(value = "/command/redirect/qr")
+	public String simulateRealLifeQr(Map<String, Object> model) {
+		return "command/redirectQR";
+	}
 	
 	@GetMapping(value = "/command/new/{id_restaurante}/{id_mesa}")
 	public String initFromQR(Map<String, Object> model, @PathVariable("id_restaurante") int idRestaurante, @PathVariable("id_mesa") int idMesa) {
@@ -88,16 +92,17 @@ public class CommandController {
 		return FORM_CREATE_COMMAND;
 	}
 	@PostMapping(value = "/command/new")
-	public ModelAndView processCreationForm(@Valid Command command, BindingResult result) {
+	public ModelAndView processCreationForm(@Valid Command command, BindingResult result,HttpServletRequest request) {
 		if (result.hasErrors()) {
 			Map<String, Object> model = result.getModel();
 			model.put(STRING_MESAS, this.mesaService.findAllMesa());
 			model.put(STRING_RESTAURANTES, this.restauranteService.findAllRestaurants());
 			return new ModelAndView(FORM_CREATE_COMMAND, model);
 		} else {
+			Restaurante restaurante = restauranteService.findRestaurantById(Integer.parseInt(request.getParameter("restaurante"))).get();
 			this.commandService.saveCommand(command);
 			Integer idCommand = command.getId();
-			return new ModelAndView("redirect:/carta/"+idCommand, result.getModel());
+			return new ModelAndView("redirect:/carta/"+idCommand+"/"+ restaurante.getId(), result.getModel());
 		}
 	}
 	
@@ -113,7 +118,7 @@ public class CommandController {
 			command.setMesa(mesaService.findMesaByNumber(idMesa));
 			this.commandService.saveCommand(command);
 			Integer idCommand = command.getId();
-			return new ModelAndView("redirect:/carta/"+idCommand, result.getModel());
+			return new ModelAndView("redirect:/carta/"+idCommand+"/"+ id_restaurante, result.getModel());
 		}
 	}
 	

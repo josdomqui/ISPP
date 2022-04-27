@@ -27,6 +27,12 @@
           <a style="text-decoration: none; color: black;" class="navbar-text active" aria-current="page" href="/command/new"><span style="color: rgb(0,0,0);" class="glyphicon glyphicon-cutlery" aria-hidden="true"></span> Pedir</a>
         </li>
         </sec:authorize>
+
+        <sec:authorize access="!hasAuthority('restaurant')">
+        <li class="nav-item">
+          <a style="text-decoration: none; color: black;" class="navbar-text active" aria-current="page" href="/command/redirect/qr"><span style="color: rgb(0,0,0);" class="glyphicon glyphicon-cutlery" aria-hidden="true"></span> Prueba QR</a>
+        </li>
+        </sec:authorize>
         
         <li class="nav-item">
           <a style="text-decoration: none; color: black;" class="navbar-text active" aria-current="page" href="/terms"><span style="color: rgb(0,0,0);" class="glyphicon glyphicon-duplicate" aria-hidden="true"></span> Condiciones de uso</a>
@@ -36,12 +42,6 @@
         <sec:authorize access="hasAuthority('restaurant')">
         <li class="nav-item">
           <a style="text-decoration: none; color: black;" class="navbar-text active" aria-current="page" href="/command/all"><span style="color: rgb(0,0,0);" class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Comandas</a>
-        </li>
-        </sec:authorize>
-        
-        <sec:authorize access="hasAuthority('restaurant')">
-        <li class="nav-item">
-          <a style="text-decoration: none; color: black;" class="navbar-text active" aria-current="page" href="/restaurante/paymentPanel"><span style="color:rgb(0,0,0);" class="glyphicon glyphicon-euro" aria-hidden="true"></span> Pago fisico</a>
         </li>
         </sec:authorize>
         

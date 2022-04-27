@@ -87,6 +87,7 @@
         	<p><button class="btn-pedir" type="submit" style= "text-decoration: none; color: black; font-size: 18px; padding: 0 20px;">Pedir</button></p>
         </div>
    	</div>
+
         
 </form:form>
 </commandfast:layout>
