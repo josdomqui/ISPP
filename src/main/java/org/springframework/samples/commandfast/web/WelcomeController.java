@@ -37,7 +37,7 @@ public class WelcomeController {
 			i++;
 		}
 		}
-		model.put("listaRestaurante", lres);
+		model.put(STRING_LISTA_RESTAURANTE, lres);
 		return "welcome";
 	}
 	
@@ -69,7 +69,7 @@ public class WelcomeController {
 			}
 			lrestaurantes.retainAll(lres);
 		}
-		model.put("listaRestaurante", lrestaurantes);
+		model.put(STRING_LISTA_RESTAURANTE, lrestaurantes);
 		model.put("place", place);
 		return "restaurantes/listado";
 		}else {
@@ -84,7 +84,7 @@ public class WelcomeController {
 				i++;
 			}
 			}
-			model.put("listaRestaurante", lres);
+			model.put(STRING_LISTA_RESTAURANTE, lres);
 			model.put("message", "Por favor activa tu ubicación y permita consultarla al navegador.");
 			return "welcome";
 		}
