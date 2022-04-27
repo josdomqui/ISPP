@@ -120,6 +120,7 @@ public class PaymentService {
 				bodyMessage = "Gracias por suscribirte a CommandFast. Su id de compra es: 98892";
 				paragraph.add(new Text(bodyMessage).addStyle(body));
 			} else {
+				Double price = 0.0;
 				Optional<Command> command = commandService.findIdCommands(idComanda);
 				Collection<Line> lineas = this.lineService.findLineByCommandId(idComanda);
 				Collection<Plate> platos = this.plateService.findAllPlates();

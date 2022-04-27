@@ -367,6 +367,7 @@ public class RestauranteController {
 	public String notifyClear(Map<String, Object> model, @PathVariable("id_notification") Integer idNotification,
 			RedirectAttributes redirectAttrs) {
 		// update notification
+		Notification notif = new Notification();
 		notif = notificationService.findNotificationById(idNotification);
 		notif.setAtendido(1);
 		try {
