@@ -72,6 +72,30 @@ class PaymentControllerTests {
 		comanda2.setMesa(mesa2);
 		this.mesaService.saveline(mesa2);
 		this.commandService.saveCommand(comanda2);
+		
+		Mesa mesa3 = new Mesa();
+		mesa3.setNumber(3);
+		mesa3.setCostumer(2);
+		Command comanda3 = new Command();
+		comanda3.setLines(null);
+		comanda3.setMesa(null);
+		comanda3.setCostumers(4);
+		comanda3.setPrice(43.1);
+		comanda3.setMesa(mesa3);
+		this.mesaService.saveline(mesa3);
+		this.commandService.saveCommand(comanda3);
+		
+		Mesa mesa4 = new Mesa();
+		mesa4.setNumber(4);
+		mesa4.setCostumer(2);
+		Command comanda4 = new Command();
+		comanda4.setLines(null);
+		comanda4.setMesa(null);
+		comanda4.setCostumers(4);
+		comanda4.setPrice(43.1);
+		comanda4.setMesa(mesa4);
+		this.mesaService.saveline(mesa4);
+		this.commandService.saveCommand(comanda4);
 	}
 	
 	@WithMockUser
@@ -83,7 +107,7 @@ class PaymentControllerTests {
 	@WithMockUser
 	@Test
 	void testDeberiaMostrarOrdenPago() throws Exception {
-		mockMvc.perform(get("/payment/{id_comanda}", 1)).andExpect(status().isOk())
+		mockMvc.perform(get("/payment/{id_comanda}", 3)).andExpect(status().isOk())
 				.andExpect(model().attributeExists("stripePublicKey")).andExpect(model().attributeExists("price"))
 				.andExpect(model().attributeExists("id_comanda")).andExpect(view().name("payment/charge"));
 	}
@@ -117,6 +141,6 @@ class PaymentControllerTests {
 	@WithMockUser
 	@Test
 	void testDeberiaPagarEnCash() throws Exception {
-		mockMvc.perform(get("/payment/cash/{id_comanda}", 1)).andExpect(status().is3xxRedirection()).andExpect(view().name("redirect:/payment/waitPage"));
+		mockMvc.perform(get("/payment/cash/{id_comanda}", 4)).andExpect(status().is3xxRedirection()).andExpect(view().name("redirect:/payment/waitPage"));
 	}
 }

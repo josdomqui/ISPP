@@ -56,7 +56,7 @@ class RestaurantServiceTests {
 		r.setTelephone("622423142");
 		r.setPhoto("/resources/images/bar1.jpg");
 		r.setCapacity("12");
-		r.setSchedule("Lunes/Viernes 10:00 - 20:00");
+		r.setSchedule("10:00-20:00");
 		r.setEmail("email@gmail.com");
 		r.setValoracionMedia(2.5);
 		List<RestauranteType> l = new ArrayList<RestauranteType>();
