@@ -65,9 +65,9 @@ INSERT INTO plates(id, name, category, cost, image, restaurant_id) values (3, 'C
 INSERT INTO plates(id, name, category, cost, image, restaurant_id) values (4, 'Souffle de verduras con atun', 'Entrante', '17', '/resources/images/Souffle de verduras con atun.png',1);
 INSERT INTO plates(id, name, category, cost, image, restaurant_id) values (5, 'Cordero con yeso y tupinambo', 'Plato princiapl', '28', '/resources/images/Cordero con yeso y tupinambo.JPEG',1);
 INSERT INTO plates(id, name, category, cost, image, restaurant_id) values (6, 'Cromlech de Madioca y Huitlacoche', 'Plato princiapl', '60', '/resources/images/Cromlech de Madioca y Huitlacoche.jpg',2);
-INSERT INTO plates(id, name, category, cost, image, restaurant_id) values (7, 'Trufón de chocolate', 'Postre', '13', '/resources/images/Trufón de chocolate.jpg',2);
-INSERT INTO plates(id, name, category,description, cost, image, restaurant_id) values (8, 'Angulas a la vongole con navajas de playa', 'Entrante','Angulas 100% autóctonas', '55', '/resources/images/Angulas a la vongole con navajas de playa.jpg',2);
-INSERT INTO plates(id, name, category, cost, image, restaurant_id) values (9, 'Ensalada líquida Andalusí', 'Entrante', '16', '/resources/images/Ensalada líquida Andalusí.jpg',2);
+INSERT INTO plates(id, name, category, cost, image, restaurant_id) values (7, 'Trufón de chocolate', 'Postre', '13', '/resources/images/Trufon de chocolate.jpg',2);
+INSERT INTO plates(id, name, category,description, cost, image, restaurant_id) values (8, 'Angulas a la vongole con navajas de playa', 'Entrante','Angulas 100% autoctonas', '55', '/resources/images/Angulas a la vongole con navajas de playa.jpg',2);
+INSERT INTO plates(id, name, category, cost, image, restaurant_id) values (9, 'Ensalada líquida Andalusí', 'Entrante', '16', '/resources/images/Ensalada liquida Andalusi.jpg',2);
 INSERT INTO plates(id, name, category, cost, image, restaurant_id) values (10,'Chuleta de raya Nikkei con pure de maiz', 'Plato principal', '42', '/resources/images/Chuleta de raya Nikkei con pure de maiz.jpg',2);
 
 INSERT INTO plates(id, name, category, cost, restaurant_id) values (11,'Paella valenciana', 'Plato principal', '20',3);
