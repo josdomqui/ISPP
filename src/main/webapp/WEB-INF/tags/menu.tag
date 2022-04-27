@@ -41,12 +41,6 @@
         
         <sec:authorize access="hasAuthority('restaurant')">
         <li class="nav-item">
-          <a style="text-decoration: none; color: black;" class="navbar-text active" aria-current="page" href="/restaurante/paymentPanel"><span style="color:rgb(0,0,0);" class="glyphicon glyphicon-euro" aria-hidden="true"></span> Pago fisico</a>
-        </li>
-        </sec:authorize>
-        
-        <sec:authorize access="hasAuthority('restaurant')">
-        <li class="nav-item">
           <a style="text-decoration: none; color: black;" class="navbar-text active" aria-current="page" href="/restaurante/notifications"><span style="color: rgb(0,0,0);" class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span> Notificaciones</a>
         </li>
         </sec:authorize>
