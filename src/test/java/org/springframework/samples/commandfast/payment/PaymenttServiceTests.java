@@ -36,7 +36,7 @@ class PaymenttServiceTests {
     this.paymentService.savePayment(pa);
     List<Payment> p = this.paymentService.getAllPayments();
 
-    assertThat(p.isEmpty()).isFalse();
+    assertThat(p).isNotEmpty();
     }
 
     @Test

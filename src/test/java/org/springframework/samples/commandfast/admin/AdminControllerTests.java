@@ -42,7 +42,16 @@ class AdminControllerTests {
     @Test
     void testNoDeberiaMostrarPanelAdministracion() throws Exception{
         mockMvc.perform(get("/admin/paymentPanel")).andExpect(status().isForbidden());
-
+    }
+    
+    @WithMockUser(username = "adminRandom", authorities = {"admin"})
+    @Test
+    void testDeberiaMostrarFormularioEdicionRestaurante() throws Exception{
+        mockMvc.perform(get("/admin/editarRestaurante/{restauranteId}",1)).andExpect(status().isOk())
+        .andExpect(model().attributeExists("error"))
+        .andExpect(model().attributeExists("restaurante"))
+        .andExpect(model().attributeExists("listaTipos"))
+        .andExpect(view().name("restaurantes/editarRestauranteForm"));
     }
 
     

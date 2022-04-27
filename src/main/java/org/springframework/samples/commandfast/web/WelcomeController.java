@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class WelcomeController {
 
+	private static final String STRING_LISTA_RESTAURANTE = "listaRestaurante";
+	
 	@Autowired
 	private RestauranteService restauranteService;	
 	

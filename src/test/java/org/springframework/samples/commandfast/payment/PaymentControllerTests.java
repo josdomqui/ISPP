@@ -1,11 +1,19 @@
 package org.springframework.samples.commandfast.payment;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.Before;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.samples.commandfast.command.Command;
+import org.springframework.samples.commandfast.command.CommandService;
+import org.springframework.samples.commandfast.mesa.Mesa;
+import org.springframework.samples.commandfast.mesa.MesaService;
 import org.springframework.samples.commandfast.payments.PaymentController;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -18,8 +26,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class PaymentControllerTests {
 
+	@Autowired
+	protected CommandService commandService;
+	
+	@Autowired
+	protected MesaService mesaService;
+	
 	@Autowired
 	protected PaymentController paymentController;
 
@@ -29,6 +44,21 @@ class PaymentControllerTests {
 	@Test
 	void contextLoads() throws Exception {
 		assertThat(paymentController).isNotNull();
+	}
+	
+	@BeforeAll
+	void setup() {
+		Mesa mesa = new Mesa();
+		mesa.setNumber(1);
+		mesa.setCostumer(1);
+		Command comanda = new Command();
+		comanda.setLines(null);
+		comanda.setMesa(null);
+		comanda.setCostumers(4);
+		comanda.setPrice(43.1);
+		comanda.setMesa(mesa);
+		this.mesaService.saveline(mesa);
+		this.commandService.saveCommand(comanda);
 	}
 
 	@WithMockUser

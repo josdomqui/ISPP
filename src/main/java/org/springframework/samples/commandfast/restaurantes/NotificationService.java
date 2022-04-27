@@ -27,8 +27,8 @@ public class NotificationService {
 		return notificationRepository.findNotificationsByRestaurant(id);
 	}
 
-	public Notification findNotificationById(int id_notification) {
-		return notificationRepository.findById(id_notification);
+	public Notification findNotificationById(int idNotification) {
+		return notificationRepository.findById(idNotification);
 	}
 
 }

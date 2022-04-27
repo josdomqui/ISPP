@@ -32,6 +32,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class ValoracionController {
    
+	private static final String STRING_RESTAURANTE = "restaurante";
+	
 	private final RestauranteService restauranteService;
 	
 	private final ValoracionService valoracionService;
@@ -46,7 +48,7 @@ public class ValoracionController {
 	public String showRestautanteValoraciones(Map<String, Object> model, @PathVariable("id2") Integer id) {
 		Restaurante restaurante = restauranteService.findRestaurantById(id).get();
 		model.put("listaValoraciones", restaurante.getValoraciones());
-		model.put("restaurante", restaurante);
+		model.put(STRING_RESTAURANTE, restaurante);
 		return "restaurantes/listadoValoraciones";
 	}
 	
@@ -56,7 +58,7 @@ public class ValoracionController {
 		Valoracion valoracion = new Valoracion();
 		valoracion.setRestaurante(restaurante);
 		model.put("valoracion", valoracion);
-		model.put("restaurante", restaurante);
+		model.put(STRING_RESTAURANTE, restaurante);
 		return "restaurantes/valorarRestauranteForm";
 	}
 
@@ -64,7 +66,7 @@ public class ValoracionController {
 	public String processCreationForm(@Valid Valoracion valoracion, BindingResult result, @PathVariable("id2") Integer id,ModelMap modelMap) {
 		Restaurante restaurante = restauranteService.findRestaurantById(id).get();
 		if (result.hasErrors()) {
-			modelMap.addAttribute("restaurante", restaurante);
+			modelMap.addAttribute(STRING_RESTAURANTE, restaurante);
 			modelMap.addAttribute("valoracion", valoracion);
 			return "restaurantes/valorarRestauranteForm";
 		}

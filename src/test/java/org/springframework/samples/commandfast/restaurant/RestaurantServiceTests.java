@@ -24,13 +24,14 @@ class RestaurantServiceTests {
 
 	@Autowired
 	private RestauranteService restaurantService;
+	@Autowired
 	private UserService userService;
 	EntityManager em;
 
 	@Test
 	void shouldFindAll() {
 		Collection<Restaurante> r = this.restaurantService.findAllRestaurants();
-		assertThat(r.isEmpty()).isFalse();
+		assertThat(r).isNotEmpty();
 	}
 
 	@Ignore
@@ -67,7 +68,7 @@ class RestaurantServiceTests {
 		this.restaurantService.save(r);
 
 		Collection<Restaurante> restaurants = this.restaurantService.findAllRestaurants();
-		assertThat(restaurants.size()).isEqualTo(found + 1);
+		assertThat(restaurants).hasSize(found + 1);
 
 	}
 
@@ -86,19 +87,19 @@ class RestaurantServiceTests {
 
 	@Test
 	void shouldFindMenuByRestaurant() {
-		assertThat(this.restaurantService.findMenuByRestaurant(1).isEmpty()).isFalse();
+		assertThat(this.restaurantService.findMenuByRestaurant(1)).isNotEmpty();
 	}
 
 	@Test
 	void shouldFindAllMenu() {
 		Collection<Product> p = this.restaurantService.findAllMenu();
-		assertThat(p.isEmpty()).isFalse();
+		assertThat(p).isNotEmpty();
 	}
 
 	@Test
 	void shouldFindRestaurants() {
 		Restaurante re = this.restaurantService.findRestaurantById(1).get();
-		assertThat(this.restaurantService.findAllRestaurants().contains(re)).isTrue();
+		assertThat(this.restaurantService.findAllRestaurants()).contains(re);
 	}
 
 	@Test
@@ -113,7 +114,7 @@ class RestaurantServiceTests {
 	void shouldDeleteRestaurants() {
 		Restaurante re = this.restaurantService.findRestaurantById(1).get();
 		this.restaurantService.delete(re.getId());
-		assertThat(this.restaurantService.findAllRestaurants().contains(re)).isFalse();
+		assertThat(this.restaurantService.findAllRestaurants()).contains(re);
 	}
 
 }

@@ -101,5 +101,5 @@ class RestauranteControllerTests {
         mockMvc.perform(get("/terms", 1)).andExpect(status().isOk()).andExpect(view().name("terms-conditions"));
 
     }
-   
+
 }
