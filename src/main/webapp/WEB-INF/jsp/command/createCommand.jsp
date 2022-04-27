@@ -27,9 +27,23 @@
 	        			<p class="card-text p-3">Numero de mesa:</p>
 	            	</div>
 	            	<div class="col-xs-10 col-md-7 mt-2 mb-2">
-            			<select required name="mesa" class="input-filtros" style=" font-size: 18px;">
+	            		<c:choose>
+	            			<c:when test="${id_mesa == 0 }">
+	            				<select required name="mesa" class="input-filtros" style=" font-size: 18px;">
+	            			</c:when>
+	            			<c:otherwise>
+	            				<select disabled required name="mesa" class="input-filtros" style=" font-size: 18px;">
+	            			</c:otherwise>
+	            		</c:choose>
             				<c:forEach items="${mesas}" var="mesa">
-  								<option value="${mesa.number}"><c:out value = "${mesa.number}"/></option>
+            					<c:choose>
+            						<c:when test="${id_mesa == mesa.number}">
+            							<option selected value="${mesa.number}"><c:out value = "${mesa.number}"/></option>
+            						</c:when>
+            						<c:otherwise>
+            							<option value="${mesa.number}"><c:out value = "${mesa.number}"/></option>
+            						</c:otherwise>
+            					</c:choose>
   							</c:forEach>
 						</select>
 	           		</div>
@@ -40,9 +54,24 @@
 	        			<p class="card-text p-3">Restaurante:</p>
 	            	</div>
 	            	<div class="col-xs-10 col-md-7 mt-2 mb-2">
-            			<select required name="restaurante" class="input-filtros" style=" font-size: 18px;">
+	            		<c:choose>
+	            			<c:when test="${id_restaurante == 0 }">
+	            				<select required name="restaurante" class="input-filtros" style=" font-size: 18px;">
+	            			</c:when>
+	            			<c:otherwise>
+	            				<select disabled required name="restaurante" class="input-filtros" style=" font-size: 18px;">
+	            			</c:otherwise>
+	            		</c:choose>
+            			
             				<c:forEach items="${restaurantes}" var="restaurante">
-  								<option value="${restaurante.id}"><c:out value = "${restaurante.name}"/></option>
+            					<c:choose>
+            						<c:when test="${id_restaurante == restaurante.id}">
+            							<option selected value="${restaurante.id}"><c:out value = "${restaurante.name}"/></option>
+            						</c:when>
+            						<c:otherwise>
+            							<option value="${restaurante.id}"><c:out value = "${restaurante.name}"/></option>
+            						</c:otherwise>
+            					</c:choose>
   							</c:forEach>
 						</select>
 	           		</div>
@@ -55,9 +84,10 @@
     
     <div class="form-group">
     	<div class="button" style="text-align: center">
-        	<p><button class="btn-pedir" type="submit" style= "text-decoration: none; color: #ffff; font-size: 16px; padding: 0 20px;"><strong>Pedir</strong></button></p>
+        	<p><button class="btn-pedir" type="submit" style= "text-decoration: none; color: black; font-size: 18px; padding: 0 20px;">Pedir</button></p>
         </div>
    	</div>
+
         
 </form:form>
 </commandfast:layout>

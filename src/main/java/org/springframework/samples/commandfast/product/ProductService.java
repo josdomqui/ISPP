@@ -31,5 +31,10 @@ public class ProductService {
 	public Product findProductById(Integer id){
 		return productRepository.findProductById(id);
 	}
+	
+	@Transactional
+	public void delete(Integer id) {
+		this.productRepository.deleteProductByProductId(id);
+	}
 
 }

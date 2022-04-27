@@ -45,6 +45,22 @@
 					</c:forEach>
 				</select>
 			</div>
+			<br>			<br>
+			
+			<div>
+				<label for="inputValor" class="form-label label-input-listado">Filtrar por valoración: </label>
+				<select id="inputValor" name="inputValor"
+					class="form-control form-select input-filtros"
+					style="font-size: 14px; font-family: 'quicksand', sans-serif;">
+					<option selected
+						style="font-size: 14px; font-family: 'quicksand', sans-serif;">Selecciona
+						una opción</option>
+						<option>Más valorados</option> 
+						<option>Menos valorados</option>
+				</select>
+			</div>
+			
+			
 			<div style="display: flex; align-self: flex-end;">
 				<button type="submit" onclick="return validateString()"class="btn-default buton-base-listado">
 					<span style="color: rgb(255, 255, 255);"
@@ -91,8 +107,16 @@
 							<p>
 								<a type="button" class="buton-detalles-listado"
 									href="${fn:escapeXml(url)}"
-									style="text-decoration: none; color: #ffff; font-size: 14px;">Ver
+									style="text-decoration: none; color: black; font-size: 16px;">Ver
 									detalles</a>
+							</p>
+							<spring:url value="/restaurante/{id2}/valoraciones" var="url2">
+								<spring:param name="id2" value="${restaurante.id}" />
+							</spring:url>
+							<p>
+								<a type="button" class="buton-detalles-listado"
+									href="${fn:escapeXml(url2)}"
+									style="text-decoration: none; color: black; font-size: 16px;">Opiniones de nuestros clientes</a>
 							</p>
 							<sec:authorize access="hasAuthority('restaurant')">
 								<c:if test="${restaurante.user.username==username}">
@@ -103,7 +127,7 @@
 									<p>
 										<a type="button" class="buton-detalles-listado"
 											href="${fn:escapeXml(addProductUrl)}"
-											style="text-decoration: none; color: #ffff; font-size: 14px;">Añadir
+											style="text-decoration: none; color: black; font-size: 16px;">Añadir
 											plato a la carta</a>
 									</p>
 								</c:if>
@@ -116,8 +140,24 @@
 									<p>
 										<a type="button" class="buton-detalles-listado"
 											href="${fn:escapeXml(addProductUrl)}"
-											style="text-decoration: none; color: #ffff; font-size: 14px;">Añadir
+											style="text-decoration: none; color: black; font-size: 16px;">Añadir
 											plato a la carta</a>
+											
+									<spring:url value="/restaurante/{id}/delete"
+										var="deleteRestaurante">
+										<spring:param name="id" value="${restaurante.id}" />
+									</spring:url>
+										<a type="button" class="buton-detalles-listado"
+											href="${fn:escapeXml(deleteRestaurante)}"
+											style="text-decoration: none; color: black; font-size: 16px;">Borrar</a>
+											
+									<spring:url value="/admin/editarRestaurante/{restauranteId}"
+										var="editarRestaurante">
+										<spring:param name="restauranteId" value="${restaurante.id}" />
+									</spring:url>
+										<a type="button" class="buton-detalles-listado"
+											href="${fn:escapeXml(editarRestaurante)}"
+											style="text-decoration: none; color: black; font-size: 16px;">Editar</a>
 									</p>
 							</sec:authorize>
 						</div>

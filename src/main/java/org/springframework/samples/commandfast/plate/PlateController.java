@@ -61,37 +61,39 @@ public class PlateController {
 	}
 	
 	
-	@GetMapping(value = "/carta/{id_comanda}")
-	public String showAllPlates(@PathVariable("id_comanda") int idCommanda, Map<String, Object> model) {
-		Collection<Plate> plate = plateService.findAllPlates();
+	@GetMapping(value = "/carta/{id_comanda}/{id_restaurante}")
+	public String showAllPlates(@PathVariable("id_comanda") int idCommanda, Map<String, Object> model,@PathVariable("id_restaurante") int idRestaurante) {
+		Collection<Plate> plate = plateService.findPlatesByRestaurant(idRestaurante);
 		model.put("platos", plate);
 		List<Line> line = new ArrayList<>();
 		model.put("lines", line);
 		model.put("id_commanda", idCommanda);
+		model.put("id_restaurante", idRestaurante);
 		return VIEW_PLATES;
 	}
 	
-	@PostMapping(value = "/carta/{id_comanda}")
-	public String processCreationForm(@PathVariable("id_comanda") int idCommanda, @Valid Line line, BindingResult result) {
+	@PostMapping(value = "/carta/{id_comanda}/{id_restaurante}")
+	public String processCreationForm(@PathVariable("id_comanda") int idCommanda,@PathVariable("id_restaurante") int idRestaurante, @Valid Line line, BindingResult result) {
 		this.lineService.saveline(line);
-		return "redirect:/carta/"+idCommanda+"/edit";
+		return "redirect:/carta/"+idCommanda+"/" + idRestaurante + "/edit";
 	}
 	
-	@GetMapping(value = "/carta/{id_comanda}/edit")
-    public String initUpdateLineForm(@PathVariable("id_comanda") int idComanda, Map<String, Object> model) {
+	@GetMapping(value = "/carta/{id_comanda}/{id_restaurante}/edit")
+    public String initUpdateLineForm(@PathVariable("id_comanda") int idComanda,@PathVariable("id_restaurante") int idRestaurante, Map<String, Object> model) {
         Collection<Line> line = this.lineService.findLineByCommandId(idComanda);
         model.put("lines", line);
-		Collection<Plate> plate = plateService.findAllPlates();
+		Collection<Plate> plate = plateService.findPlatesByRestaurant(idRestaurante);
 		model.put("platos", plate);        
 		model.put("id_commanda", idComanda);
+		model.put("id_restaurante", idRestaurante);
 		return VIEW_PLATES;
     }
 
 	
-	@PostMapping(value = "/carta/{id_comanda}/edit")
-	public String processUForm(@PathVariable("id_comanda") int idCommanda, @Valid Line line, BindingResult result) {
+	@PostMapping(value = "/carta/{id_comanda}/{id_restaurante}/edit")
+	public String processUForm(@PathVariable("id_comanda") int idCommanda,@PathVariable("id_restaurante") int idRestaurante, @Valid Line line, BindingResult result) {
 		this.lineService.saveline(line);
-		return "redirect:/carta/"+idCommanda+"/edit";
+		return "redirect:/carta/"+idCommanda+"/" + idRestaurante + "/edit";
 	}
 	
 }

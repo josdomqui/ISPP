@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
@@ -45,5 +46,9 @@ public interface LineRepository extends Repository<Line, Integer> {
 	
 	@Query("SELECT line FROM Line line")
 	public List<Line> findLines();
+	
+    @Modifying
+    @Query("DELETE FROM Line l WHERE l.command.id =:id")
+	void deleteLineByRestaurantId(@Param("id") int id);
 
 }

@@ -7,7 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.samples.commandfast.command.Command;
 import org.springframework.samples.commandfast.model.BaseEntity;
@@ -21,11 +21,11 @@ import lombok.Setter;
 @Setter
 public class Mesa extends BaseEntity{
 	@Column(name = "number")
-	@NotEmpty
+	@NotNull
 	Integer number;
 	
 	@Column(name = "costumer")
-	@NotEmpty
+	@NotNull
 	Integer costumer;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "mesa")
