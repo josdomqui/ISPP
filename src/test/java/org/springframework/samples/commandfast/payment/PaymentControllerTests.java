@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Before;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.runner.RunWith;
@@ -46,7 +47,7 @@ class PaymentControllerTests {
 		assertThat(paymentController).isNotNull();
 	}
 	
-	@BeforeAll
+	@BeforeEach
 	void setup() {
 		Mesa mesa = new Mesa();
 		mesa.setNumber(1);
@@ -59,6 +60,24 @@ class PaymentControllerTests {
 		comanda.setMesa(mesa);
 		this.mesaService.saveline(mesa);
 		this.commandService.saveCommand(comanda);
+		
+		Mesa mesa2 = new Mesa();
+		mesa2.setNumber(2);
+		mesa2.setCostumer(2);
+		Command comanda2 = new Command();
+		comanda2.setLines(null);
+		comanda2.setMesa(null);
+		comanda2.setCostumers(4);
+		comanda2.setPrice(43.1);
+		comanda2.setMesa(mesa2);
+		this.mesaService.saveline(mesa2);
+		this.commandService.saveCommand(comanda2);
+	}
+	
+	@WithMockUser
+	@Test
+	void testDeberiaPagarConTarjeta() throws Exception {
+		mockMvc.perform(get("/payment/creditCard/{id_comanda}", 2)).andExpect(status().is3xxRedirection()).andExpect(view().name("redirect:/payment/waitPage"));
 	}
 
 	@WithMockUser
@@ -100,11 +119,4 @@ class PaymentControllerTests {
 	void testDeberiaPagarEnCash() throws Exception {
 		mockMvc.perform(get("/payment/cash/{id_comanda}", 1)).andExpect(status().is3xxRedirection()).andExpect(view().name("redirect:/payment/waitPage"));
 	}
-	@WithMockUser
-	@Test
-	void testDeberiaPagarConTarjeta() throws Exception {
-		mockMvc.perform(get("/payment/creditCard/{id_comanda}", 1)).andExpect(status().is3xxRedirection()).andExpect(view().name("redirect:/payment/waitPage"));
-	}
-	
-	
 }

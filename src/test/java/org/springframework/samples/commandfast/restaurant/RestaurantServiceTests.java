@@ -114,7 +114,7 @@ class RestaurantServiceTests {
 	void shouldDeleteRestaurants() {
 		Restaurante re = this.restaurantService.findRestaurantById(1).get();
 		this.restaurantService.delete(re.getId());
-		assertThat(this.restaurantService.findAllRestaurants()).contains(re);
+		assertThat(this.restaurantService.findAllRestaurants()).doesNotContain(re);
 	}
 
 }
