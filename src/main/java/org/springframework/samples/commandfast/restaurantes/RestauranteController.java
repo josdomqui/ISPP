@@ -301,7 +301,7 @@ public class RestauranteController {
 	
 	//Payment de restaurante
 	
-	@GetMapping(value = "/paymentPanel")
+	@GetMapping(value = "/notifications")
 	public String payments(Map<String, Object> model, HttpServletRequest request){
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if(!principal.equals(STRING_ANONYMOUS_USER)) {
@@ -309,7 +309,10 @@ public class RestauranteController {
 			
 			Restaurante restauranteSesion = restauranteService.findByUsername(username);
 			Integer idSesionRestaurante = restauranteSesion.getId();
+			List<Notification> notificaciones = notificationService.findNotificationsByRestaurant(restauranteSesion.getId());
+
 			model.put("sesionRestaurant", restauranteSesion);
+			model.put("notificaciones", notificaciones);
 			
 			Collection<Command> listaComandas = commandService.findCommandsOfARestaurant(idSesionRestaurante);
 			
@@ -348,7 +351,7 @@ public class RestauranteController {
 				model.put("conTarjeta", conTarjeta);
 				model.put("conEfectivo", conEfectivo);
 			}
-			return "restaurantes/payments";
+			return "restaurantes/notifications";
 		} else {
 			return "/";
 		}
@@ -392,23 +395,23 @@ public class RestauranteController {
 	}
 	
 	// Ver si han solicitado camarero
-	@GetMapping(value = "/notifications")
-	public String notifications(Map<String, Object> model, HttpServletRequest request){
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		if(!principal.equals(STRING_ANONYMOUS_USER)) {
-			String username = request.getUserPrincipal().getName();
-			
-			Restaurante restauranteSesion = restauranteService.findByUsername(username);
-			List<Notification> notificaciones = notificationService.findNotificationsByRestaurant(restauranteSesion.getId());
-
-			model.put("sesionRestaurant", restauranteSesion);
-			model.put("notificaciones", notificaciones);
-			
-			return "restaurantes/notifications";
-		} else {
-			return "/";
-		}
-	}
+//	@GetMapping(value = "/notifications")
+//	public String notifications(Map<String, Object> model, HttpServletRequest request){
+//		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//		if(!principal.equals(STRING_ANONYMOUS_USER)) {
+//			String username = request.getUserPrincipal().getName();
+//			
+//			Restaurante restauranteSesion = restauranteService.findByUsername(username);
+//			List<Notification> notificaciones = notificationService.findNotificationsByRestaurant(restauranteSesion.getId());
+//
+//			model.put("sesionRestaurant", restauranteSesion);
+//			model.put("notificaciones", notificaciones);
+//			
+//			return "restaurantes/notifications";
+//		} else {
+//			return "/";
+//		}
+//	}
 	
 	// Crear/Editar productos
   
