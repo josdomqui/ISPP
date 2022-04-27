@@ -189,15 +189,6 @@ class RestauranteControllerTests {
 
     @WithMockUser
     @Test
-    void testNotif() throws Exception{
-        mockMvc.perform(get("/restaurante/notify/{id_comanda}/{id_restaurante}",2,1)).andExpect(status().isOk());
-
-    }
-
-
-    
-    @WithMockUser
-    @Test
     void testNoDeberiaEliminarProducto() throws Exception{
         mockMvc.perform(delete("/restaurante/3/detalles/carta")).andExpect(status().isForbidden());
     }
