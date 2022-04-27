@@ -45,6 +45,11 @@ public class PlateService {
 	public Collection<Plate> findAllPlates() throws DataAccessException {
 		return plateRepository.findAllPlates();
 	}
+	@Transactional(readOnly = true)
+	public Collection<Plate> findPlatesByRestaurant(Integer id) throws DataAccessException {
+		return plateRepository.findPlateByRestaurant(id);
+	}
+	
 	
 	@Transactional(readOnly = true)
     public Plate findPlateById(int id) throws DataAccessException {
@@ -56,4 +61,8 @@ public class PlateService {
         plateRepository.save(plate);
 
     }
+	@Transactional
+	public void delete(Integer id) {
+		this.plateRepository.deletePlateByPlateId(id);;
+	}
 }

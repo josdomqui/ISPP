@@ -23,7 +23,7 @@
           <div class="lc-block">
             <div class="item-menu">
               <div class="item-menu-content">
-                <p class="item-menu-title"><span editable="inline" class=""><c:out value = "${product.name}"/></span> <span editable="inline" class="item-menu-price"><c:out value = "${product.price}"/>€</span></p>
+                <p class="item-menu-title"><span editable="inline" class=""><c:out value = "${product.name}"/></span> <span editable="inline" class="item-menu-price"><c:out value = "${product.cost}"/>€</span></p>
                 <p class="item-menu-desc" editable="inline"><c:out value = "${product.description}"/><br></p>
                 <sec:authorize access="hasAuthority('restaurant')">
                 	<c:if test="${restaurante.user.username==username}">

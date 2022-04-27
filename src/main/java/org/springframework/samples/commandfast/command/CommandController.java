@@ -86,16 +86,17 @@ public class CommandController {
 		return "command/createCommand";
 	}
 	@PostMapping(value = "/command/new")
-	public ModelAndView processCreationForm(@Valid Command command, BindingResult result) {
+	public ModelAndView processCreationForm(@Valid Command command, BindingResult result,HttpServletRequest request) {
 		if (result.hasErrors()) {
 			Map<String, Object> model = result.getModel();
 			model.put("mesas", this.mesaService.findAllMesa());
 			model.put("restaurantes", this.restauranteService.findAllRestaurants());
 			return new ModelAndView("command/createCommand", model);
 		} else {
+			Restaurante restaurante = restauranteService.findRestaurantById(Integer.parseInt(request.getParameter("restaurante"))).get();
 			this.commandService.saveCommand(command);
 			Integer idCommand = command.getId();
-			return new ModelAndView("redirect:/carta/"+idCommand, result.getModel());
+			return new ModelAndView("redirect:/carta/"+idCommand+"/"+ restaurante.getId(), result.getModel());
 		}
 	}
 	
