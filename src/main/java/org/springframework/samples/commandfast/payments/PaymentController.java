@@ -66,6 +66,7 @@ public class PaymentController {
 			Payment payment =this.paymentService.makePayment(command.get().getPrice(), command.get().getMesa());
 			payment.setPayHere(false);
 			command.get().setPayment(payment);
+			this.paymentService.savePayment(payment);
 		}
 		Optional<Command> command = commandService.findIdCommands(idComanda);
 		command.get().setState(false);
