@@ -36,7 +36,6 @@ public class WelcomeController {
 		}
 		}
 		model.put("listaRestaurante", lres);
-		model.put("message", "Por favor activa tu ubicación");
 		return "welcome";
 	}
 	
@@ -54,7 +53,7 @@ public class WelcomeController {
 		model.put("listaTipos", listaTipoRestaurantes);
 		List<Restaurante> lrestaurantes;
 		List<Restaurante> lres= new ArrayList<>();
-
+		
 		if(place.isEmpty()){
 			lrestaurantes = restauranteService.findAllRestaurants();
 		}else{
@@ -72,7 +71,19 @@ public class WelcomeController {
 		model.put("place", place);
 		return "restaurantes/listado";
 		}else {
-			model.put("message", "Por favor activa tu ubicación");
+			List<Restaurante> lrestaurantes;
+			lrestaurantes = restauranteService.findAllRestaurants();
+			lrestaurantes.sort(Comparator.comparing(Restaurante::getValoracionMedia).reversed());
+			List<Restaurante> lres =new ArrayList<>();
+			Integer i= 0;
+			while(i<3) {
+			for(Restaurante l: lrestaurantes) {
+				lres.add(l);
+				i++;
+			}
+			}
+			model.put("listaRestaurante", lres);
+			model.put("message", "Por favor activa tu ubicación y permita consultarla al navegador.");
 			return "welcome";
 		}
 	}

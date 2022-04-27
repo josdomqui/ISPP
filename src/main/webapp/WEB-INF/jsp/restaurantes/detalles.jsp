@@ -48,7 +48,7 @@
 					<iframe title="Localización del restaurante" src="https://maps.google.com/maps?q=<c:out value = "${detallesRestaurante.address}"/>&amp;t=m&amp;z=8&amp;output=embed&amp;iwloc=near"></iframe>
 				</div>
 				<div class="ratio-4x3 min-vh-50" style="background: #ffcb74;">
-					<h1 ALIGN = center ><c:out value = "${detallesRestaurante.address}"/> &nbsp;&nbsp;&nbsp;<c:out value = "${detallesRestaurante.telephone}"/></h1>
+					<h1 class="text-dark" ALIGN = center ><c:out value = "${detallesRestaurante.address}"/> &nbsp;&nbsp;&nbsp;<c:out value = "${detallesRestaurante.telephone}"/></h1>
 				</div>
 			</div><!-- /lc-block -->
 		

@@ -61,20 +61,18 @@ public class RestauranteController {
 	private final UserService userService;
 	private final PaymentService paymentService;
 	private final CommandService commandService;
-	private final ValoracionService valoracionService;
 	private final NotificationService notificationService;
 
 	@Value("${STRIPE_PUBLIC_KEY}")
     private String apiPublicKey;
 
 	@Autowired
-	public RestauranteController(RestauranteService restauranteService, ProductService productService, UserService userService, PaymentService paymentService, CommandService commandService, ValoracionService valoracionService, NotificationService notificationService) { 
+	public RestauranteController(RestauranteService restauranteService, ProductService productService, UserService userService, PaymentService paymentService, CommandService commandService, NotificationService notificationService) { 
 		this.restauranteService = restauranteService; 
 		this.productService = productService; 
 		this.userService = userService; 
 		this.paymentService = paymentService;
 		this.commandService = commandService;
-		this.valoracionService = valoracionService;
 		this.notificationService = notificationService;
 
 	}
@@ -385,7 +383,7 @@ public class RestauranteController {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
 		}
-		return ("redirect:/carta/"+id_comanda.toString());
+		return ("redirect:/carta/"+id_comanda.toString()+"/edit");
 	}
 	
 	// Ver si han solicitado camarero

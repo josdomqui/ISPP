@@ -62,12 +62,13 @@ public class ValoracionController {
 
 	@PostMapping(value = "/restaurante/{id2}/valoracion")
 	public String processCreationForm(@Valid Valoracion valoracion, BindingResult result, @PathVariable("id2") Integer id,ModelMap modelMap) {
+		Restaurante restaurante = restauranteService.findRestaurantById(id).get();
 		if (result.hasErrors()) {
+			modelMap.addAttribute("restaurante", restaurante);
 			modelMap.addAttribute("valoracion", valoracion);
 			return "restaurantes/valorarRestauranteForm";
 		}
 		else {
-			Restaurante restaurante = restauranteService.findRestaurantById(id).get();
 			this.valoracionService.saveValoracion(valoracion);
 			valoracionService.actualizarPuntuacionMedia(restaurante);
 			return "redirect:/welcome";

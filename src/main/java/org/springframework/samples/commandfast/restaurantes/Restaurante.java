@@ -101,7 +101,7 @@ public class Restaurante extends NamedEntity {
 	//@NotNull
 	private List<RestauranteType> type;
 
-	@OneToOne(cascade = CascadeType.REMOVE)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "username", referencedColumnName = "username")
 	@Valid
 	private User user;
@@ -109,7 +109,7 @@ public class Restaurante extends NamedEntity {
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "restaurante")
 	private Set<Command> commands;
 	
-	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "restaurante")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurante")
 	private List<Valoracion> valoraciones;
 
 }

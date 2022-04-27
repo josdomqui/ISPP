@@ -48,7 +48,6 @@ INSERT INTO tables(id, number, costumer) values (3, 3, 5);
 INSERT INTO tables(id, number, costumer) values (4, 4, 6);
 INSERT INTO tables(id, number, costumer) values (5, 5, 7);
 
-INSERT INTO commands(id, costumers, price, mesa_id, restaurant_id) values (1, 4, 53.02, 1, 1);
 
 INSERT INTO plates(id, name, category, cost, image) values (1, 'Huevos Lartisan', 'Media-Racion', '11', '/resources/images/Huevos Lartisan.jpg');
 INSERT INTO plates(id, name, category, cost, image) values (2, 'Solomillo de vaca', 'Racion', '18', '/resources/images/Solomillo de vaca.jpg');
@@ -68,6 +67,9 @@ INSERT INTO restaurante_type(restaurante_id, type) VALUES (2,'COMEDORES');
 INSERT INTO restaurante_type(restaurante_id, type) VALUES (2,'EUROPA_DEL_ESTE');
 INSERT INTO restaurante_type(restaurante_id, type) VALUES (3,'GOURMET');
 INSERT INTO restaurante_type(restaurante_id, type) VALUES (3,'AUTOR');
+INSERT INTO restaurante_type(restaurante_id, type) VALUES (4,'TRES_TENEDORES');
+INSERT INTO restaurante_type(restaurante_id, type) VALUES (4,'AFRICANA');
+
 
 
 INSERT INTO valoraciones(id, opinion, puntuacion, restaurant_id) values (1, 'El restaurante es muy recomendable', 4, 1);
