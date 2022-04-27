@@ -55,7 +55,6 @@ public class Restaurante extends NamedEntity {
 	@Size(min = 3, max = 50)
 	@Column(name = "name")
 	@NotEmpty(message = "Se requiere un nombre")
-//	@Pattern(regexp="^[ÁÉÍÓÚA-Z][a-záéíóú]+(\\s+[ÁÉÍÓÚA-Z]?[a-záéíóú]+)*$", message = "Introduce un nombre valido")
 	private String name;
 
 	@Column(name = "city")
