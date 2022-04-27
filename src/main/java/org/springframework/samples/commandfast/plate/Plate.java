@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -14,6 +16,7 @@ import javax.validation.constraints.NotEmpty;
 
 import org.springframework.samples.commandfast.line.Line;
 import org.springframework.samples.commandfast.model.NamedEntity;
+import org.springframework.samples.commandfast.restaurantes.Restaurante;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -33,10 +36,18 @@ public class Plate extends NamedEntity{
 	@NotEmpty
 	String category;
 	
+	@Column(name = "description")
+	private String description;
+	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "plate")
 	private Set<Line> lines;
 	
 	@Column(name = "image")
 	@NotEmpty
 	String image;
+	
+	@ManyToOne(cascade = CascadeType.REMOVE)
+	@JoinColumn(name = "restaurant_id")
+	private Restaurante restaurant;
+
 }
