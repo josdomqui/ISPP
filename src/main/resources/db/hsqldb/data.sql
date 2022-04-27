@@ -29,6 +29,15 @@ INSERT INTO products(id, name, price, restaurant_id) VALUES (3, 'Montadito Pollo
 INSERT INTO products(id, name, description, price, restaurant_id) VALUES (4, 'Tosta de la casa', 'Solomillo, Queso de Cabra, Cebolla Caramelizada y Salsa Pedro Ximénez', 3.60, 1);
 INSERT INTO products(id, name, price, restaurant_id) VALUES (5, 'Solomillo al roque', 2.30, 1);
 
+
+
+
+
+
+
+
+
+
 INSERT INTO products(id, name, description, price, restaurant_id) VALUES (6, 'Mini Hamburguesa de Buey', 'Hamburguesa con verdadera carne vacuno',4.50, 2);
 INSERT INTO products(id, name, price, restaurant_id) VALUES (7, 'Patatas bravas', 2.90, 2);
 INSERT INTO products(id, name, price, restaurant_id) VALUES (8, 'Semifrío Gourmet De Tarta De Queso', 3.60, 2);
@@ -49,9 +58,9 @@ INSERT INTO tables(id, number, costumer) values (4, 4, 6);
 INSERT INTO tables(id, number, costumer) values (5, 5, 7);
 
 
-INSERT INTO plates(id, name, category, cost, image) values (1, 'Huevos Lartisan', 'Media-Racion', '11', '/resources/images/Huevos Lartisan.jpg');
-INSERT INTO plates(id, name, category, cost, image) values (2, 'Solomillo de vaca', 'Racion', '18', '/resources/images/Solomillo de vaca.jpg');
-INSERT INTO plates(id, name, category, cost, image) values (3, 'Chuleta de atun', 'Tapa', '55', '/resources/images/Chuleta de atun.jpg');
+INSERT INTO plates(id, name, category, cost, image,restaurant_id) values (1, 'Huevos Lartisan', 'Media-Racion', '11', '/resources/images/Huevos Lartisan.jpg',1);
+INSERT INTO plates(id, name, category, cost, image,restaurant_id) values (2, 'Solomillo de vaca', 'Racion', '18', '/resources/images/Solomillo de vaca.jpg',2);
+INSERT INTO plates(id, name, category, cost, image,restaurant_id) values (3, 'Chuleta de atun', 'Tapa', '55', '/resources/images/Chuleta de atun.jpg',3);
 INSERT INTO plates(id, name, category, cost, image) values (4, 'Souffle de verduras con atun', 'Entrante', '17', '/resources/images/Souffle de verduras con atun.png');
 INSERT INTO plates(id, name, category, cost, image) values (5, 'Cordero con yeso y tupinambo', 'Plato princiapl', '28', '/resources/images/Cordero con yeso y tupinambo.JPEG');
 INSERT INTO plates(id, name, category, cost, image) values (6, 'Cromlech de Madioca y Huitlacoche', 'Plato princiapl', '60', '/resources/images/Cromlech de Madioca y Huitlacoche.jpg');
