@@ -2,7 +2,6 @@ package org.springframework.samples.commandfast.configuration;
 
 import javax.sql.DataSource;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,13 +29,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private static final String STRING_ADMIN = "admin";
 	@Autowired
 	DataSource dataSource;
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/resources/**","/webjars/**","/h2-console/**").permitAll()
+				.antMatchers("/resources/**", "/webjars/**", "/h2-console/**").permitAll()
 				.antMatchers("/payment/subscription").permitAll()
-				.antMatchers(HttpMethod.GET, "/","/oups").permitAll()
+				.antMatchers(HttpMethod.GET, "/", "/oups").permitAll()
 				.antMatchers("/users/new").permitAll()
 				.antMatchers("/charge").permitAll()
 				.antMatchers("/create-charge").permitAll()
@@ -50,6 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, RESTAURANTE_URL).permitAll()
 				.antMatchers(HttpMethod.POST, "/command/new/**/**").permitAll()
 				.antMatchers("/command/new").permitAll()
+				.antMatchers("/command/redirect/qr").permitAll()
 				.antMatchers("/command/new/**/**").permitAll()
 				.antMatchers("/command/all").hasAnyAuthority("restaurant")
 				.antMatchers("/carta/**").permitAll()
@@ -63,7 +63,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		// de la BD H2 (deshabilitar las cabeceras de protección contra
 		// ataques de tipo csrf y habilitar los framesets si su contenido
 		// se sirve desde esta misma página.
-		http.csrf().ignoringAntMatchers("/h2-console/**", "/charge", "command/new", "command/new/**/**", "/payment/subscription");
+		http.csrf().ignoringAntMatchers("/h2-console/**", "/charge", "command/new", "command/new/**/**",
+				"/payment/subscription");
 		http.headers().frameOptions().sameOrigin();
 
 	}
@@ -71,23 +72,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.jdbcAuthentication()
-	      .dataSource(dataSource)
-	      .usersByUsernameQuery(
-	       "select username,password,enabled "
-	        + "from users "
-	        + "where username = ?")
-	      .authoritiesByUsernameQuery(
-	       "select username, authority "
-	        + "from authorities "
-	        + "where username = ?")	      	      
-	      .passwordEncoder(passwordEncoder());	
+				.dataSource(dataSource)
+				.usersByUsernameQuery(
+						"select username,password,enabled "
+								+ "from users "
+								+ "where username = ?")
+				.authoritiesByUsernameQuery(
+						"select username, authority "
+								+ "from authorities "
+								+ "where username = ?")
+				.passwordEncoder(passwordEncoder());
 	}
-	
+
 	@Bean
-	public PasswordEncoder passwordEncoder() {	    
+	public PasswordEncoder passwordEncoder() {
 		return NoOpPasswordEncoder.getInstance();
 	}
-	
+
 }
-
-

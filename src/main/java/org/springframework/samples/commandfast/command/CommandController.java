@@ -74,6 +74,11 @@ public class CommandController {
 		model.put("command", command);
 		return "command/createCommand";
 	}
+
+	@GetMapping(value = "/command/redirect/qr")
+	public String simulateRealLifeQr(Map<String, Object> model) {
+		return "command/redirectQR";
+	}
 	
 	@GetMapping(value = "/command/new/{id_restaurante}/{id_mesa}")
 	public String initFromQR(Map<String, Object> model, @PathVariable("id_restaurante") int id_restaurante, @PathVariable("id_mesa") int id_mesa) {
