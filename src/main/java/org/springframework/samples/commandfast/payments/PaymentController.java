@@ -61,10 +61,16 @@ public class PaymentController {
     
 	@GetMapping(value = "/payment/successPage/{id_comanda}")
 	public String paymentSuccessPage(@PathVariable("id_comanda") int idComanda, Map<String, Object> model){
+		if(idComanda != 0){	
+			Optional<Command> command = commandService.findIdCommands(idComanda);
+			Payment payment =this.paymentService.makePayment(command.get().getPrice(), command.get().getMesa());
+			payment.setPayHere(false);
+			command.get().setPayment(payment);
+			this.paymentService.savePayment(payment);
+		}
 		Optional<Command> command = commandService.findIdCommands(idComanda);
-		Payment payment =this.paymentService.makePayment(command.get().getPrice(), command.get().getMesa());
-		payment.setPayHere(false);
-		command.get().setPayment(payment);
+		command.get().setState(false);
+		this.commandService.saveCommand(command.get());
 		model.put("id_comanda", idComanda);
 		return "payment/success";
 	}
@@ -115,8 +121,9 @@ public class PaymentController {
 		Payment payment = this.paymentService.makePayment(command.get().getPrice(), command.get().getMesa());
 		payment.setPayHere(true);
 		command.get().setPayment(payment);
+		command.get().setState(false);
 		this.paymentService.savePayment(payment);
-		
+		this.commandService.saveCommand(command.get());
 		return "redirect:/payment/waitPage";
 		
 	}
@@ -132,7 +139,9 @@ public class PaymentController {
 		payment.setCreditCard(true);
 		payment.setPayHere(true);
 		command.get().setPayment(payment);
+		command.get().setState(false);
 		this.paymentService.savePayment(payment);
+		this.commandService.saveCommand(command.get());
 		
 		return "redirect:/payment/waitPage";
 		

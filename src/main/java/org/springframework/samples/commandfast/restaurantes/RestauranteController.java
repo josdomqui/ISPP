@@ -403,29 +403,6 @@ public class RestauranteController {
 		return ("redirect:/carta/" + id_comanda + "/" + id_restaurante + "/edit");
 	}
 
-	// Ver si han solicitado camarero
-	// @GetMapping(value = "/notifications")
-	// public String notifications(Map<String, Object> model, HttpServletRequest
-	// request){
-	// Object principal =
-	// SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-	// if(!principal.equals(STRING_ANONYMOUS_USER)) {
-	// String username = request.getUserPrincipal().getName();
-	//
-	// Restaurante restauranteSesion = restauranteService.findByUsername(username);
-	// List<Notification> notificaciones =
-	// notificationService.findNotificationsByRestaurant(restauranteSesion.getId());
-	//
-	// model.put("sesionRestaurant", restauranteSesion);
-	// model.put("notificaciones", notificaciones);
-	//
-	// return "restaurantes/notifications";
-	// } else {
-	// return "/";
-	// }
-	// }
-
-	// Crear/Editar productos
 
 	@GetMapping(value = "/{id}/product/new")
 	public String initCreationForm(@PathVariable("id") Integer id, Map<String, Object> model) {

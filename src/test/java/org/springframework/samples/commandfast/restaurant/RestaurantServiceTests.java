@@ -31,41 +31,41 @@ class RestaurantServiceTests {
     assertThat(r.isEmpty()).isFalse();
     }
 
-    @Ignore
-    @Test
-    void shouldInsertRestaurant(){
-    Collection<Restaurante> restaurant=this.restaurantService.findAllRestaurants();
-    int found = restaurant.size();
-
-    User user = new User();
-    user.setUsername("Carlos");
-    user.setPassword("pass1234");
-    user.setEnabled(Boolean.TRUE);
-
-    Restaurante r = new Restaurante();
-    r.setId(9);
-    r.setName("Jose");
-    r.setAddress("c viga");
-    r.setCity("Granada");
-    r.setDescription("descrition_newwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
-    r.setTelephone("622423142");
-    r.setPhoto("photo");
-    r.setCapacity("12");
-    r.setSchedule("schedule");
-    r.setEmail("email@gmail.com");
-    List<RestauranteType> l =  new ArrayList<>();
-    l.add(RestauranteType.BAR);
-    l.add(RestauranteType.CERVECERIA);
-    r.setType(l);
-    r.setUser(user);
-       
-        
-        this.restaurantService.save(r);
-        
-       Collection<Restaurante> restaurants = this.restaurantService.findAllRestaurants();
-       assertThat(restaurants.size()).isEqualTo(found+1);
-
-    }
+//    @Ignore
+//    @Test
+//    void shouldInsertRestaurant(){
+//    Collection<Restaurante> restaurant=this.restaurantService.findAllRestaurants();
+//    int found = restaurant.size();
+//
+//    User user = new User();
+//    user.setUsername("Carlos");
+//    user.setPassword("pass1234");
+//    user.setEnabled(Boolean.TRUE);
+//
+//    Restaurante r = new Restaurante();
+//    r.setId(9);
+//    r.setName("Jose");
+//    r.setAddress("c viga");
+//    r.setCity("Granada");
+//    r.setDescription("descrition_newwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
+//    r.setTelephone("622423142");
+//    r.setPhoto("photo");
+//    r.setCapacity("12");
+//    r.setSchedule("schedule");
+//    r.setEmail("email@gmail.com");
+//    List<RestauranteType> l =  new ArrayList<>();
+//    l.add(RestauranteType.BAR);
+//    l.add(RestauranteType.CERVECERIA);
+//    r.setType(l);
+//    r.setUser(user);
+//       
+//        
+//        this.restaurantService.save(r);
+//        
+//       Collection<Restaurante> restaurants = this.restaurantService.findAllRestaurants();
+//       assertThat(restaurants.size()).isEqualTo(found+1);
+//
+//    }
 
     @Test
     void shouldFindRestaurant(){

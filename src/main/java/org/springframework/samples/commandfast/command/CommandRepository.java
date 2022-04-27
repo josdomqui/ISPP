@@ -36,7 +36,7 @@ public interface CommandRepository extends CrudRepository<Command, Integer> {
 	@Query("SELECT command FROM Command command")
 	public List<Command> findCommands();
 	
-	@Query("SELECT command FROM Command command WHERE restaurante.id =:id")
+	@Query("SELECT command FROM Command command WHERE restaurante.id =:id AND command.state=FALSE")
 	public Collection<Command> findCommandsOfARestaurant(@Param("id") int id);
 
 }

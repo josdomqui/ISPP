@@ -48,7 +48,7 @@ public class Plate extends NamedEntity{
 	@Column(name = "image")
 	String image;
 	
-	@ManyToOne(cascade = CascadeType.REMOVE)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "restaurant_id")
 	private Restaurante restaurant;
 
