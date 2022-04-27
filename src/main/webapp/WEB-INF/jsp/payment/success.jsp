@@ -8,7 +8,7 @@
 
 <commandfast:layout pageName="successPage"> 
     <div class="row">
-        <div align="center">
+        <div>
             <h2 class="img-title p-3">Su pago se ha realizado con éxito</h2>
             <spring:url value="/resources/images/pago exitoso.png" htmlEscape="true" var="checkPago"/>
             <img style="width: 25%; height: 85%" class="img-responsive" src="${checkPago}" alt="Imagen del pago"/>
@@ -16,7 +16,7 @@
             <spring:url value="/payment/downloadRecipt/{id_comanda}" var="url">
             	<spring:param name="id_comanda" value="${id_comanda}"/>
             </spring:url>
-            <a class="btn-pedir" id="submitButton" style="text-decoration: none; background-color: #ffcb74; color: #ffff" href="${fn:escapeXml(url)}">
+            <a class="btn-pedir" id="submitButton" style="text-decoration: none; background-color: #ffcb74; color: black; font-size: 16px" href="${fn:escapeXml(url)}">
                 Descargar recibo
             </a>
         </div>

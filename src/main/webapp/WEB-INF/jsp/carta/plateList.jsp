@@ -7,15 +7,23 @@
 <%@ taglib prefix="commandfast" tagdir="/WEB-INF/tags" %>
 
 <commandfast:layout pageName="menu">
-	   
+	 <c:if test="${message}">
+	 ${message}
+	 </c:if>
     <div class="container">
     	<div class="row">
     		<div class="col-3 offset-1"><h1><strong>Menu</strong></h1></div>
     		<div class="col-7 text-right">
+    		<spring:url value="/restaurante/notify/{id_comanda}/{id_restaurante}" var="url">
+          		<spring:param name="id_comanda" value="${id_commanda}"/>
+          		<spring:param name="id_restaurante" value="${id_restaurante}"/>
+			</spring:url>																																		
+   			<a class="btn-pedir" href="${fn:escapeXml(url)}" style="text-decoration: none; color: black; font-size: 16px; margin-left: 2%;">Solicitar camarero</a>
+    		
 			<spring:url value="/carta/{id_comanda}/ticket" var="url">
           		<spring:param name="id_comanda" value="${id_commanda}"/>
 			</spring:url>																																		
-   			<a class="btn-pedir" href="${fn:escapeXml(url)}" style="text-decoration: none; color: #ffff; font-size: 14px;">Finalizar pedido</a>
+   			<a class="btn-pedir" href="${fn:escapeXml(url)}" style="text-decoration: none; color: black; font-size: 16px;">Finalizar pedido</a>
    			</div>
     	</div>
         
@@ -40,9 +48,9 @@
 							</c:forEach>
 							</c:if>
 
-							<input label="Cantidad" required style="color: black; width: 80px; height: 35px;  border-radius: 10px; font-size: 14px" name="quantity" type="number" max="50" min="0"/>
+							<input label="Cantidad" required style="color: black; width: 80px; height: 35px;  border-radius: 10px; font-size: 14px" name="quantity" type="number" max="50" min="1"/>
 							<input label="Comanda" name="command" value="${id_commanda}" type="hidden"/>
-							<button style="margin-left: 10px; color: #ffff; font-size: 14px" class="btn-pedir" type="submit"> Pedir </button>
+							<button style="margin-left: 10px; color: black; font-size: 16px" class="btn-pedir" type="submit"> Pedir </button>
 	       				</div>
    					</form:form>
 	       		</div>

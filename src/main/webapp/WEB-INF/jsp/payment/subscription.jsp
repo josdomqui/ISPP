@@ -29,10 +29,10 @@
         <div class="row">
             <div class="col-lg-6 col-md-8 col-12 my-auto mx-auto">
                 <h1>Gestión de suscripciones Stripe</h1>
-                <p class="lead mb-4">
+                <p class="lead mb-4" style="font-size: 19px;">
                     Por favor, complete el siguiente formulario para realizar el pago.
                 </p>
-                <h5 class="mb-2">Escoja su plan de pago.</h5>
+                <h5 class="mb-2" style="font-size: 16px;">Escoja su plan de pago.</h5>
                 <p class="text-muted">
                     60% de descuento cuando escoges el plan anual.
                 </p>
@@ -80,17 +80,17 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <input class="form-control" id="email" name="email"
+                        <input class="form-control input-filtros" id="email" name="email"
                                placeholder="Email" type="email" required>
                     </div>
                     <div class="form-group">
-                        <input class="form-control" id="coupon" name="coupon"
+                        <input class="form-control input-filtros" id="coupon" name="coupon"
                                placeholder="Código de descuento(opcional)" type="text">
                     </div>
                     <!-- Used to display Element errors. -->
                     <div class="text-danger w-100" id="card-errors" role="alert"></div>
                     <div class="form-group pt-2">
-                        <button class="btn btn-block" disabled=true id="submitButton" style="background-color: #ffcb74; color: #ffff" type="submit">
+                        <button class="buton-detalles-listado" disabled=true id="submitButton" style="color: black; font-size: 22px; width: 100%;" type="submit">
                             Finalizar pago</button>
                         <div class="small text-muted mt-2">
                             Pay securely with Stripe. By clicking the button above, you agree

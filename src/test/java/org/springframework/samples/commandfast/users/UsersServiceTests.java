@@ -27,7 +27,7 @@ class UsersServiceTests {
     List<User> result = 
     StreamSupport.stream(u.spliterator(), false)
     .collect(Collectors.toList());
-    assertThat(result.isEmpty()).isFalse();
+    assertThat(result).isNotEmpty();
     }
 
     @Test
@@ -44,7 +44,7 @@ class UsersServiceTests {
     List<User> lista = 
     StreamSupport.stream(u.spliterator(), false)
     .collect(Collectors.toList());
-    assertThat(lista.size()).isEqualTo((found + 1));
+    assertThat(lista).hasSize((found + 1));
     }
 
 

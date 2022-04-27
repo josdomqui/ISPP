@@ -6,9 +6,17 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.samples.commandfast.command.CommandRepository;
+import org.springframework.samples.commandfast.line.LineRepository;
+import org.springframework.samples.commandfast.plate.Plate;
+import org.springframework.samples.commandfast.plate.PlateRepository;
 import org.springframework.samples.commandfast.product.Product;
+import org.springframework.samples.commandfast.product.ProductRepository;
 import org.springframework.samples.commandfast.user.AuthoritiesService;
 import org.springframework.samples.commandfast.user.UserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,10 +29,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class RestauranteService {
 
-	
+	@Autowired
 	private RestauranteRepository restauranteRepository;	
+	@Autowired
+	private ProductRepository productRepository;
+	@Autowired
+	private PlateRepository plateRepository;
+	@Autowired
+	private LineRepository lineRepository;
 	
-
+	@Autowired
+	private CommandRepository commandRepository;
+	
 	@Autowired
 	private UserService userService;
 
@@ -58,8 +74,9 @@ public class RestauranteService {
 	}
 	
 	@Transactional
-	public Collection<Product> findMenuByRestaurant(Integer restaurantId) throws DataAccessException{
-		return restauranteRepository.findProductsByRestaurant(restaurantId);
+	public Collection<Plate> findMenuByRestaurant(Integer restaurantId) throws DataAccessException{
+//		return restauranteRepository.findProductsByRestaurant(restaurantId);
+		return restauranteRepository.findPlatesByRestaurant(restaurantId);
 	}
 
     public List<Restaurante> findByType(RestauranteType restauranteType) {
@@ -84,6 +101,31 @@ public class RestauranteService {
 
     }
 
+	@Transactional
+	public void delete(Integer id) {
+		
+		List<Integer> aux = commandRepository.findCommandByRestaurantId(id);
+
+		for(Integer i:aux) {
+			lineRepository.deleteLineByRestaurantId(i);
+		}
+		
+		
+		plateRepository.deletePlateById(id);
+		productRepository.deleteProductById(id);
+		
+		commandRepository.deleteCommandById(id);
+		restauranteRepository.deleteById(id);
+		
+	}
+	
+	@Transactional
+	public Restaurante obtenerRestaurante() {
+		Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+		User currentUser=(User)authentication.getPrincipal();
+		return findByUsername(currentUser.getUsername());
+			
+	}
 
 
 }
