@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.samples.commandfast.command.CommandRepository;
+import org.springframework.samples.commandfast.line.LineRepository;
 import org.springframework.samples.commandfast.plate.Plate;
 import org.springframework.samples.commandfast.plate.PlateRepository;
 import org.springframework.samples.commandfast.product.Product;
@@ -33,8 +35,12 @@ public class RestauranteService {
 	private ProductRepository productRepository;
 	@Autowired
 	private PlateRepository plateRepository;
+	@Autowired
+	private LineRepository lineRepository;
 	
-
+	@Autowired
+	private CommandRepository commandRepository;
+	
 	@Autowired
 	private UserService userService;
 
@@ -97,8 +103,18 @@ public class RestauranteService {
 
 	@Transactional
 	public void delete(Integer id) {
+		
+		List<Integer> aux = commandRepository.findCommandByRestaurantId(id);
+
+		for(Integer i:aux) {
+			lineRepository.deleteLineByRestaurantId(i);
+		}
+		
+		
 		plateRepository.deletePlateById(id);
 		productRepository.deleteProductById(id);
+		
+		commandRepository.deleteCommandById(id);
 		restauranteRepository.deleteById(id);
 		
 	}

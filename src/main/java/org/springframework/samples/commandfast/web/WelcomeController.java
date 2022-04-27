@@ -46,7 +46,7 @@ public class WelcomeController {
 		return "terms-conditions";
 	}
 	
-	@PostMapping(value =  "/" )
+	@PostMapping({ "/", "/welcome" })
 	public String showRestautanteUbication( HttpServletRequest request,Map<String, Object> model) {
 		String type = "Selecciona una opción";
 		if(request.getParameter("city")!=null) {

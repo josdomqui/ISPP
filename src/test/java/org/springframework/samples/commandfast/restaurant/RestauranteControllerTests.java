@@ -13,7 +13,6 @@ import org.springframework.samples.commandfast.restaurantes.Notification;
 import org.springframework.samples.commandfast.restaurantes.NotificationService;
 import org.springframework.samples.commandfast.restaurantes.Restaurante;
 import org.springframework.samples.commandfast.restaurantes.RestauranteController;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.samples.commandfast.restaurantes.RestauranteService;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -23,9 +22,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 @RunWith(SpringRunner.class)
@@ -186,13 +183,6 @@ class RestauranteControllerTests {
 
     }
     
-
-    @WithMockUser
-    @Test
-    void testNotif() throws Exception{
-        mockMvc.perform(get("/restaurante/notify/{id_comanda}/{id_restaurante}",2,1)).andExpect(status().isOk());
-
-    }
 
 
     

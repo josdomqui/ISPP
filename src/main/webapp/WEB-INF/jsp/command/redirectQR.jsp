@@ -12,8 +12,9 @@
 				<img class="img-fluid" src="/resources/images/qrEjemplo.png" alt="Imagen de bienvenida" />
 
 				<br>
-				<p>El presente QR simula el que se situara en la mesa numero X del restaurante X, permitiendole realizar una 
-				comanda para dicho restaurante.</p>
+				<p>El presente QR simula el que se situara en la mesa numero 1 del restaurante Gomez Martin, permitiendole realizar una 
+				comanda para dicho restaurante (En el caso de que borre el restaurante Gomez Martin, este QR no será válido, por lo tanto
+				la página dará error).</p>
 					<spring:url value="/command/new/1/1" var="qrUrl">
 					</spring:url>
 				<p>La direccion web a la que redirige el QR al escanearlo es la siguiente: <a href="${fn:escapeXml(qrUrl)}">URL</a>	

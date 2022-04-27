@@ -18,6 +18,7 @@ package org.springframework.samples.commandfast.command;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -39,4 +40,11 @@ public interface CommandRepository extends CrudRepository<Command, Integer> {
 	@Query("SELECT command FROM Command command WHERE restaurante.id =:id AND command.state=FALSE")
 	public Collection<Command> findCommandsOfARestaurant(@Param("id") int id);
 
+    
+    @Modifying
+    @Query("DELETE FROM Command c WHERE c.restaurante.id =:id")
+	void deleteCommandById(@Param("id") int id);
+    
+    @Query("SELECT c.id FROM Command c WHERE c.restaurante.id =:id")
+	List<Integer> findCommandByRestaurantId(@Param("id") int id);
 }

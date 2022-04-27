@@ -71,11 +71,10 @@ public class PaymentController {
 			Payment payment =this.paymentService.makePayment(command.get().getPrice(), command.get().getMesa());
 			payment.setPayHere(false);
 			command.get().setPayment(payment);
+			command.get().setState(false);
+			this.commandService.saveCommand(command.get());
 			this.paymentService.savePayment(payment);
 		}
-		Optional<Command> command = commandService.findIdCommands(idComanda);
-		command.get().setState(false);
-		this.commandService.saveCommand(command.get());
 		model.put("id_comanda", idComanda);
 		return "payment/success";
 	}
