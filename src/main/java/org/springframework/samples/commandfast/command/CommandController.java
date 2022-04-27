@@ -118,7 +118,7 @@ public class CommandController {
 			command.setMesa(mesaService.findMesaByNumber(idMesa));
 			this.commandService.saveCommand(command);
 			Integer idCommand = command.getId();
-			return new ModelAndView("redirect:/carta/"+idCommand+"/"+ id_restaurante, result.getModel());
+			return new ModelAndView("redirect:/carta/"+idCommand+"/"+ idRestaurante, result.getModel());
 		}
 	}
 	
