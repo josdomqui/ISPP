@@ -14,13 +14,11 @@ import javax.persistence.Table;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import org.springframework.samples.commandfast.line.Line;
 import org.springframework.samples.commandfast.model.BaseEntity;
-import org.springframework.samples.commandfast.model.NamedEntity;
 import org.springframework.samples.commandfast.restaurantes.Restaurante;
 
 import lombok.Getter;
