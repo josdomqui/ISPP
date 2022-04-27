@@ -30,6 +30,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -37,6 +38,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.samples.commandfast.command.Command;
 import org.springframework.samples.commandfast.model.NamedEntity;
 import org.springframework.samples.commandfast.user.User;
@@ -63,8 +65,8 @@ public class Restaurante extends NamedEntity {
 	private String city;
 
 	@Column(name = "telephone")
-	@Min(1)
-	@Digits(fraction = 0, integer = 9)
+	@Length(min = 9, max = 9, message = "Se requiere un número de teléfono válido")
+	@Digits(fraction = 0, integer = 9, message = "Se requiere un número de teléfono válido")
 	private String telephone;
 
 	@Column(name= "address")
@@ -86,9 +88,11 @@ public class Restaurante extends NamedEntity {
 	
 	@Column(name = "schedule")
 	@NotEmpty
+	@Pattern(regexp="^((([0-1]{1}[0-9]{1}|[1-2]{1}[0-3]{1}):[0-5]{1}[0-9]{1}))-((([0-1]{1}[0-9]{1}|[1-2]{1}[0-3]{1}):[0-5]{1}[0-9]{1})) y ((([0-1]{1}[0-9]{1}|[1-2]{1}[0-3]{1}):[0-5]{1}[0-9]{1}))-((([0-1]{1}[0-9]{1}|[1-2]{1}[0-3]{1}):[0-5]{1}[0-9]{1}))|^((([0-1]{1}[0-9]{1}|[1-2]{1}[0-3]{1}):[0-5]{1}[0-9]{1}))-((([0-1]{1}[0-9]{1}|[1-2]{1}[0-3]{1}):[0-5]{1}[0-9]{1}))", message="Introduzca por ejemplo: 10:00-20:00")
 	private String schedule;
 
 	@Column(name = "email")
+	@Email
 	@NotEmpty
 	private String email;
 	

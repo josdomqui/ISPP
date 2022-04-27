@@ -31,8 +31,6 @@ public interface PlateRepository extends CrudRepository<Plate, Integer> {
 	public Collection<Plate> findPlateByRestaurant(@Param("id") int id);
 	
 	
-	
-	
 	@Query("SELECT plate FROM Plate plate WHERE plate.id =:id")
     public Plate findById(@Param("id") int id);
 
