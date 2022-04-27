@@ -34,7 +34,6 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.properties.TextAlignment;
 
-import java.util.logging.Logger;
 
 
 import java.io.File;
