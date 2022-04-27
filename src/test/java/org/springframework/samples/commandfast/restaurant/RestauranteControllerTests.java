@@ -1,22 +1,31 @@
 package org.springframework.samples.commandfast.restaurant;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.samples.commandfast.command.Command;
+import org.springframework.samples.commandfast.mesa.Mesa;
+import org.springframework.samples.commandfast.restaurantes.Notification;
+import org.springframework.samples.commandfast.restaurantes.NotificationService;
+import org.springframework.samples.commandfast.restaurantes.Restaurante;
 import org.springframework.samples.commandfast.restaurantes.RestauranteController;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.samples.commandfast.restaurantes.RestauranteService;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 @RunWith(SpringRunner.class)
@@ -27,6 +36,12 @@ class RestauranteControllerTests {
 	@Autowired
 	protected RestauranteController restauranteController;
 	
+	@Autowired
+	protected NotificationService notificationService;
+	
+	@Autowired
+	protected RestauranteService restaurantService;
+	
     @Autowired  
     private MockMvc mockMvc;
 
@@ -34,7 +49,17 @@ class RestauranteControllerTests {
     void contextLoads() throws Exception {
         assertThat(restauranteController).isNotNull();
     }
-
+    
+    @BeforeEach
+	void setup() {
+		Notification notificacion = new Notification();
+		notificacion.setId(1);
+		notificacion.setAtendido(0);
+		notificacion.setNumeroMesa(1);
+		Restaurante rest = restaurantService.findRestaurantById(1).get();
+		notificacion.setRestaurant(rest);
+		this.notificationService.saveNotification(notificacion);
+	}
 
     @WithMockUser
     @Test
@@ -51,14 +76,19 @@ class RestauranteControllerTests {
         .andExpect(view().name("restaurantes/listado"));
 
     }
-    /*
+    
     @WithMockUser(username = "anonymousUser", authorities = {"anonymousUser"})
     @Test
-    void testDeberiaListadoRestauranteBuscado() throws Exception{
-        mockMvc.perform(get("/restaurante/list/search").param("inputPlace", "Sevilla").param("inputState", "No").param("inputValor", "No")).andExpect(status().isOk()).andExpect(view().name("restaurantes/listado"));
-
+    void testDeberiaListadoRestauranteBuscadoUbicacionTipoYValor() throws Exception{
+        mockMvc.perform(get("/restaurante/list/search").param("inputPlace", "Sevilla").param("inputState", "DOS_TENEDORES").param("inputValor", "Más valorados")).andExpect(status().isOk()).andExpect(view().name("restaurantes/listado"));
     }
-    */
+    
+    @WithMockUser(username = "anonymousUser", authorities = {"anonymousUser"})
+    @Test
+    void testDeberiaListadoRestauranteBuscadoUbicacionTipoYValorVacios() throws Exception{
+        mockMvc.perform(get("/restaurante/list/search").param("inputPlace", "").param("inputState", "Selecciona una opción").param("inputValor", "Menos valorados")).andExpect(status().isOk()).andExpect(view().name("restaurantes/listado"));
+    }
+    
     @WithMockUser
     @Test
     void testDeberiaMostrarDetallesRestaurante() throws Exception{
@@ -90,7 +120,35 @@ class RestauranteControllerTests {
 
     }
     
+    @WithMockUser
+    @Test
+    void testDownloadQR() throws Exception{
+        mockMvc.perform(get("/restaurante/{id}/detalles/qr/descargar", 1).param("numero_mesa", "1")).andExpect(status().isOk()).andExpect(model().attributeExists("restaurante")).andExpect(model().attributeExists("id_restaurante")).andExpect(view().name("restaurantes/qr"));
+    }
     
+    @WithMockUser
+    @Test
+    void testNotifyClear() throws Exception{
+        mockMvc.perform(get("/restaurante/notify/clear/{id_notification}", 1)).andExpect(status().is3xxRedirection());
+    }
+    
+    @WithMockUser
+    @Test
+    void testInitCreationForm() throws Exception{
+        mockMvc.perform(get("/restaurante/{id}/product/new", 1)).andExpect(status().isOk()).andExpect(model().attributeExists("product")).andExpect(model().attributeExists("restaurante_id")).andExpect(view().name("carta/addProduct"));
+    }
+    
+    @WithMockUser
+    @Test
+    void testProcessCreationForm() throws Exception{
+        mockMvc.perform(post("/restaurante/{id}/product/new", 1).with(csrf())).andExpect(status().isOk()).andExpect(model().attributeExists("product")).andExpect(view().name("carta/addProduct"));
+    }
+    
+    @WithMockUser
+    @Test
+    void testEditarRestaurante() throws Exception{
+        mockMvc.perform(get("/restaurante/editar")).andExpect(status().isOk()).andExpect(model().attributeExists("error")).andExpect(model().attributeExists("listaTipos")).andExpect(view().name("restaurantes/editarRestauranteForm"));
+    }
     
     @WithMockUser
     @Test
