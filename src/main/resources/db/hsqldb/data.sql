@@ -29,6 +29,15 @@ INSERT INTO products(id, name, price, restaurant_id) VALUES (3, 'Montadito Pollo
 INSERT INTO products(id, name, description, price, restaurant_id) VALUES (4, 'Tosta de la casa', 'Solomillo, Queso de Cabra, Cebolla Caramelizada y Salsa Pedro Ximénez', 3.60, 1);
 INSERT INTO products(id, name, price, restaurant_id) VALUES (5, 'Solomillo al roque', 2.30, 1);
 
+
+
+
+
+
+
+
+
+
 INSERT INTO products(id, name, description, price, restaurant_id) VALUES (6, 'Mini Hamburguesa de Buey', 'Hamburguesa con verdadera carne vacuno',4.50, 2);
 INSERT INTO products(id, name, price, restaurant_id) VALUES (7, 'Patatas bravas', 2.90, 2);
 INSERT INTO products(id, name, price, restaurant_id) VALUES (8, 'Semifrío Gourmet De Tarta De Queso', 3.60, 2);
@@ -71,7 +80,6 @@ INSERT INTO plates(id, name, category, cost, restaurant_id) values (16,'Albóndi
 INSERT INTO plates(id, name, category, cost, restaurant_id) values (17,'Revuelto de setas', 'Ración', '12',4);
 INSERT INTO plates(id, name, category,description, cost, restaurant_id) values (18,'Croquetas', 'Ración','Puchero/jamón', '10',4);
 INSERT INTO plates(id, name, category, cost, restaurant_id) values (19,'Chacinas', 'Ración', '15',4);
-
 
 
 

@@ -378,8 +378,8 @@ public class RestauranteController {
 		return ("redirect:/restaurante/notifications");
 	}
 	
-	@GetMapping(value = "/notify/{id_comanda}")
-	public String notify(Map<String, Object> model, @PathVariable("id_comanda") Integer id_comanda, RedirectAttributes redirectAttrs) {
+	@GetMapping(value = "/notify/{id_comanda}/{id_restaurante}")
+	public String notify(Map<String, Object> model, @PathVariable("id_comanda") Integer id_comanda, @PathVariable("id_restaurante") Integer id_restaurante, RedirectAttributes redirectAttrs) {
 		Optional<Command> comanda = commandService.findIdCommands(id_comanda);
 		// create notification
 		Notification notif = new Notification();
@@ -394,7 +394,7 @@ public class RestauranteController {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
 		}
-		return ("redirect:/carta/"+id_comanda.toString()+"/edit");
+		return ("redirect:/carta/"+id_comanda+"/"+  id_restaurante  +"/edit");
 	}
 	
 	// Ver si han solicitado camarero

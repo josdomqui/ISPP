@@ -14,8 +14,9 @@
     	<div class="row">
     		<div class="col-3 offset-1"><h1><strong>Menu</strong></h1></div>
     		<div class="col-7 text-right">
-    		<spring:url value="/restaurante/notify/{id_comanda}" var="url">
+    		<spring:url value="/restaurante/notify/{id_comanda}/{id_restaurante}" var="url">
           		<spring:param name="id_comanda" value="${id_commanda}"/>
+          		<spring:param name="id_restaurante" value="${id_restaurante}"/>
 			</spring:url>																																		
    			<a class="btn-pedir" href="${fn:escapeXml(url)}" style="text-decoration: none; color: black; font-size: 16px; margin-left: 2%;">Solicitar camarero</a>
     		
