@@ -56,12 +56,49 @@
                   </div>
 
                   </br>
+                  <!-- 
                   <h3>Si pagais entre
                     <c:out value="${comensales}" /> sale a:
                     <c:out value="${suma/comensales}"/> &euro; cada uno.
                   </h3>
+                  -->
+                  <input type="hidden" id="num-comensales" value="${comensales}" />
+                  <input type="hidden" id="sumaTotal" value="${suma}" />
+                  <c:forEach begin="1" end="${comensales}" var="n">
+                  
+                  <h3>Comensal <c:out value="${n}"/></h3>
+                  <input id="pagar-<c:out value="${n}"/>" onchange="calculateDivision()" value="<c:out value="${suma/comensales}"/>" class="input-filtros" style="color: black; font-size: 18px;"/>
+                  
+                  </c:forEach>
+                  <input id="divPago" value="" />
                   </br>
-
+					<script>
+						window.onload = function inicio() {
+							calculateDivision();
+						}
+						
+						function calculateDivision(){
+								var numComensales = document.getElementById("num-comensales").value;
+								var i = 1;
+								var res = "";
+								var precioTotal = 0;
+								while(i <= numComensales){
+									res += document.getElementById("pagar-"+i).value + "-";
+									precioTotal += +document.getElementById("pagar-"+i).value;
+									i++;
+								}
+								var redondeo = Math.round(precioTotal * 100) / 100;
+								console.log(redondeo);
+								console.log(res);
+								
+								//comprobar que la suma de las n partes es igual al dinero total
+								var total = +document.getElementById("sumaTotal").value;
+								if(Math.abs(redondeo - total) > 0.01){
+									alert("Por favor, reparta los importes de tal manera que la suma sea igual al importe total del pedido.")
+								}
+								document.getElementById("divPago").value = res;
+						}
+					</script
                   </div>
                   <div class="ticket-buttons-container">
 
@@ -74,13 +111,13 @@
                     <spring:url value="/payment/cash/{id_comanda}" var="url2">
                       <spring:param name="id_comanda" value="${id_commanda}" />
                     </spring:url>
-                    <a class="buton-detalles-listado" onclick="return confirm('¿Está seguro que quiere pagar con este método de pago? No podrá usar otro método si aceptas.')" href="${fn:escapeXml(url2)}" style="text-decoration: none;"><span
+                    <a class="buton-detalles-listado" onclick="return confirm('ï¿½Estï¿½ seguro que quiere pagar con este mï¿½todo de pago? No podrï¿½ usar otro mï¿½todo si aceptas.')" href="${fn:escapeXml(url2)}" style="text-decoration: none;"><span
                         style="font-size: 16px; color: black">Pagar en efectivo</span></a>
 
                     <spring:url value="/payment/creditCard/{id_comanda}" var="url3">
                       <spring:param name="id_comanda" value="${id_commanda}" />
                     </spring:url>
-                    <a class="buton-detalles-listado" onclick="return confirm('¿Está seguro que quiere pagar con este método de pago? No podrá usar otro método si aceptas.')"  href="${fn:escapeXml(url3)}" style="text-decoration: none;"><span
+                    <a class="buton-detalles-listado" onclick="return confirm('ï¿½Estï¿½ seguro que quiere pagar con este mï¿½todo de pago? No podrï¿½ usar otro mï¿½todo si aceptas.')"  href="${fn:escapeXml(url3)}" style="text-decoration: none;"><span
                         style="font-size: 16px; color: black">Pagar con tarjeta</span></a>
                   </div>
 
