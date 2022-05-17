@@ -80,6 +80,9 @@ getCoordintes();
         	</form:form>
         </div>
     </div>
+     <br>
+          <h2>¿Le gustaría aparecer en esta lista? Registre su restaurante <a href="/restaurante/signup" >aquí</a>.</h2>
+          <br>
     <h1>Restaurantes más valorados</h1>
     		<c:forEach items="${listaRestaurante}" var="restaurante">
 			<div class="card base-card-listado mb-5 mt-5" style="width: auto;">
@@ -137,5 +140,4 @@ getCoordintes();
 				</div>
 			</div>
 		</c:forEach>
-      <h3>¿Le gustaría aparecer en esta lista? Si quieres contratar nuestros servicios puede hacerlo <a href="/restaurante/signup" >aquí</a>.</h3>
 </commandfast:layout>
