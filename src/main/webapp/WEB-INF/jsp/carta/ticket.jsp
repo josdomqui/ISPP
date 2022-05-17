@@ -64,16 +64,34 @@
                   -->
                   <input type="hidden" id="num-comensales" value="${comensales}" />
                   <input type="hidden" id="sumaTotal" value="${suma}" />
+                  <input type="hidden" id="division" value="${division}" />
+                  
+                  <div id="error-division" class="alert alert-danger" style="font-size: large;">Por favor, reparta los importes de los comensales de tal manera que la suma sea igual al importe total del pedido.</div>
+                  <a  class="buton-detalles-listado" onclick="defaultDivision();" style="text-decoration: none;"><span
+                        style="font-size: 16px; color: black">División a partes iguales</span></a>
                   <c:forEach begin="1" end="${comensales}" var="n">
                   
-                  <h3>Comensal <c:out value="${n}"/></h3>
-                  <input id="pagar-<c:out value="${n}"/>" onchange="calculateDivision()" value="<c:out value="${suma/comensales}"/>" class="input-filtros" style="color: black; font-size: 18px;"/>
+	                  <h3>Comensal <c:out value="${n}"/></h3>
+	                  <input id="pagar-<c:out value="${n}"/>" onchange="calculateDivision()" value="<c:out value="${division}"/>" class="input-filtros" style="color: black; font-size: 18px;"/>
                   
                   </c:forEach>
-                  <input id="divPago" value="" />
+                  <h3 id="sumaDivision"></h3>
+                  <input type= hidden id="divPago" value="" />
                   </br>
+                  
 					<script>
 						window.onload = function inicio() {
+							calculateDivision();
+						}
+						
+						function defaultDivision(){
+							var numComensales = document.getElementById("num-comensales").value;
+							var division = document.getElementById("division").value;
+							var i = 1;
+							while(i <= numComensales){
+								document.getElementById("pagar-"+i).value = division;
+								i++;
+							}
 							calculateDivision();
 						}
 						
@@ -93,31 +111,41 @@
 								
 								//comprobar que la suma de las n partes es igual al dinero total
 								var total = +document.getElementById("sumaTotal").value;
-								if(Math.abs(redondeo - total) > 0.01){
-									alert("Por favor, reparta los importes de tal manera que la suma sea igual al importe total del pedido.")
+								console.log(Math.abs(redondeo - total));
+								if(Math.abs(redondeo - total) > 0.015){
+									document.getElementById("error-division").style.display = "block";
+									document.getElementById("pagar-online").style = "text-decoration: none; pointer-events: none; background-color: gray;";
+									document.getElementById("pagar-efectivo").style = "text-decoration: none; pointer-events: none; background-color: gray;";
+									document.getElementById("pagar-tarjeta").style = "text-decoration: none; pointer-events: none; background-color: gray;";
+								}else{
+									document.getElementById("error-division").style.display = "none";
+									document.getElementById("pagar-online").style = "text-decoration: none;";
+									document.getElementById("pagar-efectivo").style = "text-decoration: none;";
+									document.getElementById("pagar-tarjeta").style = "text-decoration: none;";
 								}
+								document.getElementById("sumaDivision").innerHTML = redondeo;
 								document.getElementById("divPago").value = res;
 						}
-					</script
+					</script>
                   </div>
                   <div class="ticket-buttons-container">
 
                     <spring:url value="/payment/{id_comanda}" var="url">
                       <spring:param name="id_comanda" value="${id_commanda}" />
                     </spring:url>
-                    <a class="buton-detalles-listado" href="${fn:escapeXml(url)}" style="text-decoration: none;"><span
+                    <a id="pagar-online" class="buton-detalles-listado" href="${fn:escapeXml(url)}" style="text-decoration: none;"><span
                         style="font-size: 16px; color: black">Pagar online</span></a>
 
                     <spring:url value="/payment/cash/{id_comanda}" var="url2">
                       <spring:param name="id_comanda" value="${id_commanda}" />
                     </spring:url>
-                    <a class="buton-detalles-listado" onclick="return confirm('ï¿½Estï¿½ seguro que quiere pagar con este mï¿½todo de pago? No podrï¿½ usar otro mï¿½todo si aceptas.')" href="${fn:escapeXml(url2)}" style="text-decoration: none;"><span
+                    <a id="pagar-efectivo" class="buton-detalles-listado" onclick="return confirm('¿Estas seguro que quiere pagar con este metodo de pago? No podras usar otro metodo si aceptas.')" href="${fn:escapeXml(url2)}" style="text-decoration: none;"><span
                         style="font-size: 16px; color: black">Pagar en efectivo</span></a>
 
                     <spring:url value="/payment/creditCard/{id_comanda}" var="url3">
                       <spring:param name="id_comanda" value="${id_commanda}" />
                     </spring:url>
-                    <a class="buton-detalles-listado" onclick="return confirm('ï¿½Estï¿½ seguro que quiere pagar con este mï¿½todo de pago? No podrï¿½ usar otro mï¿½todo si aceptas.')"  href="${fn:escapeXml(url3)}" style="text-decoration: none;"><span
+                    <a id="pagar-tarjeta" class="buton-detalles-listado" onclick="return confirm('¿Estas seguro que quiere pagar con este metodo de pago? No podras usar otro metodo si aceptas.')"  href="${fn:escapeXml(url3)}" style="text-decoration: none;"><span
                         style="font-size: 16px; color: black">Pagar con tarjeta</span></a>
                   </div>
 
