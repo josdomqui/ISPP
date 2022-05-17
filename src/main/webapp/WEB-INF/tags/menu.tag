@@ -69,12 +69,6 @@
         </li>
         </sec:authorize>
         
-        <sec:authorize access="!isAuthenticated()">
-        <li class="nav-item">
-          <a style="text-decoration: none; color: black;" class="navbar-text active" aria-current="page" href="/restaurante/signup"><span style="color: rgb(0,0,0);" class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Registrar restaurante</a>
-        </li>
-  		</sec:authorize>
-  		
   		        <sec:authorize access="hasAuthority('restaurant')">
         <li class="nav-item">
           <a style="text-decoration: none; color: black;" class="navbar-text active" aria-current="page" href="/restaurante/editar"><span style="color: rgb(0,0,0);" class="glyphicon glyphicon-home" aria-hidden="true" ></span> Perfil</a>

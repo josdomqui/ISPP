@@ -137,5 +137,5 @@ getCoordintes();
 				</div>
 			</div>
 		</c:forEach>
-    
+      <h3>¿Le gustaría aparecer en esta lista? Si quieres contratar nuestros servicios puede hacerlo <a href="/restaurante/signup" >aquí</a>.</h3>
 </commandfast:layout>

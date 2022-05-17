@@ -65,20 +65,51 @@
                   <input type="hidden" id="num-comensales" value="${comensales}" />
                   <input type="hidden" id="sumaTotal" value="${suma}" />
                   <input type="hidden" id="division" value="${division}" />
-                  
+                  <div class="ticket-buttons-container">
+
+                    <spring:url value="/payment/{id_comanda}" var="url">
+                      <spring:param name="id_comanda" value="${id_commanda}" />
+                    </spring:url>
+                    <a id="pagar-online" class="buton-detalles-listado" href="${fn:escapeXml(url)}" style="text-decoration: none;"><span
+                        style="font-size: 16px; color: black">Pagar online</span></a>
+
+                    <spring:url value="/payment/cash/{id_comanda}" var="url2">
+                      <spring:param name="id_comanda" value="${id_commanda}" />
+                    </spring:url>
+                    <a id="pagar-efectivo" class="buton-detalles-listado" onclick="return confirm('¿Estas seguro que quiere pagar con este metodo de pago? No podras usar otro metodo si aceptas.')" href="${fn:escapeXml(url2)}" style="text-decoration: none;"><span
+                        style="font-size: 16px; color: black">Pagar en efectivo</span></a>
+
+                    <spring:url value="/payment/creditCard/{id_comanda}" var="url3">
+                      <spring:param name="id_comanda" value="${id_commanda}" />
+                    </spring:url>
+                    <a id="pagar-tarjeta" class="buton-detalles-listado" onclick="return confirm('¿Estas seguro que quiere pagar con este metodo de pago? No podras usar otro metodo si aceptas.')"  href="${fn:escapeXml(url3)}" style="text-decoration: none;"><span
+                        style="font-size: 16px; color: black">Pagar con tarjeta</span></a>
+                  </div>
                   <div id="error-division" class="alert alert-danger" style="font-size: large;">Por favor, reparta los importes de los comensales de tal manera que la suma sea igual al importe total del pedido.</div>
-                  <a  class="buton-detalles-listado" onclick="defaultDivision();" style="text-decoration: none;"><span
-                        style="font-size: 16px; color: black">División a partes iguales</span></a>
+                        <br>
+                        <br>
+                        <h1>En total sale a ${division} por comensal</h1>
+                        <br>
+                        <h2>Si desea organizar de otra forma el pago rellene los siguientes campos hasta que el importe sea el corecto:</h2>
+                        <br>
                   <c:forEach begin="1" end="${comensales}" var="n">
-                  
+                  <div class="container-pago">
 	                  <h3>Comensal <c:out value="${n}"/></h3>
-	                  <input id="pagar-<c:out value="${n}"/>" onchange="calculateDivision()" value="<c:out value="${division}"/>" class="input-filtros" style="color: black; font-size: 18px;"/>
-                  
+	                  <input id="pagar-<c:out value="${n}"/>" onchange="calculateDivision()" value="<c:out value="${division}"/>" class="input-pago" style="color: black; font-size: 18px;"/>
+
+                  </div>
                   </c:forEach>
-                  <h3 id="sumaDivision"></h3>
-                  <input type= hidden id="divPago" value="" />
-                  </br>
+				<div class="container-precio">
+                  <h2  class="texto-pago">Improte actual:</h2>
+                  <h2 id="sumaDivision"> </h2> 
                   
+            
+                  <input type= hidden id="divPago" value="" />
+                </div>
+              <h2 class="texto-dinero">  &euro; </h2> 
+              
+              <a  class="buton-detalles-listado" onclick="defaultDivision();" style="text-decoration: none;"><span
+                        style="font-size: 16px; color: black">Dividir pago</span></a>
 					<script>
 						window.onload = function inicio() {
 							calculateDivision();
@@ -128,25 +159,6 @@
 						}
 					</script>
                   </div>
-                  <div class="ticket-buttons-container">
-
-                    <spring:url value="/payment/{id_comanda}" var="url">
-                      <spring:param name="id_comanda" value="${id_commanda}" />
-                    </spring:url>
-                    <a id="pagar-online" class="buton-detalles-listado" href="${fn:escapeXml(url)}" style="text-decoration: none;"><span
-                        style="font-size: 16px; color: black">Pagar online</span></a>
-
-                    <spring:url value="/payment/cash/{id_comanda}" var="url2">
-                      <spring:param name="id_comanda" value="${id_commanda}" />
-                    </spring:url>
-                    <a id="pagar-efectivo" class="buton-detalles-listado" onclick="return confirm('¿Estas seguro que quiere pagar con este metodo de pago? No podras usar otro metodo si aceptas.')" href="${fn:escapeXml(url2)}" style="text-decoration: none;"><span
-                        style="font-size: 16px; color: black">Pagar en efectivo</span></a>
-
-                    <spring:url value="/payment/creditCard/{id_comanda}" var="url3">
-                      <spring:param name="id_comanda" value="${id_commanda}" />
-                    </spring:url>
-                    <a id="pagar-tarjeta" class="buton-detalles-listado" onclick="return confirm('¿Estas seguro que quiere pagar con este metodo de pago? No podras usar otro metodo si aceptas.')"  href="${fn:escapeXml(url3)}" style="text-decoration: none;"><span
-                        style="font-size: 16px; color: black">Pagar con tarjeta</span></a>
-                  </div>
+                 
 
                 </commandfast:layout>
