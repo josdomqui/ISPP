@@ -61,8 +61,8 @@ public class LineController {
 		dataBinder.setDisallowedFields("id");
 	}
 	
-	@GetMapping(value = "/carta/{id_comanda}/ticket")
-	public String processCreationForm(@PathVariable("id_comanda") int idCommanda,  Map<String, Object> model, RedirectAttributes redirectAttrs) {
+	@GetMapping(value = "/carta/{id_comanda}/{id_restaurante}/ticket")
+	public String processCreationForm(@PathVariable("id_comanda") int idCommanda, @PathVariable("id_restaurante") int idRestaurante, Map<String, Object> model, RedirectAttributes redirectAttrs) {
 		Collection<Line> lineas = this.lineService.findLineByCommandId(idCommanda);
 		Collection<Plate> platos = this.plateService.findAllPlates();
 		Optional<Command> command = this.commandService.findIdCommands(idCommanda);
@@ -80,7 +80,7 @@ public class LineController {
 		}
 		if(suma == 0.) { 
 			redirectAttrs.addFlashAttribute("message", "Por favor, añada platos a su pedido antes de finalizarlo");
-			return("redirect:/carta/" + idCommanda);
+			return("redirect:/carta/" + idCommanda+"/"+idRestaurante);
 		}
 		command.get().setPrice(suma);
 		commandService.saveCommand(command.get());
