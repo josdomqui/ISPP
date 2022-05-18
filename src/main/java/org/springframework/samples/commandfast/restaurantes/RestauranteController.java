@@ -162,7 +162,7 @@ public class RestauranteController {
 		if (base.contains("localhost")) {
 			url = "http://localhost:8080/command/new/" + id.toString() + "/" + numero_mesa;
 		} else {
-			url = "https://command-fast-app-s3.herokuapp.com/command/new/" + id.toString() + "/" + numero_mesa;
+			url = "https://command-fast-app-ppl.herokuapp.com/command/new/" + id.toString() + "/" + numero_mesa;
 		}
 		String fileName = "qr.png";
 		// Generate and Save Qr Code Image
