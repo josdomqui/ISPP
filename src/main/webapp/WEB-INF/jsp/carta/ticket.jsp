@@ -56,32 +56,114 @@
                   </div>
 
                   </br>
+                  <!-- 
                   <h3>Si pagais entre
                     <c:out value="${comensales}" /> sale a:
                     <c:out value="${suma/comensales}"/> &euro; cada uno.
                   </h3>
-                  </br>
-
-                  </div>
+                  -->
+                  <input type="hidden" id="num-comensales" value="${comensales}" />
+                  <input type="hidden" id="sumaTotal" value="${suma}" />
+                  <input type="hidden" id="division" value="${division}" />
                   <div class="ticket-buttons-container">
 
                     <spring:url value="/payment/{id_comanda}" var="url">
                       <spring:param name="id_comanda" value="${id_commanda}" />
                     </spring:url>
-                    <a class="buton-detalles-listado" href="${fn:escapeXml(url)}" style="text-decoration: none;"><span
+                    <a id="pagar-online" class="buton-detalles-listado" href="${fn:escapeXml(url)}" style="text-decoration: none;"><span
                         style="font-size: 16px; color: black">Pagar online</span></a>
 
                     <spring:url value="/payment/cash/{id_comanda}" var="url2">
                       <spring:param name="id_comanda" value="${id_commanda}" />
                     </spring:url>
-                    <a class="buton-detalles-listado" onclick="return confirm('¿Está seguro que quiere pagar con este método de pago? No podrá usar otro método si aceptas.')" href="${fn:escapeXml(url2)}" style="text-decoration: none;"><span
+                    <a id="pagar-efectivo" class="buton-detalles-listado" onclick="return confirm('¿Estas seguro que quiere pagar con este metodo de pago? No podras usar otro metodo si aceptas.')" href="${fn:escapeXml(url2)}" style="text-decoration: none;"><span
                         style="font-size: 16px; color: black">Pagar en efectivo</span></a>
 
                     <spring:url value="/payment/creditCard/{id_comanda}" var="url3">
                       <spring:param name="id_comanda" value="${id_commanda}" />
                     </spring:url>
-                    <a class="buton-detalles-listado" onclick="return confirm('¿Está seguro que quiere pagar con este método de pago? No podrá usar otro método si aceptas.')"  href="${fn:escapeXml(url3)}" style="text-decoration: none;"><span
+                    <a id="pagar-tarjeta" class="buton-detalles-listado" onclick="return confirm('¿Estas seguro que quiere pagar con este metodo de pago? No podras usar otro metodo si aceptas.')"  href="${fn:escapeXml(url3)}" style="text-decoration: none;"><span
                         style="font-size: 16px; color: black">Pagar con tarjeta</span></a>
                   </div>
+                  <br>
+                  <div id="error-division" class="alert alert-danger" style="font-size: large;">Por favor, reparta los importes de los comensales de tal manera que la suma sea igual al importe total del pedido.</div>
+                        <br>
+                        <br>
+                        <h1>En total sale a ${division} por comensal</h1>
+                        <br>
+                        <h2>Si desea organizar de otra forma el pago rellene los siguientes campos hasta que el importe sea el corecto:</h2>
+                        <br>
+                  <c:forEach begin="1" end="${comensales}" var="n">
+                  <div class="container-pago">
+	                  <h3>Comensal <c:out value="${n}"/></h3>
+	                  <input type="number" min="0" step="any" oninput="validity.valid||(value='1'); "id="pagar-<c:out value="${n}"/>" onchange="calculateDivision()" value="<c:out value="${division}"/>" class="input-pago" style="color: black; font-size: 18px;"/>
+
+                  </div>
+                  </c:forEach>
+				<div class="container-precio">
+                  <h2  class="texto-pago">Falta por pagar:</h2>
+                  <h2 id="sumaDivision"> </h2> 
+                  
+            
+                  <input type= hidden id="divPago" value="" />
+                </div>
+              
+              
+              <a  class="buton-detalles-listado" onclick="defaultDivision();" style="text-decoration: none;"><span
+                        style="font-size: 16px; color: black">Dividir pago</span></a>
+					<script>
+
+					
+						window.onload = function inicio() {
+							calculateDivision();
+						}
+						
+						function defaultDivision(){
+							var numComensales = document.getElementById("num-comensales").value;
+							var division = document.getElementById("division").value;
+							var i = 1;
+							while(i <= numComensales){
+								document.getElementById("pagar-"+i).value = division;
+								i++;
+							}
+							calculateDivision();
+						}
+						
+						function calculateDivision(){
+								var numComensales = document.getElementById("num-comensales").value;
+								var i = 1;
+								var res = "";
+								var precioTotal = 0;
+								while(i <= numComensales){
+									res += document.getElementById("pagar-"+i).value + "-";
+									precioTotal += +document.getElementById("pagar-"+i).value;
+									i++;
+								}
+								var redondeo = Math.round(precioTotal * 100) / 100;
+								console.log(redondeo);
+								console.log(res);
+								
+								//comprobar que la suma de las n partes es igual al dinero total
+								var total = +document.getElementById("sumaTotal").value;
+								console.log(Math.abs(redondeo - total));
+								if(Math.abs(redondeo - total) > 0.02){
+									document.getElementById("error-division").style.display = "block";
+									document.getElementById("pagar-online").style = "text-decoration: none; pointer-events: none; background-color: gray;";
+									document.getElementById("pagar-efectivo").style = "text-decoration: none; pointer-events: none; background-color: gray;";
+									document.getElementById("pagar-tarjeta").style = "text-decoration: none; pointer-events: none; background-color: gray;";
+									document.getElementById("sumaDivision").innerHTML = ((total-precioTotal).toFixed(2)) + "&euro;";
+								}else{
+									document.getElementById("error-division").style.display = "none";
+									document.getElementById("pagar-online").style = "text-decoration: none;";
+									document.getElementById("pagar-efectivo").style = "text-decoration: none;";
+									document.getElementById("pagar-tarjeta").style = "text-decoration: none;";
+									document.getElementById("sumaDivision").innerHTML = 0 + "&euro;";
+								}
+								console.log("falta: " + (precioTotal-total));
+								document.getElementById("divPago").value = res;
+						}
+					</script>
+                  </div>
+                 
 
                 </commandfast:layout>

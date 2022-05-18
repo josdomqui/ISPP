@@ -91,7 +91,7 @@ public class LineController {
 		model.put("lista_linea", lineas);
 		model.put("suma", suma);
 		Double division = (suma/command.get().getCostumers());
-		model.put("division", String.format("%.2f", division));
+		model.put("division",  Math.floor(division * 100) / 100);
 		String view = "carta/ticket";
 		return view;
 	}
