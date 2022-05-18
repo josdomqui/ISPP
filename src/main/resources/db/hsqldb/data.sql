@@ -59,16 +59,16 @@ INSERT INTO plates(id, name, category,description, cost, image, restaurant_id) v
 INSERT INTO plates(id, name, category, cost, image, restaurant_id) values (9, 'Ensalada líquida Andalusí', 'Entrante', '16', '/resources/images/Ensalada líquida Andalusí.jpg',2);
 INSERT INTO plates(id, name, category, cost, image, restaurant_id) values (10,'Chuleta de raya Nikkei con pure de maiz', 'Plato principal', '42', '/resources/images/Chuleta de raya Nikkei con pure de maiz.jpg',2);
 
-INSERT INTO plates(id, name, category, cost, restaurant_id) values (11,'Paella valenciana', 'Plato principal', '20',3);
-INSERT INTO plates(id, name, category, cost, restaurant_id) values (12,'Pavías de bacalao', 'Tapa', '5',3);
-INSERT INTO plates(id, name, category,description, cost, restaurant_id) values (13,'Croquetas', 'Ración','Puchero/jamón/queso', '12',3);
-INSERT INTO plates(id, name, category, cost, restaurant_id) values (14,'Chocos fritos', 'Ración', '12',3);
-INSERT INTO plates(id, name, category, cost, restaurant_id) values (15,'Lagrimitas de pollo', 'Tapa', '6',3);
+INSERT INTO plates(id, name, category, cost, image, restaurant_id) values (11,'Paella valenciana', 'Plato principal', '20','/resources/images/paella-valenciana.png',3);
+INSERT INTO plates(id, name, category, cost, image, restaurant_id) values (12,'Pavías de bacalao', 'Tapa', '5','/resources/images/pavias_de_bacalao.jpg',3);
+INSERT INTO plates(id, name, category,description, cost, image, restaurant_id) values (13,'Croquetas', 'Ración','Puchero/jamón/queso','12','/resources/images/croquetas.jpg',3);
+INSERT INTO plates(id, name, category, cost, image, restaurant_id) values (14,'Chocos fritos', 'Ración', '12','/resources/images/chocosfritos.jpg',3);
+INSERT INTO plates(id, name, category, cost, image, restaurant_id) values (15,'Lagrimitas de pollo', 'Tapa', '6','/resources/images/lagrimitas.jpg',3);
 
-INSERT INTO plates(id, name, category, cost, restaurant_id) values (16,'Albóndigas en salsa', 'Tapa', '5',4);
-INSERT INTO plates(id, name, category, cost, restaurant_id) values (17,'Revuelto de setas', 'Ración', '12',4);
-INSERT INTO plates(id, name, category,description, cost, restaurant_id) values (18,'Croquetas', 'Ración','Puchero/jamón', '10',4);
-INSERT INTO plates(id, name, category, cost, restaurant_id) values (19,'Chacinas', 'Ración', '15',4);
+INSERT INTO plates(id, name, category, cost, image, restaurant_id) values (16,'Albóndigas en salsa', 'Tapa', '5','/resources/images/albondigas.jpg',4);
+INSERT INTO plates(id, name, category, cost, image, restaurant_id) values (17,'Revuelto de setas', 'Ración', '12','/resources/images/revueltosetas.jpg',4);
+INSERT INTO plates(id, name, category,description, cost, image, restaurant_id) values (18,'Croquetas', 'Ración','Puchero/jamón', '10','/resources/images/croquetas.jpg',4);
+INSERT INTO plates(id, name, category, cost, image, restaurant_id) values (19,'Chacinas', 'Ración', '15','/resources/images/chacinas.jpg',4);
 
 
 
