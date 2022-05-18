@@ -81,7 +81,10 @@ getCoordintes();
         </div>
     </div>
      <br>
-          <h2>¿Le gustaría aparecer en esta lista? Registre su restaurante <a href="/restaurante/signup" >aquí</a>.</h2>
+          <h2>¿Quieres sacarle mas partido a tu negocio?</h2>
+          <a href="/restaurante/signup" >	<button class="buton-detalles-listado mt-3 mb-3" type="submit"><span style="color: black;">Registra tu restaurante</span></button></a>
+          <br>          
+          <br>          
           <br>
     <h1>Restaurantes más valorados</h1>
     		<c:forEach items="${listaRestaurante}" var="restaurante">

@@ -96,12 +96,12 @@
                   <c:forEach begin="1" end="${comensales}" var="n">
                   <div class="container-pago">
 	                  <h3>Comensal <c:out value="${n}"/></h3>
-	                  <input id="pagar-<c:out value="${n}"/>" onchange="calculateDivision()" value="<c:out value="${division}"/>" class="input-pago" style="color: black; font-size: 18px;"/>
+	                  <input type="number" min="0" step="any" oninput="validity.valid||(value='1'); "id="pagar-<c:out value="${n}"/>" onchange="calculateDivision()" value="<c:out value="${division}"/>" class="input-pago" style="color: black; font-size: 18px;"/>
 
                   </div>
                   </c:forEach>
 				<div class="container-precio">
-                  <h2  class="texto-pago">Diferencia de precio:</h2>
+                  <h2  class="texto-pago">Falta por pagar:</h2>
                   <h2 id="sumaDivision"> </h2> 
                   
             
@@ -112,6 +112,8 @@
               <a  class="buton-detalles-listado" onclick="defaultDivision();" style="text-decoration: none;"><span
                         style="font-size: 16px; color: black">Dividir pago</span></a>
 					<script>
+
+					
 						window.onload = function inicio() {
 							calculateDivision();
 						}
@@ -149,7 +151,7 @@
 									document.getElementById("pagar-online").style = "text-decoration: none; pointer-events: none; background-color: gray;";
 									document.getElementById("pagar-efectivo").style = "text-decoration: none; pointer-events: none; background-color: gray;";
 									document.getElementById("pagar-tarjeta").style = "text-decoration: none; pointer-events: none; background-color: gray;";
-									document.getElementById("sumaDivision").innerHTML = ((precioTotal-total).toFixed(2)) + "&euro;";
+									document.getElementById("sumaDivision").innerHTML = ((total-precioTotal).toFixed(2)) + "&euro;";
 								}else{
 									document.getElementById("error-division").style.display = "none";
 									document.getElementById("pagar-online").style = "text-decoration: none;";
