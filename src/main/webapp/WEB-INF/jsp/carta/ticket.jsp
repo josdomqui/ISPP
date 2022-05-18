@@ -85,6 +85,7 @@
                     <a id="pagar-tarjeta" class="buton-detalles-listado" onclick="return confirm('¿Estas seguro que quiere pagar con este metodo de pago? No podras usar otro metodo si aceptas.')"  href="${fn:escapeXml(url3)}" style="text-decoration: none;"><span
                         style="font-size: 16px; color: black">Pagar con tarjeta</span></a>
                   </div>
+                  <br>
                   <div id="error-division" class="alert alert-danger" style="font-size: large;">Por favor, reparta los importes de los comensales de tal manera que la suma sea igual al importe total del pedido.</div>
                         <br>
                         <br>
@@ -100,13 +101,13 @@
                   </div>
                   </c:forEach>
 				<div class="container-precio">
-                  <h2  class="texto-pago">Improte actual:</h2>
+                  <h2  class="texto-pago">Diferencia de precio:</h2>
                   <h2 id="sumaDivision"> </h2> 
                   
             
                   <input type= hidden id="divPago" value="" />
                 </div>
-              <h2 class="texto-dinero">  &euro; </h2> 
+              
               
               <a  class="buton-detalles-listado" onclick="defaultDivision();" style="text-decoration: none;"><span
                         style="font-size: 16px; color: black">Dividir pago</span></a>
@@ -143,18 +144,20 @@
 								//comprobar que la suma de las n partes es igual al dinero total
 								var total = +document.getElementById("sumaTotal").value;
 								console.log(Math.abs(redondeo - total));
-								if(Math.abs(redondeo - total) > 0.015){
+								if(Math.abs(redondeo - total) > 0.02){
 									document.getElementById("error-division").style.display = "block";
 									document.getElementById("pagar-online").style = "text-decoration: none; pointer-events: none; background-color: gray;";
 									document.getElementById("pagar-efectivo").style = "text-decoration: none; pointer-events: none; background-color: gray;";
 									document.getElementById("pagar-tarjeta").style = "text-decoration: none; pointer-events: none; background-color: gray;";
+									document.getElementById("sumaDivision").innerHTML = ((precioTotal-total).toFixed(2)) + "&euro;";
 								}else{
 									document.getElementById("error-division").style.display = "none";
 									document.getElementById("pagar-online").style = "text-decoration: none;";
 									document.getElementById("pagar-efectivo").style = "text-decoration: none;";
 									document.getElementById("pagar-tarjeta").style = "text-decoration: none;";
+									document.getElementById("sumaDivision").innerHTML = 0 + "&euro;";
 								}
-								document.getElementById("sumaDivision").innerHTML = redondeo;
+								console.log("falta: " + (precioTotal-total));
 								document.getElementById("divPago").value = res;
 						}
 					</script>
