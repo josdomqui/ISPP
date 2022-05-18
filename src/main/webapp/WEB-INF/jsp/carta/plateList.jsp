@@ -7,6 +7,7 @@
 <%@ taglib prefix="commandfast" tagdir="/WEB-INF/tags" %>
 
 <commandfast:layout pageName="menu">
+
 	 <c:if test="${message}">
 	 ${message}
 	 </c:if>
@@ -19,14 +20,19 @@
           		<spring:param name="id_restaurante" value="${id_restaurante}"/>
 			</spring:url>																																		
    			<a class="btn-pedir" href="${fn:escapeXml(url)}" style="text-decoration: none; color: black; font-size: 16px; margin-left: 2%;">Solicitar camarero</a>
-    		
-			<spring:url value="/carta/{id_comanda}/ticket" var="url">
+    		<c:if test="${!platos.isEmpty()}">
+			<spring:url value="/carta/{id_comanda}/{id_restaurante}/ticket" var="url">
           		<spring:param name="id_comanda" value="${id_commanda}"/>
+          		<spring:param name="id_restaurante" value="${id_restaurante}"/>
 			</spring:url>																																		
    			<a class="btn-pedir" href="${fn:escapeXml(url)}" style="text-decoration: none; color: black; font-size: 16px;">Finalizar pedido</a>
+   			</c:if>
    			</div>
+   			
     	</div>
-        
+    <c:if test="${platos.isEmpty()}">
+				<h2><strong style="margin-bottom: 50%; margin-top: 50%; margin-left: 20%; margin-right: 50%"><c:out value="No se han registrado platos."/></strong></h2>
+   			</c:if>
     <div class="card-deck">
     <c:forEach items="${platos}" var="listaPlatos"> 
         <div class="card d-inline-block" style="border: 2px solid; background-color: rgba(158, 172, 168, 0.5); border-radius:10px; min-height: 200px; max-height: 230px">
