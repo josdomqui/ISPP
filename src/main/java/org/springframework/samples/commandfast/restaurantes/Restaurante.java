@@ -38,6 +38,8 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.samples.commandfast.command.Command;
 import org.springframework.samples.commandfast.model.NamedEntity;
 import org.springframework.samples.commandfast.user.User;
@@ -76,8 +78,9 @@ public class Restaurante extends NamedEntity {
 	@NotEmpty
 	private String description;
 
+	
 	@Column(name = "photo")
-	private String photo;
+	private String photo = "/resources/images/default_restaurant.jpg";
 	
 	@Column(name = "capacity")
 	@NotNull
