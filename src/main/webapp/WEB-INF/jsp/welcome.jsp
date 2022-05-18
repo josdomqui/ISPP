@@ -70,7 +70,7 @@ getCoordintes();
     <div class="row">
         <div class ="col text-center">
             <spring:url value="/resources/images/Imagen1.png" htmlEscape="true" var="petsImage"/>
-            <img class="img-fluid" src="${petsImage}" alt="Imagen de bienvenida" style="width: 25%;"/>
+            <img class="img-fluid" src="${petsImage}" alt="Imagen de bienvenida" style="width: 15%;"/>
             <h2>Bienvenidos a Command-Fast, ¿desea consultar restaurantes cercanos que usen nuestra tecnología?</h2>
         	
         	<form:form class="form-horizontal" id="add-command-form">
@@ -78,14 +78,13 @@ getCoordintes();
         	</div>
         		<button class="buton-detalles-listado mt-3 mb-3" type="submit"><span style="color: black;">Consultar</span></button>
         	</form:form>
+        	 <h2>¿Quieres mejorar las ventas y la productividad de tu restaurante? Te ayudamos!!</h2>
+          	<a href="/restaurante/signup" >	<button class="buton-detalles-listado mt-3 mb-3" type="submit"><span style="color: black;">Sí, quiero</span></button></a>
         </div>
     </div>
-     <br>
-          <h2>¿Quieres sacarle mas partido a tu negocio?</h2>
-          <a href="/restaurante/signup" >	<button class="buton-detalles-listado mt-3 mb-3" type="submit"><span style="color: black;">Registra tu restaurante</span></button></a>
-          <br>          
-          <br>          
-          <br>
+    <br>
+    <br>
+    <br>
     <h1>Restaurantes más valorados</h1>
     		<c:forEach items="${listaRestaurante}" var="restaurante">
 			<div class="card base-card-listado mb-5 mt-5" style="width: auto;">
