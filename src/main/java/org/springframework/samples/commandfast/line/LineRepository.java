@@ -50,5 +50,12 @@ public interface LineRepository extends Repository<Line, Integer> {
     @Modifying
     @Query("DELETE FROM Line l WHERE l.command.id =:id")
 	void deleteLineByRestaurantId(@Param("id") int id);
+    
+	@Query("SELECT line.id FROM Line line WHERE line.plate.id =:id")
+	public List<Integer> findByLinePlateId(@Param("id") int id);
+	
+    @Modifying
+    @Query("DELETE FROM Line l WHERE l.id =:id")
+	void deleteLineById(@Param("id") int id);
 
 }

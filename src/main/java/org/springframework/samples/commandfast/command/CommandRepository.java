@@ -45,6 +45,7 @@ public interface CommandRepository extends CrudRepository<Command, Integer> {
     @Query("DELETE FROM Command c WHERE c.restaurante.id =:id")
 	void deleteCommandById(@Param("id") int id);
     
+    
     @Query("SELECT c.id FROM Command c WHERE c.restaurante.id =:id")
 	List<Integer> findCommandByRestaurantId(@Param("id") int id);
 }

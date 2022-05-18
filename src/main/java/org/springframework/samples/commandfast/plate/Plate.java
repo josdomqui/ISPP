@@ -51,7 +51,7 @@ public class Plate extends BaseEntity{
 	private Set<Line> lines;
 	
 	@Column(name = "image")
-	String image;
+	String image = "/resources/images/default_restaurant.jpg";
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "restaurant_id")

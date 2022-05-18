@@ -16,9 +16,12 @@
 package org.springframework.samples.commandfast.plate;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.samples.commandfast.command.CommandRepository;
+import org.springframework.samples.commandfast.line.LineRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,9 +35,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class PlateService {
 
+    @Autowired
 	private PlateRepository plateRepository;
 
-
+	@Autowired
+	private CommandRepository commandRepository;
+	 
+	@Autowired
+	private LineRepository lineRepository;
 
     @Autowired
     public PlateService(PlateRepository plateRepository) {
@@ -63,6 +71,12 @@ public class PlateService {
     }
 	@Transactional
 	public void delete(Integer id) {
-		this.plateRepository.deletePlateByPlateId(id);;
+		
+		List<Integer> aux = this.lineRepository.findByLinePlateId(id);
+		for(Integer i:aux) {
+			lineRepository.deleteLineById(i);
+		}
+		this.plateRepository.deletePlateByPlateId(id);
+		
 	}
 }

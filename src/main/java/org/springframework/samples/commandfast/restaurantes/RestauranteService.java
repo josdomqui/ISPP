@@ -42,6 +42,9 @@ public class RestauranteService {
 	private CommandRepository commandRepository;
 	
 	@Autowired
+	private NotificationRepository notificationRepository;
+	
+	@Autowired
 	private UserService userService;
 
 	@Autowired
@@ -110,7 +113,7 @@ public class RestauranteService {
 			lineRepository.deleteLineByRestaurantId(i);
 		}
 		
-		
+		notificationRepository.deleteNotificationById(id);
 		plateRepository.deletePlateById(id);
 		productRepository.deleteProductById(id);
 		
