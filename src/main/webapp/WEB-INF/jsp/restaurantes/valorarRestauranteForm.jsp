@@ -19,15 +19,15 @@
 			<form:form modelAttribute="valoracion" class="form-horizontal" id="add-restaurant-form">
 				<div class="row" style="margin-top: 10px;  display: flex; align-items: center;">
 					<div class="col-2" style="margin-left: 5%; width: fit-content;">
-						<p class="card-text">Puntuación:</p>
+						<p class="card-text">Puntúe nuestro servicio:</p>
 					</div>
-					<div class="col-10" style="width: 79%;">
+					<div class="col-10" style="width: 69%;">
 						<select required id="puntuacion" name="puntuacion" class="form-control form-select input-filtros">
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
+						<option value="1">1 - Muy malo </option>
+						<option value="2">2 - Malo</option>
+						<option value="3">3 - Decente</option>
+						<option value="4">4 - Bueno</option>
+						<option value="5">5 - Muy bueno</option>
 					</select>
 					</div>
 				</div>
