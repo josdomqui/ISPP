@@ -36,17 +36,7 @@ class PlateServiceTests {
 
     }
 	
-//	@Test
-//	void shouldSavePlate() {
-//		Plate plate = new Plate();
-//		plate.setCategory("Media-Racion");
-//		plate.setCost(10.25);
-//		plate.setLines(null);
-//		plate.setName("Solomillo");
-//		plate.setImage(null);
-//		assertThat(this.plateService.findAllPlates()).hasSize(10);
-//		
-//	}
+
 	
 	
 	
